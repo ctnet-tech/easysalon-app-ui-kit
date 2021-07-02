@@ -110,11 +110,12 @@ class ButtonPage extends StatelessWidget {
                 outlined: true,
                 onPressed: this._onPressed),
             Button(
-                icon: LineIcons.heart,
-                content: "Click me!",
-                onPressed: this._onPressed,
-                outlined: false,
-                solid: false)
+              icon: LineIcons.heart,
+              content: "Click me!",
+              onPressed: this._onPressed,
+              outlined: false,
+              solid: false,
+            )
           ],
         )
       ],
