@@ -1,6 +1,9 @@
+import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
 import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/basic/button.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/panel.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/basic/profile_customer_tag.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/page_header.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/standard_page.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/space.dart';
@@ -25,43 +28,9 @@ class _ParagraphPageState extends State<ParagraphPage> {
       bottomSize: LayoutSize.big,
       child: Column(
         children: [
-          Paragraph(
-            content: "Simple Paragraph",
-            size: LayoutSize.large,
-            weight: FontWeight.bold,
-            color: ThemeColor.secondary,
-          ),
-          Paragraph(
-            content: "Lorem ipsum dolor sit amet.",
-          ),
-          Paragraph(
-            content: "Consectetur adipiscing elit.",
-            color: ThemeColor.primary,
-            italic: true,
-          ),
-          Paragraph(
-            content: "Nulla id feugiat odio.",
-            color: ThemeColor.warning,
-            bold: true,
-          ),
-          Paragraph(
-            content: "Id posuere odio.",
-            color: ThemeColor.danger,
-            underline: true,
-          ),
-          Paragraph(
-            content:
-                "Maecenas turpis odio, dapibus quis suscipit at, volutpat ut neque.",
-            color: ThemeColor.secondary,
-            decoration: TextDecoration.lineThrough,
-          ),
-          Paragraph(
-            content:
-                "Integer a lacus interdum, posuere turpis in, pulvinar velit.",
-            color: ThemeColor.dark,
-            decoration: TextDecoration.lineThrough,
-            decorationStyle: TextDecorationStyle.dashed,
-          ),
+          ProfileCustomerTag(iconButton: LineIcons.store,)
+
+
         ],
       ),
     );
@@ -208,9 +177,7 @@ class _ParagraphPageState extends State<ParagraphPage> {
               child: Column(
                 children: [
                   _paragraph(),
-                  _richParagraph(),
-                  _listParagraph(),
-                  _listParagraphSimple()
+
                 ],
               ))
         ]);
