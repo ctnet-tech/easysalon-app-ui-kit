@@ -24,14 +24,25 @@ class ParagraphPage extends StatefulWidget {
 
 class _ParagraphPageState extends State<ParagraphPage> {
   Widget _paragraph() {
-    return SpaceBox(
-      bottomSize: LayoutSize.big,
-      child: Column(
-        children: [
-          ProfileCustomerTag(iconButton: LineIcons.store,)
+    return Container(
+      child: SpaceBox(
+        bottomSize: LayoutSize.big,
+        child: Column(
+          children: [
+            ProfileCustomerTag(
+              iconButton: LineIcons.store,
+              phoneNumberCustomerContent: "0989100456",
+              dayTimeCreateCustomerContent: "15/09/2020",
+              userCreateCustomerContent: "rubybeauty@gmail.com",
+              imageAvatar: Image.network(
+                  "https://i.pinimg.com/280x280_RS/c6/e4/a9/c6e4a9fc80594486711b42026f5d21f8.jpg"),
 
-
-        ],
+              totalDebitContent: "2,000,000",
+              totalPaidContent: "6,000,000",
+              totalSpendingContent: "8,000,000",
+            )
+          ],
+        ),
       ),
     );
   }
@@ -168,18 +179,13 @@ class _ParagraphPageState extends State<ParagraphPage> {
 
   @override
   Widget build(BuildContext context) {
-    return StandardPage(
-        header:
-            PageHeader(title: "Paragraph", description: "Basic text writing"),
-        children: [
-          SpaceBox(
-              all: true,
-              child: Column(
-                children: [
-                  _paragraph(),
+    return Scaffold(
 
-                ],
-              ))
-        ]);
+      body: StandardPage(
+          backgroundColor: ThemeColor.lightest,
+          header:
+              PageHeader(title: "Paragraph", description: "Basic text writing"),
+          children: [SpaceBox(all: true, child: _paragraph())]),
+    );
   }
 }

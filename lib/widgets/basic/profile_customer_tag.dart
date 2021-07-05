@@ -1,13 +1,16 @@
+import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
 import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/button.dart';
-import 'package:easysalon_mobile_ui_kit/widgets/layout/divider.dart'as deviderCustom ;
+import 'package:easysalon_mobile_ui_kit/widgets/layout/divider.dart'
+    as dividerCustom;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ProfileCustomerTag extends StatelessWidget {
-  const ProfileCustomerTag({Key? key,
+  const ProfileCustomerTag({
+    Key? key,
     this.color = ThemeColor.bondiBlue,
     this.hintTextColor = ThemeColor.secondary,
     this.textColor = ThemeColor.dark,
@@ -21,18 +24,24 @@ class ProfileCustomerTag extends StatelessWidget {
     this.fontSizeTextTypeCustomer = LayoutSize.medium,
     this.fontSizeTextButton = LayoutSize.small,
     this.fontSizeTextName = LayoutSize.large,
-
     this.dayTimeCreateCustomerContent,
-    this.phoneNumberCustomerText = "Số Điện Thoại:",
-    this.dayTimeCreateCustomerText = "Ngày Khởi Tạo:",
+    this.phoneNumberCustomerText = "Số Điện Thoại: ",
+    this.dayTimeCreateCustomerText = "Ngày Khởi Tạo: ",
     this.userCreateCustomerContent,
-    this.userCreateCustomerText = "Người Khởi Tạo:",
+    this.userCreateCustomerText = "Người Khởi Tạo: ",
     this.fontSizeTextPhoneNumberCustomer = LayoutSize.medium,
     this.fontSizeTextDayTimeCreateCustomer = LayoutSize.medium,
     this.fontSizeTextUserCreateCustomer = LayoutSize.medium,
     this.iconButton,
-    this.phoneNumberCustomerContent,})
-      : super(key: key);
+    this.phoneNumberCustomerContent,
+    required this.totalSpendingContent,
+    required this.totalPaidContent,
+    required this.totalDebitContent,
+    this.totalSpendingHintCustom = "Tổng Chi Tiêu",
+    this.totalPaidHintCustom = "Đã Thanh Toán",
+    this.totalDebitHintCustom = "Còn Nợ",
+    this.fontSizeTextBottomCustom = LayoutSize.medium, this.onPressedButton, this.contentButton = "Tặng Khuyến Mãi",
+  }) : super(key: key);
   final ThemeColor color;
   final ThemeColor hintTextColor;
   final ThemeColor textColor;
@@ -56,6 +65,16 @@ class ProfileCustomerTag extends StatelessWidget {
   final LayoutSize fontSizeTextPhoneNumberCustomer;
   final LayoutSize fontSizeTextDayTimeCreateCustomer;
   final LayoutSize fontSizeTextUserCreateCustomer;
+  final String totalSpendingContent;
+  final String totalPaidContent;
+  final String totalDebitContent;
+  final String totalSpendingHintCustom;
+  final String totalPaidHintCustom;
+  final String totalDebitHintCustom;
+  final LayoutSize fontSizeTextBottomCustom;
+  final VoidCallback? onPressedButton;
+  final String contentButton;
+
 
   @override
   Widget build(BuildContext context) {
@@ -67,8 +86,8 @@ class ProfileCustomerTag extends StatelessWidget {
     var buttonHasIcon = iconButton != null;
     var sizeAvatar = layout.sizeToShapeSize(this.sizeAvatar);
     var sizeBorderRadiusAvatar =
-    layout.sizeToBorderRadius(this.sizeBorderRadiusAvatar);
-    Widget? button;
+        layout.sizeToBorderRadius(this.sizeBorderRadiusAvatar);
+
     var nameTagCustomer = Text(
       nameCustomer,
       style: TextStyle(
@@ -87,55 +106,57 @@ class ProfileCustomerTag extends StatelessWidget {
           color: _textIdColor,
           fontSize: layout.sizeToFontSize(fontSizeTextTypeCustomer)),
     );
-
+    var isHasAvatar = imageAvatar != null;
     var leftWidget = Container(
         child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: sizeAvatar,
-              child: ClipRRect(
-                  borderRadius: sizeBorderRadiusAvatar,
-                  //add border radius here
-                  child: Image.network(
-                      "https://i.pinimg.com/280x280_RS/c6/e4/a9/c6e4a9fc80594486711b42026f5d21f8.jpg")),
-            ),
-            Container(
-              height: sizeAvatar,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [nameTagCustomer, typeOfCustomer, idOfCustomer],
-              ),
-            )
-          ],
-        ));
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          width: sizeAvatar,
+          child: ClipRRect(
+              borderRadius: sizeBorderRadiusAvatar,
+              //add border radius here
+              child: isHasAvatar ? imageAvatar : Icon(LineIcons.user)),
+        ),
+        Flexible(child:Container(
+          padding: EdgeInsets.only(left: layout.sizeToPadding(LayoutSize.tiny)),
+          height: sizeAvatar,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [nameTagCustomer, typeOfCustomer, idOfCustomer],
+          ),
+        ) ,)
+
+      ],
+    ));
     var helfButtonWidget = Container(
         child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: sizeAvatar,
-              child: ClipRRect(
-                  borderRadius: sizeBorderRadiusAvatar,
-                  //add border radius here
-                  child: Image.network(
-                      "https://i.pinimg.com/280x280_RS/c6/e4/a9/c6e4a9fc80594486711b42026f5d21f8.jpg")),
-            ),
-            Container(
-              height: sizeAvatar,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [ typeOfCustomer, idOfCustomer],
-              ),
-            )
-          ],
-        ));
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          width: sizeAvatar,
+          child: ClipRRect(
+              borderRadius: sizeBorderRadiusAvatar,
+              //add border radius here
+              child: Image.network(
+                  "https://i.pinimg.com/280x280_RS/c6/e4/a9/c6e4a9fc80594486711b42026f5d21f8.jpg")),
+        ),
+        Container(
+          height: sizeAvatar,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [typeOfCustomer, idOfCustomer],
+          ),
+        )
+      ],
+    ));
+    _onPressed(){}
     var mainTopWidget = Stack(
       children: [
         Container(
@@ -152,68 +173,155 @@ class ProfileCustomerTag extends StatelessWidget {
               maintainState: true,
               visible: false,
             ),
-            SizedBox(width: 5,),
-            Expanded(
+            SizedBox(
+              width: layout.sizeToShapeSize(LayoutSize.small),
+            ),
 
-                child: buttonHasIcon ? Button(
+            Flexible(
+
+                child: buttonHasIcon
+                    ? Button(
+                  onPressed: this.onPressedButton ?? _onPressed,
                   outlined: true,
                   color: ThemeColor.dark,
                   icon: iconButton,
-                  content: "Tặng Khuyến Mãi",
+                  content: contentButton,
                   fontSizeText: fontSizeTextButton,
                   solid: false,
-
-                ) : Button(
+                )
+                    : Button(
+                  onPressed: this.onPressedButton ?? _onPressed,
                   outlined: true,
                   color: ThemeColor.dark,
-                  content: "Tặng Khuyến Mãi",
+                  content: contentButton,
                   fontSizeText: fontSizeTextButton,
                   solid: false,
+                )
+            ),
 
-                )),
+
           ],
         )
       ],
     );
-    var contentPhoneNumber = RichText(text: TextSpan(
-        style: DefaultTextStyle
-            .of(context)
-            .style,
-        children: <TextSpan>[
-          TextSpan(style: TextStyle(color: textHintColorAll, fontSize:layout.sizeToFontSize(this.fontSizeTextPhoneNumberCustomer)),text: this.phoneNumberCustomerText),
-          TextSpan(style: TextStyle(color: textColorAll,fontSize:layout.sizeToFontSize(this.fontSizeTextPhoneNumberCustomer)),text: this.phoneNumberCustomerContent ),
-        ]
-    ));
-    var contentDateCreate = RichText(text: TextSpan(
-        style: DefaultTextStyle
-            .of(context)
-            .style,
-        children: <TextSpan>[
-          TextSpan(style: TextStyle(color: textHintColorAll,fontSize:layout.sizeToFontSize(this.fontSizeTextPhoneNumberCustomer)),text: this.dayTimeCreateCustomerText),
-          TextSpan(style: TextStyle(color: textColorAll,fontSize:layout.sizeToFontSize(this.fontSizeTextPhoneNumberCustomer)),text: this.dayTimeCreateCustomerContent ),
-        ]
-    ));
-    var userCreate = RichText(text: TextSpan(
-        style: DefaultTextStyle
-            .of(context)
-            .style,
-        children: <TextSpan>[
-          TextSpan(style: TextStyle(color: textHintColorAll,fontSize:layout.sizeToFontSize(this.fontSizeTextPhoneNumberCustomer)),text: this.userCreateCustomerText),
-          TextSpan(style: TextStyle(color: textColorAll,fontSize:layout.sizeToFontSize(this.fontSizeTextPhoneNumberCustomer)),text: this.userCreateCustomerContent ),
-        ]
-    ));
+    var contentPhoneNumber = RichText(
+        text: TextSpan(
+            style: DefaultTextStyle.of(context).style,
+            children: <TextSpan>[
+          TextSpan(
+              style: TextStyle(
+                  color: textHintColorAll,
+                  fontSize: layout
+                      .sizeToFontSize(this.fontSizeTextPhoneNumberCustomer)),
+              text: this.phoneNumberCustomerText),
+          TextSpan(
+              style: TextStyle(
+                  color: textColorAll,
+                  fontSize: layout
+                      .sizeToFontSize(this.fontSizeTextPhoneNumberCustomer)),
+              text: this.phoneNumberCustomerContent),
+        ]));
+    var contentDateCreate = RichText(
+        text: TextSpan(
+            style: DefaultTextStyle.of(context).style,
+            children: <TextSpan>[
+          TextSpan(
+              style: TextStyle(
+                  color: textHintColorAll,
+                  fontSize: layout
+                      .sizeToFontSize(this.fontSizeTextPhoneNumberCustomer)),
+              text: this.dayTimeCreateCustomerText),
+          TextSpan(
+              style: TextStyle(
+                  color: textColorAll,
+                  fontSize: layout
+                      .sizeToFontSize(this.fontSizeTextPhoneNumberCustomer)),
+              text: this.dayTimeCreateCustomerContent),
+        ]));
+    var userCreate = RichText(
+        text: TextSpan(
+            style: DefaultTextStyle.of(context).style,
+            children: <TextSpan>[
+          TextSpan(
+              style: TextStyle(
+                  color: textHintColorAll,
+                  fontSize: layout
+                      .sizeToFontSize(this.fontSizeTextPhoneNumberCustomer)),
+              text: this.userCreateCustomerText),
+          TextSpan(
+              style: TextStyle(
+                  color: textColorAll,
+                  fontSize: layout
+                      .sizeToFontSize(this.fontSizeTextPhoneNumberCustomer)),
+              text: this.userCreateCustomerContent),
+        ]));
+    var _dividerWidget = dividerCustom.Divider(
+        isHorizontal: false,
+        customHeight: layout.sizeToShapeSize(LayoutSize.small),
+        color: ThemeColor.pattensBlue);
+    var _columnTag = (
+            {colorTextTop,
+            colorTextBottom,
+            contentTextTop,
+            contentTextBottom}) =>
+        Padding(
+          padding: EdgeInsets.all(layout.sizeToPadding(LayoutSize.small)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                    bottom: layout.sizeToPadding(LayoutSize.small)),
+                child: Text(
+                  contentTextTop,
+                  style: TextStyle(
+                      color: colorTextTop,
+                      fontSize:
+                          layout.sizeToFontSize(fontSizeTextBottomCustom)),
+                ),
+              ),
+              Text(
+                contentTextBottom,
+                style: TextStyle(
+                    color: colorTextBottom,
+                    fontSize: layout.sizeToFontSize(fontSizeTextBottomCustom)),
+              ),
+            ],
+          ),
+        );
     var mainWidget = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         mainTopWidget,
-        SizedBox(height: 20,),
+        SizedBox(
+          height: 20,
+        ),
         contentPhoneNumber,
         contentDateCreate,
         userCreate,
         Row(
-          children: [deviderCustom.Divider(isHorizontal: false,customHeight: 50,color: ThemeColor.danger,)],
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _columnTag(
+                colorTextBottom: textHintColorAll,
+                colorTextTop: textColorAll,
+                contentTextBottom: this.totalSpendingContent,
+                contentTextTop: this.totalSpendingHintCustom),
+            _dividerWidget,
+            _columnTag(
+                colorTextBottom: textHintColorAll,
+                colorTextTop: textColorAll,
+                contentTextBottom: this.totalPaidContent,
+                contentTextTop: this.totalPaidHintCustom),
+            _dividerWidget,
+            _columnTag(
+                colorTextBottom: theme.getColor(ThemeColor.radicalRed),
+                colorTextTop: textColorAll,
+                contentTextBottom: this.totalDebitContent,
+                contentTextTop: this.totalDebitHintCustom),
+          ],
         )
-
       ],
     );
 
