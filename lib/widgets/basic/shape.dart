@@ -4,15 +4,15 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class Shape extends StatelessWidget {
-  const Shape(
-      {Key? key,
-      required this.child,
-      this.size = LayoutSize.medium,
-      this.color = ThemeColor.primary,
-      this.circle,
-      this.customHeight,
-      this.customWidth})
-      : super(key: key);
+  const Shape({
+    Key? key,
+    required this.child,
+    this.size = LayoutSize.medium,
+    this.color = ThemeColor.primary,
+    this.circle,
+    this.customHeight,
+    this.customWidth,
+  }) : super(key: key);
 
   final Widget child;
   final bool? circle;
