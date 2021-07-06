@@ -9,7 +9,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 class ReportGroupPanel extends StatelessWidget {
   final List<ReportData> reportData;
   final List<IconData>? icons;
@@ -33,7 +32,7 @@ class ReportGroupPanel extends StatelessWidget {
       theme.getColor(ThemeColor.pastelGreen),
       theme.getColor(ThemeColor.darkOrange),
       theme.getColor(ThemeColor.bondiBlue),
-      Colors.orange,
+      theme.getColor(ThemeColor.tangerineYellow),
     ];
     return Wrap(
       runSpacing: 8,
@@ -89,7 +88,10 @@ class ReportPanel extends StatelessWidget {
                         EdgeInsets.all(layout.sizeToPadding(LayoutSize.tiny)),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color:  type == 3
+                      boxShadow: [
+                        BoxShadow(color: theme.getColor(ThemeColor.pattensBlue),blurRadius: 10,spreadRadius: 2,offset: Offset(0,0))
+                      ],
+                      color: type == 3
                           ? colorIcon
                           : theme.getColor(ThemeColor.lightest),
                     ),
@@ -97,30 +99,36 @@ class ReportPanel extends StatelessWidget {
                       icon: icon!,
                       size: LayoutSize.tiny,
                       color: type == 3
-                          ? ThemeColor.lightest:ThemeColor.bondiBlue,
+                          ? ThemeColor.lightest
+                          : ThemeColor.bondiBlue,
                     ),
                   ),
                   SizedBox(
                     width: 10,
                   ),
-                  type ==1?Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Paragraph(
-                        size: LayoutSize.small,
-                        content: reportData.firstTopText ?? "",
-                      ),
-                      Paragraph(
-                        size: LayoutSize.small,
-                        content: reportData.secondTopText ?? "",
-                        color: ThemeColor.dark,
-                      )
-                    ],
-                  ): Paragraph(
-                    size: LayoutSize.small,
-                    content: reportData.firstTopText ?? "",
-                    color: ThemeColor.dark,
-                  )
+                  type == 1
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Paragraph(
+                              size: LayoutSize.small,
+                              content: reportData.firstTopText ?? "",
+                              linePadding: LayoutSize.none,
+                            ),
+                            Paragraph(
+                              size: LayoutSize.small,
+                              content: reportData.secondTopText ?? "",
+                              color: ThemeColor.secondary,
+                              linePadding: LayoutSize.none,
+                            )
+                          ],
+                        )
+                      : Paragraph(
+                          size: LayoutSize.small,
+                          content: reportData.firstTopText ?? "",
+                          color: ThemeColor.dark,
+                    linePadding: LayoutSize.none,
+                        )
                 ],
               ),
               SizedBox(
@@ -131,24 +139,25 @@ class ReportPanel extends StatelessWidget {
                 content: reportData.middleText ?? "",
                 size: LayoutSize.big,
               ),
-           if(type==1)   Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    padding:
-                        EdgeInsets.all(layout.sizeToPadding(LayoutSize.tiny)),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color:theme.getColor(ThemeColor.lightest),
+              if (type == 1)
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding:
+                          EdgeInsets.all(layout.sizeToPadding(LayoutSize.tiny)),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: theme.getColor(ThemeColor.lightest),
+                      ),
+                      child: CustomIcon(
+                        icon: LineIcons.arrow_up,
+                        size: LayoutSize.tiny,
+                        color: reportData.isRedBottomText
+                            ? ThemeColor.radicalRed
+                            : ThemeColor.bondiBlue,
+                      ),
                     ),
-                    child: CustomIcon(
-                      icon: LineIcons.arrow_up,
-                      size: LayoutSize.tiny,
-                      color: reportData.isRedBottomText
-                          ? ThemeColor.radicalRed
-                          : ThemeColor.bondiBlue,
-                    ),
-                  ),
                     SizedBox(
                       height: 10,
                     ),
@@ -159,8 +168,8 @@ class ReportPanel extends StatelessWidget {
                           ? ThemeColor.radicalRed
                           : ThemeColor.pastelGreen,
                     ),
-                ],
-              )
+                  ],
+                )
             ],
           ),
         ),
@@ -177,12 +186,12 @@ class ReportData {
   late bool isRedBottomText;
 
   ReportData(
-      String? firstTopText,
-      String? secondTopText,
-      String? middleText,
-      String? bottomText,
-      bool isRedBottomText,
-      ) {
+    String? firstTopText,
+    String? secondTopText,
+    String? middleText,
+    String? bottomText,
+    bool isRedBottomText,
+  ) {
     this.firstTopText = firstTopText;
     this.secondTopText = secondTopText;
     this.isRedBottomText = isRedBottomText;

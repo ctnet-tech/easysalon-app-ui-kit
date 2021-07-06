@@ -1,6 +1,7 @@
 import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
 import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/basic/shape.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/icons/CustomIcon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -59,9 +60,18 @@ class ProfileAdmin extends StatelessWidget {
                           Positioned(
                             right: 0,
                             bottom: 6,
-                            child: CustomIcon(
-                              icon: Icons.add,
-                              size: LayoutSize.large,
+                            child: Shape(
+                              color: ThemeColor.pastelGreen,
+                              circle: true,
+                              customHeight: 30,
+                              customWidth: 30,
+                              child: Center(
+                                child: CustomIcon(
+                                  icon: Icons.add,
+                                  size: LayoutSize.large,
+                                  color: ThemeColor.lightest,
+                                ),
+                              ),
                             ),
                           ),
                         ],

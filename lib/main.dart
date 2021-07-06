@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: ProfileAdmin(),
+        body: WidgetsHomePage(),
       ),
       onGenerateRoute: (settings) {
         var page = appRoutes[settings.name];

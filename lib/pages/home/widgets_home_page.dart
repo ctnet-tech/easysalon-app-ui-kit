@@ -4,13 +4,20 @@ import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/icon_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/paragraph_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/report_panel_page.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/basic/CustomSlidable/BaseWidget/actions.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/basic/CustomSlidable/BaseWidget/slidable.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/basic/CustomSlidable/custom_slidable.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/basic/expandable_button.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/panel.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/basic/profile_admin.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/icons/CustomIcon.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/page_header.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/space.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/standard_page.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/navigation/menu/menu.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/navigation/menu/menu_item.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class WidgetsHomePage extends StatefulWidget {
@@ -39,7 +46,45 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                       MenuItem(label: "Icon", to: IconPage.path),
                       MenuItem(label: "ReportPanel", to: ReportPanelPage.path),
                     ],
-                  )
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  ExpandableButton(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  ProfileAdmin(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  CustomSlidable(
+                      actions: [
+                        SlidableAction(
+                          onPressed: (_) {
+                            print(12);
+                          },
+                          icon: LineIcons.edit_square_feather,
+                          label: "Sửa",
+                          backgroundColor: Colors.blue,
+                          flex: 1,
+//                          spacing: 20,
+                        ),
+                        SlidableAction(
+                          onPressed: (_) {
+                            print(12);
+                          },
+                          icon: LineIcons.trash,
+                          label: "Xóa",
+                          backgroundColor: Colors.green,
+                          flex: 1,
+//                          spacing: 20,
+                        ),
+                      ],
+                      child: Container(
+                          padding: EdgeInsets.all(12),
+                          width: MediaQuery.of(context).size.width,
+                          child: Text("ádsađấhdjsáđâsđâsđâsáđâsd"))),
                 ],
               )))
     ]);
