@@ -33,7 +33,7 @@ var darkTheme = Theme(
   bondiBlue: Theme.colorFromHex("#000"),
   pastelGreen: Theme.colorFromHex("#5FDC65"),
   tangerineYellow: Theme.colorFromHex("#000"),
-  pattensBlue:Theme.colorFromHex("#EAF1F6"),
+  pattensBlue:Theme.colorFromHex("#000"),
   darkOrange: Theme.colorFromHex("#FF8900"),
   radicalRed: Theme.colorFromHex("#FF8900"),
   lightSlateBlue: Theme.colorFromHex("#884DFF"),

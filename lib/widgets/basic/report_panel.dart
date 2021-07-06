@@ -89,7 +89,11 @@ class ReportPanel extends StatelessWidget {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       boxShadow: [
-                        BoxShadow(color: theme.getColor(ThemeColor.pattensBlue),blurRadius: 10,spreadRadius: 2,offset: Offset(0,0))
+                        BoxShadow(
+                            color: theme.getColor(ThemeColor.pattensBlue),
+                            blurRadius: 10,
+                            spreadRadius: 2,
+                            offset: Offset(0, 0))
                       ],
                       color: type == 3
                           ? colorIcon
@@ -126,8 +130,8 @@ class ReportPanel extends StatelessWidget {
                       : Paragraph(
                           size: LayoutSize.small,
                           content: reportData.firstTopText ?? "",
-                          color: ThemeColor.dark,
-                    linePadding: LayoutSize.none,
+                          color: ThemeColor.secondary,
+                          linePadding: LayoutSize.none,
                         )
                 ],
               ),
@@ -148,11 +152,18 @@ class ReportPanel extends StatelessWidget {
                           EdgeInsets.all(layout.sizeToPadding(LayoutSize.tiny)),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                              color: theme.getColor(ThemeColor.pattensBlue),
+                              blurRadius: 10,
+                              spreadRadius: 2,
+                              offset: Offset(0, 0))
+                        ],
                         color: theme.getColor(ThemeColor.lightest),
                       ),
                       child: CustomIcon(
                         icon: LineIcons.arrow_up,
-                        size: LayoutSize.tiny,
+                        size: LayoutSize.small,
                         color: reportData.isRedBottomText
                             ? ThemeColor.radicalRed
                             : ThemeColor.bondiBlue,
@@ -167,6 +178,7 @@ class ReportPanel extends StatelessWidget {
                       color: reportData.isRedBottomText
                           ? ThemeColor.radicalRed
                           : ThemeColor.pastelGreen,
+                      linePadding: LayoutSize.none,
                     ),
                   ],
                 )
