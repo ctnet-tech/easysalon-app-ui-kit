@@ -79,28 +79,33 @@ class ButtonPage extends StatelessWidget {
         ButtonGroup(
           children: [
             Button(
+              buttonIconSize:LayoutSize.big ,
               color: ThemeColor.darkOrange,
               icon: LineIcons.money_stack,
               onPressed: this._onPressed,
 
             ),
             Button(
+              buttonIconSize:LayoutSize.big ,
               icon: LineIcons.user,
               onPressed: this._onPressed,
 
             ),
             Button(
+              buttonIconSize:LayoutSize.big ,
               icon: LineIcons.users,
               color: ThemeColor.lightSlateBlue,
               onPressed: this._onPressed,
 
             ),
             Button(
+              buttonIconSize:LayoutSize.large ,
               icon: LineIcons.add_item,
               onPressed: this._onPressed,
 
             ),
             Button(
+              buttonIconSize:LayoutSize.big ,
               color: ThemeColor.pastelGreen,
               icon: LineIcons.store,
               onPressed: this._onPressed,
@@ -126,7 +131,8 @@ class ButtonPage extends StatelessWidget {
           vertical: true,
           children: [
             Button(
-              customSize:LayoutSize.large ,
+
+                customSize:LayoutSize.large ,
                 contentCustom: Container(child: Text("Bước 4/5"),),
                 content: "Tiếp Tục",
                 onPressed: this._onPressed),
@@ -136,14 +142,14 @@ class ButtonPage extends StatelessWidget {
                 outlined: true,
                 onPressed: this._onPressed),
             Button(
-                icon: LineIcons.close,
-                color: ThemeColor.radicalRed,
-                content: "Hủy Hóa Đơn",
-                onPressed: this._onPressed,
-                outlined: true,
-                solid: false,
+              icon: LineIcons.close,
+              color: ThemeColor.radicalRed,
+              content: "Hủy Hóa Đơn",
+              onPressed: this._onPressed,
+              outlined: true,
+              solid: false,
 
-               )
+            )
           ],
         )
       ],
@@ -164,10 +170,10 @@ class ButtonPage extends StatelessWidget {
 
           children: [
             Button(
-                icon: LineIcons.collapse_up,
-                color: ThemeColor.radicalRed,
-                content: "Tạo Phiếu Xuất",
-                onPressed: this._onPressed,
+              icon: LineIcons.collapse_up,
+              color: ThemeColor.radicalRed,
+              content: "Tạo Phiếu Xuất",
+              onPressed: this._onPressed,
             ),
             Button(
               icon: LineIcons.collapse_down,
