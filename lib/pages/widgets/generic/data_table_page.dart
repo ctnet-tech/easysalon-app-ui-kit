@@ -20,6 +20,7 @@ class DataTablePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return StandardPage(
         header: PageHeader(
             title: "table Custom", description: "To trigger an operation."),
@@ -94,200 +95,214 @@ class DataTablePage extends StatelessWidget {
           ),
           DataTableCustom(
             borderRadius: LayoutSize.none,
-marginTable: LayoutSize.none,
+            marginTable: LayoutSize.none,
             paddingTable: LayoutSize.none,
             dataFistRow: ["Tên Nhân Viên", "Thưởng", "Phạt", "Lựa Chọn"],
             data: [
-              ["TC - Huy", "80,000", "250,000",ButtonGroup(
-                expanded: true,
-                vertical: true,
-                children: [
-                  ButtonGroup(
-                    children: [
-                      Button(
-                        buttonIconSize:  LayoutSize.small,
-                        iconSize: LayoutSize.small,
-                        paddingButton: LayoutSize.none,
-                        icon: LineIcons.calendar_never,
-                        color: ThemeColor.secondary,
-
-
-                      ),
-                      Button(
-                        buttonIconSize:  LayoutSize.small,
-                        iconSize: LayoutSize.small,
-                        paddingButton: LayoutSize.none,
-                        icon: LineIcons.money_stack,
-                        color: ThemeColor.darkOrange,
-
-
-                      ),
-                      Button(
-                        buttonIconSize:  LayoutSize.small,
-                        iconSize: LayoutSize.small,
-                        paddingButton: LayoutSize.none,
-                        icon: LineIcons.credit_card,
-
-
-
-                      ),
-
-                    ],
-                  )
-                ],
-              )],
-              ["TC - Trang","80,000", "80,000", ButtonGroup(
-                expanded: true,
-                vertical: true,
-                children: [
-                  ButtonGroup(
-                    children: [
-                      Button(
-                        buttonIconSize:  LayoutSize.small,
-                        iconSize: LayoutSize.small,
-                        paddingButton: LayoutSize.none,
-                        icon: LineIcons.calendar_never,
-                        color: ThemeColor.secondary,
-
-
-                      ),
-                      Button(
-                        buttonIconSize:  LayoutSize.small,
-                        iconSize: LayoutSize.small,
-                        paddingButton: LayoutSize.none,
-                        icon: LineIcons.money_stack,
-                        color: ThemeColor.darkOrange,
-
-
-                      ),
-                      Button(
-                        buttonIconSize:  LayoutSize.small,
-                        iconSize: LayoutSize.small,
-                        paddingButton: LayoutSize.none,
-                        icon: LineIcons.credit_card,
-
-
-
-                      ),
-
-                    ],
-                  )
-                ],
-              )],
-              ["TC - Huyền", "80,000", "100,000", ButtonGroup(
-                expanded: true,
-                vertical: true,
-                children: [
-                  ButtonGroup(
-                    children: [
-                      Button(
-                        buttonIconSize:  LayoutSize.small,
-                        iconSize: LayoutSize.small,
-                        paddingButton: LayoutSize.none,
-                        icon: LineIcons.calendar_never,
-                        color: ThemeColor.secondary,
-
-
-                      ),
-                      Button(
-                        buttonIconSize:  LayoutSize.small,
-                        iconSize: LayoutSize.small,
-                        paddingButton: LayoutSize.none,
-                        icon: LineIcons.money_stack,
-                        color: ThemeColor.darkOrange,
-
-
-                      ),
-                      Button(
-                        buttonIconSize:  LayoutSize.small,
-                        iconSize: LayoutSize.small,
-                        paddingButton: LayoutSize.none,
-                        icon: LineIcons.credit_card,
-
-
-
-                      ),
-
-                    ],
-                  )
-                ],
-              )],
-              ["TC - Thông", "80,000", "50,000", ButtonGroup(
-                expanded: true,
-                vertical: true,
-                children: [
-                  ButtonGroup(
-                    children: [
-                      Button(
-                        buttonIconSize:  LayoutSize.small,
-                        iconSize: LayoutSize.small,
-                        paddingButton: LayoutSize.none,
-                        icon: LineIcons.calendar_never,
-                        color: ThemeColor.secondary,
-
-
-                      ),
-                      Button(
-                        buttonIconSize:  LayoutSize.small,
-                        iconSize: LayoutSize.small,
-                        paddingButton: LayoutSize.none,
-                        icon: LineIcons.money_stack,
-                        color: ThemeColor.darkOrange,
-
-
-                      ),
-                      Button(
-                        buttonIconSize:  LayoutSize.small,
-                        iconSize: LayoutSize.small,
-                        paddingButton: LayoutSize.none,
-                        icon: LineIcons.credit_card,
-
-
-
-                      ),
-
-                    ],
-                  )
-                ],
-              )],
-              ["TC - Ngọc", "80,000", "10,000",ButtonGroup(
-                expanded: true,
-                vertical: true,
-                children: [
-                  ButtonGroup(
-                    children: [
-                      Button(
-                        buttonIconSize:  LayoutSize.small,
-                        iconSize: LayoutSize.small,
-                        paddingButton: LayoutSize.none,
-                        icon: LineIcons.calendar_never,
-                        color: ThemeColor.secondary,
-
-
-                      ),
-                      Button(
-                        buttonIconSize:  LayoutSize.small,
-                        iconSize: LayoutSize.small,
-                        paddingButton: LayoutSize.none,
-                        icon: LineIcons.money_stack,
-                        color: ThemeColor.darkOrange,
-
-
-                      ),
-                      Button(
-                        buttonIconSize:  LayoutSize.small,
-                        iconSize: LayoutSize.small,
-                        paddingButton: LayoutSize.none,
-                        icon: LineIcons.credit_card,
-
-
-
-                      ),
-
-                    ],
-                  )
-                ],
-              )],
+              [
+                "TC - Huy",
+                "80,000",
+                "250,000",
+                ButtonGroup(
+                  expanded: true,
+                  vertical: true,
+                  children: [
+                    ButtonGroup(
+                      children: [
+                        Button(
+                          buttonIconSize: LayoutSize.small,
+                          iconSize: LayoutSize.small,
+                          paddingButton: LayoutSize.none,
+                          icon: LineIcons.calendar_never,
+                          color: ThemeColor.secondary,
+                        ),
+                        Button(
+                          buttonIconSize: LayoutSize.small,
+                          iconSize: LayoutSize.small,
+                          paddingButton: LayoutSize.none,
+                          icon: LineIcons.money_stack,
+                          color: ThemeColor.darkOrange,
+                        ),
+                        Button(
+                          buttonIconSize: LayoutSize.small,
+                          iconSize: LayoutSize.small,
+                          paddingButton: LayoutSize.none,
+                          icon: LineIcons.credit_card,
+                        ),
+                      ],
+                    )
+                  ],
+                )
+              ],
+              [
+                "TC - Trang",
+                "80,000",
+                "80,000",
+                ButtonGroup(
+                  expanded: true,
+                  vertical: true,
+                  children: [
+                    ButtonGroup(
+                      children: [
+                        Button(
+                          buttonIconSize: LayoutSize.small,
+                          iconSize: LayoutSize.small,
+                          paddingButton: LayoutSize.none,
+                          icon: LineIcons.calendar_never,
+                          color: ThemeColor.secondary,
+                        ),
+                        Button(
+                          buttonIconSize: LayoutSize.small,
+                          iconSize: LayoutSize.small,
+                          paddingButton: LayoutSize.none,
+                          icon: LineIcons.money_stack,
+                          color: ThemeColor.darkOrange,
+                        ),
+                        Button(
+                          buttonIconSize: LayoutSize.small,
+                          iconSize: LayoutSize.small,
+                          paddingButton: LayoutSize.none,
+                          icon: LineIcons.credit_card,
+                        ),
+                      ],
+                    )
+                  ],
+                )
+              ],
+              [
+                "TC - Huyền",
+                "80,000",
+                "100,000",
+                ButtonGroup(
+                  expanded: true,
+                  vertical: true,
+                  children: [
+                    ButtonGroup(
+                      children: [
+                        Button(
+                          buttonIconSize: LayoutSize.small,
+                          iconSize: LayoutSize.small,
+                          paddingButton: LayoutSize.none,
+                          icon: LineIcons.calendar_never,
+                          color: ThemeColor.secondary,
+                        ),
+                        Button(
+                          buttonIconSize: LayoutSize.small,
+                          iconSize: LayoutSize.small,
+                          paddingButton: LayoutSize.none,
+                          icon: LineIcons.money_stack,
+                          color: ThemeColor.darkOrange,
+                        ),
+                        Button(
+                          buttonIconSize: LayoutSize.small,
+                          iconSize: LayoutSize.small,
+                          paddingButton: LayoutSize.none,
+                          icon: LineIcons.credit_card,
+                        ),
+                      ],
+                    )
+                  ],
+                )
+              ],
+              [
+                "TC - Thông",
+                "80,000",
+                "50,000",
+                ButtonGroup(
+                  expanded: true,
+                  vertical: true,
+                  children: [
+                    ButtonGroup(
+                      children: [
+                        Button(
+                          buttonIconSize: LayoutSize.small,
+                          iconSize: LayoutSize.small,
+                          paddingButton: LayoutSize.none,
+                          icon: LineIcons.calendar_never,
+                          color: ThemeColor.secondary,
+                        ),
+                        Button(
+                          buttonIconSize: LayoutSize.small,
+                          iconSize: LayoutSize.small,
+                          paddingButton: LayoutSize.none,
+                          icon: LineIcons.money_stack,
+                          color: ThemeColor.darkOrange,
+                        ),
+                        Button(
+                          buttonIconSize: LayoutSize.small,
+                          iconSize: LayoutSize.small,
+                          paddingButton: LayoutSize.none,
+                          icon: LineIcons.credit_card,
+                        ),
+                      ],
+                    )
+                  ],
+                )
+              ],
+              [
+                "TC - Ngọc",
+                "80,000",
+                "10,000",
+                ButtonGroup(
+                  expanded: true,
+                  vertical: true,
+                  children: [
+                    ButtonGroup(
+                      children: [
+                        Button(
+                          buttonIconSize: LayoutSize.small,
+                          iconSize: LayoutSize.small,
+                          paddingButton: LayoutSize.none,
+                          icon: LineIcons.calendar_never,
+                          color: ThemeColor.secondary,
+                        ),
+                        Button(
+                          buttonIconSize: LayoutSize.small,
+                          iconSize: LayoutSize.small,
+                          paddingButton: LayoutSize.none,
+                          icon: LineIcons.money_stack,
+                          color: ThemeColor.darkOrange,
+                        ),
+                        Button(
+                          buttonIconSize: LayoutSize.small,
+                          iconSize: LayoutSize.small,
+                          paddingButton: LayoutSize.none,
+                          icon: LineIcons.credit_card,
+                        ),
+                      ],
+                    )
+                  ],
+                )
+              ],
+            ],
+          ),
+          SizedBox(height: 10,),
+          DataTableCustom(
+            borderRadius: LayoutSize.none,
+            marginTable: LayoutSize.none,
+            paddingTable: LayoutSize.none,
+            dataFistRow: ["Tên Sản Phẩm", "Cuối kì", "LỊch Sử Nhập Xuất"],
+            data: [
+              [
+                "Dầu xã khô dưỡng ẩm SP 1...",
+                "8",
+                Button(content: "Xem",paddingButton: LayoutSize.none,width:size.width*0.3 )
+              ],
+              [
+                "Xịt dưỡng giữ màu Loreal 4...",
+                "8",
+                Button(content: "Xem",paddingButton: LayoutSize.none,width:size.width*0.3 ,fontSizeText: LayoutSize.small,)
+              ],
+              [
+                "Xịt dưỡng GoldWell 15ml",
+                "5",
+                Button(content: "Xem",paddingButton: LayoutSize.none,width:size.width*0.3 ,)
+              ],
+              [
+                "Dầu xã khô dưỡng ẩm SP 1...",
+                "8",
+                Button(content: "Xem",paddingButton: LayoutSize.none,width:size.width*0.3 ,)
+              ],
             ],
           ),
         ]);
