@@ -1,9 +1,11 @@
+import 'package:easysalon_mobile_ui_kit/bloc/date_picker_bloc/date_picker_blocs.dart';
 import 'package:easysalon_mobile_ui_kit/bloc/date_range_picker_bloc/date_range_picker_bloc.dart';
 import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/button_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/icon_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/paragraph_page.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/basic/date_picker.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/date_range_picker/date_range_picker.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/panel.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/selection_time_bar.dart';
@@ -46,6 +48,12 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                   BlocProvider(
                     create: (_) => DateRangePickerBloc(),
                     child: SelectionTimeBar(),
+                  ),
+                  BlocProvider(
+                    create: (_) => DatePickerBloc(),
+                    child: DatePicker(
+                      onTap: () {},
+                    ),
                   ),
                 ],
               )))
