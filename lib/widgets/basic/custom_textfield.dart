@@ -24,7 +24,7 @@ class CustomTextField extends StatefulWidget {
     this.firstText,
     this.secondText,
     required this.textEditingController,
-    required this.isOnlyNumber,
+    this.isOnlyNumber=false,
     this.hintText = "",
     this.hasObscureText = false,
     this.isDatePicker = false,
@@ -67,7 +67,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   Paragraph(
                     linePadding: LayoutSize.none,
                     color: ThemeColor.dodgerBlue,
-                    content: widget.firstText ?? "",
+                    content: widget.secondText ?? "",
                     weight: FontWeight.w400,
                   ),
                 ],
@@ -79,7 +79,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ),
         TextField(
           minLines: widget.minLine ?? 1,
-          maxLines: widget.maxLine ?? null,
+          maxLines: widget.minLine!=null? null : widget.maxLine ?? 1,
           controller: widget.textEditingController,
           readOnly: widget.isDatePicker?true:false,
           inputFormatters: [

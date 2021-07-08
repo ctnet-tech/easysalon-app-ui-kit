@@ -1,9 +1,9 @@
 import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/button_page.dart';
+import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/custom_textfield_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/icon_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/paragraph_page.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
-import 'package:easysalon_mobile_ui_kit/widgets/basic/custom_textfield.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/panel.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/icons/CustomIcon.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/page_header.dart';
@@ -37,6 +37,7 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                       MenuItem(label: "Paragraph", to: ParagraphPage.path),
                       MenuItem(label: "Button", to: ButtonPage.path),
                       MenuItem(label: "Icon", to: IconPage.path),
+                      MenuItem(label: "CustomTextField", to: CustomTextFieldPage.path),
                     ],
                   ),
                 ],
