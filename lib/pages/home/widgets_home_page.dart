@@ -6,6 +6,7 @@ import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/paragraph_page.dar
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/date_range_picker/date_range_picker.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/deposit_bottom_sheet.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/basic/filter_bottom_sheet.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/panel.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/selection_time_bar.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/icons/CustomIcon.dart';
@@ -49,14 +50,18 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                     create: (_) => DateRangePickerBloc(),
                     child: SelectionTimeBar(),
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Center(
                     child: InkWell(
                         onTap: () {
                           showModalBottomSheet(
                             isScrollControlled: true,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20) ),
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20)),
                             ),
                             context: context,
                             builder: (_) => DepositBottomSheet(
@@ -66,7 +71,38 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                           );
                         },
                         child: Text("Show DepositBottomSheet")),
-                  )
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Center(
+                    child: InkWell(
+                        onTap: () {
+                          showModalBottomSheet(
+                            isScrollControlled: true,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20)),
+                            ),
+                            context: context,
+                            builder: (_) => FilterBottomSheet(
+                              height:
+                                  MediaQuery.of(context).size.height * 2 / 3,
+                              onTapSubmit: () {},
+                              listItems: [
+                                "Mới",
+                                "Đã xác nhận",
+                                "Checkin",
+                                "Checkout",
+                                "Không đến",
+                                "Đã hủy"
+                              ],
+                            ),
+                          );
+                        },
+                        child: Text("Show FilterBottomSheet")),
+                  ),
                 ],
               )))
     ]);
