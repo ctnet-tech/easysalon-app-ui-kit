@@ -5,6 +5,7 @@ import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/icon_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/paragraph_page.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/date_range_picker/date_range_picker.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/basic/deposit_bottom_sheet.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/panel.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/selection_time_bar.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/icons/CustomIcon.dart';
@@ -13,6 +14,7 @@ import 'package:easysalon_mobile_ui_kit/widgets/layout/space.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/standard_page.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/navigation/menu/menu.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/navigation/menu/menu_item.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,6 +49,24 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                     create: (_) => DateRangePickerBloc(),
                     child: SelectionTimeBar(),
                   ),
+                  SizedBox(height: 20,),
+                  Center(
+                    child: InkWell(
+                        onTap: () {
+                          showModalBottomSheet(
+                            isScrollControlled: true,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20) ),
+                            ),
+                            context: context,
+                            builder: (_) => DepositBottomSheet(
+                              height:
+                                  MediaQuery.of(context).size.height * 2 / 3,
+                            ),
+                          );
+                        },
+                        child: Text("Show DepositBottomSheet")),
+                  )
                 ],
               )))
     ]);
