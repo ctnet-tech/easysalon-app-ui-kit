@@ -24,7 +24,6 @@ class _DepositBottomSheetState extends State<DepositBottomSheet> {
   ];
   TextEditingController controller = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
     print(listController.length);
@@ -116,142 +115,15 @@ class _DepositBottomSheetState extends State<DepositBottomSheet> {
               SpaceBox(
                 all: true,
                 child: Column(children: [
-//                  Row(
-//                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                    crossAxisAlignment: CrossAxisAlignment.center,
-//                    children: [
-//                      Paragraph(
-//                        content: "Phương thức thanh toán #1",
-//                        linePadding: LayoutSize.none,
-//                        color: ThemeColor.dark,
-//                        weight: FontWeight.w400,
-//                      ),
-//                      InkWell(
-//                        onTap: () {
-//                          setState(() {
-//                            listController.add(TextEditingController());
-//                          });
-//                        },
-//                        child: Shape(
-//                          color: ThemeColor.bondiBlue,
-//                          circle: true,
-//                          customHeight: 30,
-//                          customWidth: 30,
-//                          child: Center(
-//                            child: CustomIcon(
-//                              icon: Icons.add,
-//                              size: LayoutSize.large,
-//                              color: ThemeColor.lightest,
-//                            ),
-//                          ),
-//                        ),
-//                      ),
-//                    ],
-//                  ),
-//
-//                  SizedBox(
-//                    height: 10,
-//                  ),
-//                  Row(
-//                    children: [
-//                      Expanded(
-//                        flex: 1,
-//                        child: Container(
-//                          padding: EdgeInsets.all(
-//                              layout.sizeToPadding(LayoutSize.tiny)),
-//                          decoration: BoxDecoration(
-//                            border: Border.all(
-//                                color: theme.getColor(ThemeColor.hawkesBlue)),
-//                            borderRadius:
-//                                layout.sizeToBorderRadius(LayoutSize.small),
-//                            color: theme.getColor(ThemeColor.lightest),
-//                          ),
-//                          child: DropdownButtonHideUnderline(
-//                            child: DropdownButton<String>(
-//                              value: dropdownValue,
-//                              icon: CustomIcon(
-//                                icon: LineIcons.chevron_down,
-//                                size: LayoutSize.medium,
-//                                color: ThemeColor.secondary,
-//                              ),
-//                              elevation: 16,
-//                              hint: Paragraph(
-//                                hasAlignment: false,
-//                                isCenter: true,
-//                                content: "Chọn",
-//                                textAlign: TextAlign.left,
-//                                linePadding: LayoutSize.none,
-//                                color: ThemeColor.dark,
-//                                weight: FontWeight.w400,
-//                              ),
-//                              onChanged: (String? newValue) {
-//                                setState(() {
-//                                  dropdownValue = newValue!;
-//                                });
-//                              },
-//                              items: [
-//                                "Tiền mặt",
-//                                "Chuyển khoản",
-//                                "Điểm",
-//                              ].map<DropdownMenuItem<String>>((String value) {
-//                                return DropdownMenuItem<String>(
-//                                  value: value,
-//                                  child: Align(
-//                                    alignment: Alignment.centerLeft,
-//                                    child: Paragraph(
-//                                      hasAlignment: false,
-//                                      content: value,
-//                                      textAlign: TextAlign.left,
-//                                      linePadding: LayoutSize.none,
-//                                      color: ThemeColor.dark,
-//                                      weight: FontWeight.w400,
-//                                    ),
-//                                  ),
-//                                );
-//                              }).toList(),
-//                            ),
-//                          ),
-//                        ),
-//                      ),
-//                      SizedBox(
-//                        width: 10,
-//                      ),
-//                      Expanded(
-//                        flex: 1,
-//                        child: Container(
-//                          padding: EdgeInsets.all(
-//                              layout.sizeToPadding(LayoutSize.tiny)),
-//                          decoration: BoxDecoration(
-//                            border: Border.all(
-//                                color: theme.getColor(ThemeColor.hawkesBlue)),
-//                            borderRadius:
-//                                layout.sizeToBorderRadius(LayoutSize.small),
-//                            color: theme.getColor(ThemeColor.lightest),
-//                          ),
-//                          child: TextField(
-//                            controller: controller,
-//                            textAlign: TextAlign.center,
-//                            decoration:
-//                                InputDecoration(border: InputBorder.none),
-//                            style: TextStyle(
-//                              fontSize: 15,
-//                              fontWeight: FontWeight.w400,
-//                              color: theme.getColor(ThemeColor.dark),
-//                            ),
-//                          ),
-//                        ),
-//                      ),
-//                    ],
-//                  ),
                   PaymentMethodForm(
-                      controller: listController[0],
-                      listItems: ["Tiền mặt", "Chuyển khoản", "Điểm"],
-                      isFirst: true,
-                      onTapIcon: () {
-                        listController.add(TextEditingController());
-                      },
-                      index: 0),
-
+                    controller: listController[0],
+                    listItems: ["Tiền mặt", "Chuyển khoản", "Điểm"],
+                    isFirst: true,
+                    onTapIcon: () {
+                      listController.add(TextEditingController());
+                    },
+                    index: 0,
+                  ),
                   SizedBox(
                     height: 10,
                   ),
@@ -307,10 +179,7 @@ class _PaymentMethodFormState extends State<PaymentMethodForm> {
   String? dropdownValue;
   String? dropdownValue2;
 
-
-
   bool isPayByTransfer = false;
-
 
   @override
   Widget build(BuildContext context) {
@@ -398,10 +267,10 @@ class _PaymentMethodFormState extends State<PaymentMethodForm> {
                     onChanged: (String? newValue) {
                       setState(() {
                         dropdownValue = newValue!;
-                        if(newValue=="Chuyển khoản")
-                          isPayByTransfer=true;
+                        if (newValue == "Chuyển khoản")
+                          isPayByTransfer = true;
                         else
-                          isPayByTransfer=false;
+                          isPayByTransfer = false;
                       });
                     },
                     items: widget.listItems
@@ -452,64 +321,65 @@ class _PaymentMethodFormState extends State<PaymentMethodForm> {
             ),
           ],
         ),
-      if(isPayByTransfer)  Column(
-          children: [
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              padding: EdgeInsets.all(layout.sizeToPadding(LayoutSize.tiny)),
-              decoration: BoxDecoration(
-                border:
-                    Border.all(color: theme.getColor(ThemeColor.hawkesBlue)),
-                borderRadius: layout.sizeToBorderRadius(LayoutSize.small),
-                color: theme.getColor(ThemeColor.lightest),
+        if (isPayByTransfer)
+          Column(
+            children: [
+              SizedBox(
+                height: 10,
               ),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton<String>(
-                  value: dropdownValue2,
-                  isExpanded: true,
-                  icon: CustomIcon(
-                    icon: LineIcons.chevron_down,
-                    size: LayoutSize.medium,
-                    color: ThemeColor.secondary,
-                  ),
-                  elevation: 16,
-                  hint: Paragraph(
-                    hasAlignment: false,
-                    content: "Chọn tài khoản",
-                    textAlign: TextAlign.left,
-                    linePadding: LayoutSize.none,
-                    color: ThemeColor.secondary,
-                    weight: FontWeight.w400,
-                  ),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      dropdownValue2 = newValue!;
-                    });
-                  },
-                  items: ["Tài khoản 1", "Tài khoản 2", "Tài khoản 3"]
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Paragraph(
-                          hasAlignment: false,
-                          content: value,
-                          textAlign: TextAlign.left,
-                          linePadding: LayoutSize.none,
-                          color: ThemeColor.dark,
-                          weight: FontWeight.w400,
+              Container(
+                padding: EdgeInsets.all(layout.sizeToPadding(LayoutSize.tiny)),
+                decoration: BoxDecoration(
+                  border:
+                      Border.all(color: theme.getColor(ThemeColor.hawkesBlue)),
+                  borderRadius: layout.sizeToBorderRadius(LayoutSize.small),
+                  color: theme.getColor(ThemeColor.lightest),
+                ),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<String>(
+                    value: dropdownValue2,
+                    isExpanded: true,
+                    icon: CustomIcon(
+                      icon: LineIcons.chevron_down,
+                      size: LayoutSize.medium,
+                      color: ThemeColor.secondary,
+                    ),
+                    elevation: 16,
+                    hint: Paragraph(
+                      hasAlignment: false,
+                      content: "Chọn tài khoản",
+                      textAlign: TextAlign.left,
+                      linePadding: LayoutSize.none,
+                      color: ThemeColor.secondary,
+                      weight: FontWeight.w400,
+                    ),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        dropdownValue2 = newValue!;
+                      });
+                    },
+                    items: ["Tài khoản 1", "Tài khoản 2", "Tài khoản 3"]
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Paragraph(
+                            hasAlignment: false,
+                            content: value,
+                            textAlign: TextAlign.left,
+                            linePadding: LayoutSize.none,
+                            color: ThemeColor.dark,
+                            weight: FontWeight.w400,
+                          ),
                         ),
-                      ),
-                    );
-                  }).toList(),
+                      );
+                    }).toList(),
+                  ),
                 ),
               ),
-            ),
-          ],
-        )
+            ],
+          )
       ],
     );
   }
