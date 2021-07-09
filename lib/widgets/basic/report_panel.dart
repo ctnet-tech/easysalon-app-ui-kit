@@ -31,7 +31,7 @@ class ReportGroupPanel extends StatelessWidget {
     listColor = [
       theme.getColor(ThemeColor.pastelGreen),
       theme.getColor(ThemeColor.darkOrange),
-      theme.getColor(ThemeColor.bondiBlue),
+      theme.getColor(ThemeColor.dodgerBlue),
       theme.getColor(ThemeColor.tangerineYellow),
     ];
     return Wrap(
@@ -104,7 +104,7 @@ class ReportPanel extends StatelessWidget {
                       size: LayoutSize.tiny,
                       color: type == 3
                           ? ThemeColor.lightest
-                          : ThemeColor.bondiBlue,
+                          : ThemeColor.dodgerBlue,
                     ),
                   ),
                   SizedBox(
@@ -166,7 +166,7 @@ class ReportPanel extends StatelessWidget {
                         size: LayoutSize.small,
                         color: reportData.isRedBottomText
                             ? ThemeColor.radicalRed
-                            : ThemeColor.bondiBlue,
+                            : ThemeColor.dodgerBlue,
                       ),
                     ),
                     SizedBox(

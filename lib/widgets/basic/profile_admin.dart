@@ -12,11 +12,12 @@ class ProfileAdmin extends StatelessWidget {
   double? customWidth;
   final Function? onTapIconAdd;
 
-  ProfileAdmin(
-      {this.size = LayoutSize.medium,
-      this.customHeight,
-      this.customWidth,
-      this.onTapIconAdd});
+  ProfileAdmin({
+    this.size = LayoutSize.medium,
+    this.customHeight,
+    this.customWidth,
+    this.onTapIconAdd,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class ProfileAdmin extends StatelessWidget {
     var width = customWidth ?? MediaQuery.of(context).size.width;
     return Container(
       decoration: BoxDecoration(
-        color: theme.getColor(ThemeColor.bondiBlue),
+        color: theme.getColor(ThemeColor.dodgerBlue),
       ),
       height: height,
       width: width,
