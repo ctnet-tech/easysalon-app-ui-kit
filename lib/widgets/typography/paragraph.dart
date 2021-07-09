@@ -18,6 +18,8 @@ class Paragraph extends StatelessWidget {
       this.textAlign = TextAlign.left,
       this.italic = false,
       this.bold = false,
+      this.hasAlignment = true,
+      this.isCenter = false,
       this.underline = false}) {
     if (linePadding == null) {
       this.linePadding = LayoutNotifier.getLowerSize(this.size);
@@ -27,12 +29,14 @@ class Paragraph extends StatelessWidget {
   final LayoutSize size;
   LayoutSize? linePadding;
 
+  final bool hasAlignment;
   final TextDecoration? decoration;
   final TextDecorationStyle? decorationStyle;
   final TextAlign textAlign;
   final bool italic;
   final bool bold;
   final bool underline;
+  final bool isCenter;
 
   final FontWeight weight;
   final ThemeColor color;
@@ -52,26 +56,48 @@ class Paragraph extends StatelessWidget {
       return SpaceBox(
         bottomSize: this.linePadding,
         child: Container(
-            alignment: Alignment.topLeft,
-            child: Text(this.content!,
-                style: TextStyle(
-                    fontStyle: this.italic == true
-                        ? FontStyle.italic
-                        : FontStyle.normal,
-                    decoration: this.underline
-                        ? TextDecoration.underline
-                        : this.decoration,
-                    decorationStyle: this.decorationStyle,
-                    fontSize: layout.sizeToFontSize(this.size),
-                    fontWeight: this.bold ? FontWeight.bold : this.weight,
-                    color: theme.getColor(this.color)))),
+            alignment: hasAlignment ? Alignment.topLeft : null,
+            child: isCenter
+                ? Center(
+                    child: Text(
+                      this.content!,
+                      style: TextStyle(
+                          fontStyle: this.italic == true
+                              ? FontStyle.italic
+                              : FontStyle.normal,
+                          decoration: this.underline
+                              ? TextDecoration.underline
+                              : this.decoration,
+                          decorationStyle: this.decorationStyle,
+                          fontSize: layout.sizeToFontSize(this.size),
+                          fontWeight: this.bold ? FontWeight.bold : this.weight,
+                          color: theme.getColor(this.color)),
+                      textAlign: this.textAlign,
+                    ),
+                  )
+                : Text(this.content!,
+                    style: TextStyle(
+                        fontStyle: this.italic == true
+                            ? FontStyle.italic
+                            : FontStyle.normal,
+                        decoration: this.underline
+                            ? TextDecoration.underline
+                            : this.decoration,
+                        decorationStyle: this.decorationStyle,
+                        fontSize: layout.sizeToFontSize(this.size),
+                        fontWeight: this.bold ? FontWeight.bold : this.weight,
+                        color: theme.getColor(this.color)))),
       );
     }
 
     return SpaceBox(
         bottomSize: this.linePadding,
         child: Container(
-            alignment: Alignment.topLeft,
+            alignment: hasAlignment
+                ? isCenter
+                    ? Alignment.center
+                    : Alignment.topLeft
+                : null,
             child: RichText(
                 textAlign: this.textAlign,
                 text: TextSpan(
