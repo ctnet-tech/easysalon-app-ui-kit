@@ -148,7 +148,7 @@ class _DatePickerState extends State<DatePicker>
                             child: Container(
                               decoration: BoxDecoration(
                                 color: index == selectedIndex
-                                    ? theme.getColor(ThemeColor.bondiBlue)
+                                    ? theme.getColor(ThemeColor.dodgerBlue)
                                     : theme.getColor(ThemeColor.lightest),
                                 borderRadius: layout.sizeToBorderRadius(
                                   LayoutSize.small,
