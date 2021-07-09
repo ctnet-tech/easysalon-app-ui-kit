@@ -18,6 +18,7 @@ var lightTheme = Theme(
   darkOrange: Theme.colorFromHex("#FF8900"),
   radicalRed: Theme.colorFromHex("#FF2D55"),
   lightSlateBlue: Theme.colorFromHex("#884DFF"),
+  hawkesBlue: Theme.colorFromHex("#edf1f7"),
 );
 
 var darkTheme = Theme(
@@ -37,4 +38,5 @@ var darkTheme = Theme(
   darkOrange: Theme.colorFromHex("#FF8900"),
   radicalRed: Theme.colorFromHex("#FF8900"),
   lightSlateBlue: Theme.colorFromHex("#884DFF"),
+  hawkesBlue: Theme.colorFromHex("#edf1f7"),
 );
