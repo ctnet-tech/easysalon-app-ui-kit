@@ -18,7 +18,8 @@ enum ThemeColor {
   spindle,
   darkOrange,
   radicalRed,
-  lightSlateBlue
+  lightSlateBlue,
+  dodgerBlue,
 }
 
 class Theme {
@@ -29,23 +30,25 @@ class Theme {
     return Color(int.parse(buffer.toString(), radix: 16));
   }
 
-  Theme(
-      {required this.lightSlateBlue,
-      required this.radicalRed,
-      required this.pastelGreen,
-      required this.darkest,
-      required this.dark,
-      required this.primary,
-      required this.secondary,
-      required this.danger,
-      required this.weak,
-      required this.warning,
-      required this.light,
-        required this.gainsboro,
-      required this.spindle,
-      required this.lightest,
-      required this.bondiBlue,
-      required this.darkOrange});
+  Theme({
+    required this.lightSlateBlue,
+    required this.radicalRed,
+    required this.pastelGreen,
+    required this.darkest,
+    required this.dark,
+    required this.primary,
+    required this.secondary,
+    required this.danger,
+    required this.weak,
+    required this.warning,
+    required this.light,
+    required this.gainsboro,
+    required this.spindle,
+    required this.lightest,
+    required this.bondiBlue,
+    required this.dodgerBlue,
+    required this.darkOrange,
+  });
 
   final Color darkest;
   final Color dark;
@@ -63,6 +66,7 @@ class Theme {
   final Color darkOrange;
   final Color radicalRed;
   final Color lightSlateBlue;
+  final Color dodgerBlue;
 
   Color getColor(ThemeColor themeColor) {
     switch (themeColor) {
@@ -94,6 +98,8 @@ class Theme {
         return this.spindle;
       case ThemeColor.radicalRed:
         return this.radicalRed;
+      case ThemeColor.dodgerBlue:
+        return this.dodgerBlue;
       case ThemeColor.darkOrange:
         return this.darkOrange;
       default:

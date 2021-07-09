@@ -48,7 +48,7 @@ class _SelectionTimeBarState extends State<SelectionTimeBar> {
                     bottomLeft: Radius.circular(
                         layout.sizeToBorderRadiusSize(LayoutSize.small))),
                 color: selectedIndex == 1
-                    ? theme.getColor(ThemeColor.bondiBlue)
+                    ? theme.getColor(ThemeColor.dodgerBlue)
                     : theme.getColor(ThemeColor.lightest),
               ),
               child: DropdownButtonHideUnderline(
@@ -124,7 +124,7 @@ class _SelectionTimeBarState extends State<SelectionTimeBar> {
                       bottomRight: Radius.circular(
                           layout.sizeToBorderRadiusSize(LayoutSize.small))),
                   color: selectedIndex == 2
-                      ? theme.getColor(ThemeColor.bondiBlue)
+                      ? theme.getColor(ThemeColor.dodgerBlue)
                       : theme.getColor(ThemeColor.lightest),
                 ),
                 margin: EdgeInsets.only(left: 10),

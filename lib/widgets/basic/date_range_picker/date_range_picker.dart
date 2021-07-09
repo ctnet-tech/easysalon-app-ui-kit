@@ -169,7 +169,7 @@ class _DateRangePickerState extends State<DateRangePicker>
                           child: Paragraph(
                             content: "Lưu",
                             hasAlignment: false,
-                            color: ThemeColor.bondiBlue,
+                            color: ThemeColor.dodgerBlue,
                             size: LayoutSize.medium,
                             linePadding: LayoutSize.none,
                             textAlign: TextAlign.right,
@@ -593,7 +593,7 @@ class _DayInMonthViewState extends State<DayInMonthView> {
                                   .firstMonth == widget.month && context
                                   .read<DateRangePickerBloc>()
                                   .firstYear == widget.year
-                                  ? Colors.white
+                                  ? theme.getColor(ThemeColor.lightest)
                                   : context
                                   .read<DateRangePickerBloc>()
                                   .firstRange ==
@@ -602,7 +602,7 @@ class _DayInMonthViewState extends State<DayInMonthView> {
                                       .read<DateRangePickerBloc>()
                                       .endRange ==
                                       null
-                                  ? Colors.white
+                                  ? theme.getColor(ThemeColor.lightest)
                                   : context
                                   .read<
                                   DateRangePickerBloc>()
@@ -623,7 +623,8 @@ class _DayInMonthViewState extends State<DayInMonthView> {
                                   .firstYear! && widget.year! <= context
                                   .read<DateRangePickerBloc>()
                                   .endYear!
-                                  ? Colors.blue.withOpacity(0.2)
+                                  ? theme.getColor(ThemeColor.dodgerBlue)
+                                  .withOpacity(0.2)
                                   : (widget.month! > context
                                   .read<DateRangePickerBloc>()
                                   .firstMonth! && widget.month! < context
@@ -633,7 +634,8 @@ class _DayInMonthViewState extends State<DayInMonthView> {
                                   .firstYear! && widget.year! < context
                                   .read<DateRangePickerBloc>()
                                   .endYear!)
-                                  ? Colors.blue.withOpacity(0.2)
+                                  ? theme.getColor(ThemeColor.dodgerBlue)
+                                  .withOpacity(0.2)
                                   : ((context
                                   .read<DateRangePickerBloc>()
                                   .endYear == widget.year && context
@@ -668,8 +670,9 @@ class _DayInMonthViewState extends State<DayInMonthView> {
                                       .firstRange! &&
                                   index + 1 - firstDateValue! < context
                                       .read<DateRangePickerBloc>()
-                                      .endRange!)) ? Colors.blue.withOpacity(
-                                  0.2) : Colors.white,
+                                      .endRange!)) ? theme.getColor(
+                                  ThemeColor.dodgerBlue).withOpacity(
+                                  0.2) : theme.getColor(ThemeColor.lightest),
                             )),
                         Container(
                             height: 30,
@@ -692,7 +695,7 @@ class _DayInMonthViewState extends State<DayInMonthView> {
                                       .endMonth == widget.month && context
                                       .read<DateRangePickerBloc>()
                                       .endYear == widget.year)
-                                  ? theme.getColor(ThemeColor.bondiBlue)
+                                  ? theme.getColor(ThemeColor.dodgerBlue)
                                   : context
                                   .read<
                                   DateRangePickerBloc>()
@@ -726,7 +729,7 @@ class _DayInMonthViewState extends State<DayInMonthView> {
                                   .firstYear! && widget.year! <= context
                                   .read<DateRangePickerBloc>()
                                   .endYear!
-                                  ? theme.getColor(ThemeColor.bondiBlue)
+                                  ? theme.getColor(ThemeColor.dodgerBlue)
                                   .withOpacity(0.2)
                                   : (widget.month! > context
                                   .read<DateRangePickerBloc>()
@@ -737,7 +740,8 @@ class _DayInMonthViewState extends State<DayInMonthView> {
                                   .firstYear! && widget.year! < context
                                   .read<DateRangePickerBloc>()
                                   .endYear!)
-                                  ? Colors.blue.withOpacity(0.2)
+                                  ? theme.getColor(ThemeColor.dodgerBlue)
+                                  .withOpacity(0.2)
                                   : ((context
                                   .read<DateRangePickerBloc>()
                                   .endYear == widget.year && context
@@ -772,8 +776,9 @@ class _DayInMonthViewState extends State<DayInMonthView> {
                                       .firstRange! &&
                                   index + 1 - firstDateValue! < context
                                       .read<DateRangePickerBloc>()
-                                      .endRange!)) ? Colors.blue.withOpacity(
-                                  0.2) : Colors.white,
+                                      .endRange!)) ? theme.getColor(
+                                  ThemeColor.dodgerBlue).withOpacity(
+                                  0.2) : theme.getColor(ThemeColor.lightest),
                             ),
                             child: Center(
                               child: Text(
@@ -791,7 +796,7 @@ class _DayInMonthViewState extends State<DayInMonthView> {
                                   .endMonth == widget.month && context
                                   .read<DateRangePickerBloc>()
                                   .endYear == widget.year
-                                  ? Colors.white
+                                  ? theme.getColor(ThemeColor.lightest)
                                   : context
                                   .read<DateRangePickerBloc>()
                                   .firstRange ==
@@ -800,7 +805,7 @@ class _DayInMonthViewState extends State<DayInMonthView> {
                                       .read<DateRangePickerBloc>()
                                       .endRange ==
                                       null
-                                  ? Colors.white
+                                  ? theme.getColor(ThemeColor.lightest)
                                   : context
                                   .read<
                                   DateRangePickerBloc>()
@@ -821,7 +826,8 @@ class _DayInMonthViewState extends State<DayInMonthView> {
                                   .firstYear! && widget.year! <= context
                                   .read<DateRangePickerBloc>()
                                   .endYear!
-                                  ? Colors.blue.withOpacity(0.2)
+                                  ? theme.getColor(ThemeColor.dodgerBlue)
+                                  .withOpacity(0.2)
                                   : ((context
                                   .read<DateRangePickerBloc>()
                                   .endYear == widget.year && context
@@ -856,8 +862,9 @@ class _DayInMonthViewState extends State<DayInMonthView> {
                                       .firstRange! &&
                                   index + 1 - firstDateValue! < context
                                       .read<DateRangePickerBloc>()
-                                      .endRange!)) ? Colors.blue.withOpacity(
-                                  0.2) : Colors.white,
+                                      .endRange!)) ? theme.getColor(
+                                  ThemeColor.dodgerBlue).withOpacity(
+                                  0.2) : theme.getColor(ThemeColor.lightest),
                             )),
                       ],
                     ),
@@ -896,7 +903,7 @@ class _DayInMonthViewState extends State<DayInMonthView> {
             },
             child: Container(
               padding: EdgeInsets.all(12),
-              color: theme.getColor(ThemeColor.bondiBlue),
+              color: theme.getColor(ThemeColor.dodgerBlue),
               child: Center(
                 child: Paragraph(
                   color: ThemeColor.lightest,
