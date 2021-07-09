@@ -23,21 +23,23 @@ class Button extends StatelessWidget {
         this.contentCustom,
         this.fontSizeText = LayoutSize.large,
         this.customSize = LayoutSize.tiny,
-        this.iconLeft, this.paddingButton = LayoutSize.tiny, this.buttonIconSize = LayoutSize.medium})
+        this.iconLeft,
+        this.paddingButton = LayoutSize.tiny,
+        this.buttonIconSize = LayoutSize.medium, this.customColorBorder})
       : super(key: key);
 
   final ThemeColor color;
   final ThemeColor? textColor;
   final Widget? contentCustom;
   final IconData? iconLeft;
-
+  final ThemeColor? customColorBorder;
   final bool circle;
   final bool outlined;
   final bool solid;
   final bool matteCoating;
   final LayoutSize fontSizeText;
   final double? width;
-  final  LayoutSize paddingButton;
+  final LayoutSize paddingButton;
   final VoidCallback? onPressed;
   final String? content;
   final LayoutSize buttonIconSize;
@@ -55,6 +57,7 @@ class Button extends StatelessWidget {
     var layout = context.read<LayoutNotifier>();
 
     var bgColor = theme.getColor(this.color);
+
     var fgColor =
     this.textColor != null ? theme.getColor(this.textColor!) : null;
 
@@ -62,7 +65,6 @@ class Button extends StatelessWidget {
         ? BorderRadius.all(Radius.circular(1000))
         : layout.sizeToBorderRadius(LayoutSize.small);
     var fontSize = layout.sizeToFontSize(fontSizeText);
-
 
     var hasIcon = this.icon != null;
     var hasCustom = this.contentCustom != null;
@@ -81,9 +83,9 @@ class Button extends StatelessWidget {
           : Text(""),
       vertical
           ? Text(this.content ?? "", style: TextStyle(fontSize: fontSize))
-          : Flexible(
+          : Expanded(
         child: Text(this.content ?? "",
-            style: TextStyle(fontSize: fontSize)),
+          style: TextStyle(fontSize: fontSize),textAlign: TextAlign.center,),
       )
     ];
 
@@ -108,7 +110,9 @@ class Button extends StatelessWidget {
                 Container(
                   child: contentCustom,
                 ),
-                hasIconLeft ? iconLeftWidget : Container()
+                hasIconLeft
+                    ? iconLeftWidget
+                    : Container()
               ]),
           Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -124,10 +128,11 @@ class Button extends StatelessWidget {
         ? MaterialStateProperty.all(CircleBorder())
         : MaterialStateProperty.all<RoundedRectangleBorder>(this.outlined
         ? RoundedRectangleBorder(
-        borderRadius: radius, side: BorderSide(color: bgColor))
+        borderRadius: radius, side: BorderSide(color: this.customColorBorder != null ? theme.getColor(this.customColorBorder!):bgColor))
         : RoundedRectangleBorder(borderRadius: radius));
 
     Widget? button;
+
 
     if (this.matteCoating) {
       button = TextButton(
@@ -136,7 +141,6 @@ class Button extends StatelessWidget {
           style: ButtonStyle(
               backgroundColor:
               MaterialStateProperty.all<Color>(bgColor.withOpacity(0.2)),
-
               foregroundColor: MaterialStateProperty.all(bgColor),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
@@ -147,7 +151,8 @@ class Button extends StatelessWidget {
           onPressed: this.onPressed ?? _onPressed,
           child: buttonContent,
           style: ButtonStyle(
-              padding: MaterialStateProperty.all<EdgeInsetsGeometry>( EdgeInsets.all(layout.sizeToPadding(this.paddingButton))),
+              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                  EdgeInsets.all(layout.sizeToPadding(this.paddingButton))),
               backgroundColor: MaterialStateProperty.all(bgColor),
               foregroundColor: this.textColor != null
                   ? MaterialStateProperty.all(fgColor)
@@ -163,10 +168,17 @@ class Button extends StatelessWidget {
     }
 
     if (this.width != null) {
-      return Container(width: this.width, child: Center(child: button,));
+      return Container(
+          width: this.width,
+          child: Center(
+            child: button,
+          ));
     }
-    if (isIconOnly ){
-      return Container(width: layout.sizeToShapeSize(this.buttonIconSize),height:  layout.sizeToShapeSize(this.buttonIconSize), child: button);
+    if (isIconOnly) {
+      return Container(
+          width: layout.sizeToShapeSize(this.buttonIconSize),
+          height: layout.sizeToShapeSize(this.buttonIconSize),
+          child: button);
     }
 
     return button;
