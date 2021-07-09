@@ -147,27 +147,12 @@ class ReportPanel extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
-                      padding:
-                          EdgeInsets.all(layout.sizeToPadding(LayoutSize.tiny)),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                              color: theme.getColor(ThemeColor.pattensBlue),
-                              blurRadius: 10,
-                              spreadRadius: 2,
-                              offset: Offset(0, 0))
-                        ],
-                        color: theme.getColor(ThemeColor.lightest),
-                      ),
-                      child: CustomIcon(
-                        icon: LineIcons.arrow_up,
-                        size: LayoutSize.small,
-                        color: reportData.isRedBottomText
-                            ? ThemeColor.radicalRed
-                            : ThemeColor.dodgerBlue,
-                      ),
+                    CustomIcon(
+                      icon: LineIcons.arrow_up,
+                      size: LayoutSize.small,
+                      color: reportData.isRedBottomText
+                          ? ThemeColor.radicalRed
+                          : ThemeColor.pastelGreen,
                     ),
                     SizedBox(
                       height: 10,
