@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/divider.dart'
     as dividerCustom;
 
+import 'drop_down_field.dart';
+
 enum StatusType { hasConfirm, checkIn, hasCancel }
 
 class AssignmentOfDutiesTag extends StatefulWidget {
@@ -136,49 +138,26 @@ class _AssignmentOfDutiesTagState extends State<AssignmentOfDutiesTag> {
                       ),
               ],
             ),
+
             Container(
                 margin: EdgeInsets.only(top: 10),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                      width: 1.5,
-                      color: theme.getColor(ThemeColor.pattensBlue)),
-                  borderRadius: layout.sizeToBorderRadius(LayoutSize.medium),
-                ),
                 width: double.infinity,
                 // nhan vien
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                    value: dataFist[0],
-                    icon: Icon(LineIcons.chevron_down),
-                    isExpanded: true,
-                    items: widget.dataDropStaff.entries.map((value) {
-                      return DropdownMenuItem<String>(
-                        value: value.key,
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 15),
-                          child: Text(
-                            "${value.value}",
-                            style: TextStyle(
-                                fontSize: textSize,
-                                color: value.key.isEmpty
-                                    ? theme.getColor(ThemeColor.lightGrey)
-                                    : theme.getColor(ThemeColor.dark)),
-                          ),
-                        ),
-                      );
-                    }).toList() /**/,
+                child: DropDownField(
+                    keyDataFistTime: dataFist[0],
+                    dataDropDown: widget.dataDropStaff,
                     onChanged: (value) {
                       setState(() {
                         users[numberOfCount][0] = value ?? '';
                         widget.onChanged(users);
                       });
-                    },
-                  ),
-                )),
+                    }
+                ),),
             Container(child: LayoutBuilder(
               builder: (context, constraints) {
                 return Row(
                   children: [
+
                     Container(
                         margin: EdgeInsets.only(top: 10),
                         decoration: BoxDecoration(
@@ -186,7 +165,7 @@ class _AssignmentOfDutiesTagState extends State<AssignmentOfDutiesTag> {
                               width: 1.5,
                               color: theme.getColor(ThemeColor.pattensBlue)),
                           borderRadius:
-                              layout.sizeToBorderRadius(LayoutSize.medium),
+                          layout.sizeToBorderRadius(LayoutSize.medium),
                         ),
                         width: constraints.maxWidth * 0.6,
                         // cua hoa hong
@@ -196,7 +175,7 @@ class _AssignmentOfDutiesTagState extends State<AssignmentOfDutiesTag> {
                             icon: Icon(LineIcons.chevron_down),
                             isExpanded: true,
                             items:
-                                widget.dataDropCommission.entries.map((value) {
+                            widget.dataDropCommission.entries.map((value) {
                               return DropdownMenuItem<String>(
                                 value: value.key,
                                 child: Padding(
@@ -207,7 +186,7 @@ class _AssignmentOfDutiesTagState extends State<AssignmentOfDutiesTag> {
                                         fontSize: textSize,
                                         color: value.key.isEmpty
                                             ? theme
-                                                .getColor(ThemeColor.lightGrey)
+                                            .getColor(ThemeColor.lightGrey)
                                             : theme.getColor(ThemeColor.dark)),
                                   ),
                                 ),

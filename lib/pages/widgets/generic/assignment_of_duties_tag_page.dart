@@ -33,7 +33,7 @@ class _AssignmentOfDutiesTagPageState extends State<AssignmentOfDutiesTagPage> {
             dataDropStaff: {
               '': 'Nhập Hoạc Chọn Nhân Viên',
               'nv01': 'TC - Tâm',
-              'nv020': 'TC - Trang',
+              'nv04': 'TC - Trang',
               'nv03': 'TC - Huyền',
               'nv02': 'TC - Thông',
 

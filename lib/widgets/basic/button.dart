@@ -83,9 +83,9 @@ class Button extends StatelessWidget {
           : Text(""),
       vertical
           ? Text(this.content ?? "", style: TextStyle(fontSize: fontSize))
-          : Flexible(
+          : Expanded(
               child: Text(this.content ?? "",
-                  style: TextStyle(fontSize: fontSize)),
+                  style: TextStyle(fontSize: fontSize),textAlign: TextAlign.center,),
             )
     ];
 
@@ -132,6 +132,7 @@ class Button extends StatelessWidget {
             : RoundedRectangleBorder(borderRadius: radius));
 
     Widget? button;
+
 
     if (this.matteCoating) {
       button = TextButton(
