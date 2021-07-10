@@ -116,11 +116,19 @@ class _DropDownFieldState extends State<DropDownField> {
       child: Column(
         children: [
           checkFocus ? Container(
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  border: Border.all(
+                      color: theme.getColor(ThemeColor.pattensBlue)
+                  )
+              ),
               height:  200,
+              width: double.infinity,
 
               child:SingleChildScrollView(
                 child:  Column(
-                    children: dataDropDownField.entries.map((value) {
+                    children: dataDropDownField.length>0 ? dataDropDownField.entries.map((value) {
                       return ListTile(
                         title: Text('${value.value}'),
                         onTap: (){
@@ -133,7 +141,7 @@ class _DropDownFieldState extends State<DropDownField> {
                           });
                         },
                       );
-                    }).toList()
+                    }).toList() : [Center(child: Text("Không có dữ liệu trùng khớp"),)]
                 ),
               )
           ):Container(),
