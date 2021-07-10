@@ -72,6 +72,7 @@ class _DropDownFieldState extends State<DropDownField> {
     }
     var mainTop = Container(
       child: Container(
+
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -111,29 +112,33 @@ class _DropDownFieldState extends State<DropDownField> {
 
 
 
-    return Container(
+    return  Container(
       child: Column(
         children: [
-          mainTop,
           checkFocus ? Container(
+              height:  200,
 
-            child: Column(
-              children: dataDropDownField.entries.map((value) {
-                return ListTile(
-                  title: Text('${value.value}'),
-                  onTap: (){
-                    this.focusNode.unfocus();
-                    setState(() {
-                      this.txtFieldController.text = value.value;
-                      this.keyChange = value.key;
-                      widget.onChanged(value.key);
+              child:SingleChildScrollView(
+                child:  Column(
+                    children: dataDropDownField.entries.map((value) {
+                      return ListTile(
+                        title: Text('${value.value}'),
+                        onTap: (){
+                          this.focusNode.unfocus();
+                          setState(() {
+                            this.txtFieldController.text = value.value;
+                            this.keyChange = value.key;
+                            widget.onChanged(value.key);
 
-                    });
-                  },
-                );
-              }).toList()
-            ),
-          ):Container()
+                          });
+                        },
+                      );
+                    }).toList()
+                ),
+              )
+          ):Container(),
+          mainTop,
+
 
         ],
       ),
