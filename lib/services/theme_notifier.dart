@@ -11,7 +11,11 @@ enum ThemeColor {
   weak,
   warning,
   light,
-  lightest
+  lightest,
+  dodgerBlue,
+  solitude,
+  spindle,
+  hawkesBlue,
 }
 
 class Theme {
@@ -22,16 +26,21 @@ class Theme {
     return Color(int.parse(buffer.toString(), radix: 16));
   }
 
-  Theme(
-      {required this.darkest,
-      required this.dark,
-      required this.primary,
-      required this.secondary,
-      required this.danger,
-      required this.weak,
-      required this.warning,
-      required this.light,
-      required this.lightest});
+  Theme({
+    required this.darkest,
+    required this.dark,
+    required this.primary,
+    required this.secondary,
+    required this.danger,
+    required this.weak,
+    required this.warning,
+    required this.light,
+    required this.lightest,
+    required this.dodgerBlue,
+    required this.solitude,
+    required this.spindle,
+    required this.hawkesBlue,
+  });
 
   final Color darkest;
   final Color dark;
@@ -42,8 +51,12 @@ class Theme {
   final Color warning;
   final Color light;
   final Color lightest;
+  final Color dodgerBlue;
+  final Color solitude;
+  final Color spindle;
+  final Color hawkesBlue;
 
-  getColor(ThemeColor themeColor) {
+  Color getColor(ThemeColor themeColor) {
     switch (themeColor) {
       case ThemeColor.light:
         return this.light;
@@ -61,6 +74,14 @@ class Theme {
         return this.weak;
       case ThemeColor.dark:
         return this.dark;
+      case ThemeColor.dodgerBlue:
+        return this.dodgerBlue;
+      case ThemeColor.hawkesBlue:
+        return this.hawkesBlue;
+      case ThemeColor.solitude:
+        return this.solitude;
+      case ThemeColor.spindle:
+        return this.spindle;
       case ThemeColor.darkest:
       default:
         return this.darkest;
@@ -73,6 +94,7 @@ class ThemeNotifier with ChangeNotifier {
   final Theme lightTheme;
 
   late Theme _themeData;
+
   Theme getTheme() => _themeData;
 
   ThemeNotifier({required this.darkTheme, required this.lightTheme}) {
