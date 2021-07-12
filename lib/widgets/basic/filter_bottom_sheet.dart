@@ -61,20 +61,21 @@ class FilterBottomSheet extends StatelessWidget {
                         ),
                       )),
                   Expanded(
-                      flex: 3,
-                      child: Container(
-                        child: Center(
-                          child: Paragraph(
-                            hasAlignment: false,
-                            isCenter: true,
-                            content: "Lọc",
-                            size: LayoutSize.big,
-                            textAlign: TextAlign.center,
-                            color: ThemeColor.dark,
-                            linePadding: LayoutSize.none,
-                          ),
+                    flex: 3,
+                    child: Container(
+                      child: Center(
+                        child: Paragraph(
+                          hasAlignment: false,
+                          isCenter: true,
+                          content: "Lọc danh sách",
+                          size: LayoutSize.big,
+                          textAlign: TextAlign.center,
+                          color: ThemeColor.dark,
+                          linePadding: LayoutSize.none,
                         ),
-                      )),
+                      ),
+                    ),
+                  ),
                   Expanded(
                     flex: 1,
                     child: Align(
@@ -114,8 +115,7 @@ class FilterBottomSheet extends StatelessWidget {
                           valueCheck: false,
                           onChange: () {},
                         ),
-                        if(index!=listItems.length)
-                          Divider(),
+                        if (index != listItems.length) Divider(),
                       ],
                     ),
                   ),
