@@ -9,6 +9,7 @@ import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/CustomSlidable/BaseWidget/actions.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/CustomSlidable/custom_slidable.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/date_picker.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/basic/deposit_bottom_sheet.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/expandable_button.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/panel.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/profile_admin.dart';
@@ -35,74 +36,96 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
   Widget build(BuildContext context) {
     return StandardPage(header: PageHeader(title: "Widget"), children: [
       Panel(
-        shadow: false,
-        color: ThemeColor.weak,
-        child: SpaceBox(
-          all: true,
-          child: Column(children: [
-            Menu(
-              label: "Basic",
-              children: [
-                MenuItem(label: "Paragraph", to: ParagraphPage.path),
-                MenuItem(label: "Button", to: ButtonPage.path),
-                MenuItem(label: "Icon", to: IconPage.path),
-                MenuItem(label: "ReportPanel", to: ReportPanelPage.path),
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            ExpandableButton(),
-            SizedBox(
-              height: 20,
-            ),
-            ProfileAdmin(),
-            SizedBox(
-              height: 20,
-            ),
-            CustomSlidable(
-                actions: [
-                  SlidableAction(
-                    onPressed: (_) {
-                      print(12);
-                    },
-                    icon: LineIcons.edit_square_feather,
-                    label: "Sửa",
-                    backgroundColor: Colors.blue,
-                    flex: 1,
-                    spacing: 8,
+          shadow: false,
+          color: ThemeColor.weak,
+          child: SpaceBox(
+              all: true,
+              child: Column(
+                children: [
+                  Menu(
+                    label: "Basic",
+                    children: [
+                      MenuItem(label: "Paragraph", to: ParagraphPage.path),
+                      MenuItem(label: "Button", to: ButtonPage.path),
+                      MenuItem(label: "Icon", to: IconPage.path),
+                      MenuItem(label: "ReportPanel", to: ReportPanelPage.path),
+                    ],
                   ),
-                  SlidableAction(
-                    onPressed: (_) {
-                      print(12);
-                    },
-                    icon: LineIcons.trash,
-                    label: "Xóa",
-                    backgroundColor: Colors.green,
-                    flex: 1,
-                    spacing: 8,
+                  SizedBox(
+                    height: 20,
                   ),
+                  ExpandableButton(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  ProfileAdmin(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  CustomSlidable(
+                      actions: [
+                        SlidableAction(
+                          onPressed: (_) {
+                            print(12);
+                          },
+                          icon: LineIcons.edit_square_feather,
+                          label: "Sửa",
+                          backgroundColor: Colors.blue,
+                          flex: 1,
+                          spacing: 8,
+                        ),
+                        SlidableAction(
+                          onPressed: (_) {
+                            print(12);
+                          },
+                          icon: LineIcons.trash,
+                          label: "Xóa",
+                          backgroundColor: Colors.green,
+                          flex: 1,
+                          spacing: 8,
+                        ),
+                      ],
+                      child: Container(
+                          padding: EdgeInsets.all(12),
+                          width: MediaQuery.of(context).size.width,
+                          child: Text("ádsađấhdjsáđâsđâsđâsáđâsd"))),
+                  BlocProvider(
+                    create: (_) => DateRangePickerBloc(),
+                    child: SelectionTimeBar(),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  BlocProvider(
+                    create: (_) => DatePickerBloc(),
+                    child: DatePicker(
+                      onTap: () {},
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Center(
+                    child: InkWell(
+                        onTap: () {
+                          showModalBottomSheet(
+                            isScrollControlled: true,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20)),
+                            ),
+                            context: context,
+                            builder: (_) => DepositBottomSheet(
+                              height:
+                                  MediaQuery.of(context).size.height * 2 / 3,
+                            ),
+                          );
+                        },
+                        child: Text("Show DepositBottomSheet")),
+                  )
                 ],
-                child: Container(
-                    padding: EdgeInsets.all(12),
-                    width: MediaQuery.of(context).size.width,
-                    child: Text("ádsađấhdjsáđâsđâsđâsáđâsd"))),
-            BlocProvider(
-              create: (_) => DateRangePickerBloc(),
-              child: SelectionTimeBar(),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            BlocProvider(
-              create: (_) => DatePickerBloc(),
-              child: DatePicker(
-                onTap: () {},
-              ),
-            ),
-          ]),
-        ),
-      ),
+              )))
     ]);
   }
 }

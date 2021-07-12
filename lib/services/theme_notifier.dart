@@ -18,6 +18,7 @@ enum ThemeColor {
   pattensBlue,
   gainsboro,
   spindle,
+  hawkesBlue,
   darkOrange,
   radicalRed,
   lightSlateBlue,
@@ -48,6 +49,7 @@ class Theme {
     required this.pattensBlue,
     required this.gainsboro,
     required this.spindle,
+    required this.hawkesBlue,
     required this.lightest,
     required this.bondiBlue,
     required this.darkOrange,
@@ -69,12 +71,13 @@ class Theme {
   final Color pattensBlue;
   final Color gainsboro;
   final Color spindle;
+  final Color hawkesBlue;
   final Color darkOrange;
   final Color radicalRed;
   final Color lightSlateBlue;
   final Color dodgerBlue;
 
-   Color getColor(ThemeColor themeColor) {
+  Color getColor(ThemeColor themeColor) {
     switch (themeColor) {
       case ThemeColor.light:
         return this.light;
@@ -106,6 +109,8 @@ class Theme {
         return this.bondiBlue;
       case ThemeColor.spindle:
         return this.spindle;
+      case ThemeColor.hawkesBlue:
+        return this.hawkesBlue;
       case ThemeColor.radicalRed:
         return this.radicalRed;
       case ThemeColor.dodgerBlue:
