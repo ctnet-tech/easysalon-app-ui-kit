@@ -4,7 +4,6 @@ import 'package:easysalon_mobile_ui_kit/pages/routes.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/configs/themes.dart';
-import 'package:easysalon_mobile_ui_kit/widgets/basic/profile_admin.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,9 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        body: WidgetsHomePage(),
-      ),
+      home: WidgetsHomePage(),
       onGenerateRoute: (settings) {
         var page = appRoutes[settings.name];
 

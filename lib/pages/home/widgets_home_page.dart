@@ -2,27 +2,18 @@ import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/button_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/icon_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/paragraph_page.dart';
-import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/report_panel_page.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
-import 'package:easysalon_mobile_ui_kit/widgets/basic/CustomSlidable/BaseWidget/actions.dart';
-import 'package:easysalon_mobile_ui_kit/widgets/basic/CustomSlidable/BaseWidget/slidable.dart';
-import 'package:easysalon_mobile_ui_kit/widgets/basic/CustomSlidable/custom_slidable.dart';
-import 'package:easysalon_mobile_ui_kit/widgets/basic/expandable_button.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/panel.dart';
-import 'package:easysalon_mobile_ui_kit/widgets/basic/profile_admin.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/icons/CustomIcon.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/page_header.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/space.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/standard_page.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/navigation/menu/menu.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/navigation/menu/menu_item.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class WidgetsHomePage extends StatefulWidget {
   WidgetsHomePage() : super(key: Key("HOME"));
-
   @override
   _WidgetsHomePageState createState() => _WidgetsHomePageState();
 }
@@ -85,6 +76,17 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                           padding: EdgeInsets.all(12),
                           width: MediaQuery.of(context).size.width,
                           child: Text("ádsađấhdjsáđâsđâsđâsáđâsd"))),
+                  ),
+                  BlocProvider(
+                    create: (_) => DateRangePickerBloc(),
+                    child: SelectionTimeBar(),
+                  ),
+                  BlocProvider(
+                    create: (_) => DatePickerBloc(),
+                    child: DatePicker(
+                      onTap: () {},
+                    ),
+                  ),
                 ],
               )))
     ]);

@@ -13,14 +13,14 @@ var lightTheme = Theme(
     lightest: Theme.colorFromHex("#FFFFFF"),
     bondiBlue: Theme.colorFromHex("#1A9AFF"),
     pastelGreen: Theme.colorFromHex("#5FDC65"),
-    tangerineYellow: Theme.colorFromHex("#FFCF00"),
-    pattensBlue:Theme.colorFromHex("#EAF1F6"),
+  tangerineYellow: Theme.colorFromHex("#FFCF00"),
+  pattensBlue:Theme.colorFromHex("#EAF1F6"),
+  gainsboro: Theme.colorFromHex("#D8D8D8"),
+  spindle: Theme.colorFromHex("#C5CEE0"),
     darkOrange: Theme.colorFromHex("#FF8900"),
     radicalRed: Theme.colorFromHex("#FF2D55"),
     lightSlateBlue: Theme.colorFromHex("#884DFF"),
-    dodgerBlue: Theme.colorFromHex("#1A9AFF"),
-
-
+  dodgerBlue: Theme.colorFromHex("#1A9AFF"),
 );
 
 var darkTheme = Theme(
@@ -37,6 +37,8 @@ var darkTheme = Theme(
   pastelGreen: Theme.colorFromHex("#5FDC65"),
   tangerineYellow: Theme.colorFromHex("#000"),
   pattensBlue:Theme.colorFromHex("#000"),
+  gainsboro: Theme.colorFromHex("#D8D8D8"),
+  spindle: Theme.colorFromHex("#C5CEE0"),
   darkOrange: Theme.colorFromHex("#FF8900"),
   radicalRed: Theme.colorFromHex("#FF8900"),
   lightSlateBlue: Theme.colorFromHex("#884DFF"),
