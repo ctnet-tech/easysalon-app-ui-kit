@@ -67,7 +67,7 @@ class LayoutNotifier with ChangeNotifier {
   sizeToFontSize(LayoutSize layoutSize) {
     switch (layoutSize) {
       case LayoutSize.none:
-        return 0.0;
+        return 0;
       case LayoutSize.tiny:
         return 10.0;
       case LayoutSize.small:
@@ -85,7 +85,7 @@ class LayoutNotifier with ChangeNotifier {
   sizeToIconSize(LayoutSize layoutSize) {
     switch (layoutSize) {
       case LayoutSize.none:
-        return 0.0;
+        return 0;
       case LayoutSize.tiny:
         return 14.0;
       case LayoutSize.small:
@@ -105,7 +105,7 @@ class LayoutNotifier with ChangeNotifier {
   sizeToBorderRadiusSize(LayoutSize layoutSize) {
     switch (layoutSize) {
       case LayoutSize.none:
-        return 0.0;
+        return 0;
       case LayoutSize.tiny:
         return 6.0;
       case LayoutSize.small:

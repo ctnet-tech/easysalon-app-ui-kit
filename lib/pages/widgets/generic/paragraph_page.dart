@@ -1,9 +1,6 @@
-import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
 import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
-import 'package:easysalon_mobile_ui_kit/widgets/basic/button.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/panel.dart';
-import 'package:easysalon_mobile_ui_kit/widgets/basic/profile_customer_tag.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/page_header.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/standard_page.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/space.dart';
@@ -24,25 +21,48 @@ class ParagraphPage extends StatefulWidget {
 
 class _ParagraphPageState extends State<ParagraphPage> {
   Widget _paragraph() {
-    return Container(
-      child: SpaceBox(
-        bottomSize: LayoutSize.big,
-        child: Column(
-          children: [
-            ProfileCustomerTag(
-              iconButton: LineIcons.store,
-              phoneNumberCustomerContent: "0989100456",
-              dayTimeCreateCustomerContent: "15/09/2020",
-              userCreateCustomerContent: "rubybeauty@gmail.com",
-              imageAvatar: Image.network(
-                  "https://i.pinimg.com/280x280_RS/c6/e4/a9/c6e4a9fc80594486711b42026f5d21f8.jpg"),
-
-              totalDebitContent: "2,000,000",
-              totalPaidContent: "6,000,000",
-              totalSpendingContent: "8,000,000",
-            )
-          ],
-        ),
+    return SpaceBox(
+      bottomSize: LayoutSize.big,
+      child: Column(
+        children: [
+          Paragraph(
+            content: "Simple Paragraph",
+            size: LayoutSize.large,
+            weight: FontWeight.bold,
+            color: ThemeColor.secondary,
+          ),
+          Paragraph(
+            content: "Lorem ipsum dolor sit amet.",
+          ),
+          Paragraph(
+            content: "Consectetur adipiscing elit.",
+            color: ThemeColor.primary,
+            italic: true,
+          ),
+          Paragraph(
+            content: "Nulla id feugiat odio.",
+            color: ThemeColor.warning,
+            bold: true,
+          ),
+          Paragraph(
+            content: "Id posuere odio.",
+            color: ThemeColor.danger,
+            underline: true,
+          ),
+          Paragraph(
+            content:
+                "Maecenas turpis odio, dapibus quis suscipit at, volutpat ut neque.",
+            color: ThemeColor.secondary,
+            decoration: TextDecoration.lineThrough,
+          ),
+          Paragraph(
+            content:
+                "Integer a lacus interdum, posuere turpis in, pulvinar velit.",
+            color: ThemeColor.dark,
+            decoration: TextDecoration.lineThrough,
+            decorationStyle: TextDecorationStyle.dashed,
+          ),
+        ],
       ),
     );
   }
@@ -179,13 +199,20 @@ class _ParagraphPageState extends State<ParagraphPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-
-      body: StandardPage(
-          backgroundColor: ThemeColor.lightest,
-          header:
-              PageHeader(title: "Paragraph", description: "Basic text writing"),
-          children: [SpaceBox(all: true, child: _paragraph())]),
-    );
+    return StandardPage(
+        header:
+            PageHeader(title: "Paragraph", description: "Basic text writing"),
+        children: [
+          SpaceBox(
+              all: true,
+              child: Column(
+                children: [
+                  _paragraph(),
+                  _richParagraph(),
+                  _listParagraph(),
+                  _listParagraphSimple()
+                ],
+              ))
+        ]);
   }
 }

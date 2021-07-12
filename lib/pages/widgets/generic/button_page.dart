@@ -7,7 +7,6 @@ import 'package:easysalon_mobile_ui_kit/widgets/layout/page_header.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/space.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/standard_page.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/typography/paragraph.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class ButtonPage extends StatelessWidget {
@@ -29,43 +28,19 @@ class ButtonPage extends StatelessWidget {
         ButtonGroup(
           expanded: true,
           children: [
+            Button(content: "Click me!", onPressed: this._onPressed),
             Button(
-              color: ThemeColor.darkOrange,
-              content: "Chưa Thanh Toán",
+              content: "Click me!",
               onPressed: this._onPressed,
-              matteCoating: true,
+              outlined: true,
+              circle: true,
             ),
             Button(
-              color: ThemeColor.pastelGreen,
-              content: "Đã Thanh Toán",
+              content: "Click me!",
               onPressed: this._onPressed,
-              matteCoating: true,
-            ),
-          ],
-        ),
-        ButtonGroup(
-          expanded: true,
-          children: [
-            Button(
-
-              iconLeft: LineIcons.chevron_down,
-              iconSize: LayoutSize.medium,
-              color: ThemeColor.lightSlateBlue,
-              contentCustom: Container(
-                child: Text("Check in"),
-              ),
-              onPressed: this._onPressed,
-              matteCoating: true,
-
-
-            ),
-            Button(
-
-              color: ThemeColor.radicalRed,
-              content: "Còn Nợ",
-              onPressed: this._onPressed,
-              matteCoating: true,
-            ),
+              outlined: false,
+              solid: false,
+            )
           ],
         )
       ],
@@ -84,39 +59,28 @@ class ButtonPage extends StatelessWidget {
         ButtonGroup(
           children: [
             Button(
-              buttonIconSize:LayoutSize.big ,
-              color: ThemeColor.darkOrange,
-              icon: LineIcons.money_stack,
+                width: 135,
+                icon: LineIcons.heart,
+                content: "Click me!",
+                onPressed: this._onPressed,
+                circle: true),
+            Button(
+              icon: LineIcons.heart,
               onPressed: this._onPressed,
-
+              circle: true,
             ),
             Button(
-              buttonIconSize:LayoutSize.big ,
-              icon: LineIcons.user,
+              icon: LineIcons.heart,
               onPressed: this._onPressed,
-
+              outlined: true,
+              circle: true,
             ),
             Button(
-              buttonIconSize:LayoutSize.big ,
-              icon: LineIcons.users,
-              color: ThemeColor.lightSlateBlue,
+              icon: LineIcons.heart,
               onPressed: this._onPressed,
-
-            ),
-            Button(
-              buttonIconSize:LayoutSize.medium ,
-              iconSize: LayoutSize.medium,
-              icon: LineIcons.add_item,
-              onPressed: this._onPressed,
-
-            ),
-            Button(
-              buttonIconSize:LayoutSize.big ,
-              color: ThemeColor.pastelGreen,
-              icon: LineIcons.store,
-              onPressed: this._onPressed,
-
-            ),
+              outlined: false,
+              solid: false,
+            )
           ],
         )
       ],
@@ -137,25 +101,20 @@ class ButtonPage extends StatelessWidget {
           vertical: true,
           children: [
             Button(
-
-              customSize:LayoutSize.large ,
-                contentCustom: Container(child: Text("Bước 4/5"),),
-                content: "Tiếp Tục",
+                icon: LineIcons.heart,
+                content: "Click me!",
                 onPressed: this._onPressed),
             Button(
-                icon: LineIcons.plus,
-                content: "Tạo Lịch Hẹn",
+                icon: LineIcons.heart,
+                content: "Click me!",
                 outlined: true,
                 onPressed: this._onPressed),
             Button(
-                icon: LineIcons.close,
-                color: ThemeColor.radicalRed,
-                content: "Hủy Hóa Đơn",
+                icon: LineIcons.heart,
+                content: "Click me!",
                 onPressed: this._onPressed,
-                outlined: true,
-                solid: false,
-
-               )
+                outlined: false,
+                solid: false)
           ],
         )
       ],
@@ -173,22 +132,30 @@ class ButtonPage extends StatelessWidget {
         ),
         ButtonGroup(
           expanded: true,
-
           children: [
             Button(
-                icon: LineIcons.collapse_up,
-                color: ThemeColor.radicalRed,
-                content: "Tạo Phiếu Xuất",
+                icon: LineIcons.heart,
+                iconSize: LayoutSize.big,
+                content: "Click me",
                 onPressed: this._onPressed,
-            ),
+                vertical: true),
             Button(
-              icon: LineIcons.collapse_down,
-              content: "Tạo Phiếu Nhập",
-              onPressed: this._onPressed,
-            )
+                icon: LineIcons.heart,
+                iconSize: LayoutSize.big,
+                content: "Click me",
+                onPressed: this._onPressed,
+                vertical: true,
+                outlined: true),
+            Button(
+                icon: LineIcons.heart,
+                iconSize: LayoutSize.big,
+                content: "Click me",
+                onPressed: this._onPressed,
+                vertical: true,
+                outlined: false,
+                solid: false),
           ],
-        ),
-
+        )
       ],
     );
   }
