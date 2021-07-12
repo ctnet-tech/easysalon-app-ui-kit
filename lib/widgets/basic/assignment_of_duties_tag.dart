@@ -148,7 +148,7 @@ class _AssignmentOfDutiesTagState extends State<AssignmentOfDutiesTag> {
                     dataDropDown: widget.dataDropStaff,
                     onChanged: (value) {
                       setState(() {
-                        users[numberOfCount][0] = value ?? '';
+                        users[numberOfCount][0] = value ;
                         widget.onChanged(users);
                       });
                     }
