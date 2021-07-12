@@ -20,7 +20,8 @@ class AppointmentServiceListTitle extends StatelessWidget {
       required this.numberOfCustomer,
       this.data = const [
         ["name", "id", "30.000"]
-      ],required this.onDelete})
+      ],
+      required this.onDelete})
       : super(key: key);
   final LayoutSize marginTable;
   final LayoutSize borderRadius;
@@ -36,8 +37,7 @@ class AppointmentServiceListTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     var theme = context.read<ThemeNotifier>().getTheme();
     var layout = context.read<LayoutNotifier>();
-    final List fixedListData =
-    Iterable<int>.generate(data.length).toList();
+    final List fixedListData = Iterable<int>.generate(data.length).toList();
 
     var radius = layout.sizeToBorderRadius(this.borderRadius);
     var topTitle = Container(
@@ -49,7 +49,7 @@ class AppointmentServiceListTitle extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Khách ${this.numberOfCustomer}",
+                "Khách #${this.numberOfCustomer}",
                 style:
                     TextStyle(fontSize: layout.sizeToFontSize(this.fontSize)),
               ),
@@ -70,36 +70,42 @@ class AppointmentServiceListTitle extends StatelessWidget {
       ),
     );
     var dataWidget = Container(
+      margin: EdgeInsets.only(left: layout.sizeToPadding(LayoutSize.small),right: layout.sizeToPadding(LayoutSize.small)),
       child: Column(
         children: fixedListData.map((index) {
           var data = this.data[index];
-          return ListTile(
-            title: Text(
-              "${data[0]}",
-              style:
-              TextStyle(fontSize: layout.sizeToFontSize(this.fontSize)),
-            ),
-            subtitle: Text(
-              "${data[2]}",
-              style:
-              TextStyle(fontSize: layout.sizeToFontSize(this.fontSize)),
-            ),
-            trailing: Button(
-              buttonIconSize:LayoutSize.medium ,
-              iconSize: LayoutSize.medium,
-              icon: LineIcons.trash,
-              outlined: false,
-              solid: false,
-              color: ThemeColor.secondary,
-              onPressed: (){
-                this.onDelete(index);
-
-              },
-
-            ),
-
+          return Column(
+            children: [
+              ListTile(
+                title: Text(
+                  "${data[0]}",
+                  style:
+                      TextStyle(fontSize: layout.sizeToFontSize(this.fontSize)),
+                ),
+                subtitle: Text(
+                  "${data[2]}",
+                  style:
+                      TextStyle(fontSize: layout.sizeToFontSize(this.fontSize)),
+                ),
+                trailing: Button(
+                  buttonIconSize: LayoutSize.medium,
+                  iconSize: LayoutSize.medium,
+                  icon: LineIcons.trash,
+                  outlined: false,
+                  solid: false,
+                  color: ThemeColor.secondary,
+                  onPressed: () {
+                    this.onDelete(index);
+                  },
+                ),
+              ),
+              index == (this.data.length -1) ?Container() :  dividerCustom.Divider(
+                  isHorizontal: true,
+                  color: this.colorDivider,
+                  customHeight: double.infinity)
+            ],
           );
-        }).toList() ,
+        }).toList(),
       ),
     );
     return Container(
@@ -110,7 +116,7 @@ class AppointmentServiceListTitle extends StatelessWidget {
           color: theme.getColor(this.colorTable),
         ),
         child: Column(
-          children: [topTitle,dataWidget],
+          children: [topTitle, dataWidget],
         ));
   } // so cot/ so cot
 }
