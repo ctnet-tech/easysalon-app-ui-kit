@@ -30,7 +30,6 @@ class MyApp extends StatelessWidget {
         if (page != null) {
           return DefaultPageTransition(child: page());
         }
-
         return null;
       },
     );

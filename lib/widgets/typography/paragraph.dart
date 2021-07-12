@@ -59,19 +59,21 @@ class Paragraph extends StatelessWidget {
             alignment: hasAlignment ? Alignment.topLeft : null,
             child: isCenter
                 ? Center(
-                    child: Text(this.content!,
-                        style: TextStyle(
-                            fontStyle: this.italic == true
-                                ? FontStyle.italic
-                                : FontStyle.normal,
-                            decoration: this.underline
-                                ? TextDecoration.underline
-                                : this.decoration,
-                            decorationStyle: this.decorationStyle,
-                            fontSize: layout.sizeToFontSize(this.size),
-                            fontWeight:
-                                this.bold ? FontWeight.bold : this.weight,
-                            color: theme.getColor(this.color)),textAlign: this.textAlign,),
+                    child: Text(
+                      this.content!,
+                      style: TextStyle(
+                          fontStyle: this.italic == true
+                              ? FontStyle.italic
+                              : FontStyle.normal,
+                          decoration: this.underline
+                              ? TextDecoration.underline
+                              : this.decoration,
+                          decorationStyle: this.decorationStyle,
+                          fontSize: layout.sizeToFontSize(this.size),
+                          fontWeight: this.bold ? FontWeight.bold : this.weight,
+                          color: theme.getColor(this.color)),
+                      textAlign: this.textAlign,
+                    ),
                   )
                 : Text(this.content!,
                     style: TextStyle(
@@ -91,7 +93,11 @@ class Paragraph extends StatelessWidget {
     return SpaceBox(
         bottomSize: this.linePadding,
         child: Container(
-            alignment: Alignment.topLeft,
+            alignment: hasAlignment
+                ? isCenter
+                    ? Alignment.center
+                    : Alignment.topLeft
+                : null,
             child: RichText(
                 textAlign: this.textAlign,
                 text: TextSpan(

@@ -16,6 +16,7 @@ import 'package:easysalon_mobile_ui_kit/widgets/basic/filter_bottom_sheet.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/panel.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/profile_admin.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/selection_time_bar.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/basic/successful_appointment_dialog.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/icons/CustomIcon.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/page_header.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/space.dart';
@@ -28,7 +29,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WidgetsHomePage extends StatefulWidget {
   WidgetsHomePage() : super(key: Key("HOME"));
-
   @override
   _WidgetsHomePageState createState() => _WidgetsHomePageState();
 }
@@ -160,6 +160,20 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                           );
                         },
                         child: Text("Show FilterBottomSheet")),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Center(
+                    child: InkWell(
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (_) => SuccessfulAppointmentDialog(
+                                onTapNavigator: () {},
+                              ));
+                        },
+                        child: Text("show dialog")),
                   ),
                 ],
               )))
