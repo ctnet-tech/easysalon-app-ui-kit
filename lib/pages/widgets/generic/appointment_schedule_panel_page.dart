@@ -1,4 +1,6 @@
+import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/appointment_schedule_panel.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/basic/appointment_service_list_title.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/drop_down_field.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/menu_top_bar_custom.dart';
 
@@ -19,6 +21,8 @@ class AppointmentSchedulePanelPage extends StatefulWidget {
 
 class _AppointmentSchedulePanelPageState
     extends State<AppointmentSchedulePanelPage> {
+  var data = [["Ngăn chặn dấu hiệu lão hoá","id_nclh","300,000đ"],["Chăm sóc da mặt cơ bản","id_csdmcb","120,000đ"]];
+
   @override
   Widget build(BuildContext context) {
     return StandardPage(
@@ -27,6 +31,13 @@ class _AppointmentSchedulePanelPageState
           titleButtons: ["Chưa Thanh Toán", "Đã thanh toán", "Tất Cả"],
         ),
         children: [
+          data.length >0 ? AppointmentServiceListTitle(
+              numberOfCustomer: 2,
+              onDelete: (idDelete) {print("delete ${idDelete}");setState(() {
+                data.removeAt(idDelete);
+              });},
+              data:   data
+          ):Container(),
           Container(
             decoration: BoxDecoration(
               color: Colors.white,
@@ -37,6 +48,8 @@ class _AppointmentSchedulePanelPageState
             margin: EdgeInsets.all(20),
             padding: EdgeInsets.all(10),
             child: DropDownField(
+              colorBorder: ThemeColor.lightGrey,
+              colorTheme: ThemeColor.lightGrey,
               dataDropDown: {
                 '': 'Vui Lòng Nhập..',
                 'key1': 'Nhân Viên',

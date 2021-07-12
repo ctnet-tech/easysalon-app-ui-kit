@@ -30,7 +30,7 @@ class AssignmentOfDutiesTag extends StatefulWidget {
     this.dataDropCommission = const {
 
     },
-    required this.onChanged,
+    required this.onChanged, this.commissionIsDropDown = true ,
   }) : super(key: key);
   final LayoutSize marginTag;
   final LayoutSize paddingTag;
@@ -43,6 +43,7 @@ class AssignmentOfDutiesTag extends StatefulWidget {
   final Map<String, String> dataDropCommission;
   List<List<String>> dataFist;
   final ValueChanged<List<List<String>>> onChanged;
+  final bool commissionIsDropDown;
 
   @override
   State<StatefulWidget> createState() {
@@ -53,13 +54,15 @@ class AssignmentOfDutiesTag extends StatefulWidget {
 
 class _AssignmentOfDutiesTagState extends State<AssignmentOfDutiesTag> {
   List<List<String>> users = [];
-
+  Map<String, String> commissionList = {};
+  String commissionChoose = '';
   @override
   void initState() {
+    commissionList = { 'd':'d','%':'%'};
+    commissionChoose = commissionList.keys.first;
     users = widget.dataFist.map((e) {
       String commissionNumber = e[2].isEmpty ? '0' : e[2];
-      String commission =
-          e[1].isEmpty ? widget.dataDropCommission.keys.first : e[1];
+      String commission = widget.dataDropCommission == true ? (e[1].isEmpty ? widget.dataDropCommission.keys.first : e[1]):commissionList.values.first;
       return [e[0], commission, commissionNumber];
     }).toList(); //
     print("${users}==================");
@@ -78,7 +81,10 @@ class _AssignmentOfDutiesTagState extends State<AssignmentOfDutiesTag> {
     var marginTag = layout.sizeToPadding(widget.marginTag);
     var radius = layout.sizeToBorderRadius(widget.borderRadius);
     var textSize = layout.sizeToFontSize(widget.fontSizeText);
-
+    var clickColorButton = theme.getColor(ThemeColor.bondiBlue);
+    var textColorClickButton = theme.getColor(ThemeColor.lightest);
+    var textColorUnClickButton = theme.getColor(ThemeColor.secondary);
+    var colorButton = theme.getColor(ThemeColor.lightest);
     var topMainWidget = Container(
       padding: EdgeInsets.only(
           right: paddingTag,
@@ -148,12 +154,12 @@ class _AssignmentOfDutiesTagState extends State<AssignmentOfDutiesTag> {
                     dataDropDown: widget.dataDropStaff,
                     onChanged: (value) {
                       setState(() {
-                        users[numberOfCount][0] = value ?? '';
+                        users[numberOfCount][0] = value ;
                         widget.onChanged(users);
                       });
                     }
                 ),),
-            Container(child: LayoutBuilder(
+            widget.dataDropCommission == true  ? Container(child: LayoutBuilder(
               builder: (context, constraints) {
                 return Row(
                   children: [
@@ -233,7 +239,99 @@ class _AssignmentOfDutiesTagState extends State<AssignmentOfDutiesTag> {
                   ],
                 ); // create function here to adapt to the parent widget's constraints
               },
-            )),
+            )):Container( child: LayoutBuilder(
+              builder: (context, constraints) {
+                return Row(
+                  children: [
+                    Container(
+                        width: constraints.maxWidth * 0.58,
+                        margin: EdgeInsets.only(top: 10, left: 5),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              width: 1.5,
+                              color: theme.getColor(ThemeColor.pattensBlue)),
+                          borderRadius:
+                          layout.sizeToBorderRadius(LayoutSize.medium),
+                        ),
+                        // nhan vien
+                        child: Container(
+                          child: TextFormField(
+                            style: new TextStyle(fontSize: textSize),
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: '',
+                              contentPadding: new EdgeInsets.symmetric(
+                                  vertical: 5.0, horizontal: 10.0),
+                            ),
+                            keyboardType: TextInputType.number,
+                            onChanged: (valueText) {
+                              users[numberOfCount][2] = valueText;
+                              print(
+                                  '${users[numberOfCount]}____change text Number');
+                              widget.onChanged(users);
+                            },
+                            initialValue: users[numberOfCount][2].toString(),
+                          ),
+                        )),
+                    Container(
+
+                        margin: EdgeInsets.only(top: 10,left: 10),
+
+                        width: constraints.maxWidth * 0.4 -15,
+                        // cua hoa hong
+                        child: Container(
+                          child: Row(
+                            children: [
+
+                              Expanded(child: Container(
+                                decoration: BoxDecoration(
+                                  color: users[numberOfCount][1] == 'd' ? clickColorButton : colorButton,
+                                  border: Border.all(
+                                      width: 1.5,
+                                      color: theme.getColor(ThemeColor.pattensBlue)),
+                                  borderRadius:
+                                  BorderRadius.only(topLeft: Radius.circular(layout.sizeToBorderRadiusSize(LayoutSize.medium)),bottomLeft: Radius.circular(layout.sizeToBorderRadiusSize(LayoutSize.medium))),
+                                ),
+                                child: TextButton (
+                                  child: Text("đ",style: TextStyle(color: users[numberOfCount][1] == 'd' ? textColorClickButton :textColorUnClickButton,fontSize: layout.sizeToFontSize(LayoutSize.large)),),
+                                  onPressed: () {
+                                    setState(() {
+                                      users[numberOfCount][1] = 'd';
+                                      widget.onChanged(users);
+                                    });
+                                  },
+                                ),
+
+                              ),),
+                              Expanded(child: Container(
+                                decoration: BoxDecoration(
+                                  color: users[numberOfCount][1] == '%' ? clickColorButton : colorButton,
+                                  border: Border.all(
+                                      width: 1.5,
+                                      color: theme.getColor(ThemeColor.pattensBlue)),
+                                  borderRadius:
+                                  BorderRadius.only(topRight: Radius.circular(layout.sizeToBorderRadiusSize(LayoutSize.medium)),bottomRight: Radius.circular(layout.sizeToBorderRadiusSize(LayoutSize.medium))),
+                                ),
+                                child: TextButton (
+                                  child: Text("%",style: TextStyle(color: users[numberOfCount][1] == '%' ? textColorClickButton :textColorUnClickButton,fontSize: layout.sizeToFontSize(LayoutSize.large))),
+                                  onPressed: () {
+                                    setState(() {
+                                      users[numberOfCount][1] = '%';
+                                      widget.onChanged(users);
+                                    });
+                                  },
+                                ),
+                              ),)
+
+
+                            ],
+                          ),
+                        )),
+                  ],
+                ); // create function here to adapt to the parent widget's constraints
+              },
+            ),
+            ),
           ],
         ),
       );

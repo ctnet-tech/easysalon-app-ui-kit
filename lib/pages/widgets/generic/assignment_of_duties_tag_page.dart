@@ -26,6 +26,7 @@ class _AssignmentOfDutiesTagPageState extends State<AssignmentOfDutiesTagPage> {
             description: "To trigger an operatioan."),
         children: [
           AssignmentOfDutiesTag(
+            commissionIsDropDown: false,
             dataFist: [
               ['', '', ''],
               ['', '', '']
