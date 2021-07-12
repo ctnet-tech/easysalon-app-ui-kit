@@ -48,6 +48,29 @@ class _AssignmentOfDutiesTagPageState extends State<AssignmentOfDutiesTagPage> {
             onChanged: (data) {
               print("${data}___của 1");
             },
+          ),
+          AssignmentOfDutiesTag(
+            dataFist: [
+              ['', '', ''],
+              ['', '', '']
+            ],
+            dataDropStaff: {
+              '': 'Nhập Hoạc Chọn Nhân Viên',
+              'nv01': 'TC - Tâm',
+              'nv04': 'TC - Trang',
+              'nv03': 'TC - Huyền',
+              'nv02': 'TC - Thông',
+
+            },
+            dataDropCommission: {
+              'hh1': 'Hoa Hồng Tùy Chỉnh',
+              'hh2': 'Hoa Hồng Theo Phần Trăm',
+              'hh4': 'Hoa Hồng Tùy Chỉnh',
+              'hh5': 'Hoa Hồng Theo Phần Trăm'
+            },
+            onChanged: (data) {
+              print("${data}___của 1");
+            },
           )
         ]);
   }

@@ -21,16 +21,11 @@ class AssignmentOfDutiesTag extends StatefulWidget {
     this.titleTop = "Title top widget",
     this.fontSizeText = LayoutSize.large,
     this.textTitleStaff = "Nhân Viên",
-    this.dataDropStaff = const {
-
-    },
-    this.dataFist = const [
-
-    ],
-    this.dataDropCommission = const {
-
-    },
-    required this.onChanged, this.commissionIsDropDown = true ,
+    this.dataDropStaff = const {},
+    this.dataFist = const [],
+    this.dataDropCommission = const {},
+    required this.onChanged,
+    this.commissionIsDropDown = true,
   }) : super(key: key);
   final LayoutSize marginTag;
   final LayoutSize paddingTag;
@@ -56,13 +51,16 @@ class _AssignmentOfDutiesTagState extends State<AssignmentOfDutiesTag> {
   List<List<String>> users = [];
   Map<String, String> commissionList = {};
   String commissionChoose = '';
+
   @override
   void initState() {
-    commissionList = { 'd':'d','%':'%'};
+    commissionList = {'d': 'd', '%': '%'};
     commissionChoose = commissionList.keys.first;
     users = widget.dataFist.map((e) {
       String commissionNumber = e[2].isEmpty ? '0' : e[2];
-      String commission = widget.dataDropCommission == true ? (e[1].isEmpty ? widget.dataDropCommission.keys.first : e[1]):commissionList.values.first;
+      String commission = widget.commissionIsDropDown == true
+          ? (e[1].isEmpty ? widget.dataDropCommission.keys.first : e[1])
+          : commissionList.values.first;
       return [e[0], commission, commissionNumber];
     }).toList(); //
     print("${users}==================");
@@ -144,194 +142,241 @@ class _AssignmentOfDutiesTagState extends State<AssignmentOfDutiesTag> {
                       ),
               ],
             ),
-
             Container(
-                margin: EdgeInsets.only(top: 10),
-                width: double.infinity,
-                // nhan vien
-                child: DropDownField(
-                    keyDataFistTime: dataFist[0],
-                    dataDropDown: widget.dataDropStaff,
-                    onChanged: (value) {
-                      setState(() {
-                        users[numberOfCount][0] = value ;
-                        widget.onChanged(users);
-                      });
-                    }
-                ),),
-            widget.dataDropCommission == true  ? Container(child: LayoutBuilder(
-              builder: (context, constraints) {
-                return Row(
-                  children: [
-
-                    Container(
-                        margin: EdgeInsets.only(top: 10),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 1.5,
-                              color: theme.getColor(ThemeColor.pattensBlue)),
-                          borderRadius:
-                          layout.sizeToBorderRadius(LayoutSize.medium),
-                        ),
-                        width: constraints.maxWidth * 0.6,
-                        // cua hoa hong
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                            value: dataFist[1],
-                            icon: Icon(LineIcons.chevron_down),
-                            isExpanded: true,
-                            items:
-                            widget.dataDropCommission.entries.map((value) {
-                              return DropdownMenuItem<String>(
-                                value: value.key,
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 15),
-                                  child: Text(
-                                    "${value.value}",
-                                    style: TextStyle(
-                                        fontSize: textSize,
-                                        color: value.key.isEmpty
-                                            ? theme
-                                            .getColor(ThemeColor.lightGrey)
-                                            : theme.getColor(ThemeColor.dark)),
+              margin: EdgeInsets.only(top: 10),
+              width: double.infinity,
+              // nhan vien
+              child: DropDownField(
+                  keyDataFistTime: dataFist[0],
+                  dataDropDown: widget.dataDropStaff,
+                  onChanged: (value) {
+                    setState(() {
+                      users[numberOfCount][0] = value;
+                      widget.onChanged(users);
+                    });
+                  }),
+            ),
+            widget.commissionIsDropDown == true
+                ? Container(child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      return Row(
+                        children: [
+                          Container(
+                              margin: EdgeInsets.only(top: 10),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 1.5,
+                                    color:
+                                        theme.getColor(ThemeColor.pattensBlue)),
+                                borderRadius: layout
+                                    .sizeToBorderRadius(LayoutSize.medium),
+                              ),
+                              width: constraints.maxWidth * 0.6,
+                              // cua hoa hong
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton<String>(
+                                  value: dataFist[1],
+                                  icon: Icon(LineIcons.chevron_down),
+                                  isExpanded: true,
+                                  items: widget.dataDropCommission.entries
+                                      .map((value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value.key,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          "${value.value}",
+                                          style: TextStyle(
+                                              fontSize: textSize,
+                                              color: value.key.isEmpty
+                                                  ? theme.getColor(
+                                                      ThemeColor.lightGrey)
+                                                  : theme.getColor(
+                                                      ThemeColor.dark)),
+                                        ),
+                                      ),
+                                    );
+                                  }).toList() /**/,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      users[numberOfCount][1] = value ?? '';
+                                      widget.onChanged(users);
+                                    });
+                                  },
+                                ),
+                              )),
+                          Container(
+                              width: constraints.maxWidth * 0.4 - 5,
+                              margin: EdgeInsets.only(top: 10, left: 5),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 1.5,
+                                    color:
+                                        theme.getColor(ThemeColor.pattensBlue)),
+                                borderRadius: layout
+                                    .sizeToBorderRadius(LayoutSize.medium),
+                              ),
+                              // nhan vien
+                              child: Container(
+                                child: TextFormField(
+                                  style: new TextStyle(fontSize: textSize),
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: '',
+                                    contentPadding: new EdgeInsets.symmetric(
+                                        vertical: 5.0, horizontal: 10.0),
                                   ),
+                                  keyboardType: TextInputType.number,
+                                  onChanged: (valueText) {
+                                    users[numberOfCount][2] = valueText;
+                                    print(
+                                        '${users[numberOfCount]}____change text Number');
+                                    widget.onChanged(users);
+                                  },
+                                  initialValue:
+                                      users[numberOfCount][2].toString(),
                                 ),
-                              );
-                            }).toList() /**/,
-                            onChanged: (value) {
-                              setState(() {
-                                users[numberOfCount][1] = value ?? '';
-                                widget.onChanged(users);
-                              });
-                            },
-                          ),
-                        )),
-                    Container(
-                        width: constraints.maxWidth * 0.4 - 5,
-                        margin: EdgeInsets.only(top: 10, left: 5),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 1.5,
-                              color: theme.getColor(ThemeColor.pattensBlue)),
-                          borderRadius:
-                              layout.sizeToBorderRadius(LayoutSize.medium),
-                        ),
-                        // nhan vien
-                        child: Container(
-                          child: TextFormField(
-                            style: new TextStyle(fontSize: textSize),
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: '',
-                              contentPadding: new EdgeInsets.symmetric(
-                                  vertical: 5.0, horizontal: 10.0),
-                            ),
-                            keyboardType: TextInputType.number,
-                            onChanged: (valueText) {
-                              users[numberOfCount][2] = valueText;
-                              print(
-                                  '${users[numberOfCount]}____change text Number');
-                              widget.onChanged(users);
-                            },
-                            initialValue: users[numberOfCount][2].toString(),
-                          ),
-                        )),
-                  ],
-                ); // create function here to adapt to the parent widget's constraints
-              },
-            )):Container( child: LayoutBuilder(
-              builder: (context, constraints) {
-                return Row(
-                  children: [
-                    Container(
-                        width: constraints.maxWidth * 0.58,
-                        margin: EdgeInsets.only(top: 10, left: 5),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 1.5,
-                              color: theme.getColor(ThemeColor.pattensBlue)),
-                          borderRadius:
-                          layout.sizeToBorderRadius(LayoutSize.medium),
-                        ),
-                        // nhan vien
-                        child: Container(
-                          child: TextFormField(
-                            style: new TextStyle(fontSize: textSize),
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: '',
-                              contentPadding: new EdgeInsets.symmetric(
-                                  vertical: 5.0, horizontal: 10.0),
-                            ),
-                            keyboardType: TextInputType.number,
-                            onChanged: (valueText) {
-                              users[numberOfCount][2] = valueText;
-                              print(
-                                  '${users[numberOfCount]}____change text Number');
-                              widget.onChanged(users);
-                            },
-                            initialValue: users[numberOfCount][2].toString(),
-                          ),
-                        )),
-                    Container(
-
-                        margin: EdgeInsets.only(top: 10,left: 10),
-
-                        width: constraints.maxWidth * 0.4 -15,
-                        // cua hoa hong
-                        child: Container(
-                          child: Row(
-                            children: [
-
-                              Expanded(child: Container(
+                              )),
+                        ],
+                      ); // create function here to adapt to the parent widget's constraints
+                    },
+                  ))
+                : Container(
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        return Row(
+                          children: [
+                            Container(
+                                width: constraints.maxWidth * 0.58,
+                                margin: EdgeInsets.only(top: 10, left: 5),
                                 decoration: BoxDecoration(
-                                  color: users[numberOfCount][1] == 'd' ? clickColorButton : colorButton,
                                   border: Border.all(
                                       width: 1.5,
-                                      color: theme.getColor(ThemeColor.pattensBlue)),
-                                  borderRadius:
-                                  BorderRadius.only(topLeft: Radius.circular(layout.sizeToBorderRadiusSize(LayoutSize.medium)),bottomLeft: Radius.circular(layout.sizeToBorderRadiusSize(LayoutSize.medium))),
+                                      color: theme
+                                          .getColor(ThemeColor.pattensBlue)),
+                                  borderRadius: layout
+                                      .sizeToBorderRadius(LayoutSize.medium),
                                 ),
-                                child: TextButton (
-                                  child: Text("đ",style: TextStyle(color: users[numberOfCount][1] == 'd' ? textColorClickButton :textColorUnClickButton,fontSize: layout.sizeToFontSize(LayoutSize.large)),),
-                                  onPressed: () {
-                                    setState(() {
-                                      users[numberOfCount][1] = 'd';
+                                // nhan vien
+                                child: Container(
+                                  child: TextFormField(
+                                    style: new TextStyle(fontSize: textSize),
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: '',
+                                      contentPadding: new EdgeInsets.symmetric(
+                                          vertical: 5.0, horizontal: 10.0),
+                                    ),
+                                    keyboardType: TextInputType.number,
+                                    onChanged: (valueText) {
+                                      users[numberOfCount][2] = valueText;
+                                      print(
+                                          '${users[numberOfCount]}____change text Number');
                                       widget.onChanged(users);
-                                    });
-                                  },
-                                ),
-
-                              ),),
-                              Expanded(child: Container(
-                                decoration: BoxDecoration(
-                                  color: users[numberOfCount][1] == '%' ? clickColorButton : colorButton,
-                                  border: Border.all(
-                                      width: 1.5,
-                                      color: theme.getColor(ThemeColor.pattensBlue)),
-                                  borderRadius:
-                                  BorderRadius.only(topRight: Radius.circular(layout.sizeToBorderRadiusSize(LayoutSize.medium)),bottomRight: Radius.circular(layout.sizeToBorderRadiusSize(LayoutSize.medium))),
-                                ),
-                                child: TextButton (
-                                  child: Text("%",style: TextStyle(color: users[numberOfCount][1] == '%' ? textColorClickButton :textColorUnClickButton,fontSize: layout.sizeToFontSize(LayoutSize.large))),
-                                  onPressed: () {
-                                    setState(() {
-                                      users[numberOfCount][1] = '%';
-                                      widget.onChanged(users);
-                                    });
-                                  },
-                                ),
-                              ),)
-
-
-                            ],
-                          ),
-                        )),
-                  ],
-                ); // create function here to adapt to the parent widget's constraints
-              },
-            ),
-            ),
+                                    },
+                                    initialValue:
+                                        users[numberOfCount][2].toString(),
+                                  ),
+                                )),
+                            Container(
+                                margin: EdgeInsets.only(top: 10, left: 10),
+                                width: constraints.maxWidth * 0.4 - 15,
+                                // cua hoa hong
+                                child: Container(
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color:
+                                                users[numberOfCount][1] == 'd'
+                                                    ? clickColorButton
+                                                    : colorButton,
+                                            border: Border.all(
+                                                width: 1.5,
+                                                color: theme.getColor(
+                                                    ThemeColor.pattensBlue)),
+                                            borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(layout
+                                                    .sizeToBorderRadiusSize(
+                                                        LayoutSize.medium)),
+                                                bottomLeft: Radius.circular(
+                                                    layout
+                                                        .sizeToBorderRadiusSize(
+                                                            LayoutSize
+                                                                .medium))),
+                                          ),
+                                          child: TextButton(
+                                            child: Text(
+                                              "đ",
+                                              style: TextStyle(
+                                                  color: users[numberOfCount]
+                                                              [1] ==
+                                                          'd'
+                                                      ? textColorClickButton
+                                                      : textColorUnClickButton,
+                                                  fontSize:
+                                                      layout.sizeToFontSize(
+                                                          LayoutSize.large)),
+                                            ),
+                                            onPressed: () {
+                                              setState(() {
+                                                users[numberOfCount][1] = 'd';
+                                                widget.onChanged(users);
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color:
+                                                users[numberOfCount][1] == '%'
+                                                    ? clickColorButton
+                                                    : colorButton,
+                                            border: Border.all(
+                                                width: 1.5,
+                                                color: theme.getColor(
+                                                    ThemeColor.pattensBlue)),
+                                            borderRadius: BorderRadius.only(
+                                                topRight: Radius.circular(layout
+                                                    .sizeToBorderRadiusSize(
+                                                        LayoutSize.medium)),
+                                                bottomRight: Radius.circular(
+                                                    layout
+                                                        .sizeToBorderRadiusSize(
+                                                            LayoutSize
+                                                                .medium))),
+                                          ),
+                                          child: TextButton(
+                                            child: Text("%",
+                                                style: TextStyle(
+                                                    color: users[numberOfCount]
+                                                                [1] ==
+                                                            '%'
+                                                        ? textColorClickButton
+                                                        : textColorUnClickButton,
+                                                    fontSize:
+                                                        layout.sizeToFontSize(
+                                                            LayoutSize.large))),
+                                            onPressed: () {
+                                              setState(() {
+                                                users[numberOfCount][1] = '%';
+                                                widget.onChanged(users);
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                )),
+                          ],
+                        ); // create function here to adapt to the parent widget's constraints
+                      },
+                    ),
+                  ),
           ],
         ),
       );
@@ -345,19 +390,23 @@ class _AssignmentOfDutiesTagState extends State<AssignmentOfDutiesTag> {
               children: fixedListData
                   .map((e) => Column(
                         children: [
-                          e == 1 ? Container(
-                            margin: EdgeInsets.only(bottom: 8,top: 15),
-                            child: dividerCustom.Divider(
-                              customHeight: constraints.maxWidth - 10,
-                            ),
-                          ):Container(),
+                          e == 1
+                              ? Container(
+                                  margin: EdgeInsets.only(bottom: 8, top: 15),
+                                  child: dividerCustom.Divider(
+                                    customHeight: constraints.maxWidth - 10,
+                                  ),
+                                )
+                              : Container(),
                           tagStaff(numberOfCount: e),
-                          (e == (fixedListData.length -1) || e == 0)? Container():Container(
-                            margin: EdgeInsets.only(top: 15),
-                            child: dividerCustom.Divider(
-                              customHeight: constraints.maxWidth - 10,
-                            ),
-                          ),
+                          (e == (fixedListData.length - 1) || e == 0)
+                              ? Container()
+                              : Container(
+                                  margin: EdgeInsets.only(top: 15),
+                                  child: dividerCustom.Divider(
+                                    customHeight: constraints.maxWidth - 10,
+                                  ),
+                                ),
                         ],
                       ))
                   .toList(),
