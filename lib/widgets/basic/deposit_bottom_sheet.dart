@@ -34,6 +34,7 @@ class _DepositBottomSheetState extends State<DepositBottomSheet> {
       height: widget.height,
       width: MediaQuery.of(context).size.width,
       child: Scaffold(
+        backgroundColor: Colors.transparent,
         body: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -140,7 +141,11 @@ class _DepositBottomSheetState extends State<DepositBottomSheet> {
                             listController.removeAt(index + 1);
                           },
                           controller: listController[index + 1],
-                          listItems: ["Tiền mặt", "Chuyển khoản", "Điểm"],
+                          listItems: [
+                            "Tiền mặt",
+                            "Chuyển khoản",
+                            "Điểm"
+                          ],
                         ),
                       ],
                     ),
