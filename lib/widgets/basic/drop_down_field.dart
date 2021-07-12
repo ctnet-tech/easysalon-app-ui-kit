@@ -14,11 +14,13 @@ class DropDownField extends StatefulWidget {
     Key? key,
     required this.dataDropDown,
     this.keyDataFistTime = '',
-    required this.onChanged,
+    required this.onChanged, this.colorTheme = ThemeColor.lightest, this.colorBorder = ThemeColor.pattensBlue,
   }) : super(key: key);
   final Map<String, String> dataDropDown;
   final String keyDataFistTime;
   final ValueChanged<String> onChanged;
+  final ThemeColor colorTheme;
+  final ThemeColor colorBorder;
 
   @override
   State<StatefulWidget> createState() {
@@ -72,9 +74,9 @@ class _DropDownFieldState extends State<DropDownField> {
     var mainTop = Container(
       child: Container(
         decoration: BoxDecoration(
-            color: Colors.white,
+            color: theme.getColor(widget.colorTheme),
             borderRadius: BorderRadius.all(Radius.circular(10)),
-            border: Border.all(color: theme.getColor(ThemeColor.pattensBlue))),
+            border: Border.all(color: theme.getColor(widget.colorBorder))),
         child: TextFormField(
           onTap: (){
              txtFieldController.text = '';
@@ -110,10 +112,10 @@ class _DropDownFieldState extends State<DropDownField> {
           checkFocus
               ? Container(
                   decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: theme.getColor(widget.colorTheme),
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                       border: Border.all(
-                          color: theme.getColor(ThemeColor.pattensBlue))),
+                          color: theme.getColor(widget.colorBorder))),
                   height: 200,
                   width: double.infinity,
                   child:Scrollbar(
