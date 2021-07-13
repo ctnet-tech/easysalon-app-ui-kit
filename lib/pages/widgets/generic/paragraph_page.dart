@@ -36,7 +36,6 @@ class _ParagraphPageState extends State<ParagraphPage> {
               userCreateCustomerContent: "rubybeauty@gmail.com",
               imageAvatar: Image.network(
                   "https://i.pinimg.com/280x280_RS/c6/e4/a9/c6e4a9fc80594486711b42026f5d21f8.jpg"),
-
               totalDebitContent: "2,000,000",
               totalPaidContent: "6,000,000",
               totalSpendingContent: "8,000,000",

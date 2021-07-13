@@ -40,7 +40,9 @@ class ProfileCustomerTag extends StatelessWidget {
     this.totalSpendingHintCustom = "Tổng Chi Tiêu",
     this.totalPaidHintCustom = "Đã Thanh Toán",
     this.totalDebitHintCustom = "Còn Nợ",
-    this.fontSizeTextBottomCustom = LayoutSize.medium, this.onPressedButton, this.contentButton = "Tặng Khuyến Mãi",
+    this.fontSizeTextBottomCustom = LayoutSize.medium,
+    this.onPressedButton,
+    this.contentButton = "Tặng Khuyến Mãi",
   }) : super(key: key);
   final ThemeColor color;
   final ThemeColor hintTextColor;
@@ -74,7 +76,6 @@ class ProfileCustomerTag extends StatelessWidget {
   final LayoutSize fontSizeTextBottomCustom;
   final VoidCallback? onPressedButton;
   final String contentButton;
-
 
   @override
   Widget build(BuildContext context) {
@@ -120,16 +121,18 @@ class ProfileCustomerTag extends StatelessWidget {
               //add border radius here
               child: isHasAvatar ? imageAvatar : Icon(LineIcons.user)),
         ),
-        Flexible(child:Container(
-          padding: EdgeInsets.only(left: layout.sizeToPadding(LayoutSize.tiny)),
-          height: sizeAvatar,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [nameTagCustomer, typeOfCustomer, idOfCustomer],
+        Flexible(
+          child: Container(
+            padding:
+                EdgeInsets.only(left: layout.sizeToPadding(LayoutSize.tiny)),
+            height: sizeAvatar,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [nameTagCustomer, typeOfCustomer, idOfCustomer],
+            ),
           ),
-        ) ,)
-
+        )
       ],
     ));
     var helfButtonWidget = Container(
@@ -156,7 +159,7 @@ class ProfileCustomerTag extends StatelessWidget {
         )
       ],
     ));
-    _onPressed(){}
+    _onPressed() {}
     var mainTopWidget = Stack(
       children: [
         Container(
@@ -176,30 +179,25 @@ class ProfileCustomerTag extends StatelessWidget {
             SizedBox(
               width: layout.sizeToShapeSize(LayoutSize.small),
             ),
-
             Flexible(
-
                 child: buttonHasIcon
                     ? Button(
-                  onPressed: this.onPressedButton ?? _onPressed,
-                  outlined: true,
-                  color: ThemeColor.dark,
-                  icon: iconButton,
-                  content: contentButton,
-                  fontSizeText: fontSizeTextButton,
-                  solid: false,
-                )
+                        onPressed: this.onPressedButton ?? _onPressed,
+                        outlined: true,
+                        color: ThemeColor.secondary,
+                        icon: iconButton,
+                        content: contentButton,
+                        fontSizeText: fontSizeTextButton,
+                        solid: false,
+                      )
                     : Button(
-                  onPressed: this.onPressedButton ?? _onPressed,
-                  outlined: true,
-                  color: ThemeColor.dark,
-                  content: contentButton,
-                  fontSizeText: fontSizeTextButton,
-                  solid: false,
-                )
-            ),
-
-
+                        onPressed: this.onPressedButton ?? _onPressed,
+                        outlined: true,
+                        color: ThemeColor.secondary,
+                        content: contentButton,
+                        fontSizeText: fontSizeTextButton,
+                        solid: false,
+                      )),
           ],
         )
       ],
@@ -304,20 +302,20 @@ class ProfileCustomerTag extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             _columnTag(
-                colorTextBottom: textHintColorAll,
-                colorTextTop: textColorAll,
+                colorTextBottom: textColorAll,
+                colorTextTop: textHintColorAll,
                 contentTextBottom: this.totalSpendingContent,
                 contentTextTop: this.totalSpendingHintCustom),
             _dividerWidget,
             _columnTag(
-                colorTextBottom: textHintColorAll,
-                colorTextTop: textColorAll,
+                colorTextBottom: textColorAll,
+                colorTextTop: textHintColorAll,
                 contentTextBottom: this.totalPaidContent,
                 contentTextTop: this.totalPaidHintCustom),
             _dividerWidget,
             _columnTag(
                 colorTextBottom: theme.getColor(ThemeColor.radicalRed),
-                colorTextTop: textColorAll,
+                colorTextTop: textHintColorAll,
                 contentTextBottom: this.totalDebitContent,
                 contentTextTop: this.totalDebitHintCustom),
           ],
