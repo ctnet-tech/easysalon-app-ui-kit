@@ -45,7 +45,29 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                   ),
                   BlocProvider(
                     create: (_) => DateRangePickerBloc(),
-                    child: SelectionTimeBar(),
+                    child: SelectionTimeBar(
+                      dataDropdown: <String, List<DateTime>>{
+                        "Hôm nay": [DateTime.now(), DateTime.now()],
+                        "Hôm qua": [
+                          DateTime.now().subtract(Duration(days: 1)),
+                          DateTime.now().subtract(Duration(days: 1))
+                        ],
+                        "Tháng trước": [
+                          DateTime.now().subtract(Duration(
+                              days: DateTime.now().month == 1
+                                  ? 31
+                                  : dayOfMonth(DateTime.now().year)[
+                                      DateTime.now().month - 2])),
+                          DateTime.now()
+                        ]
+                      },
+                      onChangedByDropdown: (value) {
+                        print(value);
+                      },
+                      onChangedByPicker: (value) {
+                        print(value);
+                      },
+                    ),
                   ),
                 ],
               )))

@@ -16,14 +16,38 @@ import 'package:provider/provider.dart';
 import 'date_range_picker/date_range_picker.dart';
 
 class SelectionTimeBar extends StatefulWidget {
+  const SelectionTimeBar({
+    Key? key,
+    required this.onChangedByPicker,
+    required this.dataDropdown,
+    required this.onChangedByDropdown,
+  }) : super(key: key);
+  final ValueChanged<List<DateTime>> onChangedByPicker;
+  final ValueChanged<List<DateTime>> onChangedByDropdown;
+
+  final Map<String, List<DateTime>> dataDropdown;
+
   @override
   _SelectionTimeBarState createState() => _SelectionTimeBarState();
 }
 
 class _SelectionTimeBarState extends State<SelectionTimeBar> {
-  String? dropdownValue = "Hôm nay";
+  late List<String> listItemDropdown;
+  String? dropdownValue;
   int selectedIndex = 1;
   String? timeValue;
+
+  @override
+  void initState() {
+    listItemDropdown = widget.dataDropdown.entries.map((e) => e.key).toList();
+    dropdownValue = widget.dataDropdown.entries.first.key;
+    context.read<DateRangePickerBloc>().startTime =
+        widget.dataDropdown.entries.first.value[0];
+    context.read<DateRangePickerBloc>().endTime =
+        widget.dataDropdown.entries.first.value[1];
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,16 +94,14 @@ class _SelectionTimeBarState extends State<SelectionTimeBar> {
                     setState(() {
                       selectedIndex = 1;
                       dropdownValue = newValue!;
+                      widget
+                          .onChangedByDropdown(widget.dataDropdown[newValue]!);
                       context.read<DateRangePickerBloc>().add(ChangeTimePeriod(
-                          startTime: DateTime.now(), endTime: DateTime.now()));
+                          startTime: widget.dataDropdown[newValue]![0], endTime: widget.dataDropdown[newValue]![1]));
                     });
                   },
-                  items: <String>[
-                    'Hôm nay',
-                    'Hôm qua',
-                    'Tháng nay',
-                    'Tháng trước',
-                  ].map<DropdownMenuItem<String>>((String value) {
+                  items: listItemDropdown
+                      .map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
                       child: Align(
@@ -104,17 +126,20 @@ class _SelectionTimeBarState extends State<SelectionTimeBar> {
             child: InkWell(
               onTap: () {
                 showModalBottomSheet(
-                    context: context,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(
-                              layout.sizeToBorderRadiusSize(LayoutSize.large))),
+                  context: context,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(
+                            layout.sizeToBorderRadiusSize(LayoutSize.large))),
+                  ),
+                  builder: (_) => BlocProvider.value(
+                    value: context.read<DateRangePickerBloc>(),
+                    child: DateRangePicker(
+                      dateTime: DateTime.now(),
+                      onChanged: widget.onChangedByPicker,
                     ),
-                    builder: (_) => BlocProvider.value(
-                        value: context.read<DateRangePickerBloc>(),
-                        child: DateRangePicker(
-                          dateTime: DateTime.now(),
-                        )));
+                  ),
+                );
               },
               child: Container(
                 decoration: BoxDecoration(
