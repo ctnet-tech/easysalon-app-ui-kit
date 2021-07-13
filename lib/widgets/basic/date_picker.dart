@@ -7,13 +7,14 @@ import 'package:easysalon_mobile_ui_kit/widgets/icons/CustomIcon.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/space.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/typography/paragraph.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DatePicker extends StatefulWidget {
-  final Function onTap;
+  const DatePicker({Key? key, required this.onChanged}) : super(key: key);
 
-  const DatePicker({Key? key, required this.onTap}) : super(key: key);
+  final ValueChanged<DateTime> onChanged;
 
   @override
   _DatePickerState createState() => _DatePickerState();
@@ -96,6 +97,7 @@ class _DatePickerState extends State<DatePicker>
           TabBar(
             controller: _controller,
             isScrollable: true,
+            indicatorColor: theme.getColor(ThemeColor.lightest),
             tabs: List.generate(
               12,
               (index) => Container(
@@ -143,7 +145,13 @@ class _DatePickerState extends State<DatePicker>
                               setState(() {
                                 selectedIndex = index;
                               });
-                              widget.onTap();
+
+                              widget.onChanged(DateFormat("dd/MM/yyyy")
+                                  .parse(formatToDateTime(
+                                selectedIndex + 1,
+                                _controller.index + 1,
+                                context.read<DatePickerBloc>().year!,
+                              )));
                             },
                             child: Container(
                               decoration: BoxDecoration(

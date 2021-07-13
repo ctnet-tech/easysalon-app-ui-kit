@@ -52,7 +52,9 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                   BlocProvider(
                     create: (_) => DatePickerBloc(),
                     child: DatePicker(
-                      onTap: () {},
+                      onChanged: (value){
+                        print(value);
+                    },
                     ),
                   ),
                 ],
