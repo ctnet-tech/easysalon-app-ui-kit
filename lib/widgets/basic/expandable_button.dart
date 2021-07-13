@@ -11,13 +11,31 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ExpandableButton extends StatefulWidget {
+  const ExpandableButton({
+    required this.text,
+    required this.data,
+    required this.onChanged,
+  });
+
+  final String text;
+  final Map<String, List<String>> data;
+  final ValueChanged<List<bool>> onChanged;
+
   @override
   _ExpandableButtonState createState() => _ExpandableButtonState();
 }
 
 class _ExpandableButtonState extends State<ExpandableButton> {
   bool isExpanded = false;
-  List<bool> values = [false, false, false];
+  late List<bool> values;
+  List<List<String>> listItems = [];
+
+  @override
+  void initState() {
+    values = List.filled(widget.data.length, false);
+    listItems = widget.data.entries.map((e) => e.value).toList();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,54 +45,62 @@ class _ExpandableButtonState extends State<ExpandableButton> {
       borderRadiusSize: LayoutSize.small,
       child: Column(
         children: [
-          SpaceBox(
-            all: true,
-            size: LayoutSize.small,
-            child: Column(
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Paragraph(
-                      linePadding: LayoutSize.none,
-                      content: "HERBAL SPA FOOD & NAIL CARE",
-                      size: LayoutSize.medium,
-                      weight: FontWeight.w400,
-                      textAlign: TextAlign.center,
-                    ),
-                    Row(
-                      children: [
-                        if (isExpanded)
-                          Paragraph(
-                            linePadding: LayoutSize.none,
-                            content: values.where((element) => element==true).length>0?values.where((element) => element==true).length.toString():"",
-                            size: LayoutSize.medium,
-                            color: ThemeColor.secondary,
-                            weight: FontWeight.w400,
-                          ),
-                        if (isExpanded)
-                          SizedBox(
-                            width: 5,
-                          ),
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              isExpanded = !isExpanded;
-                            });
-                          },
-                          child: CustomIcon(
+          InkWell(
+            onTap: () {
+              setState(() {
+                isExpanded = !isExpanded;
+              });
+            },
+            child: SpaceBox(
+              all: true,
+              size: LayoutSize.small,
+              child: Column(
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Paragraph(
+                        linePadding: LayoutSize.none,
+                        content: widget.text,
+                        size: LayoutSize.medium,
+                        weight: FontWeight.w400,
+                        textAlign: TextAlign.center,
+                      ),
+                      Row(
+                        children: [
+                          if (isExpanded)
+                            Paragraph(
+                              linePadding: LayoutSize.none,
+                              content: values
+                                          .where((element) => element == true)
+                                          .length >
+                                      0
+                                  ? values
+                                      .where((element) => element == true)
+                                      .length
+                                      .toString()
+                                  : "",
+                              size: LayoutSize.medium,
+                              color: ThemeColor.secondary,
+                              weight: FontWeight.w400,
+                            ),
+                          if (isExpanded)
+                            SizedBox(
+                              width: 5,
+                            ),
+                          CustomIcon(
                             icon: isExpanded
                                 ? LineIcons.chevron_up
                                 : LineIcons.chevron_down,
                             size: LayoutSize.medium,
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
           if (isExpanded)
@@ -87,63 +113,68 @@ class _ExpandableButtonState extends State<ExpandableButton> {
               color: ThemeColor.lightest,
               borderRadiusSize: LayoutSize.small,
               child: Column(
-                children: List.generate(3, (index) {
-                  return Column(
-                    children: [
-                      SpaceBox(
-                        all: true,
-                        size: LayoutSize.small,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: List.generate(
+                    listItems.length,
+                    (index) => Column(
                           children: [
-                            Expanded(
-                              child: Column(
+                            SpaceBox(
+                              all: true,
+                              size: LayoutSize.small,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Paragraph(
-                                    content: "Đánh thức giác quan với thảo dược",
-                                    size: LayoutSize.medium,
-                                    weight: FontWeight.w400,
+                                  Expanded(
+                                    child: Column(
+                                      children: [
+                                        Paragraph(
+                                          content: listItems[index][0],
+                                          size: LayoutSize.medium,
+                                          weight: FontWeight.w400,
+                                        ),
+                                        Paragraph(
+                                          content: listItems[index][1],
+                                          size: LayoutSize.small,
+                                          color: ThemeColor.secondary,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  Paragraph(
-                                    content: "150,000đ",
-                                    size: LayoutSize.small,
-                                    color: ThemeColor.secondary,
-                                  ),
+                                  Container(
+                                      height: 40,
+                                      width: 40,
+                                      alignment: Alignment.topCenter,
+                                      child: Checkbox(
+                                        shape: CircleBorder(),
+                                        value: values[index],
+                                        activeColor: theme
+                                            .getColor(ThemeColor.bondiBlue),
+                                        onChanged: (value) {
+                                          setState(() {
+                                            values[index] = !values[index];
+                                          });
+                                          widget.onChanged(values);
+                                        },
+                                      )),
                                 ],
                               ),
                             ),
-                            Container(
-                                height: 40,
-                                width: 40,
-                                alignment: Alignment.topCenter,
-                                child: Checkbox(
-                                  shape: CircleBorder(),
-                                  value: values[index],
-                                  activeColor: theme.getColor(ThemeColor.bondiBlue),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      values[index] = !values[index];
-                                    });
-                                  },
-                                )),
+                            SpaceBox(
+                              left: true,
+                              right: true,
+                              size: LayoutSize.small,
+                              child: Container(
+                                height: 1,
+                                color: theme
+                                    .getColor(ThemeColor.dark)
+                                    .withOpacity(0.3),
+                              ),
+                            ),
                           ],
-                        ),
-                      ),
-                      SpaceBox(
-                        left: true,
-                        right: true,
-                       size: LayoutSize.small ,
-                        child: Container(
-                          height: 1,
-                          color: theme.getColor(ThemeColor.dark).withOpacity(0.3),
-                        ),
-                      ),
-                    ],
-                  );
-                }),
+                        )).toList(),
               ),
-            )
+            ),
         ],
       ),
     );
