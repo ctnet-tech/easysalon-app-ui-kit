@@ -1,6 +1,7 @@
 import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
 import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/basic/shape.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/icons/CustomIcon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,13 +10,24 @@ class ProfileAdmin extends StatelessWidget {
   final LayoutSize size;
   double? customHeight;
   double? customWidth;
-  final Function? onTapIconAdd;
+  final Function onTapIconAdd;
+  final Function onTapIconEdit;
+  final String avartaUrl;
+  final String nameText;
+  final String emailText;
+  final String roleText;
 
-  ProfileAdmin(
-      {this.size = LayoutSize.medium,
-      this.customHeight,
-      this.customWidth,
-      this.onTapIconAdd});
+  ProfileAdmin({
+    this.size = LayoutSize.medium,
+    this.customHeight,
+    this.customWidth,
+    required this.onTapIconEdit,
+    required this.onTapIconAdd,
+    required this.avartaUrl,
+    required this.nameText,
+    required this.emailText,
+    required this.roleText,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +37,7 @@ class ProfileAdmin extends StatelessWidget {
     var width = customWidth ?? MediaQuery.of(context).size.width;
     return Container(
       decoration: BoxDecoration(
-        color: theme.getColor(ThemeColor.bondiBlue),
+        color: theme.getColor(ThemeColor.dodgerBlue),
       ),
       height: height,
       width: width,
@@ -49,7 +61,7 @@ class ProfileAdmin extends StatelessWidget {
                             child: ClipRRect(
                               borderRadius: layout.sizeToBorderRadius(size),
                               child: Image.network(
-                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS54088iJjHpn-y9FCxGAh5NBEdHugwIXewWQ&usqp=CAU",
+                                avartaUrl,
                                 fit: BoxFit.fill,
                                 height: 70,
                                 width: 70,
@@ -59,15 +71,27 @@ class ProfileAdmin extends StatelessWidget {
                           Positioned(
                             right: 0,
                             bottom: 6,
-                            child: CustomIcon(
-                              icon: Icons.add,
-                              size: LayoutSize.large,
+                            child: InkWell(
+                              onTap: onTapIconAdd(),
+                              child: Shape(
+                                color: ThemeColor.pastelGreen,
+                                circle: true,
+                                customHeight: 30,
+                                customWidth: 30,
+                                child: Center(
+                                  child: CustomIcon(
+                                    icon: Icons.add,
+                                    size: LayoutSize.large,
+                                    color: ThemeColor.lightest,
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ],
                       ),
                       Text(
-                        "Phan Nhật Nam",
+                        nameText,
                         style: TextStyle(
                           color: theme.getColor(ThemeColor.lightest),
                           fontSize: 22,
@@ -78,7 +102,7 @@ class ProfileAdmin extends StatelessWidget {
                         height: 10,
                       ),
                       Text(
-                        "nhatnam1121@example.com",
+                        emailText,
                         style: TextStyle(
                           fontSize: 13,
                           color: theme.getColor(ThemeColor.lightest),
@@ -88,7 +112,7 @@ class ProfileAdmin extends StatelessWidget {
                         height: 10,
                       ),
                       Text(
-                        "Admin",
+                        roleText,
                         style: TextStyle(
                           color: theme.getColor(ThemeColor.lightest),
                           fontSize: 13,
@@ -101,7 +125,7 @@ class ProfileAdmin extends StatelessWidget {
                 Positioned(
                   right: 6,
                   child: InkWell(
-                    onTap: () {},
+                    onTap: onTapIconEdit(),
                     child: CustomIcon(
                       icon: LineIcons.edit_square_feather,
                       size: LayoutSize.large,

@@ -16,7 +16,8 @@ enum ThemeColor {
   pastelGreen,
   darkOrange,
   radicalRed,
-  lightSlateBlue
+  lightSlateBlue,
+  dodgerBlue,
 }
 
 class Theme {
@@ -41,7 +42,8 @@ class Theme {
     required this.light,
     required this.lightest,
     required this.bondiBlue,
-    required this.darkOrange
+    required this.darkOrange,
+    required this.dodgerBlue,
   });
 
   final Color darkest;
@@ -58,6 +60,7 @@ class Theme {
   final Color darkOrange;
   final Color radicalRed;
   final Color lightSlateBlue;
+  final Color dodgerBlue;
 
    Color getColor(ThemeColor themeColor) {
     switch (themeColor) {
@@ -85,6 +88,8 @@ class Theme {
         return this.bondiBlue;
       case ThemeColor.radicalRed:
         return this.radicalRed;
+      case ThemeColor.dodgerBlue:
+        return this.dodgerBlue;
       case ThemeColor.darkOrange:
         return this.darkOrange;
       default:
