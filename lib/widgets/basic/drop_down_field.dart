@@ -84,7 +84,7 @@ class _DropDownFieldState extends State<DropDownField> {
           focusNode: focusNode,
           textAlignVertical: TextAlignVertical.center,
           style: TextStyle(
-              color: theme.getColor(ThemeColor.dark),
+              color: theme.getColor(widget.dataDropDown.keys.first == keyChange ? ThemeColor.secondary :ThemeColor.dark),
               fontSize: layout.sizeToFontSize(LayoutSize.large)),
           decoration: InputDecoration(
             suffixIcon: new Icon(
@@ -129,7 +129,7 @@ class _DropDownFieldState extends State<DropDownField> {
                               title: Text('${value.value}',
                                   style: TextStyle(
                                       color:
-                                      theme.getColor(ThemeColor.dark),
+                                      theme.getColor(value.key == widget.dataDropDown.keys.first?ThemeColor.secondary: ThemeColor.dark),
                                       fontSize: layout.sizeToFontSize(
                                           LayoutSize.large))),
                               onTap: () {
