@@ -26,6 +26,7 @@ class DataTablePage extends StatelessWidget {
             title: "table Custom", description: "To trigger an operation."),
         children: [
           DataTableCustom(
+
             endRowBold: true,
             hasEndRow: true,
             colorsData: [ThemeColor.dodgerBlue, ThemeColor.dark],
@@ -62,7 +63,9 @@ class DataTablePage extends StatelessWidget {
             ],
           ),
           DataTableCustom(
+            paddingTable: LayoutSize.none,
             dataFistRow: ["Giờ", "Lượng Khách", "Doanh Thu"],
+            divideByPercent: [0.2,0.4,0.4],
             data: [
               ["00:00", "12", "12,500,000"],
               ["01:00", "12", "1,500,000"],
@@ -82,6 +85,7 @@ class DataTablePage extends StatelessWidget {
               textColor: ThemeColor.dark,
             ),
             paddingTable: LayoutSize.tiny,
+            divideByPercent: [0.15,0.35,0.2,0.2],
             dataFistRow: ["Loại P", "Ngày   a", "Mã Phiếu", "Người Nhận"],
             data: [
               ["Thu", "06/07/2021", "HD000123", "Minh"],
@@ -97,6 +101,7 @@ class DataTablePage extends StatelessWidget {
             borderRadius: LayoutSize.none,
             marginTable: LayoutSize.none,
             paddingTable: LayoutSize.none,
+            divideByPercent: [0.25,0.2,0.2,0.35],
             dataFistRow: ["Tên Nhân Viên", "Thưởng", "Phạt", "Lựa Chọn"],
             data: [
               [
@@ -281,27 +286,28 @@ class DataTablePage extends StatelessWidget {
             borderRadius: LayoutSize.none,
             marginTable: LayoutSize.none,
             paddingTable: LayoutSize.none,
+            divideByPercent: [0.5,0.15,0.35],
             dataFistRow: ["Tên Sản Phẩm", "Cuối kì", "LỊch Sử Nhập Xuất"],
             data: [
               [
                 "Dầu xã khô dưỡng ẩm SP 1...",
                 "8",
-                Button(content: "Xem",paddingButton: LayoutSize.none,width:size.width*0.3 )
+                Button(content: "Xem",paddingButton: LayoutSize.none)
               ],
               [
                 "Xịt dưỡng giữ màu Loreal 4...",
                 "8",
-                Button(content: "Xem",paddingButton: LayoutSize.none,width:size.width*0.3 ,)
+                Button(content: "Xem",paddingButton: LayoutSize.none,)
               ],
               [
                 "Xịt dưỡng GoldWell 15ml",
                 "5",
-                Button(content: "Xem",paddingButton: LayoutSize.none,width:size.width*0.3 ,)
+                Button(content: "Xem",paddingButton: LayoutSize.none,)
               ],
               [
                 "Dầu xã khô dưỡng ẩm SP 1...",
                 "8",
-                Button(content: "Xem",paddingButton: LayoutSize.none,width:size.width*0.3 ,)
+                Button(content: "Xem",paddingButton: LayoutSize.none,)
               ],
             ],
           ),

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/divider.dart'
-    as dividerCustom;
+as dividerCustom;
 import 'package:tiengviet/tiengviet.dart';
 
 class DropDownField extends StatefulWidget {
@@ -79,12 +79,12 @@ class _DropDownFieldState extends State<DropDownField> {
             border: Border.all(color: theme.getColor(widget.colorBorder))),
         child: TextFormField(
           onTap: (){
-             txtFieldController.text = '';
+            txtFieldController.text = '';
           },
           focusNode: focusNode,
           textAlignVertical: TextAlignVertical.center,
           style: TextStyle(
-              color: theme.getColor(ThemeColor.dark),
+              color: theme.getColor(widget.dataDropDown.keys.first == keyChange ? ThemeColor.secondary :ThemeColor.dark),
               fontSize: layout.sizeToFontSize(LayoutSize.large)),
           decoration: InputDecoration(
             suffixIcon: new Icon(
@@ -93,7 +93,7 @@ class _DropDownFieldState extends State<DropDownField> {
             ),
             border: InputBorder.none,
             contentPadding:
-                new EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+            new EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
           ),
           keyboardType: TextInputType.text,
           onChanged: (valueText) {
@@ -111,50 +111,50 @@ class _DropDownFieldState extends State<DropDownField> {
         children: [
           checkFocus
               ? Container(
-                  decoration: BoxDecoration(
-                      color: theme.getColor(widget.colorTheme),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      border: Border.all(
-                          color: theme.getColor(widget.colorBorder))),
-                  height: 200,
-                  width: double.infinity,
-                  child:Scrollbar(
-                    isAlwaysShown: true,
-                    showTrackOnHover: true,
-                    child:  SingleChildScrollView(
-                      child: Column(
-                          children: dataDropDownField.length > 0
-                              ? dataDropDownField.entries.map((value) {
-                            return ListTile(
-                              title: Text('${value.value}',
-                                  style: TextStyle(
-                                      color:
-                                      theme.getColor(ThemeColor.dark),
-                                      fontSize: layout.sizeToFontSize(
-                                          LayoutSize.large))),
-                              onTap: () {
-                                this.focusNode.unfocus();
-                                setState(() {
-                                  this.txtFieldController.text =
-                                      value.value;
-                                  this.keyChange = value.key;
-                                  widget.onChanged(value.key);
-                                });
-                              },
-                            );
-                          }).toList()
-                              : [
-                            Center(
-                              child: Text(
-                                "Không có dữ liệu trùng khớp",
-                                style: TextStyle(
-                                    color: theme
-                                        .getColor(ThemeColor.radicalRed)),
-                              ),
-                            )
-                          ]),
-                    ),
-                  ))
+              decoration: BoxDecoration(
+                  color: theme.getColor(widget.colorTheme),
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  border: Border.all(
+                      color: theme.getColor(widget.colorBorder))),
+              height: 200,
+              width: double.infinity,
+              child:Scrollbar(
+                isAlwaysShown: true,
+                showTrackOnHover: true,
+                child:  SingleChildScrollView(
+                  child: Column(
+                      children: dataDropDownField.length > 0
+                          ? dataDropDownField.entries.map((value) {
+                        return ListTile(
+                          title: Text('${value.value}',
+                              style: TextStyle(
+                                  color:
+                                  theme.getColor(value.key == widget.dataDropDown.keys.first?ThemeColor.secondary: ThemeColor.dark),
+                                  fontSize: layout.sizeToFontSize(
+                                      LayoutSize.large))),
+                          onTap: () {
+                            this.focusNode.unfocus();
+                            setState(() {
+                              this.txtFieldController.text =
+                                  value.value;
+                              this.keyChange = value.key;
+                              widget.onChanged(value.key);
+                            });
+                          },
+                        );
+                      }).toList()
+                          : [
+                        Center(
+                          child: Text(
+                            "Không có dữ liệu trùng khớp",
+                            style: TextStyle(
+                                color: theme
+                                    .getColor(ThemeColor.radicalRed)),
+                          ),
+                        )
+                      ]),
+                ),
+              ))
               : Container(),
           mainTop,
         ],
