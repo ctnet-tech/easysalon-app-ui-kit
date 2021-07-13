@@ -69,21 +69,80 @@ class ReportPanelPage extends StatelessWidget {
 }
 
 List<ReportData> fakeDataType1 = [
-  new ReportData("Doanh thu", "Hôm nay", "9,900,000", "1,200,000", false),
-  new ReportData("Đã thanh toán", "Hôm nay", "9,900,000", "1,200,000", false),
-  new ReportData("Nợ", "Hôm nay", "9,900,000", "1,200,000", true),
   new ReportData(
-      "Số lượng hóa đơn", "Hôm nay", "9,900,000", "1,200,000", false),
+      firstTopText: "Doanh thu",
+      secondTopText: "Hôm nay",
+      middleText: "9,900,000",
+      bottomText: "1,200,000",
+      isRedBottomText: false),
+  new ReportData(
+      firstTopText: "Đã thanh toán",
+      secondTopText: "Hôm nay",
+      middleText: "9,900,000",
+      bottomText: "1,200,000",
+      isRedBottomText: false),
+  new ReportData(
+      firstTopText: "Nợ",
+      secondTopText: "Hôm nay",
+      middleText: "9,900,000",
+      bottomText: "1,200,000",
+      isRedBottomText: true),
+  new ReportData(
+      firstTopText: "Số lượng hóa đơn",
+      secondTopText: "Hôm nay",
+      middleText: "9,900,000",
+      bottomText: "1,200,000",
+      isRedBottomText: false),
 ];
 List<ReportData> fakeDataType2 = [
-  new ReportData("Tiền mặt", null, "16,000,000", null, false),
-  new ReportData("Chuyển khoản", null, "5,500,000", null, false),
-  new ReportData("Ghi nợ", null, "4,000,000", null, false),
-  new ReportData("Thẻ tài khoản ", null, "12,500,000", null, false),
+  new ReportData(
+      firstTopText: "Tiền mặt",
+      secondTopText: null,
+      middleText: "16,000,000",
+      bottomText: null,
+      isRedBottomText: false),
+  new ReportData(
+      firstTopText: "Chuyển khoản",
+      secondTopText: null,
+      middleText: "5,500,000",
+      bottomText: null,
+      isRedBottomText: false),
+  new ReportData(
+      firstTopText: "Ghi nợ",
+      secondTopText: null,
+      middleText: "4,000,000",
+      bottomText: null,
+      isRedBottomText: false),
+  new ReportData(
+      firstTopText: "Thẻ tài khoản ",
+      secondTopText: null,
+      middleText: "12,500,000",
+      bottomText: null,
+      isRedBottomText: false),
 ];
 List<ReportData> fakeDataType3 = [
-  new ReportData("Nhập kho", null, "500", null, false),
-  new ReportData("Xuất kho", null, "247", null, false),
-  new ReportData("Tồn kho", null, "1,673", null, false),
-  new ReportData("Giá trị tồn kho", null, "12,380,000", null, false),
+  new ReportData(
+      firstTopText: "Nhập kho",
+      secondTopText: null,
+      middleText: "500",
+      bottomText: null,
+      isRedBottomText: false),
+  new ReportData(
+      firstTopText: "Xuất kho",
+      secondTopText: null,
+      middleText: "247",
+      bottomText: null,
+      isRedBottomText: false),
+  new ReportData(
+      firstTopText: "Tồn kho",
+      secondTopText: null,
+      middleText: "1,673",
+      bottomText: null,
+      isRedBottomText: false),
+  new ReportData(
+      firstTopText: "Giá trị tồn kho",
+      secondTopText: null,
+      middleText: "12,380,000",
+      bottomText: null,
+      isRedBottomText: false),
 ];

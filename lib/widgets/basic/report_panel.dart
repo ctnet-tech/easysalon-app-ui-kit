@@ -183,11 +183,11 @@ class ReportData {
   late bool isRedBottomText;
 
   ReportData(
-    String? firstTopText,
+  { String? firstTopText,
     String? secondTopText,
     String? middleText,
     String? bottomText,
-    bool isRedBottomText,
+    required bool isRedBottomText,}
   ) {
     this.firstTopText = firstTopText;
     this.secondTopText = secondTopText;
