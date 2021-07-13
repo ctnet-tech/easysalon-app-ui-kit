@@ -28,7 +28,9 @@ class RemoveServiceGroup extends CustomerServicesEvent {
 
 class ChangeService extends CustomerServicesEvent {
   final int customerIndex;
-  final String value;
+  final int serviceIndex;
+  final String service;
+  final String serviceGroup;
 
-  ChangeService({required this.customerIndex, required this.value});
+  ChangeService({required this.customerIndex, required this.service,required this.serviceGroup, required this.serviceIndex});
 }

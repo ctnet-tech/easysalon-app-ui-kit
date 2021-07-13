@@ -31,6 +31,7 @@ class _CustomerServicesState extends State<CustomerServices> {
   Widget build(BuildContext context) {
     var theme = context.read<ThemeNotifier>().getTheme();
     var layout = context.read<LayoutNotifier>();
+
     return Container(
       decoration: BoxDecoration(
         color: theme.getColor(ThemeColor.lightest),
@@ -200,11 +201,8 @@ class _CustomerServicesState extends State<CustomerServices> {
                         .add(AddServiceGroup(customerIndex: widget.index));
                   },
                   child: Container(
-                    padding: EdgeInsets.only(
-                      left: layout.sizeToPadding(LayoutSize.small),
-                      top: layout.sizeToPadding(LayoutSize.small),
-                      bottom: layout.sizeToPadding(LayoutSize.small),
-                      right: layout.sizeToPadding(LayoutSize.tiny),
+                    padding: EdgeInsets.all(
+                      layout.sizeToPadding(LayoutSize.small),
                     ),
                     decoration: BoxDecoration(
                       borderRadius: layout.sizeToBorderRadius(LayoutSize.small),
@@ -214,7 +212,7 @@ class _CustomerServicesState extends State<CustomerServices> {
                       ),
                     ),
                     child: Paragraph(
-                      content: "+ Sản phẩm / Dịch vụ",
+                      content: "Thêm dịch vụ",
                       color: ThemeColor.dodgerBlue,
                       weight: FontWeight.w400,
                       linePadding: LayoutSize.none,
@@ -225,7 +223,8 @@ class _CustomerServicesState extends State<CustomerServices> {
               ],
             ),
             SpaceBox(
-              all: true,
+              top: true,
+              bottom: true,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -265,7 +264,6 @@ class _CustomerServicesState extends State<CustomerServices> {
                       ),
                       SpaceBox(
                         left: true,
-                        right: true,
                         size: LayoutSize.small,
                         child: Paragraph(
                           content: "Ghi chú",
@@ -280,6 +278,9 @@ class _CustomerServicesState extends State<CustomerServices> {
                           setState(() {
                             switchValue = value;
                           });
+                          if(value==true)
+                            context.read<CustomerServicesBloc>().note= txtNote.text;
+                          else context.read<CustomerServicesBloc>().note=null;
                         },
                       ),
                     ],
@@ -335,12 +336,15 @@ class ServicesSelector extends StatefulWidget {
 class _ServicesSelectorState extends State<ServicesSelector> {
   String? dropdownValueServiceGroup;
   String? dropdownValueSubService;
-
-
   @override
   Widget build(BuildContext context) {
     var theme = context.read<ThemeNotifier>().getTheme();
     var layout = context.read<LayoutNotifier>();
+    if(dropdownValueServiceGroup==null && dropdownValueSubService==null)
+      {
+        dropdownValueServiceGroup=context.read<CustomerServicesBloc>().listServiceGroup[0];
+        dropdownValueSubService=context.read<CustomerServicesBloc>().listSubService[0];
+      }
     return Column(
       children: [
         Row(
@@ -379,7 +383,6 @@ class _ServicesSelectorState extends State<ServicesSelector> {
                       setState(() {
                         dropdownValueServiceGroup = newValue!;
                       });
-                      context.read<CustomerServicesBloc>().add(ChangeService(customerIndex: widget.customerIndex, value: newValue!));
                     },
                     items: context
                         .read<CustomerServicesBloc>()
@@ -462,8 +465,17 @@ class _ServicesSelectorState extends State<ServicesSelector> {
               ),
               onChanged: (String? newValue) {
                 setState(() {
-                  dropdownValueSubService = newValue!;
+                dropdownValueSubService =
+                      newValue!;
                 });
+                context.read<CustomerServicesBloc>().add(
+                      ChangeService(
+                        customerIndex: widget.customerIndex,
+                        service: newValue!,
+                        serviceIndex: widget.serviceGroupIndex,
+                        serviceGroup: dropdownValueServiceGroup!,
+                      ),
+                    );
               },
               items: context
                   .read<CustomerServicesBloc>()

@@ -13,6 +13,7 @@ import 'package:easysalon_mobile_ui_kit/widgets/layout/space.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/standard_page.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/navigation/menu/menu.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/navigation/menu/menu_item.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -58,8 +59,14 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                                       .read<CustomerServicesBloc>()
                                       .listCustomerService
                                       .length,
-                                  (index) => CustomerServices(
-                                    isFirst: index==0?true:false, index: index,
+                                  (index) => Column(
+                                    children: [
+                                      if(index >0)
+                                        SizedBox(height: 10,),
+                                      CustomerServices(
+                                        isFirst: index==0?true:false, index: index,
+                                      ),
+                                    ],
                                   ),
                                 ),
                               );
