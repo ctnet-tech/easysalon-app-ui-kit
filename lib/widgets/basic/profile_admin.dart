@@ -129,6 +129,7 @@ class ProfileAdmin extends StatelessWidget {
                     child: CustomIcon(
                       icon: LineIcons.edit_square_feather,
                       size: LayoutSize.large,
+                      color: ThemeColor.lightest,
                     ),
                   ),
                 ),
