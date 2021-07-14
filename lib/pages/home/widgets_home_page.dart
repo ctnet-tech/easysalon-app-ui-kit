@@ -89,15 +89,17 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                             builder: (_) => FilterBottomSheet(
                               height:
                                   MediaQuery.of(context).size.height * 2 / 3,
-                              onTapSubmit: () {},
-                              listItems: [
-                                "Mới",
-                                "Đã xác nhận",
-                                "Checkin",
-                                "Checkout",
-                                "Không đến",
-                                "Đã hủy"
-                              ],
+                              onTapSubmit: (values) {
+                                  print(values);
+                              },
+                              listItems: {
+                                "Mới" :"value 1",
+                                "Đã xác nhận" : "value2 ",
+                                "Checkin":"value 3",
+                                "Checkout":"value 4",
+                                "Không đến":"value 5",
+                                "Đã hủy":"value 6"
+                              },
                             ),
                           );
                         },

@@ -1,18 +1,14 @@
+
 import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/shape.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/icons/CustomIcon.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/space.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/typography/paragraph.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class FilterBottomSheet extends StatelessWidget {
-  final double height;
-  final List<String> listItems;
-  final VoidCallback onTapSubmit;
-
   const FilterBottomSheet({
     Key? key,
     required this.height,
@@ -20,110 +16,129 @@ class FilterBottomSheet extends StatelessWidget {
     required this.onTapSubmit,
   }) : super(key: key);
 
+  final double height;
+  final Map<String,String> listItems;
+  final ValueChanged<List<String>> onTapSubmit;
+
   @override
   Widget build(BuildContext context) {
+    List<bool> listValues =List.filled(listItems.length, false);
     var theme = context.read<ThemeNotifier>().getTheme();
     var layout = context.read<LayoutNotifier>();
     return Container(
       height: height,
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              margin: EdgeInsets.symmetric(
-                  vertical: layout.sizeToPadding(LayoutSize.small)),
-              height: 3,
-              width: 30,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(1.5),
-                color: theme.getColor(ThemeColor.gainsboro),
-              ),
+      child: Column(
+        children: [
+          Container(
+            margin: EdgeInsets.symmetric(
+                vertical: layout.sizeToPadding(LayoutSize.small)),
+            height: 3,
+            width: 30,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(1.5),
+              color: theme.getColor(ThemeColor.gainsboro),
             ),
-            SpaceBox(
-              all: true,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                      flex: 1,
-                      child: Container(
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Paragraph(
-                            content: "Đóng",
-                            linePadding: LayoutSize.none,
-                            color: ThemeColor.secondary,
-                            size: LayoutSize.medium,
-                            textAlign: TextAlign.left,
-                          ),
-                        ),
-                      )),
-                  Expanded(
-                      flex: 3,
-                      child: Container(
-                        child: Center(
-                          child: Paragraph(
-                            hasAlignment: false,
-                            isCenter: true,
-                            content: "Đặt cọc",
-                            size: LayoutSize.big,
-                            textAlign: TextAlign.center,
-                            color: ThemeColor.dark,
-                            linePadding: LayoutSize.none,
-                          ),
-                        ),
-                      )),
-                  Expanded(
-                    flex: 1,
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                          onTapSubmit();
-                        },
-                        child: Paragraph(
-                          content: "Xác nhận",
-                          hasAlignment: false,
-                          color: ThemeColor.bondiBlue,
-                          size: LayoutSize.medium,
-                          linePadding: LayoutSize.none,
-                          textAlign: TextAlign.right,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Divider(
-              height: 10,
-            ),
-            SpaceBox(
-              all: true,
+          ),
+          Expanded(
+            child: SingleChildScrollView(
               child: Column(
                 children: [
-                  ...List.generate(
-                    listItems.length,
-                    (index) => Column(
+                  SpaceBox(
+                    all: true,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        FilterListTile(
-                          content: listItems[index],
-                          valueCheck: false,
-                          onChange: () {},
+                        Expanded(
+                            flex: 1,
+                            child: Container(
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Paragraph(
+                                  content: "Đóng",
+                                  linePadding: LayoutSize.none,
+                                  color: ThemeColor.secondary,
+                                  size: LayoutSize.medium,
+                                  textAlign: TextAlign.left,
+                                ),
+                              ),
+                            )),
+                        Expanded(
+                            flex: 3,
+                            child: Container(
+                              child: Center(
+                                child: Paragraph(
+                                  hasAlignment: false,
+                                  isCenter: true,
+                                  content: "Đặt cọc",
+                                  size: LayoutSize.large,
+                                  textAlign: TextAlign.center,
+                                  color: ThemeColor.dark,
+                                  linePadding: LayoutSize.none,
+                                ),
+                              ),
+                            )),
+                        Expanded(
+                          flex: 1,
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.pop(context);
+                                List<String> list=[];
+                                for(int i=0;i<listValues.length;i++)
+                                  {
+                                    if(listValues[i]==true)
+                                      list.add(listItems.entries.map((e) => e.key).toList()[i]);
+                                  }
+                                onTapSubmit(list);
+                              },
+                              child: Paragraph(
+                                content: "Xác nhận",
+                                hasAlignment: false,
+                                color: ThemeColor.bondiBlue,
+                                size: LayoutSize.medium,
+                                linePadding: LayoutSize.none,
+                                textAlign: TextAlign.right,
+                              ),
+                            ),
+                          ),
                         ),
-                        if(index!=listItems.length)
-                          Divider(),
+                      ],
+                    ),
+                  ),
+                  Divider(
+                    height: 10,
+                  ),
+                  SpaceBox(
+                    all: true,
+                    child: Column(
+                      children: [
+                        ...List.generate(
+                          listItems.length,
+                          (index) => Column(
+                            children: [
+                              FilterListTile(
+                                content: listItems.entries.map((e) => e.key).toList()[index],
+                                valueCheck: false,
+                                onChange: (value) {
+                                  listValues[index] = value;
+                                },
+                              ),
+                              if(index!=listItems.length)
+                                Divider(),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
                 ],
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }
@@ -132,7 +147,7 @@ class FilterBottomSheet extends StatelessWidget {
 class FilterListTile extends StatefulWidget {
   bool valueCheck;
   final String content;
-  final VoidCallback onChange;
+  final ValueChanged<bool> onChange;
 
   FilterListTile({
     Key? key,
@@ -173,7 +188,7 @@ class _FilterListTileState extends State<FilterListTile> {
                   setState(() {
                     widget.valueCheck = value!;
                   });
-                  widget.onChange();
+                  widget.onChange(value!);
                 },
               )),
         ],
