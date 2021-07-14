@@ -84,9 +84,7 @@ class SuccessfulAppointmentDialog extends StatelessWidget {
                       ],
                     ),
                     GestureDetector(
-                      onTap: () {
-                        onTapNavigator();
-                      },
+                      onTap: onTapNavigator,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

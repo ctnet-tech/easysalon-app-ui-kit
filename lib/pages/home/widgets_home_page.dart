@@ -50,7 +50,9 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                           showDialog(
                               context: context,
                               builder: (_) => SuccessfulAppointmentDialog(
-                                    onTapNavigator: () {},
+                                    onTapNavigator: () {
+                                      print("onTap");
+                                    },
                                   ));
                         },
                         child: Text("show dialog")),
