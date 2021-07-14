@@ -11,6 +11,7 @@ import 'package:easysalon_mobile_ui_kit/widgets/layout/space.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/standard_page.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/navigation/menu/menu.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/navigation/menu/menu_item.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class WidgetsHomePage extends StatefulWidget {
@@ -55,6 +56,7 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                       print("edit");
                     },
                   ),
+                  Container(height: 200,color: Colors.black,)
                 ],
               )))
     ]);

@@ -33,13 +33,15 @@ class ProfileAdmin extends StatelessWidget {
   Widget build(BuildContext context) {
     var theme = context.read<ThemeNotifier>().getTheme();
     var layout = context.read<LayoutNotifier>();
+
     var height = customHeight ?? MediaQuery.of(context).size.height / 3;
     var width = customWidth ?? MediaQuery.of(context).size.width;
+    var minHeight = 235;
     return Container(
       decoration: BoxDecoration(
         color: theme.getColor(ThemeColor.dodgerBlue),
       ),
-      height: height,
+      height: height < minHeight ? minHeight + 50 : height,
       width: width,
       child: Column(
         children: [
@@ -70,7 +72,7 @@ class ProfileAdmin extends StatelessWidget {
                           ),
                           Positioned(
                             right: 0,
-                            bottom: 6,
+                            bottom: layout.sizeToPadding(size) / 2,
                             child: InkWell(
                               onTap: onTapIconAdd,
                               child: Shape(
@@ -123,7 +125,8 @@ class ProfileAdmin extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  right: 6,
+                  right: layout.sizeToPadding(size) / 2,
+                  top: layout.sizeToPadding(size),
                   child: InkWell(
                     onTap: onTapIconEdit,
                     child: CustomIcon(
