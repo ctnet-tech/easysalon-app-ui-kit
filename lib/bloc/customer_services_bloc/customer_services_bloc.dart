@@ -10,7 +10,7 @@ class CustomerServicesBloc
     "SPA - Chăm sóc da mặt cơ bản"
   ];
   List<String> listSubService = ["Dịch vụ thông thường", "Dịch vụ Vip"];
-  List<List<String>> listCustomerService = [[]];
+  List<List<String>> listCustomerService = [];
 
   String? note;
 

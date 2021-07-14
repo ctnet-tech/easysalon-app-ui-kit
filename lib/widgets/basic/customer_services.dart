@@ -8,7 +8,43 @@ import 'package:easysalon_mobile_ui_kit/widgets/layout/space.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/typography/paragraph.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+
+class ListCustomerServices extends StatelessWidget {
+  final int customerCount;
+
+  const ListCustomerServices({required this.customerCount});
+  @override
+  Widget build(BuildContext context) {
+    if(context.read<CustomerServicesBloc>().listCustomerService.length==0)
+      {
+        for(int i=0;i< customerCount; i++)
+        context.read<CustomerServicesBloc>().listCustomerService.add([]);
+      }
+    return BlocBuilder<CustomerServicesBloc, CustomerServicesState>(
+      builder: (context, state) {
+        return  Column(
+          children: List.generate(
+            context
+                .read<CustomerServicesBloc>()
+                .listCustomerService
+                .length,
+                (index) => Column(
+              children: [
+                if(index >0)
+                  SizedBox(height: 10,),
+                CustomerServices(
+                  isFirst: index==0?true:false, index: index,
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
 
 class CustomerServices extends StatefulWidget {
   final bool isFirst;
@@ -26,6 +62,7 @@ class CustomerServices extends StatefulWidget {
 class _CustomerServicesState extends State<CustomerServices> {
   bool switchValue = false;
   TextEditingController txtNote = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {

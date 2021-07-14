@@ -25,8 +25,6 @@ class WidgetsHomePage extends StatefulWidget {
 }
 
 class _WidgetsHomePageState extends State<WidgetsHomePage> {
-
-
   @override
   Widget build(BuildContext context) {
     return StandardPage(header: PageHeader(title: "Widget"), children: [
@@ -48,30 +46,14 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                   SizedBox(
                     height: 20,
                   ),
-                  BlocProvider(
-                    create: (_)=> CustomerServicesBloc(),
-                    child: BlocBuilder<CustomerServicesBloc, CustomerServicesState>(
-                      builder: (context, state) {
-
-                        return  Column(
-                                children: List.generate(
-                                  context
-                                      .read<CustomerServicesBloc>()
-                                      .listCustomerService
-                                      .length,
-                                  (index) => Column(
-                                    children: [
-                                      if(index >0)
-                                        SizedBox(height: 10,),
-                                      CustomerServices(
-                                        isFirst: index==0?true:false, index: index,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                      },
-                    ),
+                  Column(
+                    children: [
+                      ListCustomerServices(customerCount: 2,),
+                      SizedBox(height: 20,),
+                      Center(child: GestureDetector(onTap: (){
+                        print(context.read<CustomerServicesBloc>().listCustomerService);
+                      },child: Text("onTapReturnData")),)
+                    ],
                   ),
                 ],
               )))
