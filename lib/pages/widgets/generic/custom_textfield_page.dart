@@ -13,57 +13,53 @@ class CustomTextFieldPage extends StatelessWidget {
         header: PageHeader(
             title: "TextField", description: "To trigger an operation."),
         children: [
-      SpaceBox(
-        all: true,
-        child: Wrap(
-        runSpacing: 20,
-        spacing: 20,
-        children: [
-          CustomTextField(
-            textEditingController: TextEditingController(),
-            hintText: "Email hoặc số điện thoại",
+          SpaceBox(
+            all: true,
+            child: Wrap(
+              runSpacing: 20,
+              spacing: 20,
+              children: [
+                CustomTextField(
+                  textEditingController: TextEditingController(),
+                  hintText: "Email hoặc số điện thoại",
+                ),
+                CustomTextField(
+                  textEditingController: TextEditingController(),
+                  hasObscureText: true,
+                  hintText: "Mật khẩu",
+                ),
+                CustomTextField(
+                  firstText: "Họ và tên",
+                  textEditingController: TextEditingController(),
+                ),
+                CustomTextField(
+                  firstText: "Điện thoại",
+                  textEditingController: TextEditingController(),
+                  isOnlyNumber: true,
+                ),
+                CustomTextField(
+                  firstText: "Điện thoại",
+                  secondText: "Đổi mật khẩu",
+                  onTapSecondText: () {
+                    print("onTapSecondText");
+                  },
+                  textEditingController: TextEditingController(),
+                  hasObscureText: true,
+                ),
+                CustomTextField(
+                  firstText: "Ngày sinh",
+                  textEditingController: TextEditingController(),
+                  isDatePicker: true,
+                ),
+                CustomTextField(
+                  firstText: "Ghi chú",
+                  textEditingController: TextEditingController(),
+                  hintText: "Nhập ghi chú",
+                  minLine: 6,
+                ),
+              ],
+            ),
           ),
-          CustomTextField(
-            textEditingController: TextEditingController(),
-            hasObscureText: true,
-            hintText: "Mật khẩu",
-          ),
-
-          CustomTextField(
-            firstText: "Họ và tên",
-            textEditingController: TextEditingController(),
-          ),
-
-          CustomTextField(
-            firstText: "Điện thoại",
-            textEditingController: TextEditingController(),
-            isOnlyNumber: true,
-          ),
-
-          CustomTextField(
-            firstText: "Điện thoại",
-            secondText: "Đổi mật khẩu",
-            textEditingController: TextEditingController(),
-            hasObscureText: true,
-          ),
-          CustomTextField(
-            firstText: "Ngày sinh",
-            textEditingController: TextEditingController(),
-            isDatePicker: true,
-
-          ),
-          CustomTextField(
-            firstText: "Ghi chú",
-            textEditingController: TextEditingController(),
-            hintText: "Nhập ghi chú",
-            minLine: 6,
-
-          ),
-
-
-        ],
-    ),
-      ),
         ]);
   }
 }

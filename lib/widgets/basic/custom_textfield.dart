@@ -18,6 +18,7 @@ class CustomTextField extends StatefulWidget {
   bool isDatePicker;
   int? minLine;
   int? maxLine;
+  VoidCallback? onTapSecondText;
 
   CustomTextField({
     Key? key,
@@ -30,6 +31,7 @@ class CustomTextField extends StatefulWidget {
     this.isDatePicker = false,
     this.minLine,
     this.maxLine,
+    this.onTapSecondText,
   }) : super(key: key);
 
   @override
@@ -64,11 +66,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     content: widget.firstText ?? "",
                     weight: FontWeight.w400,
                   ),
-                  Paragraph(
-                    linePadding: LayoutSize.none,
-                    color: ThemeColor.dodgerBlue,
-                    content: widget.secondText ?? "",
-                    weight: FontWeight.w400,
+                  InkWell(
+                    onTap: widget.onTapSecondText,
+                    child: Paragraph(
+                      linePadding: LayoutSize.none,
+                      color: ThemeColor.dodgerBlue,
+                      content: widget.secondText ?? "",
+                      weight: FontWeight.w400,
+                    ),
                   ),
                 ],
               ),
