@@ -37,6 +37,7 @@ class _SelectionTimeBarState extends State<SelectionTimeBar> {
   int selectedIndex = 1;
   String? timeValue;
 
+
   @override
   void initState() {
     listItemDropdown = widget.dataDropdown.entries.map((e) => e.key).toList();
@@ -135,7 +136,7 @@ class _SelectionTimeBarState extends State<SelectionTimeBar> {
                   builder: (_) => BlocProvider.value(
                     value: context.read<DateRangePickerBloc>(),
                     child: DateRangePicker(
-                      dateTime: DateTime.now(),
+                      dateTime: context.read<DateRangePickerBloc>().startTime,
                       onChanged: widget.onChangedByPicker,
                     ),
                   ),
