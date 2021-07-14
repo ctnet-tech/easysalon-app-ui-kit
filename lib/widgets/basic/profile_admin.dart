@@ -10,8 +10,8 @@ class ProfileAdmin extends StatelessWidget {
   final LayoutSize size;
   double? customHeight;
   double? customWidth;
-  final Function onTapIconAdd;
-  final Function onTapIconEdit;
+  final VoidCallback onTapIconAdd;
+  final VoidCallback onTapIconEdit;
   final String avartaUrl;
   final String nameText;
   final String emailText;
@@ -72,7 +72,7 @@ class ProfileAdmin extends StatelessWidget {
                             right: 0,
                             bottom: 6,
                             child: InkWell(
-                              onTap: onTapIconAdd(),
+                              onTap: onTapIconAdd,
                               child: Shape(
                                 color: ThemeColor.pastelGreen,
                                 circle: true,
@@ -125,7 +125,7 @@ class ProfileAdmin extends StatelessWidget {
                 Positioned(
                   right: 6,
                   child: InkWell(
-                    onTap: onTapIconEdit(),
+                    onTap: onTapIconEdit,
                     child: CustomIcon(
                       icon: LineIcons.edit_square_feather,
                       size: LayoutSize.large,
