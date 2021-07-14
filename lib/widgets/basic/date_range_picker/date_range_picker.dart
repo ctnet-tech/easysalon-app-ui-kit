@@ -75,234 +75,231 @@ class _DateRangePickerState extends State<DateRangePicker>
   Widget build(BuildContext context) {
     var theme = context.read<ThemeNotifier>().getTheme();
     var layout = context.read<LayoutNotifier>();
-    return Column(
-      children: [
-        Container(
-          margin: EdgeInsets.all(layout.sizeToPadding(LayoutSize.small)),
-          height: 3,
-          width: 30,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(1.5),
-            color: theme.getColor(ThemeColor.gainsboro),
-          ),
+    print(MediaQuery.of(context).size.width);
+    var minHeight=520;
+    double height = MediaQuery.of(context).size.height*2/3 <minHeight?minHeight+50:MediaQuery.of(context).size.height*2/3;
+    return Container(
+      height: height,
+      width:MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+        color: theme.getColor(ThemeColor.lightest),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(
+              layout.sizeToBorderRadiusSize(LayoutSize.large)),
+          topRight: Radius.circular(
+              layout.sizeToBorderRadiusSize(LayoutSize.large)),
         ),
-        Expanded(
-          child: SingleChildScrollView(
-            child: Container(height: MediaQuery
-                .of(context)
-                .size
-                .height * 3 / 4,
-              width: MediaQuery
-                  .of(context)
-                  .size
-                  .width,
-              decoration: BoxDecoration(
-                color: theme.getColor(ThemeColor.lightest),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(
-                      layout.sizeToBorderRadiusSize(LayoutSize.large)),
-                  topRight: Radius.circular(
-                      layout.sizeToBorderRadiusSize(LayoutSize.large)),
-                ),
-              ),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            margin: EdgeInsets.all(layout.sizeToPadding(LayoutSize.small)),
+            height: 3,
+            width: 30,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(1.5),
+              color: theme.getColor(ThemeColor.gainsboro),
+            ),
+          ),
+          Expanded(
+            child: SingleChildScrollView(
               child: SpaceBox(
                 all: true,
                 size: LayoutSize.small,
-                child: Column(
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(
-                            flex: 1,
-                            child: Container(
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Paragraph(
-                                  content: "Đóng",
-                                  linePadding: LayoutSize.none,
-                                  color: ThemeColor.secondary,
-                                  size: LayoutSize.medium,
-                                  textAlign: TextAlign.left,
+                child: Container(
+                  height: height-3-layout.sizeToPadding(LayoutSize.small)*3,
+                  width:MediaQuery.of(context).size.width,
+                  child: Column(
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                              flex: 1,
+                              child: Container(
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Paragraph(
+                                    content: "Đóng",
+                                    linePadding: LayoutSize.none,
+                                    color: ThemeColor.secondary,
+                                    size: LayoutSize.medium,
+                                    textAlign: TextAlign.left,
+                                  ),
                                 ),
-                              ),
-                            )),
-                        Expanded(
-                            flex: 3,
-                            child: Container(
-                              child: Center(
-                                child: Paragraph(
-                                  hasAlignment: false,
-                                  isCenter: true,
-                                  content: "Khoảng thời gian",
-                                  size: LayoutSize.big,
-                                  textAlign: TextAlign.center,
-                                  color: ThemeColor.dark,
-                                  linePadding: LayoutSize.none,
+                              )),
+                          Expanded(
+                              flex: 3,
+                              child: Container(
+                                child: Center(
+                                  child: Paragraph(
+                                    hasAlignment: false,
+                                    isCenter: true,
+                                    content: "Khoảng thời gian",
+                                    size: LayoutSize.big,
+                                    textAlign: TextAlign.center,
+                                    color: ThemeColor.dark,
+                                    linePadding: LayoutSize.none,
+                                  ),
                                 ),
-                              ),
-                            )),
-                        Expanded(
-                            flex: 1,
-                            child: Align(
-                              alignment: Alignment.centerRight,
-                              child: InkWell(
-                                onTap: () {
-                                  if (context
-                                      .read<DateRangePickerBloc>()
-                                      .endRange != null && context
-                                      .read<DateRangePickerBloc>()
-                                      .firstRange == null) {
-                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                        content: Center(child: Text(
-                                            "Hãy chọn khoảng thời gian trước khi nhấn lưu"))));
-                                  }
-                                  if (context
-                                      .read<DateRangePickerBloc>()
-                                      .endRange == null) {
-                                    context
+                              )),
+                          Expanded(
+                              flex: 1,
+                              child: Align(
+                                alignment: Alignment.centerRight,
+                                child: InkWell(
+                                  onTap: () {
+                                    if (context
                                         .read<DateRangePickerBloc>()
-                                        .endRange = context
+                                        .endRange != null && context
                                         .read<DateRangePickerBloc>()
-                                        .firstRange!;
-                                    context
+                                        .firstRange == null) {
+                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                          content: Center(child: Text(
+                                              "Hãy chọn khoảng thời gian trước khi nhấn lưu"))));
+                                    }
+                                    if (context
                                         .read<DateRangePickerBloc>()
-                                        .endMonth = context
-                                        .read<DateRangePickerBloc>()
-                                        .firstMonth;
-                                    context
-                                        .read<DateRangePickerBloc>()
-                                        .endYear = context
-                                        .read<DateRangePickerBloc>()
-                                        .firstYear;
-                                  }
-                                  context.read<DateRangePickerBloc>().add(
-                                      ChangeTimePeriod(
-                                          startTime: DateFormat("dd/MM/yyyy").parse(
-                                              formatToDateTime(
-                                                  context
-                                                      .read<DateRangePickerBloc>()
-                                                      .firstRange!,
-                                                  context
-                                                      .read<DateRangePickerBloc>()
-                                                      .firstMonth!,
-                                                  context
-                                                      .read<DateRangePickerBloc>()
-                                                      .firstYear!)),
-                                          endTime: DateFormat("dd/MM/yyyy").parse(
-                                              formatToDateTime(
-                                                  context
-                                                      .read<DateRangePickerBloc>()
-                                                      .endRange!,
-                                                  context
-                                                      .read<DateRangePickerBloc>()
-                                                      .endMonth!,
-                                                  context
-                                                      .read<DateRangePickerBloc>()
-                                                      .endYear!))));
-
-                                  widget.onChanged([
-                                    DateFormat("dd/MM/yyyy").parse(
-                                        formatToDateTime(
-                                            context
-                                                .read<DateRangePickerBloc>()
-                                                .firstRange!,
-                                            context
-                                                .read<DateRangePickerBloc>()
-                                                .firstMonth!,
-                                            context
-                                                .read<DateRangePickerBloc>()
-                                                .firstYear!)),
-                                    DateFormat("dd/MM/yyyy").parse(
-                                        formatToDateTime(
-                                            context
-                                                .read<DateRangePickerBloc>()
-                                                .endRange!,
-                                            context
-                                                .read<DateRangePickerBloc>()
-                                                .endMonth!,
-                                            context
-                                                .read<DateRangePickerBloc>()
-                                                .endYear!))
-                                  ]);
-                                  Navigator.pop(context);
-                                },
-                                child: Paragraph(
-                                  content: "Lưu",
-                                  hasAlignment: false,
-                                  color: ThemeColor.dodgerBlue,
-                                  size: LayoutSize.medium,
-                                  linePadding: LayoutSize.none,
-                                  textAlign: TextAlign.right,
-                                ),
-                              ),
-                            ))
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    EditableYear(),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    TabBar(
-                      controller: _controller,
-                      isScrollable: true,
-                      indicatorColor: theme.getColor(ThemeColor.lightest),
-                      tabs: List.generate(
-                        12,
-                            (index) =>
-                            Container(
-                              width: (MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width - 24) / 3,
-                              child: Center(
-                                child: Paragraph(
-                                  content: "Tháng " + (index + 1).toString(),
-                                  size: LayoutSize.big,
-                                  weight: FontWeight.w400,
-                                  color: _controller.index == index
-                                      ? ThemeColor.dark
-                                      : ThemeColor.spindle,
-                                ),
-                              ),
-                            ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-
-                    Expanded(
-                      child: BlocBuilder<DateRangePickerBloc, DateRangePickerState>(
-                        builder: (context, state) =>
-                            TabBarView(
-                              controller: _controller,
-                              children: List.generate(
-                                12,
-                                    (i) =>
-                                    DayInMonthView(
-                                      month: i + 1,
-                                      year: context
+                                        .endRange == null) {
+                                      context
                                           .read<DateRangePickerBloc>()
-                                          .year,
-                                    ),
-                              ),
-                            ),
-                      ),
-                    ),
+                                          .endRange = context
+                                          .read<DateRangePickerBloc>()
+                                          .firstRange!;
+                                      context
+                                          .read<DateRangePickerBloc>()
+                                          .endMonth = context
+                                          .read<DateRangePickerBloc>()
+                                          .firstMonth;
+                                      context
+                                          .read<DateRangePickerBloc>()
+                                          .endYear = context
+                                          .read<DateRangePickerBloc>()
+                                          .firstYear;
+                                    }
+                                    context.read<DateRangePickerBloc>().add(
+                                        ChangeTimePeriod(
+                                            startTime: DateFormat("dd/MM/yyyy").parse(
+                                                formatToDateTime(
+                                                    context
+                                                        .read<DateRangePickerBloc>()
+                                                        .firstRange!,
+                                                    context
+                                                        .read<DateRangePickerBloc>()
+                                                        .firstMonth!,
+                                                    context
+                                                        .read<DateRangePickerBloc>()
+                                                        .firstYear!)),
+                                            endTime: DateFormat("dd/MM/yyyy").parse(
+                                                formatToDateTime(
+                                                    context
+                                                        .read<DateRangePickerBloc>()
+                                                        .endRange!,
+                                                    context
+                                                        .read<DateRangePickerBloc>()
+                                                        .endMonth!,
+                                                    context
+                                                        .read<DateRangePickerBloc>()
+                                                        .endYear!))));
 
-                  ],
+                                    widget.onChanged([
+                                      DateFormat("dd/MM/yyyy").parse(
+                                          formatToDateTime(
+                                              context
+                                                  .read<DateRangePickerBloc>()
+                                                  .firstRange!,
+                                              context
+                                                  .read<DateRangePickerBloc>()
+                                                  .firstMonth!,
+                                              context
+                                                  .read<DateRangePickerBloc>()
+                                                  .firstYear!)),
+                                      DateFormat("dd/MM/yyyy").parse(
+                                          formatToDateTime(
+                                              context
+                                                  .read<DateRangePickerBloc>()
+                                                  .endRange!,
+                                              context
+                                                  .read<DateRangePickerBloc>()
+                                                  .endMonth!,
+                                              context
+                                                  .read<DateRangePickerBloc>()
+                                                  .endYear!))
+                                    ]);
+                                    Navigator.pop(context);
+                                  },
+                                  child: Paragraph(
+                                    content: "Lưu",
+                                    hasAlignment: false,
+                                    color: ThemeColor.dodgerBlue,
+                                    size: LayoutSize.medium,
+                                    linePadding: LayoutSize.none,
+                                    textAlign: TextAlign.right,
+                                  ),
+                                ),
+                              ))
+                        ],
+                      ),
+                      EditableYear(),
+                      TabBar(
+                        controller: _controller,
+                        isScrollable: true,
+                        indicatorColor: theme.getColor(ThemeColor.lightest),
+                        tabs: List.generate(
+                          12,
+                              (index) =>
+                              Container(
+                                width: (MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width - 24) / 3,
+                                child: Center(
+                                  child: Paragraph(
+                                    content: "Tháng " + (index + 1).toString(),
+                                    size: LayoutSize.big,
+                                    weight: FontWeight.w400,
+                                    linePadding: LayoutSize.none,
+                                    color: _controller.index == index
+                                        ? ThemeColor.dark
+                                        : ThemeColor.spindle,
+                                  ),
+                                ),
+                              ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+
+                      Expanded(
+                        child: BlocBuilder<DateRangePickerBloc, DateRangePickerState>(
+                          builder: (context, state) =>
+                              TabBarView(
+                                controller: _controller,
+                                children: List.generate(
+                                  12,
+                                      (i) =>
+                                      DayInMonthView(
+                                        month: i + 1,
+                                        year: context
+                                            .read<DateRangePickerBloc>()
+                                            .year,
+                                      ),
+                                ),
+                              ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -360,14 +357,432 @@ class _DayInMonthViewState extends State<DayInMonthView> {
 
     return Column(
       children: [
-          InkWell(
-            onTap: () {
-              if (context
-                  .read<DateRangePickerBloc>()
-                  .firstRange != null &&
-                  context
-                      .read<DateRangePickerBloc>()
-                      .endRange != null)
+        Row(
+          children: List.generate(
+            7,
+                (index) =>
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    child: Center(
+                      child: Text(mapDate[index]!),
+                    ),
+                  ),
+                ),
+          ),
+        ),
+        Flexible(
+          child: SingleChildScrollView(
+            child: Wrap(
+                direction: Axis.horizontal,
+                children: List.generate(
+                  42,
+                      (index) =>
+                  index < firstDateValue! ||
+                      index + 1 - firstDateValue! >
+                          dayOfMonth(widget.year!)[widget.month! - 1]
+                      ? Container(
+                    padding: EdgeInsets.symmetric(vertical: 5),
+                    width: (MediaQuery
+                        .of(context)
+                        .size
+                        .width - 24) / 7,
+                  )
+                      : InkWell(
+                    onTap: () {
+
+                      if (context
+                          .read<DateRangePickerBloc>()
+                          .firstRange ==
+                          null) {
+                        setState(() {
+                          context
+                              .read<DateRangePickerBloc>()
+                              .firstRange =
+                              index + 1 - firstDateValue!;
+                          context
+                              .read<DateRangePickerBloc>()
+                              .firstMonth =
+                              widget.month;
+                          context
+                              .read<DateRangePickerBloc>()
+                              .firstYear =
+                              widget.year;
+                        });
+                      } else if ((index + 1 - firstDateValue! >
+                          context
+                              .read<DateRangePickerBloc>()
+                              .firstRange! && context
+                          .read<DateRangePickerBloc>()
+                          .firstMonth == widget.month && context
+                          .read<DateRangePickerBloc>()
+                          .firstYear == widget.year) || !(context
+                          .read<DateRangePickerBloc>()
+                          .firstMonth == widget.month && context
+                          .read<DateRangePickerBloc>()
+                          .firstYear == widget.year)) {
+                        setState(() {
+                          context
+                              .read<DateRangePickerBloc>()
+                              .endRange =
+                              index + 1 - firstDateValue!;
+                          context
+                              .read<DateRangePickerBloc>()
+                              .endMonth =
+                              widget.month;
+                          context
+                              .read<DateRangePickerBloc>()
+                              .endYear =
+                              widget.year;
+                        });
+                      } else if (index + 1 - firstDateValue! <
+                          context
+                              .read<DateRangePickerBloc>()
+                              .firstRange!) {
+                        setState(() {
+                          context
+                              .read<DateRangePickerBloc>()
+                              .firstRange =
+                              index + 1 - firstDateValue!;
+                          context
+                              .read<DateRangePickerBloc>()
+                              .firstMonth =
+                              widget.month;
+                          context
+                              .read<DateRangePickerBloc>()
+                              .firstYear =
+                              widget.year;
+                        });
+                      }
+                      print(context
+                          .read<DateRangePickerBloc>()
+                          .year);
+                    },
+                    child: Container(
+                      width: (MediaQuery
+                          .of(context)
+                          .size
+                          .width - 24) / 7,
+                      child: Row(
+                        children: [
+                          Expanded(
+                              child: Container(
+                                height: 30,
+                                color: context
+                                    .read<DateRangePickerBloc>()
+                                    .firstRange ==
+                                    (index + 1 - firstDateValue!) && context
+                                    .read<DateRangePickerBloc>()
+                                    .firstMonth == widget.month && context
+                                    .read<DateRangePickerBloc>()
+                                    .firstYear == widget.year
+                                    ? theme.getColor(ThemeColor.lightest)
+                                    : context
+                                    .read<DateRangePickerBloc>()
+                                    .firstRange ==
+                                    null ||
+                                    context
+                                        .read<DateRangePickerBloc>()
+                                        .endRange ==
+                                        null
+                                    ? theme.getColor(ThemeColor.lightest)
+                                    : context
+                                    .read<
+                                    DateRangePickerBloc>()
+                                    .firstRange! <=
+                                    (index +
+                                        1 -
+                                        firstDateValue!) &&
+                                    (index + 1 - firstDateValue!) <=
+                                        context
+                                            .read<
+                                            DateRangePickerBloc>()
+                                            .endRange! &&
+                                    widget.month! >= context
+                                        .read<DateRangePickerBloc>()
+                                        .firstMonth! && widget.month! <= context
+                                    .read<DateRangePickerBloc>()
+                                    .endMonth! && widget.year! >= context
+                                    .read<DateRangePickerBloc>()
+                                    .firstYear! && widget.year! <= context
+                                    .read<DateRangePickerBloc>()
+                                    .endYear!
+                                    ? theme.getColor(ThemeColor.dodgerBlue)
+                                    .withOpacity(0.2)
+                                    : (widget.month! > context
+                                    .read<DateRangePickerBloc>()
+                                    .firstMonth! && widget.month! < context
+                                    .read<DateRangePickerBloc>()
+                                    .endMonth!) || (widget.year! > context
+                                    .read<DateRangePickerBloc>()
+                                    .firstYear! && widget.year! < context
+                                    .read<DateRangePickerBloc>()
+                                    .endYear!)
+                                    ? theme.getColor(ThemeColor.dodgerBlue)
+                                    .withOpacity(0.2)
+                                    : ((context
+                                    .read<DateRangePickerBloc>()
+                                    .endYear == widget.year && context
+                                    .read<DateRangePickerBloc>()
+                                    .endMonth! > widget.month! &&
+                                    widget.month! > context
+                                        .read<DateRangePickerBloc>()
+                                        .firstMonth!) || (context
+                                    .read<DateRangePickerBloc>()
+                                    .endYear == widget.year && context
+                                    .read<DateRangePickerBloc>()
+                                    .endMonth! == widget.month! &&
+                                    index + 1 - firstDateValue! < context
+                                        .read<DateRangePickerBloc>()
+                                        .endRange! &&
+                                    index + 1 - firstDateValue! > context
+                                        .read<DateRangePickerBloc>()
+                                        .firstRange!)) || ((context
+                                    .read<DateRangePickerBloc>()
+                                    .firstYear == widget.year && context
+                                    .read<DateRangePickerBloc>()
+                                    .firstMonth! < widget.month! &&
+                                    widget.month! < context
+                                        .read<DateRangePickerBloc>()
+                                        .endMonth!) || (context
+                                    .read<DateRangePickerBloc>()
+                                    .firstYear == widget.year && context
+                                    .read<DateRangePickerBloc>()
+                                    .firstMonth! == widget.month! &&
+                                    index + 1 - firstDateValue! > context
+                                        .read<DateRangePickerBloc>()
+                                        .firstRange! &&
+                                    index + 1 - firstDateValue! < context
+                                        .read<DateRangePickerBloc>()
+                                        .endRange!)) ? theme.getColor(
+                                    ThemeColor.dodgerBlue).withOpacity(
+                                    0.2) : theme.getColor(ThemeColor.lightest),
+                              )),
+                          Container(
+                              height: 25,
+                              width: 25,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular((context
+                                    .read<DateRangePickerBloc>()
+                                    .firstRange ==
+                                    (index + 1 - firstDateValue!) && context
+                                    .read<DateRangePickerBloc>()
+                                    .firstMonth == widget.month && context
+                                    .read<DateRangePickerBloc>()
+                                    .firstYear == widget.year ||
+                                    context
+                                        .read<DateRangePickerBloc>()
+                                        .endRange ==
+                                        (index + 1 - firstDateValue!) && context
+                                        .read<DateRangePickerBloc>()
+                                        .endMonth == widget.month && context
+                                        .read<DateRangePickerBloc>()
+                                        .endYear == widget.year)?layout.sizeToBorderRadiusSize(LayoutSize.small):layout.sizeToBorderRadiusSize(LayoutSize.none)),
+                                color: (context
+                                    .read<DateRangePickerBloc>()
+                                    .firstRange ==
+                                    (index + 1 - firstDateValue!) && context
+                                    .read<DateRangePickerBloc>()
+                                    .firstMonth == widget.month && context
+                                    .read<DateRangePickerBloc>()
+                                    .firstYear == widget.year ||
+                                    context
+                                        .read<DateRangePickerBloc>()
+                                        .endRange ==
+                                        (index + 1 - firstDateValue!) && context
+                                        .read<DateRangePickerBloc>()
+                                        .endMonth == widget.month && context
+                                        .read<DateRangePickerBloc>()
+                                        .endYear == widget.year)
+                                    ? theme.getColor(ThemeColor.dodgerBlue)
+                                    : context
+                                    .read<
+                                    DateRangePickerBloc>()
+                                    .firstRange ==
+                                    null ||
+                                    context
+                                        .read<
+                                        DateRangePickerBloc>()
+                                        .endRange ==
+                                        null
+                                    ? theme.getColor(ThemeColor.lightest)
+                                    : context
+                                    .read<
+                                    DateRangePickerBloc>()
+                                    .firstRange! <=
+                                    (index +
+                                        1 -
+                                        firstDateValue!) &&
+                                    (index +
+                                        1 -
+                                        firstDateValue!) <=
+                                        context
+                                            .read<
+                                            DateRangePickerBloc>()
+                                            .endRange! &&
+                                    widget.month! >= context
+                                        .read<DateRangePickerBloc>()
+                                        .firstMonth! && widget.month! <= context
+                                    .read<DateRangePickerBloc>()
+                                    .endMonth! && widget.year! >= context
+                                    .read<DateRangePickerBloc>()
+                                    .firstYear! && widget.year! <= context
+                                    .read<DateRangePickerBloc>()
+                                    .endYear!
+                                    ? theme.getColor(ThemeColor.dodgerBlue)
+                                    .withOpacity(0.2)
+                                    : (widget.month! > context
+                                    .read<DateRangePickerBloc>()
+                                    .firstMonth! && widget.month! < context
+                                    .read<DateRangePickerBloc>()
+                                    .endMonth!) || (widget.year! > context
+                                    .read<DateRangePickerBloc>()
+                                    .firstYear! && widget.year! < context
+                                    .read<DateRangePickerBloc>()
+                                    .endYear!)
+                                    ? theme.getColor(ThemeColor.dodgerBlue)
+                                    .withOpacity(0.2)
+                                    : ((context
+                                    .read<DateRangePickerBloc>()
+                                    .endYear == widget.year && context
+                                    .read<DateRangePickerBloc>()
+                                    .endMonth! > widget.month! &&
+                                    widget.month! > context
+                                        .read<DateRangePickerBloc>()
+                                        .firstMonth!) || (context
+                                    .read<DateRangePickerBloc>()
+                                    .endYear == widget.year && context
+                                    .read<DateRangePickerBloc>()
+                                    .endMonth! == widget.month! &&
+                                    index + 1 - firstDateValue! < context
+                                        .read<DateRangePickerBloc>()
+                                        .endRange! &&
+                                    index + 1 - firstDateValue! > context
+                                        .read<DateRangePickerBloc>()
+                                        .firstRange!)) || ((context
+                                    .read<DateRangePickerBloc>()
+                                    .firstYear == widget.year && context
+                                    .read<DateRangePickerBloc>()
+                                    .firstMonth! < widget.month! &&
+                                    widget.month! < context
+                                        .read<DateRangePickerBloc>()
+                                        .endMonth!) || (context
+                                    .read<DateRangePickerBloc>()
+                                    .firstYear == widget.year && context
+                                    .read<DateRangePickerBloc>()
+                                    .firstMonth! == widget.month! &&
+                                    index + 1 - firstDateValue! > context
+                                        .read<DateRangePickerBloc>()
+                                        .firstRange! &&
+                                    index + 1 - firstDateValue! < context
+                                        .read<DateRangePickerBloc>()
+                                        .endRange!)) ? theme.getColor(
+                                    ThemeColor.dodgerBlue).withOpacity(
+                                    0.2) : theme.getColor(ThemeColor.lightest),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  (index + 1 - firstDateValue!).toString(),
+                                ),
+                              )),
+                          Expanded(
+                              child: Container(
+                                height: 30,
+                                color: context
+                                    .read<DateRangePickerBloc>()
+                                    .endRange ==
+                                    (index + 1 - firstDateValue!) && context
+                                    .read<DateRangePickerBloc>()
+                                    .endMonth == widget.month && context
+                                    .read<DateRangePickerBloc>()
+                                    .endYear == widget.year
+                                    ? theme.getColor(ThemeColor.lightest)
+                                    : context
+                                    .read<DateRangePickerBloc>()
+                                    .firstRange ==
+                                    null ||
+                                    context
+                                        .read<DateRangePickerBloc>()
+                                        .endRange ==
+                                        null
+                                    ? theme.getColor(ThemeColor.lightest)
+                                    : context
+                                    .read<
+                                    DateRangePickerBloc>()
+                                    .firstRange! <=
+                                    (index +
+                                        1 -
+                                        firstDateValue!) &&
+                                    (index + 1 - firstDateValue!) <=
+                                        context
+                                            .read<
+                                            DateRangePickerBloc>()
+                                            .endRange! &&
+                                    widget.month! >= context
+                                        .read<DateRangePickerBloc>()
+                                        .firstMonth! && widget.month! <= context
+                                    .read<DateRangePickerBloc>()
+                                    .endMonth! && widget.year! >= context
+                                    .read<DateRangePickerBloc>()
+                                    .firstYear! && widget.year! <= context
+                                    .read<DateRangePickerBloc>()
+                                    .endYear!
+                                    ? theme.getColor(ThemeColor.dodgerBlue)
+                                    .withOpacity(0.2)
+                                    : ((context
+                                    .read<DateRangePickerBloc>()
+                                    .endYear == widget.year && context
+                                    .read<DateRangePickerBloc>()
+                                    .endMonth! > widget.month! &&
+                                    widget.month! > context
+                                        .read<DateRangePickerBloc>()
+                                        .firstMonth!) || (context
+                                    .read<DateRangePickerBloc>()
+                                    .endYear == widget.year && context
+                                    .read<DateRangePickerBloc>()
+                                    .endMonth! == widget.month! &&
+                                    index + 1 - firstDateValue! < context
+                                        .read<DateRangePickerBloc>()
+                                        .endRange! &&
+                                    index + 1 - firstDateValue! > context
+                                        .read<DateRangePickerBloc>()
+                                        .firstRange!)) || ((context
+                                    .read<DateRangePickerBloc>()
+                                    .firstYear == widget.year && context
+                                    .read<DateRangePickerBloc>()
+                                    .firstMonth! < widget.month! &&
+                                    widget.month! < context
+                                        .read<DateRangePickerBloc>()
+                                        .endMonth!) || (context
+                                    .read<DateRangePickerBloc>()
+                                    .firstYear == widget.year && context
+                                    .read<DateRangePickerBloc>()
+                                    .firstMonth! == widget.month! &&
+                                    index + 1 - firstDateValue! > context
+                                        .read<DateRangePickerBloc>()
+                                        .firstRange! &&
+                                    index + 1 - firstDateValue! < context
+                                        .read<DateRangePickerBloc>()
+                                        .endRange!)) ? theme.getColor(
+                                    ThemeColor.dodgerBlue).withOpacity(
+                                    0.2) : theme.getColor(ThemeColor.lightest),
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+    )),
+          ),
+        ),
+        SizedBox(height: 10,),
+        InkWell(
+          onTap: () {
+            if (context
+                .read<DateRangePickerBloc>()
+                .firstRange != null &&
+                context
+                    .read<DateRangePickerBloc>()
+                    .endRange != null)
               setState(() {
                 context
                     .read<DateRangePickerBloc>()
@@ -388,635 +803,25 @@ class _DayInMonthViewState extends State<DayInMonthView> {
                     .read<DateRangePickerBloc>()
                     .endYear = null;
               });
-            },
-            child: Container(
-              padding: EdgeInsets.all(12),
-              color: (context
-        .read<DateRangePickerBloc>()
-        .firstRange != null &&
-    context
-        .read<DateRangePickerBloc>()
-        .endRange != null)?theme.getColor(ThemeColor.dodgerBlue):Colors.transparent,
-              child: Center(
-                child: Paragraph(
-                  color: ThemeColor.lightest,
-                  hasAlignment: false,
-                  content: "Hủy",
-                  linePadding: LayoutSize.none,
-                ),
+          },
+          child: Container(
+            padding: EdgeInsets.all(12),
+            color: (context
+                .read<DateRangePickerBloc>()
+                .firstRange != null &&
+                context
+                    .read<DateRangePickerBloc>()
+                    .endRange != null)?theme.getColor(ThemeColor.dodgerBlue):Colors.transparent,
+            child: Center(
+              child: Paragraph(
+                color: ThemeColor.lightest,
+                hasAlignment: false,
+                content: "Hủy",
+                linePadding: LayoutSize.none,
               ),
             ),
           ),
-        SizedBox(height: 10,),
-        Row(
-          children: List.generate(
-            7,
-                (index) =>
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    child: Center(
-                      child: Text(mapDate[index]!),
-                    ),
-                  ),
-                ),
-          ),
         ),
-        Wrap(
-            direction: Axis.horizontal,
-            children: List.generate(
-              42,
-                  (index) =>
-              index < firstDateValue! ||
-                  index + 1 - firstDateValue! >
-                      dayOfMonth(widget.year!)[widget.month! - 1]
-                  ? Container(
-                padding: EdgeInsets.symmetric(vertical: 5),
-                width: (MediaQuery
-                    .of(context)
-                    .size
-                    .width - 24) / 7,
-              )
-                  : InkWell(
-                onTap: () {
-
-                  if (context
-                      .read<DateRangePickerBloc>()
-                      .firstRange ==
-                      null) {
-                    setState(() {
-                      context
-                          .read<DateRangePickerBloc>()
-                          .firstRange =
-                          index + 1 - firstDateValue!;
-                      context
-                          .read<DateRangePickerBloc>()
-                          .firstMonth =
-                          widget.month;
-                      context
-                          .read<DateRangePickerBloc>()
-                          .firstYear =
-                          widget.year;
-                    });
-                  } else if ((index + 1 - firstDateValue! >
-                      context
-                          .read<DateRangePickerBloc>()
-                          .firstRange! && context
-                      .read<DateRangePickerBloc>()
-                      .firstMonth == widget.month && context
-                      .read<DateRangePickerBloc>()
-                      .firstYear == widget.year) || !(context
-                      .read<DateRangePickerBloc>()
-                      .firstMonth == widget.month && context
-                      .read<DateRangePickerBloc>()
-                      .firstYear == widget.year)) {
-                    setState(() {
-                      context
-                          .read<DateRangePickerBloc>()
-                          .endRange =
-                          index + 1 - firstDateValue!;
-                      context
-                          .read<DateRangePickerBloc>()
-                          .endMonth =
-                          widget.month;
-                      context
-                          .read<DateRangePickerBloc>()
-                          .endYear =
-                          widget.year;
-                    });
-                  } else if (index + 1 - firstDateValue! <
-                      context
-                          .read<DateRangePickerBloc>()
-                          .firstRange!) {
-                    setState(() {
-                      context
-                          .read<DateRangePickerBloc>()
-                          .firstRange =
-                          index + 1 - firstDateValue!;
-                      context
-                          .read<DateRangePickerBloc>()
-                          .firstMonth =
-                          widget.month;
-                      context
-                          .read<DateRangePickerBloc>()
-                          .firstYear =
-                          widget.year;
-                    });
-                  }
-                  print(context
-                      .read<DateRangePickerBloc>()
-                      .year);
-                },
-                child: GestureDetector(
-                  onVerticalDragStart: (drag) {
-                    i = 0;
-                    y = 30;
-                    y2 = -30;
-                  },
-                  onVerticalDragUpdate: (drag) {
-                    if(context.read<DateRangePickerBloc>().firstRange !=null && context.read<DateRangePickerBloc>().endRange !=null)
-                    {
-    if (context
-      .read<DateRangePickerBloc>()
-      .firstRange! -
-    i ==
-    index + 1 - firstDateValue!) {
-    if (drag.localPosition.dy >= y &&
-    context
-      .read<DateRangePickerBloc>()
-      .firstRange! <
-    dayOfMonth(widget.year!)[widget.month! - 1] -
-    7 &&
-    context
-      .read<DateRangePickerBloc>()
-      .firstRange! < context
-      .read<DateRangePickerBloc>()
-      .endRange! - 7) {
-    setState(() {
-    context
-      .read<DateRangePickerBloc>()
-      .firstRange =
-    context
-      .read<DateRangePickerBloc>()
-      .firstRange! +
-    7;
-    y += 30;
-    y2 += 30;
-    i += 7;
-    });
-    } else if (drag.localPosition.dy <= y2 &&
-    context
-      .read<DateRangePickerBloc>()
-      .firstRange! > 7) {
-    setState(() {
-    context
-      .read<DateRangePickerBloc>()
-      .firstRange =
-    context
-      .read<DateRangePickerBloc>()
-      .firstRange! -
-    7;
-    y -= 30;
-    y2 -= 30;
-    i -= 7;
-    });
-    }
-    }
-    }
-                  },
-                  onHorizontalDragStart: (drag) {
-                    print("Start");
-                    i = 0;
-                    x = (MediaQuery
-                        .of(context)
-                        .size
-                        .width - 24) / 7;
-                    x2 = -(MediaQuery
-                        .of(context)
-                        .size
-                        .width - 24) / 7;
-                  },
-                  onHorizontalDragUpdate: (drag) {
-    if(context.read<DateRangePickerBloc>().firstRange !=null && context.read<DateRangePickerBloc>().endRange !=null) {
-    if (context
-        .read<DateRangePickerBloc>()
-        .firstRange! -
-        i ==
-        index + 1 - firstDateValue!) {
-      if (drag.localPosition.dx >= x &&
-          context
-              .read<DateRangePickerBloc>()
-              .firstRange! <
-              dayOfMonth(widget.year!)[widget.month! - 1] &&
-          context
-              .read<DateRangePickerBloc>()
-              .firstRange! < context
-              .read<DateRangePickerBloc>()
-              .endRange! - 1) {
-        setState(() {
-          context
-              .read<DateRangePickerBloc>()
-              .firstRange =
-              context
-                  .read<DateRangePickerBloc>()
-                  .firstRange! +
-                  1;
-          x += (MediaQuery
-              .of(context)
-              .size
-              .width - 24) /
-              7;
-          x2 += (MediaQuery
-              .of(context)
-              .size
-              .width - 24) /
-              7;
-          i++;
-        });
-      } else if (drag.localPosition.dx <= x2 &&
-          context
-              .read<DateRangePickerBloc>()
-              .firstRange! <
-              30) {
-        setState(() {
-          context
-              .read<DateRangePickerBloc>()
-              .firstRange =
-              context
-                  .read<DateRangePickerBloc>()
-                  .firstRange! -
-                  1;
-          x -= (MediaQuery
-              .of(context)
-              .size
-              .width - 24) /
-              7;
-          x2 -= (MediaQuery
-              .of(context)
-              .size
-              .width - 24) /
-              7;
-          i--;
-        });
-      }
-    }
-
-    if (context
-        .read<DateRangePickerBloc>()
-        .endRange! -
-        i ==
-        index + 1 - firstDateValue!) {
-      if (drag.localPosition.dx >= x &&
-          context
-              .read<DateRangePickerBloc>()
-              .endRange! >
-              0) {
-        setState(() {
-          context
-              .read<DateRangePickerBloc>()
-              .endRange =
-              context
-                  .read<DateRangePickerBloc>()
-                  .endRange! +
-                  1;
-          x += (MediaQuery
-              .of(context)
-              .size
-              .width - 24) /
-              7;
-          x2 += (MediaQuery
-              .of(context)
-              .size
-              .width - 24) /
-              7;
-          i++;
-        });
-      } else if (drag.localPosition.dx <= x2 &&
-          context
-              .read<DateRangePickerBloc>()
-              .endRange! <
-              30) {
-        setState(() {
-          context
-              .read<DateRangePickerBloc>()
-              .endRange =
-              context
-                  .read<DateRangePickerBloc>()
-                  .endRange! -
-                  1;
-          x -= (MediaQuery
-              .of(context)
-              .size
-              .width - 24) /
-              7;
-          x2 -= (MediaQuery
-              .of(context)
-              .size
-              .width - 24) /
-              7;
-          i--;
-        });
-      }
-    }
-    }
-                  },
-                  child: Container(
-                    width: (MediaQuery
-                        .of(context)
-                        .size
-                        .width - 24) / 7,
-                    child: Row(
-                      children: [
-                        Expanded(
-                            child: Container(
-                              height: 30,
-                              color: context
-                                  .read<DateRangePickerBloc>()
-                                  .firstRange ==
-                                  (index + 1 - firstDateValue!) && context
-                                  .read<DateRangePickerBloc>()
-                                  .firstMonth == widget.month && context
-                                  .read<DateRangePickerBloc>()
-                                  .firstYear == widget.year
-                                  ? theme.getColor(ThemeColor.lightest)
-                                  : context
-                                  .read<DateRangePickerBloc>()
-                                  .firstRange ==
-                                  null ||
-                                  context
-                                      .read<DateRangePickerBloc>()
-                                      .endRange ==
-                                      null
-                                  ? theme.getColor(ThemeColor.lightest)
-                                  : context
-                                  .read<
-                                  DateRangePickerBloc>()
-                                  .firstRange! <=
-                                  (index +
-                                      1 -
-                                      firstDateValue!) &&
-                                  (index + 1 - firstDateValue!) <=
-                                      context
-                                          .read<
-                                          DateRangePickerBloc>()
-                                          .endRange! &&
-                                  widget.month! >= context
-                                      .read<DateRangePickerBloc>()
-                                      .firstMonth! && widget.month! <= context
-                                  .read<DateRangePickerBloc>()
-                                  .endMonth! && widget.year! >= context
-                                  .read<DateRangePickerBloc>()
-                                  .firstYear! && widget.year! <= context
-                                  .read<DateRangePickerBloc>()
-                                  .endYear!
-                                  ? theme.getColor(ThemeColor.dodgerBlue)
-                                  .withOpacity(0.2)
-                                  : (widget.month! > context
-                                  .read<DateRangePickerBloc>()
-                                  .firstMonth! && widget.month! < context
-                                  .read<DateRangePickerBloc>()
-                                  .endMonth!) || (widget.year! > context
-                                  .read<DateRangePickerBloc>()
-                                  .firstYear! && widget.year! < context
-                                  .read<DateRangePickerBloc>()
-                                  .endYear!)
-                                  ? theme.getColor(ThemeColor.dodgerBlue)
-                                  .withOpacity(0.2)
-                                  : ((context
-                                  .read<DateRangePickerBloc>()
-                                  .endYear == widget.year && context
-                                  .read<DateRangePickerBloc>()
-                                  .endMonth! > widget.month! &&
-                                  widget.month! > context
-                                      .read<DateRangePickerBloc>()
-                                      .firstMonth!) || (context
-                                  .read<DateRangePickerBloc>()
-                                  .endYear == widget.year && context
-                                  .read<DateRangePickerBloc>()
-                                  .endMonth! == widget.month! &&
-                                  index + 1 - firstDateValue! < context
-                                      .read<DateRangePickerBloc>()
-                                      .endRange! &&
-                                  index + 1 - firstDateValue! > context
-                                      .read<DateRangePickerBloc>()
-                                      .firstRange!)) || ((context
-                                  .read<DateRangePickerBloc>()
-                                  .firstYear == widget.year && context
-                                  .read<DateRangePickerBloc>()
-                                  .firstMonth! < widget.month! &&
-                                  widget.month! < context
-                                      .read<DateRangePickerBloc>()
-                                      .endMonth!) || (context
-                                  .read<DateRangePickerBloc>()
-                                  .firstYear == widget.year && context
-                                  .read<DateRangePickerBloc>()
-                                  .firstMonth! == widget.month! &&
-                                  index + 1 - firstDateValue! > context
-                                      .read<DateRangePickerBloc>()
-                                      .firstRange! &&
-                                  index + 1 - firstDateValue! < context
-                                      .read<DateRangePickerBloc>()
-                                      .endRange!)) ? theme.getColor(
-                                  ThemeColor.dodgerBlue).withOpacity(
-                                  0.2) : theme.getColor(ThemeColor.lightest),
-                            )),
-                        Container(
-                            height: 30,
-                            width: 30,
-
-                            padding: EdgeInsets.symmetric(horizontal: 5),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular((context
-                                  .read<DateRangePickerBloc>()
-                                  .firstRange ==
-                                  (index + 1 - firstDateValue!) && context
-                                  .read<DateRangePickerBloc>()
-                                  .firstMonth == widget.month && context
-                                  .read<DateRangePickerBloc>()
-                                  .firstYear == widget.year ||
-                                  context
-                                      .read<DateRangePickerBloc>()
-                                      .endRange ==
-                                      (index + 1 - firstDateValue!) && context
-                                      .read<DateRangePickerBloc>()
-                                      .endMonth == widget.month && context
-                                      .read<DateRangePickerBloc>()
-                                      .endYear == widget.year)?layout.sizeToBorderRadiusSize(LayoutSize.small):layout.sizeToBorderRadiusSize(LayoutSize.none)),
-                              color: (context
-                                  .read<DateRangePickerBloc>()
-                                  .firstRange ==
-                                  (index + 1 - firstDateValue!) && context
-                                  .read<DateRangePickerBloc>()
-                                  .firstMonth == widget.month && context
-                                  .read<DateRangePickerBloc>()
-                                  .firstYear == widget.year ||
-                                  context
-                                      .read<DateRangePickerBloc>()
-                                      .endRange ==
-                                      (index + 1 - firstDateValue!) && context
-                                      .read<DateRangePickerBloc>()
-                                      .endMonth == widget.month && context
-                                      .read<DateRangePickerBloc>()
-                                      .endYear == widget.year)
-                                  ? theme.getColor(ThemeColor.dodgerBlue)
-                                  : context
-                                  .read<
-                                  DateRangePickerBloc>()
-                                  .firstRange ==
-                                  null ||
-                                  context
-                                      .read<
-                                      DateRangePickerBloc>()
-                                      .endRange ==
-                                      null
-                                  ? theme.getColor(ThemeColor.lightest)
-                                  : context
-                                  .read<
-                                  DateRangePickerBloc>()
-                                  .firstRange! <=
-                                  (index +
-                                      1 -
-                                      firstDateValue!) &&
-                                  (index +
-                                      1 -
-                                      firstDateValue!) <=
-                                      context
-                                          .read<
-                                          DateRangePickerBloc>()
-                                          .endRange! &&
-                                  widget.month! >= context
-                                      .read<DateRangePickerBloc>()
-                                      .firstMonth! && widget.month! <= context
-                                  .read<DateRangePickerBloc>()
-                                  .endMonth! && widget.year! >= context
-                                  .read<DateRangePickerBloc>()
-                                  .firstYear! && widget.year! <= context
-                                  .read<DateRangePickerBloc>()
-                                  .endYear!
-                                  ? theme.getColor(ThemeColor.dodgerBlue)
-                                  .withOpacity(0.2)
-                                  : (widget.month! > context
-                                  .read<DateRangePickerBloc>()
-                                  .firstMonth! && widget.month! < context
-                                  .read<DateRangePickerBloc>()
-                                  .endMonth!) || (widget.year! > context
-                                  .read<DateRangePickerBloc>()
-                                  .firstYear! && widget.year! < context
-                                  .read<DateRangePickerBloc>()
-                                  .endYear!)
-                                  ? theme.getColor(ThemeColor.dodgerBlue)
-                                  .withOpacity(0.2)
-                                  : ((context
-                                  .read<DateRangePickerBloc>()
-                                  .endYear == widget.year && context
-                                  .read<DateRangePickerBloc>()
-                                  .endMonth! > widget.month! &&
-                                  widget.month! > context
-                                      .read<DateRangePickerBloc>()
-                                      .firstMonth!) || (context
-                                  .read<DateRangePickerBloc>()
-                                  .endYear == widget.year && context
-                                  .read<DateRangePickerBloc>()
-                                  .endMonth! == widget.month! &&
-                                  index + 1 - firstDateValue! < context
-                                      .read<DateRangePickerBloc>()
-                                      .endRange! &&
-                                  index + 1 - firstDateValue! > context
-                                      .read<DateRangePickerBloc>()
-                                      .firstRange!)) || ((context
-                                  .read<DateRangePickerBloc>()
-                                  .firstYear == widget.year && context
-                                  .read<DateRangePickerBloc>()
-                                  .firstMonth! < widget.month! &&
-                                  widget.month! < context
-                                      .read<DateRangePickerBloc>()
-                                      .endMonth!) || (context
-                                  .read<DateRangePickerBloc>()
-                                  .firstYear == widget.year && context
-                                  .read<DateRangePickerBloc>()
-                                  .firstMonth! == widget.month! &&
-                                  index + 1 - firstDateValue! > context
-                                      .read<DateRangePickerBloc>()
-                                      .firstRange! &&
-                                  index + 1 - firstDateValue! < context
-                                      .read<DateRangePickerBloc>()
-                                      .endRange!)) ? theme.getColor(
-                                  ThemeColor.dodgerBlue).withOpacity(
-                                  0.2) : theme.getColor(ThemeColor.lightest),
-                            ),
-                            child: Center(
-                              child: Text(
-                                (index + 1 - firstDateValue!).toString(),
-                              ),
-                            )),
-                        Expanded(
-                            child: Container(
-                              height: 30,
-                              color: context
-                                  .read<DateRangePickerBloc>()
-                                  .endRange ==
-                                  (index + 1 - firstDateValue!) && context
-                                  .read<DateRangePickerBloc>()
-                                  .endMonth == widget.month && context
-                                  .read<DateRangePickerBloc>()
-                                  .endYear == widget.year
-                                  ? theme.getColor(ThemeColor.lightest)
-                                  : context
-                                  .read<DateRangePickerBloc>()
-                                  .firstRange ==
-                                  null ||
-                                  context
-                                      .read<DateRangePickerBloc>()
-                                      .endRange ==
-                                      null
-                                  ? theme.getColor(ThemeColor.lightest)
-                                  : context
-                                  .read<
-                                  DateRangePickerBloc>()
-                                  .firstRange! <=
-                                  (index +
-                                      1 -
-                                      firstDateValue!) &&
-                                  (index + 1 - firstDateValue!) <=
-                                      context
-                                          .read<
-                                          DateRangePickerBloc>()
-                                          .endRange! &&
-                                  widget.month! >= context
-                                      .read<DateRangePickerBloc>()
-                                      .firstMonth! && widget.month! <= context
-                                  .read<DateRangePickerBloc>()
-                                  .endMonth! && widget.year! >= context
-                                  .read<DateRangePickerBloc>()
-                                  .firstYear! && widget.year! <= context
-                                  .read<DateRangePickerBloc>()
-                                  .endYear!
-                                  ? theme.getColor(ThemeColor.dodgerBlue)
-                                  .withOpacity(0.2)
-                                  : ((context
-                                  .read<DateRangePickerBloc>()
-                                  .endYear == widget.year && context
-                                  .read<DateRangePickerBloc>()
-                                  .endMonth! > widget.month! &&
-                                  widget.month! > context
-                                      .read<DateRangePickerBloc>()
-                                      .firstMonth!) || (context
-                                  .read<DateRangePickerBloc>()
-                                  .endYear == widget.year && context
-                                  .read<DateRangePickerBloc>()
-                                  .endMonth! == widget.month! &&
-                                  index + 1 - firstDateValue! < context
-                                      .read<DateRangePickerBloc>()
-                                      .endRange! &&
-                                  index + 1 - firstDateValue! > context
-                                      .read<DateRangePickerBloc>()
-                                      .firstRange!)) || ((context
-                                  .read<DateRangePickerBloc>()
-                                  .firstYear == widget.year && context
-                                  .read<DateRangePickerBloc>()
-                                  .firstMonth! < widget.month! &&
-                                  widget.month! < context
-                                      .read<DateRangePickerBloc>()
-                                      .endMonth!) || (context
-                                  .read<DateRangePickerBloc>()
-                                  .firstYear == widget.year && context
-                                  .read<DateRangePickerBloc>()
-                                  .firstMonth! == widget.month! &&
-                                  index + 1 - firstDateValue! > context
-                                      .read<DateRangePickerBloc>()
-                                      .firstRange! &&
-                                  index + 1 - firstDateValue! < context
-                                      .read<DateRangePickerBloc>()
-                                      .endRange!)) ? theme.getColor(
-                                  ThemeColor.dodgerBlue).withOpacity(
-                                  0.2) : theme.getColor(ThemeColor.lightest),
-                            )),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-    )),
 
       ],
     );

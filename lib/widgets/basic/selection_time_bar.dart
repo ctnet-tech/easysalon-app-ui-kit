@@ -128,6 +128,7 @@ class _SelectionTimeBarState extends State<SelectionTimeBar> {
               onTap: () {
                 showModalBottomSheet(
                   context: context,
+                  isScrollControlled: true,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.vertical(
                         top: Radius.circular(
