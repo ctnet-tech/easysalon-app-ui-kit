@@ -48,6 +48,9 @@ class _AppointmentSchedulePanelPageState
             numberOfCount: "05",
             totalInvoice: "200.000đ",
             textTime: "09:35 01/10/2020",
+            onPressed: (){
+              print("click tag đã thanh toán");
+            },
 
           ),
           InvoiceStatusTag(
@@ -61,7 +64,9 @@ class _AppointmentSchedulePanelPageState
             numberOfCount: "05",
             totalInvoice: "200.000đ",
             textTime: "09:35 01/10/2020",
-
+            onPressed: (){
+              print("click tag chưa thanh toán");
+            },
           ),
           SlidableTag(
             divideByPercent: [0.3,0.4,0.3],

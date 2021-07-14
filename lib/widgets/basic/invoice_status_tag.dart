@@ -28,7 +28,7 @@ class InvoiceStatusTag extends StatelessWidget {
     this.textTypeCustomer = "Khách Vãng Lai",
     this.textTime = "",
     this.numberOfCount = "",
-    this.totalInvoice = "",required this.typeOfInvoice, this.title = "Hóa Đơn Mới", this.staff = "",
+    this.totalInvoice = "",required this.typeOfInvoice, this.title = "Hóa Đơn Mới", this.staff = "", this.onPressed,
   }) : super(key: key);
   final ThemeColor color;
   final ThemeColor hintTextColor;
@@ -46,7 +46,7 @@ class InvoiceStatusTag extends StatelessWidget {
   final TypeOfInvoice typeOfInvoice;
   final String title;
   final String staff;
-
+  final VoidCallback? onPressed;
   @override
   Widget build(BuildContext context) {
     var theme = context.read<ThemeNotifier>().getTheme();
@@ -58,9 +58,7 @@ class InvoiceStatusTag extends StatelessWidget {
     var colorTextHintAll = theme.getColor(this.hintTextColor);
     var colorTextTypeCustomer = theme.getColor(this.colorTextTypeCustomer);
     return InkWell(
-      onTap: () {
-        print("onclick bill");
-      },
+      onTap: this.onPressed ?? (){},
       child: Container(
         padding: EdgeInsets.all(layout.sizeToPadding(this.paddingTable)),
         margin: EdgeInsets.all(layout.sizeToPadding(this.marginTable)),
@@ -143,11 +141,13 @@ class InvoiceStatusTag extends StatelessWidget {
                             color: ThemeColor.darkOrange,
                             content: "Chưa Thanh Toán",
                             matteCoating: true,
+                            onPressed: this.onPressed ?? (){},
                           ):Button(
                             fontSizeText: LayoutSize.medium,
                             color: ThemeColor.pastelGreen,
                             content: "Đã Thanh Toán",
                             matteCoating: true,
+                            onPressed: this.onPressed ?? (){},
                           ),
                         ),
                         Text("${this.totalInvoice}",
