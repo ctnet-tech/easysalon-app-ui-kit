@@ -75,110 +75,136 @@ class _DateRangePickerState extends State<DateRangePicker>
   Widget build(BuildContext context) {
     var theme = context.read<ThemeNotifier>().getTheme();
     var layout = context.read<LayoutNotifier>();
-    return SingleChildScrollView(
-      child: Container(height: MediaQuery
-          .of(context)
-          .size
-          .height * 3 / 4,
-        width: MediaQuery
-            .of(context)
-            .size
-            .width,
-        decoration: BoxDecoration(
-          color: theme.getColor(ThemeColor.lightest),
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(
-                layout.sizeToBorderRadiusSize(LayoutSize.large)),
-            topRight: Radius.circular(
-                layout.sizeToBorderRadiusSize(LayoutSize.large)),
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.all(layout.sizeToPadding(LayoutSize.small)),
+          height: 3,
+          width: 30,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(1.5),
+            color: theme.getColor(ThemeColor.gainsboro),
           ),
         ),
-        child: SpaceBox(
-          all: true,
-          size: LayoutSize.small,
-          child: Column(
-            children: [
-              Container(
-                margin: EdgeInsets.only(
-                    bottom: layout.sizeToPadding(LayoutSize.small)),
-                height: 3,
-                width: 30,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(1.5),
-                  color: theme.getColor(ThemeColor.gainsboro),
+        Expanded(
+          child: SingleChildScrollView(
+            child: Container(height: MediaQuery
+                .of(context)
+                .size
+                .height * 3 / 4,
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width,
+              decoration: BoxDecoration(
+                color: theme.getColor(ThemeColor.lightest),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(
+                      layout.sizeToBorderRadiusSize(LayoutSize.large)),
+                  topRight: Radius.circular(
+                      layout.sizeToBorderRadiusSize(LayoutSize.large)),
                 ),
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                      flex: 1,
-                      child: Container(
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Paragraph(
-                            content: "Đóng",
-                            linePadding: LayoutSize.none,
-                            color: ThemeColor.secondary,
-                            size: LayoutSize.medium,
-                            textAlign: TextAlign.left,
-                          ),
-                        ),
-                      )),
-                  Expanded(
-                      flex: 3,
-                      child: Container(
-                        child: Center(
-                          child: Paragraph(
-                            hasAlignment: false,
-                            isCenter: true,
-                            content: "Khoảng thời gian",
-                            size: LayoutSize.big,
-                            textAlign: TextAlign.center,
-                            color: ThemeColor.dark,
-                            linePadding: LayoutSize.none,
-                          ),
-                        ),
-                      )),
-                  Expanded(
-                      flex: 1,
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: InkWell(
-                          onTap: () {
-                            if (context
-                                .read<DateRangePickerBloc>()
-                                .endRange != null && context
-                                .read<DateRangePickerBloc>()
-                                .firstRange == null) {
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                  content: Center(child: Text(
-                                      "Hãy chọn khoảng thời gian trước khi nhấn lưu"))));
-                            }
-                            if (context
-                                .read<DateRangePickerBloc>()
-                                .endRange == null) {
-                              context
-                                  .read<DateRangePickerBloc>()
-                                  .endRange = context
-                                  .read<DateRangePickerBloc>()
-                                  .firstRange!;
-                              context
-                                  .read<DateRangePickerBloc>()
-                                  .endMonth = context
-                                  .read<DateRangePickerBloc>()
-                                  .firstMonth;
-                              context
-                                  .read<DateRangePickerBloc>()
-                                  .endYear = context
-                                  .read<DateRangePickerBloc>()
-                                  .firstYear;
-                            }
-                            context.read<DateRangePickerBloc>().add(
-                                ChangeTimePeriod(
-                                    startTime: DateFormat("dd/MM/yyyy").parse(
+              child: SpaceBox(
+                all: true,
+                size: LayoutSize.small,
+                child: Column(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                            flex: 1,
+                            child: Container(
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Paragraph(
+                                  content: "Đóng",
+                                  linePadding: LayoutSize.none,
+                                  color: ThemeColor.secondary,
+                                  size: LayoutSize.medium,
+                                  textAlign: TextAlign.left,
+                                ),
+                              ),
+                            )),
+                        Expanded(
+                            flex: 3,
+                            child: Container(
+                              child: Center(
+                                child: Paragraph(
+                                  hasAlignment: false,
+                                  isCenter: true,
+                                  content: "Khoảng thời gian",
+                                  size: LayoutSize.big,
+                                  textAlign: TextAlign.center,
+                                  color: ThemeColor.dark,
+                                  linePadding: LayoutSize.none,
+                                ),
+                              ),
+                            )),
+                        Expanded(
+                            flex: 1,
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: InkWell(
+                                onTap: () {
+                                  if (context
+                                      .read<DateRangePickerBloc>()
+                                      .endRange != null && context
+                                      .read<DateRangePickerBloc>()
+                                      .firstRange == null) {
+                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                        content: Center(child: Text(
+                                            "Hãy chọn khoảng thời gian trước khi nhấn lưu"))));
+                                  }
+                                  if (context
+                                      .read<DateRangePickerBloc>()
+                                      .endRange == null) {
+                                    context
+                                        .read<DateRangePickerBloc>()
+                                        .endRange = context
+                                        .read<DateRangePickerBloc>()
+                                        .firstRange!;
+                                    context
+                                        .read<DateRangePickerBloc>()
+                                        .endMonth = context
+                                        .read<DateRangePickerBloc>()
+                                        .firstMonth;
+                                    context
+                                        .read<DateRangePickerBloc>()
+                                        .endYear = context
+                                        .read<DateRangePickerBloc>()
+                                        .firstYear;
+                                  }
+                                  context.read<DateRangePickerBloc>().add(
+                                      ChangeTimePeriod(
+                                          startTime: DateFormat("dd/MM/yyyy").parse(
+                                              formatToDateTime(
+                                                  context
+                                                      .read<DateRangePickerBloc>()
+                                                      .firstRange!,
+                                                  context
+                                                      .read<DateRangePickerBloc>()
+                                                      .firstMonth!,
+                                                  context
+                                                      .read<DateRangePickerBloc>()
+                                                      .firstYear!)),
+                                          endTime: DateFormat("dd/MM/yyyy").parse(
+                                              formatToDateTime(
+                                                  context
+                                                      .read<DateRangePickerBloc>()
+                                                      .endRange!,
+                                                  context
+                                                      .read<DateRangePickerBloc>()
+                                                      .endMonth!,
+                                                  context
+                                                      .read<DateRangePickerBloc>()
+                                                      .endYear!))));
+
+                                  widget.onChanged([
+                                    DateFormat("dd/MM/yyyy").parse(
                                         formatToDateTime(
                                             context
                                                 .read<DateRangePickerBloc>()
@@ -189,7 +215,7 @@ class _DateRangePickerState extends State<DateRangePicker>
                                             context
                                                 .read<DateRangePickerBloc>()
                                                 .firstYear!)),
-                                    endTime: DateFormat("dd/MM/yyyy").parse(
+                                    DateFormat("dd/MM/yyyy").parse(
                                         formatToDateTime(
                                             context
                                                 .read<DateRangePickerBloc>()
@@ -199,105 +225,84 @@ class _DateRangePickerState extends State<DateRangePicker>
                                                 .endMonth!,
                                             context
                                                 .read<DateRangePickerBloc>()
-                                                .endYear!))));
-
-                            widget.onChanged([
-                              DateFormat("dd/MM/yyyy").parse(
-                                  formatToDateTime(
-                                      context
-                                          .read<DateRangePickerBloc>()
-                                          .firstRange!,
-                                      context
-                                          .read<DateRangePickerBloc>()
-                                          .firstMonth!,
-                                      context
-                                          .read<DateRangePickerBloc>()
-                                          .firstYear!)),
-                              DateFormat("dd/MM/yyyy").parse(
-                                  formatToDateTime(
-                                      context
-                                          .read<DateRangePickerBloc>()
-                                          .endRange!,
-                                      context
-                                          .read<DateRangePickerBloc>()
-                                          .endMonth!,
-                                      context
-                                          .read<DateRangePickerBloc>()
-                                          .endYear!))
-                            ]);
-                            Navigator.pop(context);
-                          },
-                          child: Paragraph(
-                            content: "Lưu",
-                            hasAlignment: false,
-                            color: ThemeColor.dodgerBlue,
-                            size: LayoutSize.medium,
-                            linePadding: LayoutSize.none,
-                            textAlign: TextAlign.right,
-                          ),
-                        ),
-                      ))
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              EditableYear(),
-              SizedBox(
-                height: 10,
-              ),
-              TabBar(
-                controller: _controller,
-                isScrollable: true,
-                indicatorColor: theme.getColor(ThemeColor.lightest),
-                tabs: List.generate(
-                  12,
-                      (index) =>
-                      Container(
-                        width: (MediaQuery
-                            .of(context)
-                            .size
-                            .width - 24) / 3,
-                        child: Center(
-                          child: Paragraph(
-                            content: "Tháng " + (index + 1).toString(),
-                            size: LayoutSize.big,
-                            weight: FontWeight.w400,
-                            color: _controller.index == index
-                                ? ThemeColor.dark
-                                : ThemeColor.spindle,
-                          ),
-                        ),
-                      ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-
-              Expanded(
-                child: BlocBuilder<DateRangePickerBloc, DateRangePickerState>(
-                  builder: (context, state) =>
-                      TabBarView(
-                        controller: _controller,
-                        children: List.generate(
-                          12,
-                              (i) =>
-                              DayInMonthView(
-                                month: i + 1,
-                                year: context
-                                    .read<DateRangePickerBloc>()
-                                    .year,
+                                                .endYear!))
+                                  ]);
+                                  Navigator.pop(context);
+                                },
+                                child: Paragraph(
+                                  content: "Lưu",
+                                  hasAlignment: false,
+                                  color: ThemeColor.dodgerBlue,
+                                  size: LayoutSize.medium,
+                                  linePadding: LayoutSize.none,
+                                  textAlign: TextAlign.right,
+                                ),
                               ),
-                        ),
+                            ))
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    EditableYear(),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    TabBar(
+                      controller: _controller,
+                      isScrollable: true,
+                      indicatorColor: theme.getColor(ThemeColor.lightest),
+                      tabs: List.generate(
+                        12,
+                            (index) =>
+                            Container(
+                              width: (MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width - 24) / 3,
+                              child: Center(
+                                child: Paragraph(
+                                  content: "Tháng " + (index + 1).toString(),
+                                  size: LayoutSize.big,
+                                  weight: FontWeight.w400,
+                                  color: _controller.index == index
+                                      ? ThemeColor.dark
+                                      : ThemeColor.spindle,
+                                ),
+                              ),
+                            ),
                       ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+
+                    Expanded(
+                      child: BlocBuilder<DateRangePickerBloc, DateRangePickerState>(
+                        builder: (context, state) =>
+                            TabBarView(
+                              controller: _controller,
+                              children: List.generate(
+                                12,
+                                    (i) =>
+                                    DayInMonthView(
+                                      month: i + 1,
+                                      year: context
+                                          .read<DateRangePickerBloc>()
+                                          .year,
+                                    ),
+                              ),
+                            ),
+                      ),
+                    ),
+
+                  ],
                 ),
               ),
-
-            ],
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 }
