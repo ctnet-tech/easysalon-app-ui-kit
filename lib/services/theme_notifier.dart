@@ -11,7 +11,21 @@ enum ThemeColor {
   weak,
   warning,
   light,
-  lightest
+  lightest,
+  bondiBlue,
+  pastelGreen,
+  darkOrange,
+  radicalRed,
+  lightSlateBlue,
+  pattensBlue,
+  dodgerBlue,
+  cerulean,
+  shadyLady,
+  mountainMeadow,
+  lightGrey,
+  caribbeanGreen,
+  gold
+
 }
 
 class Theme {
@@ -22,16 +36,34 @@ class Theme {
     return Color(int.parse(buffer.toString(), radix: 16));
   }
 
-  Theme(
-      {required this.darkest,
-      required this.dark,
-      required this.primary,
-      required this.secondary,
-      required this.danger,
-      required this.weak,
-      required this.warning,
-      required this.light,
-      required this.lightest});
+  Theme({
+    required this.lightSlateBlue,
+    required this.radicalRed,
+    required this.pastelGreen,
+    required this.darkest,
+    required this.dark,
+    required this.primary,
+    required this.secondary,
+    required this.danger,
+    required this.weak,
+    required this.warning,
+    required this.light,
+    required this.lightest,
+    required this.bondiBlue,
+    required this.darkOrange,
+    required this.pattensBlue,
+    required this.dodgerBlue,
+    required this.cerulean,
+    required this.shadyLady,
+    required this.mountainMeadow,
+    required this.lightGrey,
+    required this.caribbeanGreen,
+    required this.gold
+
+
+
+
+  });
 
   final Color darkest;
   final Color dark;
@@ -42,11 +74,27 @@ class Theme {
   final Color warning;
   final Color light;
   final Color lightest;
+  final Color bondiBlue;
+  final Color pastelGreen;
+  final Color darkOrange;
+  final Color radicalRed;
+  final Color lightSlateBlue;
+  final Color pattensBlue;
+  final Color dodgerBlue;
+  final Color cerulean;
+  final Color shadyLady;
+  final Color mountainMeadow;
+  final Color lightGrey;
+  final Color caribbeanGreen;
+  final Color gold;
 
-  getColor(ThemeColor themeColor) {
+
+  Color getColor(ThemeColor themeColor) {
     switch (themeColor) {
       case ThemeColor.light:
         return this.light;
+      case ThemeColor.lightSlateBlue:
+        return this.lightSlateBlue;
       case ThemeColor.lightest:
         return this.lightest;
       case ThemeColor.primary:
@@ -55,13 +103,37 @@ class Theme {
         return this.danger;
       case ThemeColor.warning:
         return this.warning;
+      case ThemeColor.pastelGreen:
+        return this.pastelGreen;
       case ThemeColor.secondary:
         return this.secondary;
       case ThemeColor.weak:
         return this.weak;
       case ThemeColor.dark:
         return this.dark;
-      case ThemeColor.darkest:
+      case ThemeColor.bondiBlue:
+        return this.bondiBlue;
+      case ThemeColor.radicalRed:
+        return this.radicalRed;
+      case ThemeColor.darkOrange:
+        return this.darkOrange;
+      case ThemeColor.pattensBlue:
+        return this.pattensBlue;
+      case ThemeColor.dodgerBlue:
+        return this.dodgerBlue;
+      case ThemeColor.cerulean:
+        return this.cerulean;
+      case ThemeColor.shadyLady:
+        return this.shadyLady;
+      case ThemeColor.lightGrey:
+        return this.lightGrey;
+      case ThemeColor.mountainMeadow:
+        return this.mountainMeadow;
+      case ThemeColor.caribbeanGreen:
+        return this.caribbeanGreen;
+      case ThemeColor.gold:
+        return this.gold;
+
       default:
         return this.darkest;
     }
@@ -73,6 +145,7 @@ class ThemeNotifier with ChangeNotifier {
   final Theme lightTheme;
 
   late Theme _themeData;
+
   Theme getTheme() => _themeData;
 
   ThemeNotifier({required this.darkTheme, required this.lightTheme}) {
