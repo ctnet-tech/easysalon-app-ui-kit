@@ -17,6 +17,7 @@ class ListServiceTable extends StatefulWidget {
     this.themeColor = ThemeColor.lightest,
     this.hintTextColor = ThemeColor.secondary,
     this.textColor = ThemeColor.dark,
+    this.listServiceWidget = const <ListServiceTag>[],
   }) : super(key: key);
   final LayoutSize marginTable;
   final LayoutSize paddingTable;
@@ -24,6 +25,7 @@ class ListServiceTable extends StatefulWidget {
   final ThemeColor themeColor;
   final ThemeColor hintTextColor;
   final ThemeColor textColor;
+  final List<ListServiceTag> listServiceWidget;
 
   @override
   State<StatefulWidget> createState() {
@@ -43,6 +45,8 @@ class _ListServiceTableState extends State<ListServiceTable> {
   Widget build(BuildContext context) {
     var theme = context.read<ThemeNotifier>().getTheme();
     var layout = context.read<LayoutNotifier>();
+    final List fixedListData =
+        Iterable<int>.generate(widget.listServiceWidget.length).toList();
     Color hintColorTextAll = theme.getColor(widget.hintTextColor);
     Color colorTextAll = theme.getColor(widget.textColor);
     var radius = layout.sizeToBorderRadius(widget.borderRadius);
@@ -83,13 +87,25 @@ class _ListServiceTableState extends State<ListServiceTable> {
             customHeight: double.infinity,
             size: LayoutSize.small,
           ),
-          ListServiceTag(
-            onChanged: (data){},
-            textColor: widget.textColor,
-            paddingTag: widget.paddingTable,
-            hintTextColor: widget.hintTextColor,
-            onPressedDelete: () {},
-          )
+          Container(child: LayoutBuilder(
+            builder: (context, containers) {
+              return Column(
+                children: fixedListData
+                    .map((index) => Column(
+                          children: [
+                            index == 0
+                                ? Container()
+                                : dividerCustom.Divider(
+                                    customHeight: containers.maxWidth - 20,
+                                    size: LayoutSize.small,
+                                  ),
+                            widget.listServiceWidget[index]
+                          ],
+                        ))
+                    .toList(),
+              );
+            },
+          ))
         ],
       ),
     );
@@ -97,23 +113,31 @@ class _ListServiceTableState extends State<ListServiceTable> {
 }
 
 class ListServiceTag extends StatefulWidget {
-  ListServiceTag(
-      {Key? key,
-      required this.textColor,
-      required this.paddingTag,
-      required this.hintTextColor,
-      required this.onPressedDelete,
-      required this.onChanged,
-      this.fistKeyForDiscountType = '', this.fistDataDiscount = 0, this.numberOfCountService = 1})
-      : super(key: key);
+  ListServiceTag({
+    Key? key,
+    this.hintTextColor = ThemeColor.secondary,
+    this.textColor = ThemeColor.dark,
+    required this.onPressedDelete,
+    required this.onChanged,
+    this.fistDataDiscount = 0,
+    this.numberOfCountService = 1,
+    this.discountByPercent = false,
+    this.staff = 'staff',
+    this.totalOfInvoice = 'totalOfInvoice',
+    this.serviceName = 'serviceName',
+    this.paddingTag = LayoutSize.medium,
+  }) : super(key: key);
   final ThemeColor textColor;
   final LayoutSize paddingTag;
   final ThemeColor hintTextColor;
   final VoidCallback onPressedDelete;
-  final ValueChanged<List<String>> onChanged;
-  final String fistKeyForDiscountType;
+  final ValueChanged<List<dynamic>> onChanged;
   final int fistDataDiscount;
   final int numberOfCountService;
+  final bool discountByPercent;
+  final String staff;
+  final String totalOfInvoice;
+  final String serviceName;
 
   @override
   State<StatefulWidget> createState() {
@@ -124,41 +148,94 @@ class ListServiceTag extends StatefulWidget {
 
 class _ListServiceTagState extends State<ListServiceTag> {
   bool _checkDown = false;
-  String checkDiscountType = '';
-  List<String> dataReturn = [];
+  List<dynamic> dataReturn = [];
   TextEditingController txtDiscountController = TextEditingController();
   TextEditingController txtNumberOfServiceController = TextEditingController();
   final focusDiscountNode = FocusNode();
+  final focusNumberOfServiceNode = FocusNode();
+  int numberOfCount = 0;
+  bool discountByPercentGet = false;
 
-  /* cái này sẽ trả về theo định dạng sau ['%','discount(20,000),'1',] ->
+  /* cái này sẽ trả về theo định dạng sau [true(true là % false là d),'discount(20,000),'1',] ->
                                           ['pt1: trả về loại discount ','pt2 trả về giá trị discount theo loại discount','pt3 trả về số lượng của dịch vụ đó' ]    */
   @override
   void initState() {
-    checkDiscountType = widget.fistKeyForDiscountType.isEmpty
-        ? 'd'
-        : ((widget.fistKeyForDiscountType == '%' ||
-                widget.fistKeyForDiscountType == 'd')
-            ? widget.fistKeyForDiscountType
-            : 'd');
+    discountByPercentGet = widget.discountByPercent;
+
     var discountFistTime = widget.fistDataDiscount.toString();
-    var numberOfCount = widget.numberOfCountService.toString();
-    dataReturn = [checkDiscountType,discountFistTime.isEmpty?'0':discountFistTime,numberOfCount];
+    numberOfCount = widget.numberOfCountService;
+    dataReturn = [
+      discountByPercentGet,
+      discountFistTime.isEmpty ? '0' : discountFistTime,
+      numberOfCount.toString()
+    ];
     txtDiscountController.text = dataReturn[1];
+    txtNumberOfServiceController.text = dataReturn[2];
 
     // TODO: implement initState
     super.initState();
     focusDiscountNode.addListener(() {
-
       if (!focusDiscountNode.hasFocus) {
+        int intDiscount = int.tryParse(txtDiscountController.text) ?? 0;
         print(txtDiscountController.text.isEmpty);
 
-
-        if(txtDiscountController.text.isEmpty){
+        if (txtDiscountController.text.isEmpty) {
           setState(() {
-      txtDiscountController.text = '0';
+            txtDiscountController.text = '0';
             dataReturn[1] = '0';
             print(dataReturn);
+            widget.onChanged(dataReturn);
           });
+        } else {
+          if (discountByPercentGet) {
+            if (intDiscount > 100) {
+              txtDiscountController.text = '100';
+            } else {
+              if (intDiscount < 0) {
+                txtDiscountController.text = '0';
+              } else {
+                txtDiscountController.text = intDiscount.toString();
+              }
+            }
+            dataReturn[1] = txtDiscountController.text;
+            widget.onChanged(dataReturn);
+          } else {
+            if (intDiscount < 0) {
+              txtDiscountController.text = '0';
+            } else {
+              txtDiscountController.text = intDiscount.toString();
+            }
+
+            dataReturn[1] = txtDiscountController.text;
+            widget.onChanged(dataReturn);
+          }
+        }
+      }
+    });
+    focusNumberOfServiceNode.addListener(() {
+      if (!focusNumberOfServiceNode.hasFocus) {
+        int intNumberOfService =
+            int.tryParse(txtNumberOfServiceController.text) ?? 1;
+        if (txtNumberOfServiceController.text.isEmpty) {
+          setState(() {
+            txtNumberOfServiceController.text = '1';
+            dataReturn[2] = '1';
+            numberOfCount = 1;
+            print(dataReturn);
+            widget.onChanged(dataReturn);
+          });
+        } else {
+          if (intNumberOfService < 1) {
+            txtNumberOfServiceController.text = '1';
+            dataReturn[2] = txtNumberOfServiceController.text;
+            numberOfCount = intNumberOfService;
+            widget.onChanged(dataReturn);
+          } else {
+            txtNumberOfServiceController.text = intNumberOfService.toString();
+            dataReturn[2] = txtNumberOfServiceController.text;
+            numberOfCount = intNumberOfService;
+            widget.onChanged(dataReturn);
+          }
         }
       }
     });
@@ -184,7 +261,7 @@ class _ListServiceTagState extends State<ListServiceTag> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Đính hạt đơn giản 2 viên(1 ngón)",
+                          "${widget.serviceName}",
                           style: TextStyle(
                               color: colorTextAll,
                               fontWeight: FontWeight.normal,
@@ -192,7 +269,7 @@ class _ListServiceTagState extends State<ListServiceTag> {
                                   layout.sizeToFontSize(LayoutSize.medium)),
                         ),
                         Text(
-                          "KTV - Tú, TP - Tuấn, TP - Nhung",
+                          "${widget.staff}",
                           style: TextStyle(
                               color: hintColorTextAll,
                               fontWeight: FontWeight.normal,
@@ -219,7 +296,7 @@ class _ListServiceTagState extends State<ListServiceTag> {
                           },
                         ),
                         Text(
-                          "200,000đ",
+                          '${widget.totalOfInvoice}',
                           style: TextStyle(
                               color: hintColorTextAll,
                               fontWeight: FontWeight.normal,
@@ -230,6 +307,7 @@ class _ListServiceTagState extends State<ListServiceTag> {
                   )
                 ],
               ),
+              // phần dưới
               _checkDown == true
                   ? Container(
                       padding: EdgeInsets.only(top: 10),
@@ -258,7 +336,10 @@ class _ListServiceTagState extends State<ListServiceTag> {
                                           InkWell(
                                             onTap: () {
                                               setState(() {
-                                                checkDiscountType = 'd';
+                                                discountByPercentGet = false;
+                                                dataReturn[0] =
+                                                    discountByPercentGet;
+                                                widget.onChanged(dataReturn);
                                               });
                                             },
                                             child: Container(
@@ -267,8 +348,8 @@ class _ListServiceTagState extends State<ListServiceTag> {
                                                 decoration: BoxDecoration(
                                                   border: Border.all(
                                                       width: 1.5,
-                                                      color: checkDiscountType ==
-                                                              'd'
+                                                      color: discountByPercentGet ==
+                                                              false
                                                           ? theme.getColor(
                                                               ThemeColor
                                                                   .bondiBlue)
@@ -286,8 +367,8 @@ class _ListServiceTagState extends State<ListServiceTag> {
                                                               .sizeToBorderRadiusSize(
                                                                   LayoutSize
                                                                       .medium))),
-                                                  color: checkDiscountType ==
-                                                          'd'
+                                                  color: discountByPercentGet ==
+                                                          false
                                                       ? theme.getColor(
                                                           ThemeColor.bondiBlue)
                                                       : theme.getColor(
@@ -301,8 +382,8 @@ class _ListServiceTagState extends State<ListServiceTag> {
                                                             .sizeToFontSize(
                                                                 LayoutSize
                                                                     .medium),
-                                                        color: checkDiscountType ==
-                                                                'd'
+                                                        color: discountByPercentGet ==
+                                                                false
                                                             ? theme.getColor(
                                                                 ThemeColor
                                                                     .lightest)
@@ -316,7 +397,20 @@ class _ListServiceTagState extends State<ListServiceTag> {
                                           InkWell(
                                             onTap: () {
                                               setState(() {
-                                                checkDiscountType = '%';
+                                                discountByPercentGet = true;
+                                                dataReturn[0] =
+                                                    discountByPercentGet;
+                                                if (int.parse(
+                                                        txtDiscountController
+                                                            .text) >
+                                                    100) {
+                                                  txtDiscountController.text =
+                                                      '100';
+                                                  dataReturn[1] =
+                                                      txtDiscountController
+                                                          .text;
+                                                }
+                                                widget.onChanged(dataReturn);
                                               });
                                             },
                                             child: Container(
@@ -325,8 +419,8 @@ class _ListServiceTagState extends State<ListServiceTag> {
                                                 decoration: BoxDecoration(
                                                   border: Border.all(
                                                       width: 1.5,
-                                                      color: checkDiscountType ==
-                                                              '%'
+                                                      color: discountByPercentGet ==
+                                                              true
                                                           ? theme.getColor(
                                                               ThemeColor
                                                                   .bondiBlue)
@@ -344,8 +438,8 @@ class _ListServiceTagState extends State<ListServiceTag> {
                                                               .sizeToBorderRadiusSize(
                                                                   LayoutSize
                                                                       .medium))),
-                                                  color: checkDiscountType ==
-                                                          '%'
+                                                  color: discountByPercentGet ==
+                                                          true
                                                       ? theme.getColor(
                                                           ThemeColor.bondiBlue)
                                                       : theme.getColor(
@@ -359,14 +453,15 @@ class _ListServiceTagState extends State<ListServiceTag> {
                                                             .sizeToFontSize(
                                                                 LayoutSize
                                                                     .medium),
-                                                        color: checkDiscountType ==
-                                                                '%'
-                                                            ? theme.getColor(
-                                                                ThemeColor
-                                                                    .lightest)
-                                                            : theme.getColor(
-                                                                ThemeColor
-                                                                    .dark)),
+                                                        color:
+                                                            discountByPercentGet ==
+                                                                    true
+                                                                ? theme.getColor(
+                                                                    ThemeColor
+                                                                        .lightest)
+                                                                : theme.getColor(
+                                                                    ThemeColor
+                                                                        .dark)),
                                                   ),
                                                 )),
                                           ),
@@ -389,10 +484,11 @@ class _ListServiceTagState extends State<ListServiceTag> {
                                         keyboardType: TextInputType.number,
                                         onChanged: (valueText) {
                                           setState(() {
-                                            dataReturn[1] = valueText !=null ? valueText : '0';
+                                            dataReturn[1] = valueText != null
+                                                ? valueText
+                                                : '0';
                                             print(dataReturn);
                                           });
-
                                         },
                                       ),
                                     )
@@ -404,7 +500,23 @@ class _ListServiceTagState extends State<ListServiceTag> {
                                     //nút -
                                     InkWell(
                                       onTap: () {
-                                        setState(() {});
+                                        setState(() {
+                                          // nút - func
+                                          numberOfCount -= 1;
+                                          if (numberOfCount < 1) {
+                                            numberOfCount = 1;
+                                            txtNumberOfServiceController.text =
+                                                numberOfCount.toString();
+                                            dataReturn[2] =
+                                                numberOfCount.toString();
+                                          } else {
+                                            txtNumberOfServiceController.text =
+                                                numberOfCount.toString();
+                                            dataReturn[2] =
+                                                numberOfCount.toString();
+                                            widget.onChanged(dataReturn);
+                                          }
+                                        });
                                       },
                                       child: Container(
                                           height: layout.sizeToShapeSize(
@@ -431,9 +543,11 @@ class _ListServiceTagState extends State<ListServiceTag> {
                                           )),
                                     ),
                                     Container(
-                                      width: layout
-                                          .sizeToShapeSize(LayoutSize.medium),
+                                      width: 47,
                                       child: TextFormField(
+                                        focusNode: focusNumberOfServiceNode,
+                                        controller:
+                                            txtNumberOfServiceController,
                                         decoration: InputDecoration(
                                           border: InputBorder.none,
                                           hintText: '',
@@ -445,13 +559,19 @@ class _ListServiceTagState extends State<ListServiceTag> {
                                         keyboardType: TextInputType.number,
                                         onChanged: (valueText) {},
                                         textAlign: TextAlign.center,
-                                        initialValue: "1",
                                       ),
                                     ),
                                     //nút +
                                     InkWell(
                                       onTap: () {
-                                        setState(() {});
+                                        setState(() {
+                                          numberOfCount += 1;
+                                          txtNumberOfServiceController.text =
+                                              numberOfCount.toString();
+                                          dataReturn[2] =
+                                              numberOfCount.toString();
+                                          widget.onChanged(dataReturn);
+                                        });
                                       },
                                       child: Container(
                                           height: layout.sizeToShapeSize(
@@ -483,7 +603,7 @@ class _ListServiceTagState extends State<ListServiceTag> {
                             ),
                           ),
                           InkWell(
-                              onTap: widget.onPressedDelete ,
+                              onTap: widget.onPressedDelete,
                               child: Padding(
                                 padding: EdgeInsets.only(top: 10),
                                 child: Row(
