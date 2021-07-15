@@ -288,7 +288,7 @@ class _ListServiceTagState extends State<ListServiceTag> {
                           color: widget.hintTextColor,
                           buttonIconSize: LayoutSize.medium,
                           iconSize: LayoutSize.medium,
-                          icon: LineIcons.chevron_down,
+                          icon: _checkDown == true ? LineIcons.chevron_up:LineIcons.chevron_down,
                           onPressed: () {
                             setState(() {
                               _checkDown = !_checkDown;
