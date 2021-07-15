@@ -64,7 +64,7 @@ class _ListServiceTableState extends State<ListServiceTable> {
                 fontSize: layout.sizeToFontSize(LayoutSize.medium)),
           ),
           Text(
-            "Tổng:01",
+            "Tổng: ${widget.listServiceWidget.length}",
             style: TextStyle(
                 color: colorTextAll,
                 fontWeight: FontWeight.normal,
