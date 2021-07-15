@@ -11,7 +11,12 @@ enum ThemeColor {
   weak,
   warning,
   light,
-  lightest
+  lightest,
+  bondiBlue,
+  pastelGreen,
+  darkOrange,
+  radicalRed,
+  lightSlateBlue
 }
 
 class Theme {
@@ -22,16 +27,22 @@ class Theme {
     return Color(int.parse(buffer.toString(), radix: 16));
   }
 
-  Theme(
-      {required this.darkest,
-      required this.dark,
-      required this.primary,
-      required this.secondary,
-      required this.danger,
-      required this.weak,
-      required this.warning,
-      required this.light,
-      required this.lightest});
+  Theme({
+    required this.lightSlateBlue,
+    required this.radicalRed,
+    required this.pastelGreen,
+    required this.darkest,
+    required this.dark,
+    required this.primary,
+    required this.secondary,
+    required this.danger,
+    required this.weak,
+    required this.warning,
+    required this.light,
+    required this.lightest,
+    required this.bondiBlue,
+    required this.darkOrange
+  });
 
   final Color darkest;
   final Color dark;
@@ -42,11 +53,18 @@ class Theme {
   final Color warning;
   final Color light;
   final Color lightest;
+  final Color bondiBlue;
+  final Color pastelGreen;
+  final Color darkOrange;
+  final Color radicalRed;
+  final Color lightSlateBlue;
 
-  getColor(ThemeColor themeColor) {
+   Color getColor(ThemeColor themeColor) {
     switch (themeColor) {
       case ThemeColor.light:
         return this.light;
+      case ThemeColor.lightSlateBlue:
+        return this.lightSlateBlue;
       case ThemeColor.lightest:
         return this.lightest;
       case ThemeColor.primary:
@@ -55,13 +73,20 @@ class Theme {
         return this.danger;
       case ThemeColor.warning:
         return this.warning;
+      case ThemeColor.pastelGreen:
+        return this.pastelGreen;
       case ThemeColor.secondary:
         return this.secondary;
       case ThemeColor.weak:
         return this.weak;
       case ThemeColor.dark:
         return this.dark;
-      case ThemeColor.darkest:
+      case ThemeColor.bondiBlue:
+        return this.bondiBlue;
+      case ThemeColor.radicalRed:
+        return this.radicalRed;
+      case ThemeColor.darkOrange:
+        return this.darkOrange;
       default:
         return this.darkest;
     }
@@ -73,6 +98,7 @@ class ThemeNotifier with ChangeNotifier {
   final Theme lightTheme;
 
   late Theme _themeData;
+
   Theme getTheme() => _themeData;
 
   ThemeNotifier({required this.darkTheme, required this.lightTheme}) {
