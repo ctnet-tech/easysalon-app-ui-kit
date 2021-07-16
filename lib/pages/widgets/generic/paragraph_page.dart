@@ -1,5 +1,6 @@
 import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/basic/button.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/panel.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/page_header.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/standard_page.dart';
@@ -25,6 +26,7 @@ class _ParagraphPageState extends State<ParagraphPage> {
       bottomSize: LayoutSize.big,
       child: Column(
         children: [
+
           Paragraph(
             content: "Simple Paragraph",
             size: LayoutSize.large,
