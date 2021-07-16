@@ -14,13 +14,14 @@ class DropDownField extends StatefulWidget {
     Key? key,
     required this.dataDropDown,
     this.keyDataFistTime = '',
-    required this.onChanged, this.colorTheme = ThemeColor.lightest, this.colorBorder = ThemeColor.pattensBlue,
+    required this.onChanged, this.colorTheme = ThemeColor.lightest, this.colorBorder = ThemeColor.pattensBlue, this.childHasUpdate = true,
   }) : super(key: key);
   final Map<String, String> dataDropDown;
   final String keyDataFistTime;
   final ValueChanged<String> onChanged;
   final ThemeColor colorTheme;
   final ThemeColor colorBorder;
+  final bool childHasUpdate;
 
   @override
   State<StatefulWidget> createState() {
@@ -35,9 +36,14 @@ class _DropDownFieldState extends State<DropDownField> {
   bool checkFocus = false;
   String keyChange = '';
   Map<String, String> dataDropDownField = {};
-
+@override
+  void dispose() {
+    txtFieldController.dispose();
+    super.dispose();
+  }
   @override
   void initState() {
+  print("go there ${widget.keyDataFistTime}");
     keyChange = widget.keyDataFistTime;
     dataDropDownField = widget.dataDropDown;
     txtFieldController.text = widget.dataDropDown[widget.keyDataFistTime]!;
@@ -52,9 +58,17 @@ class _DropDownFieldState extends State<DropDownField> {
       }
     });
   }
+  @override
+  void didUpdateWidget(covariant DropDownField oldWidget) {
+    if(widget.childHasUpdate){
+      txtFieldController.text = widget.dataDropDown[widget.keyDataFistTime] ?? '';
+    }
+    super.didUpdateWidget(oldWidget);
+  }
 
   @override
   Widget build(BuildContext context) {
+
     var theme = context.read<ThemeNotifier>().getTheme();
     var layout = context.read<LayoutNotifier>();
 

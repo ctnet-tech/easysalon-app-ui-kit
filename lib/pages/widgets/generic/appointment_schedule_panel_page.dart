@@ -47,19 +47,7 @@ class _AppointmentSchedulePanelPageState
             width: double.infinity,
             margin: EdgeInsets.all(20),
             padding: EdgeInsets.all(10),
-            child: DropDownField(
-              colorBorder: ThemeColor.lightGrey,
-              colorTheme: ThemeColor.lightGrey,
-              dataDropDown: {
-                '': 'Vui Lòng Nhập..',
-                'key1': 'Nhân Viên',
-                'key2': 'data2',
-                'key3': 'data3'
-              },
-              onChanged: (key) {
-                print('${key}--------key click');
-              },
-            ),
+
           ),
           AppointmentSchedulePanel(
             statusType: StatusType.hasCancel,
@@ -92,33 +80,7 @@ class _AppointmentSchedulePanelPageState
             ],
             noteText: "Khách ở xa nên có thể đến muộn một chút\nMai Khách Đến",
           ),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-            ),
-            alignment: Alignment.center,
-            width: double.infinity,
-            margin: EdgeInsets.all(20),
-            padding: EdgeInsets.all(10),
-            child: DropDownField(
-              dataDropDown: {
-                '': 'Vui Lòng Nhập..',
-                'key1': 'Nhân Viên',
-                'key2': 'data2',
-                'key3': 'data3',
-                'key4': 'data4',
-                'key5': 'data5',
-                'key6': 'data6',
-                'key7': 'data7',
-                'key8': 'data8',
-                'key9': 'data9',
-              },
-              onChanged: (key) {
-                print('${key}--------key click');
-              },
-            ),
-          ),
+
           AppointmentSchedulePanel(
             statusType: StatusType.hasConfirm,
             onPressedCustomButton: () {
@@ -212,33 +174,7 @@ class _AppointmentSchedulePanelPageState
             ],
             hasShowNote: false,
           ),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-            ),
-            alignment: Alignment.center,
-            width: double.infinity,
-            margin: EdgeInsets.all(20),
-            padding: EdgeInsets.all(10),
-            child: DropDownField(
-              dataDropDown: {
-                '': 'Vui Lòng Nhập..',
-                'key1': 'Nhân Viên',
-                'key2': 'data2',
-                'key3': 'data3',
-                'key4': 'data4',
-                'key5': 'data5',
-                'key6': 'data6',
-                'key7': 'data7',
-                'key8': 'data8',
-                'key9': 'data9',
-              },
-              onChanged: (key) {
-                print('${key}--------key click');
-              },
-            ),
-          ),
+
         ]);
   }
 }
