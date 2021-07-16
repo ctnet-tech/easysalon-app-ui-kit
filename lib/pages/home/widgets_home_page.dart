@@ -93,12 +93,12 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                                   print(values);
                               },
                               listItems: {
-                                "Mới" :"value 1",
-                                "Đã xác nhận" : "value2 ",
-                                "Checkin":"value 3",
-                                "Checkout":"value 4",
-                                "Không đến":"value 5",
-                                "Đã hủy":"value 6"
+                                "key 1": "Mới" ,
+                                "key 2 ": "Đã xác nhận"  ,
+                                "key 3":"Checkin",
+                                "key 4" :"Checkout",
+                                "key 5": "Không đến",
+                                "key 6": "Đã hủy"
                               },
                             ),
                           );

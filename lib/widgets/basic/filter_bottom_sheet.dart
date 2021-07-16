@@ -1,4 +1,3 @@
-
 import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/shape.dart';
@@ -17,12 +16,12 @@ class FilterBottomSheet extends StatelessWidget {
   }) : super(key: key);
 
   final double height;
-  final Map<String,String> listItems;
+  final Map<String, String> listItems;
   final ValueChanged<List<String>> onTapSubmit;
 
   @override
   Widget build(BuildContext context) {
-    List<bool> listValues =List.filled(listItems.length, false);
+    List<bool> listValues = List.filled(listItems.length, false);
     var theme = context.read<ThemeNotifier>().getTheme();
     var layout = context.read<LayoutNotifier>();
     return Container(
@@ -86,12 +85,12 @@ class FilterBottomSheet extends StatelessWidget {
                             child: InkWell(
                               onTap: () {
                                 Navigator.pop(context);
-                                List<String> list=[];
-                                for(int i=0;i<listValues.length;i++)
-                                  {
-                                    if(listValues[i]==true)
-                                      list.add(listItems.entries.map((e) => e.key).toList()[i]);
+                                List<String> list = [];
+                                for (int i = 0; i < listValues.length; i++) {
+                                  if (listValues[i] == true) {
+                                    list.add(listItems.keys.toList()[i]);
                                   }
+                                }
                                 onTapSubmit(list);
                               },
                               child: Paragraph(
@@ -120,14 +119,15 @@ class FilterBottomSheet extends StatelessWidget {
                           (index) => Column(
                             children: [
                               FilterListTile(
-                                content: listItems.entries.map((e) => e.key).toList()[index],
+                                content: listItems.entries
+                                    .map((e) => e.value)
+                                    .toList()[index],
                                 valueCheck: false,
                                 onChange: (value) {
                                   listValues[index] = value;
                                 },
                               ),
-                              if(index!=listItems.length)
-                                Divider(),
+                              if (index != listItems.length) Divider(),
                             ],
                           ),
                         ),
