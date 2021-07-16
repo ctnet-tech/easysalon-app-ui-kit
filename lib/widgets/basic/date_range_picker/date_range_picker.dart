@@ -46,13 +46,42 @@ class _DateRangePickerState extends State<DateRangePicker>
 
   @override
   void initState() {
-
-    context.read<DateRangePickerBloc>().firstRange=context.read<DateRangePickerBloc>().startTime!.day;
-    context.read<DateRangePickerBloc>().firstYear=context.read<DateRangePickerBloc>().startTime!.year;
-    context.read<DateRangePickerBloc>().firstMonth=context.read<DateRangePickerBloc>().startTime!.month;
-    context.read<DateRangePickerBloc>().endRange=context.read<DateRangePickerBloc>().endTime!.day;
-    context.read<DateRangePickerBloc>().endYear=context.read<DateRangePickerBloc>().endTime!.year;
-    context.read<DateRangePickerBloc>().endMonth=context.read<DateRangePickerBloc>().endTime!.month;
+    context
+        .read<DateRangePickerBloc>()
+        .firstRange = context
+        .read<DateRangePickerBloc>()
+        .startTime!
+        .day;
+    context
+        .read<DateRangePickerBloc>()
+        .firstYear = context
+        .read<DateRangePickerBloc>()
+        .startTime!
+        .year;
+    context
+        .read<DateRangePickerBloc>()
+        .firstMonth = context
+        .read<DateRangePickerBloc>()
+        .startTime!
+        .month;
+    context
+        .read<DateRangePickerBloc>()
+        .endRange = context
+        .read<DateRangePickerBloc>()
+        .endTime!
+        .day;
+    context
+        .read<DateRangePickerBloc>()
+        .endYear = context
+        .read<DateRangePickerBloc>()
+        .endTime!
+        .year;
+    context
+        .read<DateRangePickerBloc>()
+        .endMonth = context
+        .read<DateRangePickerBloc>()
+        .endTime!
+        .month;
     if (widget.dateTime != null) {
       context
           .read<DateRangePickerBloc>()
@@ -64,7 +93,8 @@ class _DateRangePickerState extends State<DateRangePicker>
           .now()
           .year;
 
-    _controller = TabController(length: 12, vsync: this,initialIndex: widget.dateTime!.month-1);
+    _controller = TabController(
+        length: 12, vsync: this, initialIndex: widget.dateTime!.month - 1);
     _controller.addListener(() {
       setState(() {});
     });
@@ -75,12 +105,24 @@ class _DateRangePickerState extends State<DateRangePicker>
   Widget build(BuildContext context) {
     var theme = context.read<ThemeNotifier>().getTheme();
     var layout = context.read<LayoutNotifier>();
-    print(MediaQuery.of(context).size.width);
-    var minHeight=520;
-    double height = MediaQuery.of(context).size.height*2/3 <minHeight?minHeight+50:MediaQuery.of(context).size.height*2/3;
+    print(MediaQuery
+        .of(context)
+        .size
+        .width);
+    var minHeight = 520;
+    double height = MediaQuery
+        .of(context)
+        .size
+        .height * 2 / 3 < minHeight ? minHeight + 50 : MediaQuery
+        .of(context)
+        .size
+        .height * 2 / 3;
     return Container(
       height: height,
-      width:MediaQuery.of(context).size.width,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width,
       decoration: BoxDecoration(
         color: theme.getColor(ThemeColor.lightest),
         borderRadius: BorderRadius.only(
@@ -108,8 +150,12 @@ class _DateRangePickerState extends State<DateRangePicker>
                 all: true,
                 size: LayoutSize.small,
                 child: Container(
-                  height: height-3-layout.sizeToPadding(LayoutSize.small)*3,
-                  width:MediaQuery.of(context).size.width,
+                  height: height - 3 -
+                      layout.sizeToPadding(LayoutSize.small) * 3,
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width,
                   child: Column(
                     children: [
                       Row(
@@ -157,7 +203,8 @@ class _DateRangePickerState extends State<DateRangePicker>
                                         .endRange != null && context
                                         .read<DateRangePickerBloc>()
                                         .firstRange == null) {
-                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
                                           content: Center(child: Text(
                                               "Hãy chọn khoảng thời gian trước khi nhấn lưu"))));
                                     }
@@ -182,27 +229,35 @@ class _DateRangePickerState extends State<DateRangePicker>
                                     }
                                     context.read<DateRangePickerBloc>().add(
                                         ChangeTimePeriod(
-                                            startTime: DateFormat("dd/MM/yyyy").parse(
+                                            startTime: DateFormat("dd/MM/yyyy")
+                                                .parse(
                                                 formatToDateTime(
                                                     context
-                                                        .read<DateRangePickerBloc>()
+                                                        .read<
+                                                        DateRangePickerBloc>()
                                                         .firstRange!,
                                                     context
-                                                        .read<DateRangePickerBloc>()
+                                                        .read<
+                                                        DateRangePickerBloc>()
                                                         .firstMonth!,
                                                     context
-                                                        .read<DateRangePickerBloc>()
+                                                        .read<
+                                                        DateRangePickerBloc>()
                                                         .firstYear!)),
-                                            endTime: DateFormat("dd/MM/yyyy").parse(
+                                            endTime: DateFormat("dd/MM/yyyy")
+                                                .parse(
                                                 formatToDateTime(
                                                     context
-                                                        .read<DateRangePickerBloc>()
+                                                        .read<
+                                                        DateRangePickerBloc>()
                                                         .endRange!,
                                                     context
-                                                        .read<DateRangePickerBloc>()
+                                                        .read<
+                                                        DateRangePickerBloc>()
                                                         .endMonth!,
                                                     context
-                                                        .read<DateRangePickerBloc>()
+                                                        .read<
+                                                        DateRangePickerBloc>()
                                                         .endYear!))));
 
                                     widget.onChanged([
@@ -275,7 +330,9 @@ class _DateRangePickerState extends State<DateRangePicker>
                       ),
 
                       Expanded(
-                        child: BlocBuilder<DateRangePickerBloc, DateRangePickerState>(
+                        child: BlocBuilder<
+                            DateRangePickerBloc,
+                            DateRangePickerState>(
                           builder: (context, state) =>
                               TabBarView(
                                 controller: _controller,
@@ -390,7 +447,6 @@ class _DayInMonthViewState extends State<DayInMonthView> {
                   )
                       : InkWell(
                     onTap: () {
-
                       if (context
                           .read<DateRangePickerBloc>()
                           .firstRange ==
@@ -464,10 +520,11 @@ class _DayInMonthViewState extends State<DayInMonthView> {
                           .size
                           .width - 24) / 7,
                       child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Expanded(
                               child: Container(
-                                height: 30,
+                                height: 40,
                                 color: context
                                     .read<DateRangePickerBloc>()
                                     .firstRange ==
@@ -559,8 +616,8 @@ class _DayInMonthViewState extends State<DayInMonthView> {
                                     0.2) : theme.getColor(ThemeColor.lightest),
                               )),
                           Container(
-                              height: 25,
-                              width: 25,
+                              height: 40,
+                              width: 40,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular((context
                                     .read<DateRangePickerBloc>()
@@ -573,11 +630,17 @@ class _DayInMonthViewState extends State<DayInMonthView> {
                                     context
                                         .read<DateRangePickerBloc>()
                                         .endRange ==
-                                        (index + 1 - firstDateValue!) && context
-                                        .read<DateRangePickerBloc>()
-                                        .endMonth == widget.month && context
-                                        .read<DateRangePickerBloc>()
-                                        .endYear == widget.year)?layout.sizeToBorderRadiusSize(LayoutSize.small):layout.sizeToBorderRadiusSize(LayoutSize.none)),
+                                        (index + 1 - firstDateValue!) &&
+                                        context
+                                            .read<DateRangePickerBloc>()
+                                            .endMonth == widget.month &&
+                                        context
+                                            .read<DateRangePickerBloc>()
+                                            .endYear == widget.year)
+                                    ? layout.sizeToBorderRadiusSize(
+                                    LayoutSize.small)
+                                    : layout.sizeToBorderRadiusSize(
+                                    LayoutSize.none)),
                                 color: (context
                                     .read<DateRangePickerBloc>()
                                     .firstRange ==
@@ -589,11 +652,13 @@ class _DayInMonthViewState extends State<DayInMonthView> {
                                     context
                                         .read<DateRangePickerBloc>()
                                         .endRange ==
-                                        (index + 1 - firstDateValue!) && context
-                                        .read<DateRangePickerBloc>()
-                                        .endMonth == widget.month && context
-                                        .read<DateRangePickerBloc>()
-                                        .endYear == widget.year)
+                                        (index + 1 - firstDateValue!) &&
+                                        context
+                                            .read<DateRangePickerBloc>()
+                                            .endMonth == widget.month &&
+                                        context
+                                            .read<DateRangePickerBloc>()
+                                            .endYear == widget.year)
                                     ? theme.getColor(ThemeColor.dodgerBlue)
                                     : context
                                     .read<
@@ -622,13 +687,16 @@ class _DayInMonthViewState extends State<DayInMonthView> {
                                             .endRange! &&
                                     widget.month! >= context
                                         .read<DateRangePickerBloc>()
-                                        .firstMonth! && widget.month! <= context
-                                    .read<DateRangePickerBloc>()
-                                    .endMonth! && widget.year! >= context
-                                    .read<DateRangePickerBloc>()
-                                    .firstYear! && widget.year! <= context
-                                    .read<DateRangePickerBloc>()
-                                    .endYear!
+                                        .firstMonth! &&
+                                    widget.month! <= context
+                                        .read<DateRangePickerBloc>()
+                                        .endMonth! &&
+                                    widget.year! >= context
+                                        .read<DateRangePickerBloc>()
+                                        .firstYear! &&
+                                    widget.year! <= context
+                                        .read<DateRangePickerBloc>()
+                                        .endYear!
                                     ? theme.getColor(ThemeColor.dodgerBlue)
                                     .withOpacity(0.2)
                                     : (widget.month! > context
@@ -678,16 +746,33 @@ class _DayInMonthViewState extends State<DayInMonthView> {
                                         .read<DateRangePickerBloc>()
                                         .endRange!)) ? theme.getColor(
                                     ThemeColor.dodgerBlue).withOpacity(
-                                    0.2) : theme.getColor(ThemeColor.lightest),
+                                    0.2) : theme.getColor(
+                                    ThemeColor.lightest),
                               ),
-                              child: Center(
-                                child: Text(
-                                  (index + 1 - firstDateValue!).toString(),
-                                ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Center(
+                                    child: Text(
+                                      (index + 1 - firstDateValue!).toString(),
+                                    ),
+                                  ),
+                                  if((index + 1 - firstDateValue!) == DateTime
+                                      .now()
+                                      .day && widget.month == DateTime
+                                      .now()
+                                      .month && widget.year == DateTime
+                                      .now()
+                                      .year)
+                                    Text("Hôm nay",
+
+                                      style: TextStyle(color: theme.getColor(ThemeColor.dodgerBlue),fontSize: 8),
+                                    ),
+                                ],
                               )),
                           Expanded(
                               child: Container(
-                                height: 30,
+                                height: 40,
                                 color: context
                                     .read<DateRangePickerBloc>()
                                     .endRange ==
@@ -771,7 +856,7 @@ class _DayInMonthViewState extends State<DayInMonthView> {
                       ),
                     ),
                   ),
-    )),
+                )),
           ),
         ),
         SizedBox(height: 10,),
@@ -811,7 +896,9 @@ class _DayInMonthViewState extends State<DayInMonthView> {
                 .firstRange != null &&
                 context
                     .read<DateRangePickerBloc>()
-                    .endRange != null)?theme.getColor(ThemeColor.dodgerBlue):Colors.transparent,
+                    .endRange != null)
+                ? theme.getColor(ThemeColor.dodgerBlue)
+                : Colors.transparent,
             child: Center(
               child: Paragraph(
                 color: ThemeColor.lightest,
