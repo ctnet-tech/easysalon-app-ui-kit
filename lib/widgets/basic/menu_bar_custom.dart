@@ -12,7 +12,7 @@ class MenuBarCustom extends StatefulWidget {
       {Key? key,
         this.marginMenu = LayoutSize.medium,
         this.paddingMenu = LayoutSize.medium,
-        this.borderRadius = LayoutSize.medium, this.listTitle = const[], this.fontSizeTitle = LayoutSize.medium, this.colorTitle = ThemeColor.bondiBlue,required this.height, this.listContent = const [],
+        this.borderRadius = LayoutSize.medium, this.listTitle = const[], this.fontSizeTitle = LayoutSize.medium, this.colorTitle = ThemeColor.secondary,required this.height, this.listContent = const [],
         })
       : super(key: key);
   final LayoutSize marginMenu;
@@ -51,10 +51,13 @@ class _MenuBarCustomState extends State<MenuBarCustom> {
     var fontSizeAll = layout.sizeToFontSize(widget.fontSizeTitle);
 
     return (widget.listTitle.length == widget.listContent.length && widget.listTitle.length > 0) ? Container(
+      width:  double.infinity,
       height: widget.height,
       child: TitleScrollNavigation(
         barStyle: TitleNavigationBarStyle(
-          style: TextStyle(fontSize:fontSizeAll,color: colorTitle ),
+          activeColor: theme.getColor(ThemeColor.bondiBlue),
+          deactiveColor: colorTitle,
+          style: TextStyle(fontSize:fontSizeAll),
           padding: EdgeInsets.symmetric(horizontal: 40.0,vertical: 20.0),
           spaceBetween: 40,
         ),
