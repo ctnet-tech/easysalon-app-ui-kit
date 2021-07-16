@@ -28,19 +28,39 @@ class ButtonPage extends StatelessWidget {
         ButtonGroup(
           expanded: true,
           children: [
-            Button(content: "Click me!", onPressed: this._onPressed),
             Button(
-              content: "Click me!",
+              color: ThemeColor.darkOrange,
+              content: "Chưa Thanh Toán",
               onPressed: this._onPressed,
-              outlined: true,
-              circle: true,
+              matteCoating: true,
             ),
             Button(
-              content: "Click me!",
+              color: ThemeColor.pastelGreen,
+              content: "Đã Thanh Toán",
               onPressed: this._onPressed,
-              outlined: false,
-              solid: false,
-            )
+              matteCoating: true,
+            ),
+          ],
+        ),
+        ButtonGroup(
+          expanded: true,
+          children: [
+            Button(
+              iconLeft: LineIcons.chevron_down,
+              color: ThemeColor.lightSlateBlue,
+              contentCustom: Container(
+                child: Text("Check in"),
+              ),
+              onPressed: this._onPressed,
+              matteCoating: true,
+            ),
+            Button(
+
+              color: ThemeColor.radicalRed,
+              content: "Còn Nợ",
+              onPressed: this._onPressed,
+              matteCoating: true,
+            ),
           ],
         )
       ],
@@ -59,28 +79,33 @@ class ButtonPage extends StatelessWidget {
         ButtonGroup(
           children: [
             Button(
-                width: 135,
-                icon: LineIcons.heart,
-                content: "Click me!",
-                onPressed: this._onPressed,
-                circle: true),
-            Button(
-              icon: LineIcons.heart,
+              color: ThemeColor.darkOrange,
+              icon: LineIcons.money_stack,
               onPressed: this._onPressed,
-              circle: true,
+
             ),
             Button(
-              icon: LineIcons.heart,
+              icon: LineIcons.user,
               onPressed: this._onPressed,
-              outlined: true,
-              circle: true,
+
             ),
             Button(
-              icon: LineIcons.heart,
+              icon: LineIcons.users,
+              color: ThemeColor.lightSlateBlue,
               onPressed: this._onPressed,
-              outlined: false,
-              solid: false,
-            )
+
+            ),
+            Button(
+              icon: LineIcons.add_item,
+              onPressed: this._onPressed,
+
+            ),
+            Button(
+              color: ThemeColor.pastelGreen,
+              icon: LineIcons.store,
+              onPressed: this._onPressed,
+
+            ),
           ],
         )
       ],
@@ -101,20 +126,24 @@ class ButtonPage extends StatelessWidget {
           vertical: true,
           children: [
             Button(
-                icon: LineIcons.heart,
-                content: "Click me!",
+              customSize:LayoutSize.large ,
+                contentCustom: Container(child: Text("Bước 4/5"),),
+                content: "Tiếp Tục",
                 onPressed: this._onPressed),
             Button(
-                icon: LineIcons.heart,
-                content: "Click me!",
+                icon: LineIcons.plus,
+                content: "Tạo Lịch Hẹn",
                 outlined: true,
                 onPressed: this._onPressed),
             Button(
-                icon: LineIcons.heart,
-                content: "Click me!",
+                icon: LineIcons.close,
+                color: ThemeColor.radicalRed,
+                content: "Hủy Hóa Đơn",
                 onPressed: this._onPressed,
-                outlined: false,
-                solid: false)
+                outlined: true,
+                solid: false,
+
+               )
           ],
         )
       ],
@@ -132,30 +161,22 @@ class ButtonPage extends StatelessWidget {
         ),
         ButtonGroup(
           expanded: true,
+
           children: [
             Button(
-                icon: LineIcons.heart,
-                iconSize: LayoutSize.big,
-                content: "Click me",
+                icon: LineIcons.collapse_up,
+                color: ThemeColor.radicalRed,
+                content: "Tạo Phiếu Xuất",
                 onPressed: this._onPressed,
-                vertical: true),
+            ),
             Button(
-                icon: LineIcons.heart,
-                iconSize: LayoutSize.big,
-                content: "Click me",
-                onPressed: this._onPressed,
-                vertical: true,
-                outlined: true),
-            Button(
-                icon: LineIcons.heart,
-                iconSize: LayoutSize.big,
-                content: "Click me",
-                onPressed: this._onPressed,
-                vertical: true,
-                outlined: false,
-                solid: false),
+              icon: LineIcons.collapse_down,
+              content: "Tạo Phiếu Nhập",
+              onPressed: this._onPressed,
+            )
           ],
-        )
+        ),
+
       ],
     );
   }
