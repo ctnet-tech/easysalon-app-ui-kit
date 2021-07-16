@@ -15,6 +15,7 @@ class CustomTextField extends StatefulWidget {
   ThemeColor colorFirstText;
   LayoutSize sizeFirstText;
   ThemeColor colorSecondText;
+  ThemeColor backgroundColor;
   LayoutSize sizeSecondText;
   TextStyle? textFieldTextStyle;
   TextStyle? textFieldHintTextStyle;
@@ -32,6 +33,8 @@ class CustomTextField extends StatefulWidget {
   bool hasUpdate;
   String firstData;
   Widget? suffixIcon;
+  EdgeInsets? padding;
+  BorderRadiusGeometry? borderRadius;
 
   CustomTextField({
     Key? key,
@@ -58,6 +61,9 @@ class CustomTextField extends StatefulWidget {
     this.hasUpdate = false,
     this.firstData = "",
     this.suffixIcon,
+    this.padding,
+    this.borderRadius,
+    this.backgroundColor =ThemeColor.lightest,
   }) : super(key: key);
 
   @override
@@ -121,9 +127,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
         Container(
           height: widget.customHeight,
           width: widget.customWidth,
+          decoration: BoxDecoration(
+              color: theme.getColor(widget.backgroundColor),
+              borderRadius: widget.borderRadius==null?layout.sizeToBorderRadius(LayoutSize.small):widget.borderRadius),
+          padding: widget.padding ==null?EdgeInsets.all(layout.sizeToPadding(LayoutSize.tiny)): widget.padding,
           child: TextField(
-            minLines: widget.minLine ?? 1,
-            maxLines: widget.minLine != null ? null : widget.maxLine ?? 1,
+            minLines: widget.minLine,
+            maxLines: widget.hasObscureText?1:widget.maxLine,
             controller: widget.textEditingController,
             readOnly: widget.isDatePicker ? true : false,
             onChanged: widget.onChangedTextField,
@@ -141,6 +151,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   )
                 : widget.textFieldTextStyle,
             decoration: InputDecoration(
+              border: InputBorder.none,
+              isDense: widget.minLine == null ? true : false,
               suffixIcon: widget.suffixIcon != null
                   ? widget.suffixIcon
                   : widget.hasObscureText
@@ -179,17 +191,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
                               ),
                             )
                           : null,
-              border: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: theme.getColor(
-                    ThemeColor.hawkesBlue,
-                  ),
-                ),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(
-                      layout.sizeToBorderRadiusSize(LayoutSize.small)),
-                ),
-              ),
               hintText: widget.hintText,
               hintStyle: widget.textFieldHintTextStyle == null
                   ? TextStyle(

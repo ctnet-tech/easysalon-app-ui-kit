@@ -20,6 +20,9 @@ class CustomTextFieldPage extends StatelessWidget {
               spacing: 20,
               children: [
                 CustomTextField(
+                  customWidth: 200,
+                  customHeight: 80,
+                  maxLine: 1,
                   textEditingController: TextEditingController(),
                   hintText: "Email hoặc số điện thoại",
                 ),
@@ -52,10 +55,11 @@ class CustomTextFieldPage extends StatelessWidget {
                   isDatePicker: true,
                 ),
                 CustomTextField(
+                  customHeight: 50,
                   firstText: "Ghi chú",
                   textEditingController: TextEditingController(),
                   hintText: "Nhập ghi chú",
-                  minLine: 6,
+                  maxLine: null,
                 ),
               ],
             ),
