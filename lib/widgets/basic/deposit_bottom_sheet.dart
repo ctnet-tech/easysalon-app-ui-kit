@@ -165,10 +165,18 @@ class _DepositBottomSheetState extends State<DepositBottomSheet> {
                       listPaymentMethod.add([null, null, null]);
                     },
                     onChangeBankAccount: (value) {
-                      listPaymentMethod[0][2] = value;
+                      listPaymentMethod[0][2] = widget
+                          .dropdownDataBankAccounts.keys
+                          .firstWhere((element) =>
+                      widget.dropdownDataBankAccounts[element] ==
+                          value);
                     },
                     onChangePaymentMethod: (value) {
-                      listPaymentMethod[0][0] = value;
+                      listPaymentMethod[0][2] = widget
+                          .dropdownDataBankAccounts.keys
+                          .firstWhere((element) =>
+                      widget.dropdownDataBankAccounts[element] ==
+                          value);
                     },
                     index: 0,
                   ),
@@ -210,7 +218,7 @@ class _DepositBottomSheetState extends State<DepositBottomSheet> {
                           },
                           onChangePaymentMethod: (value) {
                             listPaymentMethod[index + 1][0] = widget
-                                .dropdownDataBankAccounts.keys
+                                .dropdownDataMethodPayment.keys
                                 .firstWhere((element) =>
                                     widget.dropdownDataMethodPayment[element] ==
                                     value);
@@ -273,7 +281,6 @@ class _PaymentMethodFormState extends State<PaymentMethodForm> {
 
       dropdownValue= widget.paymentMethodDropDownInput;
       dropdownValue2= widget.bankAccountDropDownInput;
-
        if(dropdownValue =="Chuyển khoản")
          isPayByTransfer=true;
     super.initState();
