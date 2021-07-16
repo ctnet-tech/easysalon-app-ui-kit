@@ -173,9 +173,9 @@ class _DepositBottomSheetState extends State<DepositBottomSheet> {
                     },
                     onChangePaymentMethod: (value) {
                       listPaymentMethod[0][2] = widget
-                          .dropdownDataBankAccounts.keys
+                          .dropdownDataMethodPayment.keys
                           .firstWhere((element) =>
-                      widget.dropdownDataBankAccounts[element] ==
+                      widget.dropdownDataMethodPayment[element] ==
                           value);
                     },
                     index: 0,
@@ -191,8 +191,8 @@ class _DepositBottomSheetState extends State<DepositBottomSheet> {
                           height: 10,
                         ),
                         PaymentMethodForm(
-                        bankAccountDropDownInput: widget.dropdownDataBankAccounts[listPaymentMethod[index+1][0]],
-                          paymentMethodDropDownInput: widget.dropdownDataMethodPayment[listPaymentMethod[index+1][2]],
+                        bankAccountDropDownInput: widget.dropdownDataBankAccounts[listPaymentMethod[index+1][2]],
+                          paymentMethodDropDownInput: widget.dropdownDataMethodPayment[listPaymentMethod[index+1][0]],
                           onSubmittedTextField: (value) {
                             listPaymentMethod[index+1][1]=value;
                           },
@@ -278,11 +278,11 @@ class _PaymentMethodFormState extends State<PaymentMethodForm> {
   bool isPayByTransfer = false;
 @override
   void initState() {
-
       dropdownValue= widget.paymentMethodDropDownInput;
       dropdownValue2= widget.bankAccountDropDownInput;
        if(dropdownValue =="Chuyển khoản")
          isPayByTransfer=true;
+      print(dropdownValue2);
     super.initState();
   }
   @override
