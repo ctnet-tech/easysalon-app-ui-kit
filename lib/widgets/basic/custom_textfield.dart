@@ -12,6 +12,14 @@ class CustomTextField extends StatefulWidget {
   final String? firstText;
   final String? secondText;
   final TextEditingController textEditingController;
+  ThemeColor colorFirstText;
+  LayoutSize sizeFirstText;
+  ThemeColor colorSecondText;
+  LayoutSize sizeSecondText;
+  TextStyle? textFieldTextStyle;
+  TextStyle? textFieldHintTextStyle;
+  double customHeight;
+  double customWidth;
   bool isOnlyNumber;
   String hintText;
   bool hasObscureText;
@@ -19,19 +27,37 @@ class CustomTextField extends StatefulWidget {
   int? minLine;
   int? maxLine;
   VoidCallback? onTapSecondText;
+  Function(String)? onChangedTextField;
+  ValueChanged<String>? onSubmitted;
+  bool hasUpdate;
+  String firstData;
+  Widget? suffixIcon;
 
   CustomTextField({
     Key? key,
     this.firstText,
     this.secondText,
     required this.textEditingController,
-    this.isOnlyNumber=false,
+    this.isOnlyNumber = false,
     this.hintText = "",
     this.hasObscureText = false,
     this.isDatePicker = false,
     this.minLine,
     this.maxLine,
     this.onTapSecondText,
+    this.customHeight = 50,
+    this.customWidth = double.infinity,
+    this.sizeFirstText = LayoutSize.medium,
+    this.sizeSecondText = LayoutSize.medium,
+    this.colorFirstText = ThemeColor.secondary,
+    this.colorSecondText = ThemeColor.dodgerBlue,
+    this.textFieldHintTextStyle,
+    this.textFieldTextStyle,
+    this.onChangedTextField,
+    this.onSubmitted,
+    this.hasUpdate = false,
+    this.firstData = "",
+    this.suffixIcon,
   }) : super(key: key);
 
   @override
@@ -40,6 +66,14 @@ class CustomTextField extends StatefulWidget {
 
 class _CustomTextFieldState extends State<CustomTextField> {
   bool isObscure = true;
+
+  @override
+  void didUpdateWidget(covariant CustomTextField oldWidget) {
+    if (widget.hasUpdate) {
+      widget.textEditingController.text = widget.firstData;
+    }
+    super.didUpdateWidget(oldWidget);
+  }
 
   @override
   void initState() {
@@ -62,7 +96,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 children: [
                   Paragraph(
                     linePadding: LayoutSize.none,
-                    color: ThemeColor.secondary,
+                    color: widget.colorFirstText,
+                    size: widget.sizeFirstText,
                     content: widget.firstText ?? "",
                     weight: FontWeight.w400,
                   ),
@@ -70,7 +105,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     onTap: widget.onTapSecondText,
                     child: Paragraph(
                       linePadding: LayoutSize.none,
-                      color: ThemeColor.dodgerBlue,
+                      size: widget.sizeSecondText,
+                      color: widget.colorSecondText,
                       content: widget.secondText ?? "",
                       weight: FontWeight.w400,
                     ),
@@ -82,75 +118,89 @@ class _CustomTextFieldState extends State<CustomTextField> {
               ),
             ],
           ),
-        TextField(
-          minLines: widget.minLine ?? 1,
-          maxLines: widget.minLine!=null? null : widget.maxLine ?? 1,
-          controller: widget.textEditingController,
-          readOnly: widget.isDatePicker?true:false,
-          inputFormatters: [
-            if (widget.isOnlyNumber) FilteringTextInputFormatter.digitsOnly,
-          ],
-          keyboardType:
-              widget.isOnlyNumber ? TextInputType.number : TextInputType.text,
-          style: TextStyle(
-            fontSize: layout.sizeToFontSize(LayoutSize.medium),
-            color: theme.getColor(ThemeColor.dark),
-            fontWeight: FontWeight.w400,
-          ),
-          decoration: InputDecoration(
-            suffixIcon: widget.hasObscureText
-                ?  InkWell(
-                        onTap: () {
-                          setState(() {
-                            isObscure = !isObscure;
-                          });
-                        },
-                        child: CustomIcon(
-                          icon: isObscure ? LineIcons.eye_slash : LineIcons.eye,
-                          size: LayoutSize.medium,
-                        ),
-                      )
-                : widget.isDatePicker
-                ? InkWell(
-              onTap: () {
-                showDatePicker(
-                  context: context,
-                  locale: const Locale("vi"),
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(1900),
-                  lastDate: DateTime.now(),
-                ).then((dateTime) {
-                  setState(() {
-                    widget.textEditingController.text =
-                        DateFormat("dd/MM/yyyy").format(dateTime!);
-                  });
-                });
-              },
-              child: CustomIcon(
-                icon: LineIcons.calendar_week,
-                size: LayoutSize.medium,
-              ),
-            )
-                :null,
-            border: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: theme.getColor(
-                  ThemeColor.hawkesBlue,
+        Container(
+          height: widget.customHeight,
+          width: widget.customWidth,
+          child: TextField(
+            minLines: widget.minLine ?? 1,
+            maxLines: widget.minLine != null ? null : widget.maxLine ?? 1,
+            controller: widget.textEditingController,
+            readOnly: widget.isDatePicker ? true : false,
+            onChanged: widget.onChangedTextField,
+            onSubmitted: widget.onSubmitted,
+            inputFormatters: [
+              if (widget.isOnlyNumber) FilteringTextInputFormatter.digitsOnly,
+            ],
+            keyboardType:
+                widget.isOnlyNumber ? TextInputType.number : TextInputType.text,
+            style: widget.textFieldTextStyle == null
+                ? TextStyle(
+                    fontSize: layout.sizeToFontSize(LayoutSize.medium),
+                    color: theme.getColor(ThemeColor.dark),
+                    fontWeight: FontWeight.w400,
+                  )
+                : widget.textFieldTextStyle,
+            decoration: InputDecoration(
+              suffixIcon: widget.suffixIcon != null
+                  ? widget.suffixIcon
+                  : widget.hasObscureText
+                      ? InkWell(
+                          onTap: () {
+                            setState(() {
+                              isObscure = !isObscure;
+                            });
+                          },
+                          child: CustomIcon(
+                            icon:
+                                isObscure ? LineIcons.eye_slash : LineIcons.eye,
+                            size: LayoutSize.medium,
+                          ),
+                        )
+                      : widget.isDatePicker
+                          ? InkWell(
+                              onTap: () {
+                                showDatePicker(
+                                  context: context,
+                                  locale: const Locale("vi"),
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(1900),
+                                  lastDate: DateTime.now(),
+                                ).then((dateTime) {
+                                  setState(() {
+                                    widget.textEditingController.text =
+                                        DateFormat("dd/MM/yyyy")
+                                            .format(dateTime!);
+                                  });
+                                });
+                              },
+                              child: CustomIcon(
+                                icon: LineIcons.calendar_week,
+                                size: LayoutSize.medium,
+                              ),
+                            )
+                          : null,
+              border: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: theme.getColor(
+                    ThemeColor.hawkesBlue,
+                  ),
+                ),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(
+                      layout.sizeToBorderRadiusSize(LayoutSize.small)),
                 ),
               ),
-              borderRadius: BorderRadius.all(
-                Radius.circular(
-                    layout.sizeToBorderRadiusSize(LayoutSize.small)),
-              ),
+              hintText: widget.hintText,
+              hintStyle: widget.textFieldHintTextStyle == null
+                  ? TextStyle(
+                      fontSize: layout.sizeToFontSize(LayoutSize.medium),
+                      color: theme.getColor(ThemeColor.secondary),
+                      fontWeight: FontWeight.w400,
+                    )
+                  : widget.textFieldHintTextStyle,
             ),
-            hintText: widget.hintText,
-            hintStyle: TextStyle(
-              fontSize: layout.sizeToFontSize(LayoutSize.medium),
-              color: theme.getColor(ThemeColor.secondary),
-              fontWeight: FontWeight.w400,
-            ),
+            obscureText: widget.hasObscureText ? isObscure : false,
           ),
-          obscureText: widget.hasObscureText ? isObscure : false,
         ),
       ],
     );
