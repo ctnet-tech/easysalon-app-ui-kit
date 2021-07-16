@@ -28,7 +28,7 @@ class InvoiceStatusTag extends StatelessWidget {
     this.textTypeCustomer = "Khách Vãng Lai",
     this.textTime = "",
     this.numberOfCount = "",
-    this.totalInvoice = "",required this.typeOfInvoice, this.title = "Hóa Đơn Mới", this.staff = "", this.onPressed,
+    this.totalInvoice = "",required this.typeOfInvoice, this.title = "Hóa Đơn Mới", this.staff = "", this.onPressed, this.hasCustomer = true,
   }) : super(key: key);
   final ThemeColor color;
   final ThemeColor hintTextColor;
@@ -47,6 +47,7 @@ class InvoiceStatusTag extends StatelessWidget {
   final String title;
   final String staff;
   final VoidCallback? onPressed;
+  final bool hasCustomer;
   @override
   Widget build(BuildContext context) {
     var theme = context.read<ThemeNotifier>().getTheme();
@@ -89,7 +90,7 @@ class InvoiceStatusTag extends StatelessWidget {
                             children: <TextSpan>[
                               new TextSpan(text: '${this.title}'),
                               new TextSpan(
-                                  text: ' (STT: ${this.numberOfCount})',
+                                  text: '${this.numberOfCount}',
                                   style: new TextStyle(
                                     fontWeight: FontWeight.normal,
                                     color: colorTextHintAll,
@@ -108,7 +109,7 @@ class InvoiceStatusTag extends StatelessWidget {
                                 fontSize: 13,
                               )),
                         ),
-                        Padding(
+                         this.hasCustomer ? Padding(
                           padding: EdgeInsets.only(top: 6),
                           child: Row(
                             children: [
@@ -128,7 +129,7 @@ class InvoiceStatusTag extends StatelessWidget {
                               )
                             ],
                           ),
-                        )
+                        ):Container()
                       ],
                     ),
                     Column(
