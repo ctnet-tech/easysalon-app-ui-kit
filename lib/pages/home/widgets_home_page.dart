@@ -49,19 +49,37 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                     create: (_) => DateRangePickerBloc(),
                     child: SelectionTimeBar(),
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Center(
                     child: InkWell(
                         onTap: () {
                           showModalBottomSheet(
                             isScrollControlled: true,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20) ),
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20)),
                             ),
                             context: context,
                             builder: (_) => DepositBottomSheet(
+                              listPaymentMethodInput: [["data1","100000","account1"],["data2",null,null],["data2",null,"account3"]],
+                              dropdownDataMethodPayment: <String, String>{
+                                "data1": "Tiền mặt",
+                                "data2": "Chuyển khoản",
+                                "data3": "Điểm",
+                              },
+                              dropdownDataBankAccounts: <String, String>{
+                                "account1": "Tài khoản 1",
+                                "account2": "Tài khoản 2",
+                                "account3": "Tài khoản 3",
+                              },
                               height:
                                   MediaQuery.of(context).size.height * 2 / 3,
+                              onChanged: (value) {
+                                print(value);
+                              },
                             ),
                           );
                         },
