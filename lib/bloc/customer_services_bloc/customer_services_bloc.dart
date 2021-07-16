@@ -6,8 +6,9 @@ class CustomerServicesBloc
     extends Bloc<CustomerServicesEvent, CustomerServicesState> {
   CustomerServicesBloc() : super(CustomerServicesInitial());
   List<List<List<String?>>> listCustomerService = [];
-
- late List<String?> notes;
+  List<List<Map<String,String>>> listCustomerSubService=[];
+  List<List<Map<String,String>>> listCustomerServiceGroup=[];
+  List<String?> notes=[];
 
   @override
   Stream<CustomerServicesState> mapEventToState(
@@ -15,42 +16,32 @@ class CustomerServicesBloc
     yield CustomerServicesLoading();
     if (event is AddServiceGroup) {
       try {
-        if(listCustomerService.isEmpty&& listCustomerService.length==1)
-          listCustomerService[event.customerIndex][0]=[null,null];
-        else listCustomerService[event.customerIndex].add([null,null]);
-        print(listCustomerService);
         yield CustomerServicesSuccess();
       } catch (e) {
         yield CustomerServicesFailure(e.toString());
       }
     }
     if (event is AddCustomer) {
-      try {
+      yield CustomerServicesLoading();
         listCustomerService.add([]);
         notes.add(null);
-        print(listCustomerService);
-        yield CustomerServicesSuccess();
-      } catch (e) {
-        yield CustomerServicesFailure(e.toString());
-      }
+      yield CustomerServicesSuccess();
+
     }
     if (event is RemoveCustomer) {
-      try {
+      yield CustomerServicesLoading();
         listCustomerService.removeAt(event.customerIndex);
-        print(listCustomerService);
-        yield CustomerServicesSuccess();
-      } catch (e) {
-        yield CustomerServicesFailure(e.toString());
-      }
+        listCustomerSubService.removeAt(event.customerIndex);
+        listCustomerServiceGroup.removeAt(event.customerIndex);
+      notes.removeAt(event.customerIndex);
+      yield CustomerServicesSuccess();
     }
     if (event is RemoveServiceGroup) {
-      try {
+      yield CustomerServicesLoading();
         listCustomerService[event.customerIndex].removeAt(event.serviceIndex);
-        print(listCustomerService);
-        yield CustomerServicesSuccess();
-      } catch (e) {
-        yield CustomerServicesFailure(e.toString());
-      }
+      listCustomerSubService[event.customerIndex].removeAt(event.serviceIndex);
+      listCustomerServiceGroup[event.customerIndex].removeAt(event.customerIndex);
+      yield CustomerServicesSuccess();
     }
     if (event is ChangeService) {
       try {

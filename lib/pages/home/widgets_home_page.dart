@@ -26,31 +26,9 @@ class WidgetsHomePage extends StatefulWidget {
 
 class _WidgetsHomePageState extends State<WidgetsHomePage> {
   Map<String, String> dropdownGroups = {"key1": "value1", "key2": "value2"};
-  List<List<Map<String, String>>> listCustomerSubService = [
-    [
-      {
-        "key11": "value11",
-        "key12": "value12",
-      },
-      {
-        "key21": "value21",
-        "key22": "value22",
-      }
-    ],
-    [
-      {
-        "key21": "value21",
-        "key22": "value22",
-      },
-      {
-        "key21": "value21",
-        "key22": "value22",
-      }
-    ]
-  ];
-  Map<String, String> listFirstGroupSubService = {
-    "a": "a",
-    "b": "b",
+  Map<String, String> firstGroupSubService = {
+    "key11": "value11",
+    "key12": "value12",
   };
 
   @override
@@ -77,19 +55,22 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                   Column(
                     children: [
                       ListCustomerServices(
+
                         customerCount: 2,
                         onChangeServiceGroup: (index1, index2, value) {
                           print(value);
+
                           setState(() {
-                            listCustomerSubService[index1][index2] =
-                                listFirstGroupSubService;
+                            context
+                                .read<CustomerServicesBloc>()
+                                .listCustomerSubService[index1][index2] = {
+                              "new key1": "new value1",
+                              "new key2": "new value2",
+                            };
                           });
                         },
-                        dropdownServiceGroupItems: {
-                          "key1": "value1",
-                          "key2": "value2",
-                        },
-                        dropdownSubServiceItems: listCustomerSubService,
+                        dropdownServiceGroupItems: dropdownGroups,
+                        dropdownSubServiceItems: firstGroupSubService,
                       ),
                       SizedBox(
                         height: 20,
@@ -97,6 +78,14 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                       Center(
                         child: GestureDetector(
                             onTap: () {
+                            print(context
+                                .read<CustomerServicesBloc>().listCustomerService)  ;
+                            print(context
+                                .read<CustomerServicesBloc>().listCustomerServiceGroup)  ;
+                            print(context
+                                .read<CustomerServicesBloc>().listCustomerSubService)  ;
+                            print(context
+                                .read<CustomerServicesBloc>().notes)  ;
                               print(mapToData(context));
                             },
                             child: Text("onTapReturnData")),
