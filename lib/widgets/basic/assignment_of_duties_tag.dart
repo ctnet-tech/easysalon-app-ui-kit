@@ -134,7 +134,7 @@ class _AssignmentOfDutiesTagState extends State<AssignmentOfDutiesTag> {
                       dataDropStaff: widget.dataDropStaff,
                       dataDropCommission: widget.dataDropCommission,
                       numberOfCount: index,
-                      numberOfStaff: '${index + 1}- ${users[index]}',
+                      numberOfStaff: '${index + 1}',
                       textTitleStaff: widget.textTitleStaff,
                       fontSize: textSize,
                       commissionIsDropDown: widget.commissionIsDropDown,

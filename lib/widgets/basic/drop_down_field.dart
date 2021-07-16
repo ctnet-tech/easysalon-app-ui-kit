@@ -5,8 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:easysalon_mobile_ui_kit/widgets/layout/divider.dart'
-    as dividerCustom;
+
 import 'package:tiengviet/tiengviet.dart';
 
 class DropDownField extends StatefulWidget {
@@ -14,7 +13,7 @@ class DropDownField extends StatefulWidget {
     Key? key,
     required this.dataDropDown,
     this.keyDataFistTime = '',
-    required this.onChanged, this.colorTheme = ThemeColor.lightest, this.colorBorder = ThemeColor.pattensBlue, this.childHasUpdate = true,
+    required this.onChanged, this.colorTheme = ThemeColor.lightest, this.colorBorder = ThemeColor.pattensBlue, this.childHasUpdate = true // = true thì setState nó sẽ update theo data fist còn false thì không,
   }) : super(key: key);
   final Map<String, String> dataDropDown;
   final String keyDataFistTime;
