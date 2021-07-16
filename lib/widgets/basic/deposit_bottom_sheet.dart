@@ -64,173 +64,179 @@ class _DepositBottomSheetState extends State<DepositBottomSheet> {
       width: MediaQuery.of(context).size.width,
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                margin: EdgeInsets.symmetric(
-                    vertical: layout.sizeToPadding(LayoutSize.small)),
-                height: 3,
-                width: 30,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(1.5),
-                  color: theme.getColor(ThemeColor.gainsboro),
-                ),
+        body: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              margin: EdgeInsets.symmetric(
+                  vertical: layout.sizeToPadding(LayoutSize.small)),
+              height: 3,
+              width: 30,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(1.5),
+                color: theme.getColor(ThemeColor.gainsboro),
               ),
-              SpaceBox(
-                all: true,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
                   children: [
-                    Expanded(
-                        flex: 1,
-                        child: Container(
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            child: Paragraph(
-                              content: "Đóng",
-                              linePadding: LayoutSize.none,
-                              color: ThemeColor.secondary,
-                              size: LayoutSize.medium,
-                              textAlign: TextAlign.left,
+                    SpaceBox(
+                      all: true,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                              flex: 1,
+                              child: Container(
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Paragraph(
+                                    content: "Đóng",
+                                    linePadding: LayoutSize.none,
+                                    color: ThemeColor.secondary,
+                                    size: LayoutSize.medium,
+                                    textAlign: TextAlign.left,
+                                  ),
+                                ),
+                              )),
+                          Expanded(
+                              flex: 3,
+                              child: Container(
+                                child: Center(
+                                  child: Paragraph(
+                                    hasAlignment: false,
+                                    isCenter: true,
+                                    content: "Đặt cọc",
+                                    size: LayoutSize.big,
+                                    textAlign: TextAlign.center,
+                                    color: ThemeColor.dark,
+                                    linePadding: LayoutSize.none,
+                                  ),
+                                ),
+                              )),
+                          Expanded(
+                            flex: 1,
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: InkWell(
+                                onTap: () {
+                                    widget.onChanged(listPaymentMethod);
+                                },
+                                child: Paragraph(
+                                  content: "Xác nhận",
+                                  hasAlignment: false,
+                                  color: ThemeColor.bondiBlue,
+                                  size: LayoutSize.medium,
+                                  linePadding: LayoutSize.none,
+                                  textAlign: TextAlign.right,
+                                ),
+                              ),
                             ),
                           ),
-                        )),
-                    Expanded(
-                        flex: 3,
-                        child: Container(
-                          child: Center(
-                            child: Paragraph(
-                              hasAlignment: false,
-                              isCenter: true,
-                              content: "Đặt cọc",
-                              size: LayoutSize.big,
-                              textAlign: TextAlign.center,
-                              color: ThemeColor.dark,
-                              linePadding: LayoutSize.none,
-                            ),
-                          ),
-                        )),
-                    Expanded(
-                      flex: 1,
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: InkWell(
-                          onTap: () {
-                              widget.onChanged(listPaymentMethod);
-                          },
-                          child: Paragraph(
-                            content: "Xác nhận",
-                            hasAlignment: false,
-                            color: ThemeColor.bondiBlue,
-                            size: LayoutSize.medium,
-                            linePadding: LayoutSize.none,
-                            textAlign: TextAlign.right,
-                          ),
-                        ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              ),
-              Divider(
-                height: 10,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              SpaceBox(
-                all: true,
-                child: Column(children: [
-                  PaymentMethodForm(
-                    paymentMethodDropDownInput: widget.dropdownDataMethodPayment[listPaymentMethod[0][0]],
-                    bankAccountDropDownInput: widget.dropdownDataBankAccounts[listPaymentMethod[0][2]],
-                    onSubmittedTextField: (value) {
-                      listPaymentMethod[0][1]=value;
-                    },
-                    dropdownBankAccountItems: widget
-                        .dropdownDataBankAccounts.entries
-                        .map((e) => e.value)
-                        .toList(),
-                    controller: listController[0],
-                    listItems: widget.dropdownDataMethodPayment.entries
-                        .map((e) => e.value)
-                        .toList(),
-                    isFirst: true,
-                    onTapIcon: () {
-                      listController.add(TextEditingController());
-                      listPaymentMethod.add([null, null, null]);
-                    },
-                    onChangeBankAccount: (value) {
-                      listPaymentMethod[0][2] = widget
-                          .dropdownDataBankAccounts.keys
-                          .firstWhere((element) =>
-                      widget.dropdownDataBankAccounts[element] ==
-                          value);
-                    },
-                    onChangePaymentMethod: (value) {
-                      listPaymentMethod[0][2] = widget
-                          .dropdownDataMethodPayment.keys
-                          .firstWhere((element) =>
-                      widget.dropdownDataMethodPayment[element] ==
-                          value);
-                    },
-                    index: 0,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  ...List.generate(
-                    listController.length - 1,
-                    (index) => Column(
-                      children: [
-                        SizedBox(
-                          height: 10,
-                        ),
+                    Divider(
+                      height: 10,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    SpaceBox(
+                      all: true,
+                      child: Column(children: [
                         PaymentMethodForm(
-                        bankAccountDropDownInput: widget.dropdownDataBankAccounts[listPaymentMethod[index+1][2]],
-                          paymentMethodDropDownInput: widget.dropdownDataMethodPayment[listPaymentMethod[index+1][0]],
+                          paymentMethodDropDownInput: widget.dropdownDataMethodPayment[listPaymentMethod[0][0]],
+                          bankAccountDropDownInput: widget.dropdownDataBankAccounts[listPaymentMethod[0][2]],
                           onSubmittedTextField: (value) {
-                            listPaymentMethod[index+1][1]=value;
+                            listPaymentMethod[0][1]=value;
                           },
                           dropdownBankAccountItems: widget
                               .dropdownDataBankAccounts.entries
                               .map((e) => e.value)
                               .toList(),
-                          index: index,
-                          onTapIcon: () {
-                            listController.removeAt(index + 1);
-                            listPaymentMethod.removeAt(index + 1);
-                          },
-                          controller: listController[index + 1],
+                          controller: listController[0],
                           listItems: widget.dropdownDataMethodPayment.entries
                               .map((e) => e.value)
                               .toList(),
+                          isFirst: true,
+                          onTapIcon: () {
+                            listController.add(TextEditingController());
+                            listPaymentMethod.add([null, null, null]);
+                          },
                           onChangeBankAccount: (value) {
-                            listPaymentMethod[index + 1][2] = widget
+                            listPaymentMethod[0][2] = widget
                                 .dropdownDataBankAccounts.keys
                                 .firstWhere((element) =>
-                                    widget.dropdownDataBankAccounts[element] ==
-                                    value);
+                            widget.dropdownDataBankAccounts[element] ==
+                                value);
                           },
                           onChangePaymentMethod: (value) {
-                            listPaymentMethod[index + 1][0] = widget
+                            listPaymentMethod[0][2] = widget
                                 .dropdownDataMethodPayment.keys
                                 .firstWhere((element) =>
-                                    widget.dropdownDataMethodPayment[element] ==
-                                    value);
+                            widget.dropdownDataMethodPayment[element] ==
+                                value);
                           },
+                          index: 0,
                         ),
-                      ],
+                        SizedBox(
+                          height: 10,
+                        ),
+                        ...List.generate(
+                          listController.length - 1,
+                          (index) => Column(
+                            children: [
+                              SizedBox(
+                                height: 10,
+                              ),
+                              PaymentMethodForm(
+                              bankAccountDropDownInput: widget.dropdownDataBankAccounts[listPaymentMethod[index+1][2]],
+                                paymentMethodDropDownInput: widget.dropdownDataMethodPayment[listPaymentMethod[index+1][0]],
+                                onSubmittedTextField: (value) {
+                                  listPaymentMethod[index+1][1]=value;
+                                },
+                                dropdownBankAccountItems: widget
+                                    .dropdownDataBankAccounts.entries
+                                    .map((e) => e.value)
+                                    .toList(),
+                                index: index,
+                                onTapIcon: () {
+                                  listController.removeAt(index + 1);
+                                  listPaymentMethod.removeAt(index + 1);
+                                },
+                                controller: listController[index + 1],
+                                listItems: widget.dropdownDataMethodPayment.entries
+                                    .map((e) => e.value)
+                                    .toList(),
+                                onChangeBankAccount: (value) {
+                                  listPaymentMethod[index + 1][2] = widget
+                                      .dropdownDataBankAccounts.keys
+                                      .firstWhere((element) =>
+                                          widget.dropdownDataBankAccounts[element] ==
+                                          value);
+                                },
+                                onChangePaymentMethod: (value) {
+                                  listPaymentMethod[index + 1][0] = widget
+                                      .dropdownDataMethodPayment.keys
+                                      .firstWhere((element) =>
+                                          widget.dropdownDataMethodPayment[element] ==
+                                          value);
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ]),
                     ),
-                  ),
-                ]),
+                  ],
+                ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
