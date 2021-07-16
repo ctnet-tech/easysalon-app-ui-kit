@@ -2,6 +2,8 @@ import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
 import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/button.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/layout/divider.dart'
+as dividerCustom;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,7 +28,7 @@ class InvoiceStatusTag extends StatelessWidget {
     this.textTypeCustomer = "Khách Vãng Lai",
     this.textTime = "",
     this.numberOfCount = "",
-    this.totalInvoice = "",required this.typeOfInvoice, this.title = "Hóa Đơn Mới", this.staff = "", this.onPressed,
+    this.totalInvoice = "",required this.typeOfInvoice, this.title = "Hóa Đơn Mới", this.staff = "", this.onPressed, this.hasCustomer = true,
   }) : super(key: key);
   final ThemeColor color;
   final ThemeColor hintTextColor;
@@ -45,12 +47,13 @@ class InvoiceStatusTag extends StatelessWidget {
   final String title;
   final String staff;
   final VoidCallback? onPressed;
+  final bool hasCustomer;
   @override
   Widget build(BuildContext context) {
     var theme = context.read<ThemeNotifier>().getTheme();
     var layout = context.read<LayoutNotifier>();
     final List fixedListService =
-        Iterable<int>.generate(listService.length).toList();
+    Iterable<int>.generate(listService.length).toList();
     var radius = layout.sizeToBorderRadius(this.borderRadius);
     var colorTextAll = theme.getColor(this.textColor);
     var colorTextHintAll = theme.getColor(this.hintTextColor);
@@ -81,18 +84,18 @@ class InvoiceStatusTag extends StatelessWidget {
                           text: new TextSpan(
                             style: new TextStyle(
                               fontSize:
-                                  layout.sizeToFontSize(LayoutSize.medium),
+                              layout.sizeToFontSize(LayoutSize.medium),
                               color: colorTextAll,
                             ),
                             children: <TextSpan>[
                               new TextSpan(text: '${this.title}'),
                               new TextSpan(
-                                  text: ' (STT: ${this.numberOfCount})',
+                                  text: '${this.numberOfCount}',
                                   style: new TextStyle(
                                     fontWeight: FontWeight.normal,
                                     color: colorTextHintAll,
                                     fontSize:
-                                        layout.sizeToFontSize(LayoutSize.small),
+                                    layout.sizeToFontSize(LayoutSize.small),
                                   )),
                             ],
                           ),
@@ -106,7 +109,7 @@ class InvoiceStatusTag extends StatelessWidget {
                                 fontSize: 13,
                               )),
                         ),
-                        Padding(
+                        this.hasCustomer ? Padding(
                           padding: EdgeInsets.only(top: 6),
                           child: Row(
                             children: [
@@ -126,7 +129,7 @@ class InvoiceStatusTag extends StatelessWidget {
                               )
                             ],
                           ),
-                        )
+                        ):Container()
                       ],
                     ),
                     Column(
@@ -153,7 +156,7 @@ class InvoiceStatusTag extends StatelessWidget {
                               fontWeight: FontWeight.normal,
                               color: colorTextHintAll,
                               fontSize:
-                                  layout.sizeToFontSize(LayoutSize.medium),
+                              layout.sizeToFontSize(LayoutSize.medium),
                             ))
                       ],
                     )
@@ -175,29 +178,29 @@ class InvoiceStatusTag extends StatelessWidget {
                   child: Column(
                     children: fixedListService
                         .map((index) => Row(
-                              children: [
-                                Container(
-                                    width: containers.maxWidth * 0.1,
-                                    child: Text(
-                                      "x${this.listService[index][0]}",
-                                      style: new TextStyle(
-                                        fontSize: layout
-                                            .sizeToFontSize(LayoutSize.medium),
-                                        color: colorTextAll,
-                                      ),
-                                    )),
-                                Container(
-                                    width: containers.maxWidth * 0.9,
-                                    child: Text(
-                                      "${this.listService[index][1]}",
-                                      style: new TextStyle(
-                                        fontSize: layout
-                                            .sizeToFontSize(LayoutSize.medium),
-                                        color: colorTextAll,
-                                      ),
-                                    ))
-                              ],
+                      children: [
+                        Container(
+                            width: containers.maxWidth * 0.1,
+                            child: Text(
+                              "x${this.listService[index][0]}",
+                              style: new TextStyle(
+                                fontSize: layout
+                                    .sizeToFontSize(LayoutSize.medium),
+                                color: colorTextAll,
+                              ),
+                            )),
+                        Container(
+                            width: containers.maxWidth * 0.9,
+                            child: Text(
+                              "${this.listService[index][1]}",
+                              style: new TextStyle(
+                                fontSize: layout
+                                    .sizeToFontSize(LayoutSize.medium),
+                                color: colorTextAll,
+                              ),
                             ))
+                      ],
+                    ))
                         .toList(),
                   ),
                 )
