@@ -53,6 +53,7 @@ class _MenuBarCustomState extends State<MenuBarCustom> {
     return (widget.listTitle.length == widget.listContent.length && widget.listTitle.length > 0) ? Container(
       width:  double.infinity,
       height: widget.height,
+      color: theme.getColor(ThemeColor.lightest),
       child: TitleScrollNavigation(
         barStyle: TitleNavigationBarStyle(
           activeColor: theme.getColor(ThemeColor.bondiBlue),
