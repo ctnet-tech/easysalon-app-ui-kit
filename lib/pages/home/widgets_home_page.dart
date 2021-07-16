@@ -25,6 +25,34 @@ class WidgetsHomePage extends StatefulWidget {
 }
 
 class _WidgetsHomePageState extends State<WidgetsHomePage> {
+  Map<String, String> dropdownGroups = {"key1": "value1", "key2": "value2"};
+  List<List<Map<String, String>>> listCustomerSubService = [
+    [
+      {
+        "key11": "value11",
+        "key12": "value12",
+      },
+      {
+        "key21": "value21",
+        "key22": "value22",
+      }
+    ],
+    [
+      {
+        "key21": "value21",
+        "key22": "value22",
+      },
+      {
+        "key21": "value21",
+        "key22": "value22",
+      }
+    ]
+  ];
+  Map<String, String> listFirstGroupSubService = {
+    "a": "a",
+    "b": "b",
+  };
+
   @override
   Widget build(BuildContext context) {
     return StandardPage(header: PageHeader(title: "Widget"), children: [
@@ -48,15 +76,55 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                   ),
                   Column(
                     children: [
-                      ListCustomerServices(customerCount: 2,),
-                      SizedBox(height: 20,),
-                      Center(child: GestureDetector(onTap: (){
-                        print(context.read<CustomerServicesBloc>().listCustomerService);
-                      },child: Text("onTapReturnData")),)
+                      ListCustomerServices(
+                        customerCount: 2,
+                        onChangeServiceGroup: (index1, index2, value) {
+                          print(value);
+                          setState(() {
+                            listCustomerSubService[index1][index2] =
+                                listFirstGroupSubService;
+                          });
+                        },
+                        dropdownServiceGroupItems: {
+                          "key1": "value1",
+                          "key2": "value2",
+                        },
+                        dropdownSubServiceItems: listCustomerSubService,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Center(
+                        child: GestureDetector(
+                            onTap: () {
+                              print(mapToData(context));
+                            },
+                            child: Text("onTapReturnData")),
+                      )
                     ],
                   ),
                 ],
               )))
     ]);
   }
+}
+
+List<List<Map<String, dynamic>>> mapToData(BuildContext context) {
+  List<List<Map<String, dynamic>>> listData = [];
+  for (int i = 0;
+      i < context.read<CustomerServicesBloc>().listCustomerService.length;
+      i++) {
+    List<Map<String, dynamic>> list = [];
+    context
+        .read<CustomerServicesBloc>()
+        .listCustomerService[i]
+        .forEach((element) {
+      list.add(<String, dynamic>{
+        "services": context.read<CustomerServicesBloc>().listCustomerService[i],
+        "note": context.read<CustomerServicesBloc>().notes[i]
+      });
+    });
+    listData.add(list);
+  }
+  return listData;
 }

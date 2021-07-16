@@ -12,6 +12,7 @@ class CustomTextField extends StatefulWidget {
   final String? firstText;
   final String? secondText;
   final TextEditingController textEditingController;
+  final ValueChanged<String>? onSummitted;
   bool isOnlyNumber;
   String hintText;
   bool hasObscureText;
@@ -30,6 +31,7 @@ class CustomTextField extends StatefulWidget {
     this.isDatePicker = false,
     this.minLine,
     this.maxLine,
+    this.onSummitted,
   }) : super(key: key);
 
   @override
@@ -79,6 +81,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ),
         TextField(
           minLines: widget.minLine ?? 1,
+          onSubmitted: widget.onSummitted,
           maxLines: widget.minLine!=null? null : widget.maxLine ?? 1,
           controller: widget.textEditingController,
           readOnly: widget.isDatePicker?true:false,

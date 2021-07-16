@@ -5,14 +5,9 @@ import 'customer_services_state.dart';
 class CustomerServicesBloc
     extends Bloc<CustomerServicesEvent, CustomerServicesState> {
   CustomerServicesBloc() : super(CustomerServicesInitial());
-  List<String> listServiceGroup = [
-    "SPA - Triệt lông dưới cánh tay (5 lần)",
-    "SPA - Chăm sóc da mặt cơ bản"
-  ];
-  List<String> listSubService = ["Dịch vụ thông thường", "Dịch vụ Vip"];
-  List<List<String>> listCustomerService = [];
+  List<List<List<String?>>> listCustomerService = [];
 
-  String? note;
+ late List<String?> notes;
 
   @override
   Stream<CustomerServicesState> mapEventToState(
@@ -20,8 +15,9 @@ class CustomerServicesBloc
     yield CustomerServicesLoading();
     if (event is AddServiceGroup) {
       try {
-        listCustomerService[event.customerIndex]
-            .add(listServiceGroup[0] + listSubService[0]);
+        if(listCustomerService.isEmpty&& listCustomerService.length==1)
+          listCustomerService[event.customerIndex][0]=[null,null];
+        else listCustomerService[event.customerIndex].add([null,null]);
         print(listCustomerService);
         yield CustomerServicesSuccess();
       } catch (e) {
@@ -31,6 +27,7 @@ class CustomerServicesBloc
     if (event is AddCustomer) {
       try {
         listCustomerService.add([]);
+        notes.add(null);
         print(listCustomerService);
         yield CustomerServicesSuccess();
       } catch (e) {
@@ -57,9 +54,6 @@ class CustomerServicesBloc
     }
     if (event is ChangeService) {
       try {
-        listCustomerService[event.customerIndex][event.serviceIndex] =
-            event.serviceGroup + event.service;
-        print(listCustomerService);
         yield CustomerServicesSuccess();
       } catch (e) {
         yield CustomerServicesFailure(e.toString());
