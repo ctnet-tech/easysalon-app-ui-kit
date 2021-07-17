@@ -78,14 +78,6 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                       Center(
                         child: GestureDetector(
                             onTap: () {
-                            print(context
-                                .read<CustomerServicesBloc>().listCustomerService)  ;
-                            print(context
-                                .read<CustomerServicesBloc>().listCustomerServiceGroup)  ;
-                            print(context
-                                .read<CustomerServicesBloc>().listCustomerSubService)  ;
-                            print(context
-                                .read<CustomerServicesBloc>().notes)  ;
                               print(mapToData(context));
                             },
                             child: Text("onTapReturnData")),
@@ -98,22 +90,16 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
   }
 }
 
-List<List<Map<String, dynamic>>> mapToData(BuildContext context) {
-  List<List<Map<String, dynamic>>> listData = [];
+List<Map<String, dynamic>> mapToData(BuildContext context) {
+  List<Map<String, dynamic>> listData = [];
   for (int i = 0;
       i < context.read<CustomerServicesBloc>().listCustomerService.length;
       i++) {
-    List<Map<String, dynamic>> list = [];
-    context
-        .read<CustomerServicesBloc>()
-        .listCustomerService[i]
-        .forEach((element) {
-      list.add(<String, dynamic>{
-        "services": context.read<CustomerServicesBloc>().listCustomerService[i],
-        "note": context.read<CustomerServicesBloc>().notes[i]
-      });
+
+    listData.add(<String, dynamic>{
+      "services": context.read<CustomerServicesBloc>().listCustomerService[i],
+      "note": context.read<CustomerServicesBloc>().notes[i],
     });
-    listData.add(list);
   }
   return listData;
 }
