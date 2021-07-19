@@ -1,6 +1,7 @@
 import 'package:easysalon_mobile_ui_kit/bloc/date_range_picker_bloc/date_range_picker_bloc.dart';
 import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/button_page.dart';
+import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/date_time_selector_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/icon_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/paragraph_page.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
@@ -40,34 +41,9 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                     children: [
                       MenuItem(label: "Paragraph", to: ParagraphPage.path),
                       MenuItem(label: "Button", to: ButtonPage.path),
-                      MenuItem(label: "Icon", to: IconPage.path)
+                      MenuItem(label: "Icon", to: IconPage.path),
+                      MenuItem(label: "Icon", to: DateTimeSelectorPage.path),
                     ],
-                  ),
-                  BlocProvider(
-                    create: (_) => DateRangePickerBloc(),
-                    child: SelectionTimeBar(
-                      dataDropdown: <String, List<DateTime>>{
-                        "Hôm nay": [DateTime.now(), DateTime.now()],
-                        "Hôm qua": [
-                          DateTime.now().subtract(Duration(days: 1)),
-                          DateTime.now().subtract(Duration(days: 1))
-                        ],
-                        "Tháng trước": [
-                          DateTime.now().subtract(Duration(
-                              days: DateTime.now().month == 1
-                                  ? 31
-                                  : dayOfMonth(DateTime.now().year)[
-                                      DateTime.now().month - 2])),
-                          DateTime.now()
-                        ]
-                      },
-                      onChangedByDropdown: (value) {
-                        print(value);
-                      },
-                      onChangedByPicker: (value) {
-                        print(value);
-                      },
-                    ),
                   ),
                 ],
               )))
