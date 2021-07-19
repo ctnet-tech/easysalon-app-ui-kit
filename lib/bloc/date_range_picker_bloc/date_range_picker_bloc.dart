@@ -30,6 +30,12 @@ class DateRangePickerBloc extends Bloc<DateRangePickerEvent, DateRangePickerStat
         try {
           startTime=event.startTime;
           endTime=event.endTime;
+          firstRange=startTime!.day;
+          firstYear=startTime!.year;
+          firstMonth=startTime!.month;
+         endRange=endTime!.day;
+         endYear=endTime!.year;
+         endMonth=endTime!.month;
           yield DateRangePickerSuccess();
         } catch (e) {
           yield DateRangePickerFailure(e.toString());

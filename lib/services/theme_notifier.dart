@@ -100,7 +100,6 @@ class Theme {
         return this.radicalRed;
       case ThemeColor.dodgerBlue:
         return this.dodgerBlue;
-
       case ThemeColor.darkOrange:
         return this.darkOrange;
       default:
