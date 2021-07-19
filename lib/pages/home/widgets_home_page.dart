@@ -55,7 +55,6 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                   Column(
                     children: [
                       ListCustomerServices(
-
                         customerCount: 2,
                         onChangeServiceGroup: (index1, index2, value) {
                           print(value);
@@ -71,6 +70,40 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                         },
                         dropdownServiceGroupItems: dropdownGroups,
                         dropdownSubServiceItems: firstGroupSubService,
+                        initialCustomerService: [
+                          [
+                            ["key1", "key11"],
+                            ["key2", "key12"],
+                          ],
+                          [
+                            ["key1", "key11"],
+                            ["key2", "key12"],
+                          ],
+                        ],
+                        availableServicePackages: [[["GroupService1","SubService1"],["GroupService2","SubService2"]],[["GroupService1","SubService1"],["GroupService2","SubService2"]]],
+                        initialListNotesOfCustomers: ["asldjsalkd",null],
+                        initialSubService: [
+                          [
+                            {
+                              "key11": "value11",
+                              "key12": "value12",
+                            },
+                            {
+                              "key11": "value11",
+                              "key12": "value12",
+                            },
+                          ],
+                          [
+                            {
+                              "key11": "value11",
+                              "key12": "value12",
+                            },
+                            {
+                              "key11": "value11",
+                              "key12": "value12",
+                            },
+                          ]
+                        ],
                       ),
                       SizedBox(
                         height: 20,
@@ -95,7 +128,6 @@ List<Map<String, dynamic>> mapToData(BuildContext context) {
   for (int i = 0;
       i < context.read<CustomerServicesBloc>().listCustomerService.length;
       i++) {
-
     listData.add(<String, dynamic>{
       "services": context.read<CustomerServicesBloc>().listCustomerService[i],
       "note": context.read<CustomerServicesBloc>().notes[i],

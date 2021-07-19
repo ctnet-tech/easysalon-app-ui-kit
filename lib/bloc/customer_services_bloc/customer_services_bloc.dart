@@ -7,7 +7,7 @@ class CustomerServicesBloc
   CustomerServicesBloc() : super(CustomerServicesInitial());
   List<List<List<String?>>> listCustomerService = [];
   List<List<Map<String,String>>> listCustomerSubService=[];
-  List<List<Map<String,String>>> listCustomerServiceGroup=[];
+
   List<String?> notes=[];
 
   @override
@@ -32,7 +32,7 @@ class CustomerServicesBloc
       yield CustomerServicesLoading();
         listCustomerService.removeAt(event.customerIndex);
         listCustomerSubService.removeAt(event.customerIndex);
-        listCustomerServiceGroup.removeAt(event.customerIndex);
+
       notes.removeAt(event.customerIndex);
       yield CustomerServicesSuccess();
     }
@@ -40,7 +40,7 @@ class CustomerServicesBloc
       yield CustomerServicesLoading();
         listCustomerService[event.customerIndex].removeAt(event.serviceIndex);
       listCustomerSubService[event.customerIndex].removeAt(event.serviceIndex);
-      listCustomerServiceGroup[event.customerIndex].removeAt(event.customerIndex);
+
       yield CustomerServicesSuccess();
     }
     if (event is ChangeService) {

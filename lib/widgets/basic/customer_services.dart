@@ -17,9 +17,18 @@ class ListCustomerServices extends StatelessWidget {
     required this.dropdownServiceGroupItems,
     required this.dropdownSubServiceItems,
     required this.onChangeServiceGroup,
+    this.initialSubService,
+    this.initialListNotesOfCustomers,
+    this.availableServicePackages,
+    this.initialCustomerService,
   });
 
   final int customerCount;
+  final List<List<Map<String, String>>>? initialSubService;
+
+  final List<List<List<String?>>>? initialCustomerService;
+  final List<List<List<String>>>? availableServicePackages;
+  final List<String?>? initialListNotesOfCustomers;
   final Map<String, String> dropdownServiceGroupItems;
   final Map<String, String> dropdownSubServiceItems;
   final Function(int index1, int index2, String value) onChangeServiceGroup;
@@ -27,23 +36,30 @@ class ListCustomerServices extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (context.read<CustomerServicesBloc>().listCustomerService.length == 0) {
-      for (int i = 0; i < customerCount; i++) {
-        context
-            .read<CustomerServicesBloc>()
-            .listCustomerService
-            .add([]);
-        context
-            .read<CustomerServicesBloc>()
-            .listCustomerServiceGroup
-            .add([dropdownServiceGroupItems]);
-        context
-            .read<CustomerServicesBloc>()
-            .listCustomerSubService
-            .add([dropdownSubServiceItems]);
-        context
-            .read<CustomerServicesBloc>()
-            .notes.add(null);
+      if (initialSubService == null) {
+        for (int i = 0; i < customerCount; i++) {
+          context.read<CustomerServicesBloc>().listCustomerService.add([]);
+          context
+              .read<CustomerServicesBloc>()
+              .listCustomerSubService
+              .add([dropdownSubServiceItems]);
 
+          context.read<CustomerServicesBloc>().notes.add(null);
+        }
+      } else {
+        context.read<CustomerServicesBloc>().listCustomerSubService =
+            initialSubService!;
+        context.read<CustomerServicesBloc>().listCustomerService =
+            initialCustomerService!;
+
+        if (initialListNotesOfCustomers != null)
+          context.read<CustomerServicesBloc>().notes =
+              initialListNotesOfCustomers!;
+        else {
+          for (int i = 0; i < initialSubService!.length; i++) {
+            context.read<CustomerServicesBloc>().notes.add(null);
+          }
+        }
       }
     }
     return BlocBuilder<CustomerServicesBloc, CustomerServicesState>(
@@ -57,12 +73,23 @@ class ListCustomerServices extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
+                index==0?
                 CustomerServices(
                   onChangeServiceGroup: (index2, value) {
                     onChangeServiceGroup(index, index2, value);
                   },
                   isFirst: index == 0 ? true : false,
                   index: index,
+                  availablePackageService: availableServicePackages![index],
+                  dropdownServiceGroupItems: dropdownServiceGroupItems,
+                  dropdownSubServiceItems: dropdownSubServiceItems,
+                ):CustomerServices(
+                  onChangeServiceGroup: (index2, value) {
+                    onChangeServiceGroup(index, index2, value);
+                  },
+                  isFirst: index == 0 ? true : false,
+                  index: index,
+                  availablePackageService: null,
                   dropdownServiceGroupItems: dropdownServiceGroupItems,
                   dropdownSubServiceItems: dropdownSubServiceItems,
                 ),
@@ -82,16 +109,16 @@ class CustomerServices extends StatefulWidget {
     required this.dropdownServiceGroupItems,
     required this.dropdownSubServiceItems,
     required this.onChangeServiceGroup,
-
+    this.availablePackageService,
   });
 
   final bool isFirst;
   final int index;
 
   final Map<String, String> dropdownServiceGroupItems;
+  final List<List<String?>>? availablePackageService;
   final Map<String, String> dropdownSubServiceItems;
   final Function(int index, String value) onChangeServiceGroup;
-
 
   @override
   _CustomerServicesState createState() => _CustomerServicesState();
@@ -100,6 +127,16 @@ class CustomerServices extends StatefulWidget {
 class _CustomerServicesState extends State<CustomerServices> {
   bool switchValue = false;
   TextEditingController txtNote = TextEditingController();
+
+  @override
+  void initState() {
+    if (context.read<CustomerServicesBloc>().notes.isNotEmpty &&
+        context.read<CustomerServicesBloc>().notes[widget.index] != null) {
+      switchValue = true;
+      txtNote.text = context.read<CustomerServicesBloc>().notes[widget.index]!;
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -127,10 +164,6 @@ class _CustomerServicesState extends State<CustomerServices> {
                 InkWell(
                   onTap: () {
                     if (widget.isFirst) {
-                      context
-                          .read<CustomerServicesBloc>()
-                          .listCustomerServiceGroup
-                          .add([widget.dropdownServiceGroupItems]);
                       context
                           .read<CustomerServicesBloc>()
                           .listCustomerSubService
@@ -170,91 +203,85 @@ class _CustomerServicesState extends State<CustomerServices> {
             SizedBox(
               height: 8,
             ),
-            if (context
-                .read<CustomerServicesBloc>()
-                .listCustomerService[widget.index]
-                .isEmpty)
+            if (widget.availablePackageService!=null && widget.index==0)
               Column(
                 children: [
-                  Row(
-                    children: [
-                      Expanded(
-                          child: Container(
-                        padding: EdgeInsets.only(
-                          left: layout.sizeToPadding(LayoutSize.small),
-                          top: layout.sizeToPadding(LayoutSize.small),
-                          bottom: layout.sizeToPadding(LayoutSize.small),
-                        ),
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: theme.getColor(ThemeColor.solitude),
-                          borderRadius:
-                              layout.sizeToBorderRadius(LayoutSize.small),
-                        ),
-                        child: Paragraph(
-                          content: widget.dropdownServiceGroupItems.entries
-                              .map((e) => e.value)
-                              .first,
-                          weight: FontWeight.w400,
-                          linePadding: LayoutSize.none,
-                          isCenter: true,
-                          color: ThemeColor.spindle,
-                        ),
-                      )),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          color: theme.getColor(ThemeColor.solitude),
-                          borderRadius:
-                              layout.sizeToBorderRadius(LayoutSize.small),
-                        ),
-                        child: CustomIcon(
-                          icon: LineIcons.trash,
-                          size: LayoutSize.medium,
-                          color: ThemeColor.spindle,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Container(
-                    height: 50,
-                    padding: EdgeInsets.all(
-                      layout.sizeToPadding(LayoutSize.small),
-                    ),
-                    decoration: BoxDecoration(
-                      color: theme.getColor(ThemeColor.solitude),
-                      borderRadius: layout.sizeToBorderRadius(LayoutSize.small),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  ...List.generate(widget.availablePackageService!.length, (index) => Column(children: [
+                    Row(
                       children: [
-                        Paragraph(
-                          content: widget.dropdownSubServiceItems.entries
-                              .map((e) => e.value)
-                              .first,
-                          weight: FontWeight.w400,
-                          linePadding: LayoutSize.none,
-                          isCenter: true,
-                          color: ThemeColor.spindle,
+                        Expanded(
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                left: layout.sizeToPadding(LayoutSize.small),
+                                top: layout.sizeToPadding(LayoutSize.small),
+                                bottom: layout.sizeToPadding(LayoutSize.small),
+                              ),
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: theme.getColor(ThemeColor.solitude),
+                                borderRadius:
+                                layout.sizeToBorderRadius(LayoutSize.small),
+                              ),
+                              child: Paragraph(
+                                content: widget.availablePackageService![index][0],
+                                weight: FontWeight.w400,
+                                linePadding: LayoutSize.none,
+                                color: ThemeColor.spindle,
+                              ),
+                            )),
+                        SizedBox(
+                          width: 5,
                         ),
-                        CustomIcon(
-                          icon: LineIcons.chevron_down,
-                          color: ThemeColor.spindle,
-                          size: LayoutSize.medium,
+                        Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            color: theme.getColor(ThemeColor.solitude),
+                            borderRadius:
+                            layout.sizeToBorderRadius(LayoutSize.small),
+                          ),
+                          child: CustomIcon(
+                            icon: LineIcons.trash,
+                            size: LayoutSize.medium,
+                            color: ThemeColor.spindle,
+                          ),
                         ),
                       ],
                     ),
-                  ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Container(
+                      height: 50,
+                      padding: EdgeInsets.all(
+                        layout.sizeToPadding(LayoutSize.small),
+                      ),
+                      decoration: BoxDecoration(
+                        color: theme.getColor(ThemeColor.solitude),
+                        borderRadius: layout.sizeToBorderRadius(LayoutSize.small),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Paragraph(
+                            content: widget.availablePackageService![index][1],
+                            weight: FontWeight.w400,
+                            linePadding: LayoutSize.none,
+                            color: ThemeColor.spindle,
+                          ),
+                          CustomIcon(
+                            icon: LineIcons.chevron_down,
+                            color: ThemeColor.spindle,
+                            size: LayoutSize.medium,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                  ],)),
                 ],
-              )
-            else
+              ),
+
               ...List.generate(
                   context
                       .read<CustomerServicesBloc>()
@@ -263,6 +290,8 @@ class _CustomerServicesState extends State<CustomerServices> {
                   (index) => Column(
                         children: [
                           ServicesSelector(
+                            dropdowServiceGroupData:
+                                widget.dropdownServiceGroupItems,
                             onChangedServiceGroup: (value) {
                               widget.onChangeServiceGroup(index, value);
                             },
@@ -287,11 +316,16 @@ class _CustomerServicesState extends State<CustomerServices> {
                 InkWell(
                   onTap: () {
                     context
-                        .read<CustomerServicesBloc>().listCustomerServiceGroup[widget.index].add(widget.dropdownServiceGroupItems);
+                        .read<CustomerServicesBloc>()
+                        .listCustomerSubService[widget.index]
+                        .add(widget.dropdownSubServiceItems);
                     context
-                        .read<CustomerServicesBloc>().listCustomerSubService[widget.index].add(widget.dropdownSubServiceItems);
-                    context
-                        .read<CustomerServicesBloc>().listCustomerService[widget.index].add([widget.dropdownServiceGroupItems.keys.first,widget.dropdownServiceGroupItems.keys.first]);
+                        .read<CustomerServicesBloc>()
+                        .listCustomerService[widget.index]
+                        .add([
+                      widget.dropdownServiceGroupItems.keys.first,
+                      widget.dropdownServiceGroupItems.keys.first
+                    ]);
                     context
                         .read<CustomerServicesBloc>()
                         .add(AddServiceGroup(customerIndex: widget.index));
@@ -434,6 +468,7 @@ class ServicesSelector extends StatefulWidget {
     required this.dropdownSubServiceItems,
     required this.dropdownServiceGroupItems,
     required this.onChangedServiceGroup,
+    required this.dropdowServiceGroupData,
   }) : super(key: key);
 
   final int customerIndex;
@@ -442,6 +477,7 @@ class ServicesSelector extends StatefulWidget {
 
   final Map<String, String> dropdownServiceGroupItems;
   final Map<String, String> dropdownSubServiceItems;
+  final Map<String, String> dropdowServiceGroupData;
 
   @override
   _ServicesSelectorState createState() => _ServicesSelectorState();
@@ -453,25 +489,19 @@ class _ServicesSelectorState extends State<ServicesSelector> {
 
   @override
   void initState() {
-    dropdownValueServiceGroup=context.read<CustomerServicesBloc>().listCustomerServiceGroup[widget.customerIndex][widget.serviceGroupIndex].entries
-        .map((e) => e.value)
-        .toList()[0];
-    dropdownValueSubService=context.read<CustomerServicesBloc>().listCustomerSubService[widget.customerIndex][widget.serviceGroupIndex].entries
-        .map((e) => e.value)
-        .toList()[0];
-//    dropdownValueServiceGroup =
-//        widget.dropdownServiceGroupItems.entries.map((e) => e.value).first;
-//    dropdownValueSubService =
-//        widget.dropdownSubServiceItems.entries.map((e) => e.value).first;
-//    context
-//                .read<CustomerServicesBloc>()
-//                .listCustomerService[widget.customerIndex]
-//            [widget.serviceGroupIndex][0] =
-//        widget.dropdownServiceGroupItems.entries.map((e) => e.key).first;
-//    context
-//            .read<CustomerServicesBloc>()
-//            .listCustomerService[widget.customerIndex][widget.serviceGroupIndex]
-//        [1] = widget.dropdownSubServiceItems.entries.map((e) => e.key).first;
+    if (context.read<CustomerServicesBloc>().listCustomerService.isNotEmpty) {
+      dropdownValueServiceGroup = widget.dropdowServiceGroupData[context
+              .read<CustomerServicesBloc>()
+              .listCustomerService[widget.customerIndex]
+          [widget.serviceGroupIndex][0]];
+      dropdownValueSubService = context
+              .read<CustomerServicesBloc>()
+              .listCustomerSubService[widget.customerIndex]
+          [widget.serviceGroupIndex][context
+              .read<CustomerServicesBloc>()
+              .listCustomerService[widget.customerIndex]
+          [widget.serviceGroupIndex][1]];
+    }
     super.initState();
   }
 
@@ -527,12 +557,12 @@ class _ServicesSelectorState extends State<ServicesSelector> {
                                   .read<CustomerServicesBloc>()
                                   .listCustomerService[widget.customerIndex]
                               [widget.serviceGroupIndex][0] =
-                          context.read<CustomerServicesBloc>().listCustomerServiceGroup[widget.customerIndex][widget.serviceGroupIndex].entries
+                          widget.dropdowServiceGroupData.entries
                               .firstWhere(
                                   (element) => element.value == newValue!)
                               .key;
                     },
-                    items: context.read<CustomerServicesBloc>().listCustomerServiceGroup[widget.customerIndex][widget.serviceGroupIndex].entries
+                    items: widget.dropdowServiceGroupData.entries
                         .map((e) => e.value)
                         .toList()
                         .map<DropdownMenuItem<String>>((String value) {
@@ -620,12 +650,19 @@ class _ServicesSelectorState extends State<ServicesSelector> {
                             .read<CustomerServicesBloc>()
                             .listCustomerService[widget.customerIndex]
                         [widget.serviceGroupIndex][1] =
-                    context.read<CustomerServicesBloc>().listCustomerSubService[widget.customerIndex][widget.serviceGroupIndex].entries
+                    context
+                        .read<CustomerServicesBloc>()
+                        .listCustomerSubService[widget.customerIndex]
+                            [widget.serviceGroupIndex]
+                        .entries
                         .firstWhere((element) => element.value == newValue!)
                         .key;
-
               },
-              items: context.read<CustomerServicesBloc>().listCustomerSubService[widget.customerIndex][widget.serviceGroupIndex].entries
+              items: context
+                  .read<CustomerServicesBloc>()
+                  .listCustomerSubService[widget.customerIndex]
+                      [widget.serviceGroupIndex]
+                  .entries
                   .map((e) => e.value)
                   .toList()
                   .map<DropdownMenuItem<String>>((String value) {
