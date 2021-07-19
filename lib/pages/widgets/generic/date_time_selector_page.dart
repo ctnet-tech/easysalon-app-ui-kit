@@ -4,6 +4,7 @@ import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/date_picker.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/date_range_picker/date_range_picker.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/selection_time_bar.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/basic/time_selector.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/page_header.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/scroll_listener.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/space.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DateTimeSelectorPage extends StatefulWidget {
   static const String path = '/pages/widgets/date_time_selector_page';
+
   @override
   _DateTimeSelectorPageState createState() => _DateTimeSelectorPageState();
 }
@@ -54,13 +56,40 @@ class _DateTimeSelectorPageState extends State<DateTimeSelectorPage> {
   }
 
   _datePicker() {
-    return  BlocProvider(
+    return BlocProvider(
       create: (_) => DatePickerBloc(),
       child: DatePicker(
-        onChanged: (value){
+        onChanged: (value) {
           print(value);
         },
       ),
+    );
+  }
+
+  _timeSelector(LayoutSize size) {
+    return TimeSelector(
+      listItems: <String, List<String>>{
+        "key1": ["08:00", "0"],
+        "key2": ["08:30", "0"],
+        "key3": ["09:00", "0"],
+        "key4": ["09:30", "0"],
+        "key5": ["10:00", "0"],
+        "key6": ["10:30", "0"],
+        "key7": ["10:30", "0"],
+        "key8": ["10:30", "0"],
+        "key9": ["08:00", "0"],
+        "key10": ["08:30", "0"],
+        "key11": ["09:00", "0"],
+        "key12": ["09:30", "0"],
+        "key13": ["10:00", "0"],
+        "key14": ["10:30", "0"],
+        "key15": ["10:30", "0"],
+        "key16": ["10:30", "0"],
+      },
+      outSidePaddingHorizontal: size,
+      onChanged: (value) {
+        print(value);
+      },
     );
   }
 
@@ -83,6 +112,11 @@ class _DateTimeSelectorPageState extends State<DateTimeSelectorPage> {
                   size: LayoutSize.big,
                   bottom: true,
                   child: _datePicker(),
+                ),
+                SpaceBox(
+                  size: LayoutSize.big,
+                  bottom: true,
+                  child: _timeSelector(LayoutSize.big),
                 ),
               ]))
         ]);
