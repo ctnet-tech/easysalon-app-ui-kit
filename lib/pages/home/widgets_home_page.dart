@@ -1,6 +1,11 @@
 import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
+import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/appointment_schedule_panel_page.dart';
+import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/assignment_of_duties_tag_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/button_page.dart';
+import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/chart_page.dart';
+import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/data_table_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/icon_page.dart';
+import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/invoice_test_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/paragraph_page.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/panel.dart';
@@ -34,7 +39,12 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                     children: [
                       MenuItem(label: "Paragraph", to: ParagraphPage.path),
                       MenuItem(label: "Button", to: ButtonPage.path),
-                      MenuItem(label: "Icon", to: IconPage.path)
+                      MenuItem(label: "Icon", to: IconPage.path),
+                      MenuItem(label: "chart",to: ChartPage.path),
+                      MenuItem(label: "data table",to: DataTablePage.path),
+                      MenuItem(label: "Appointment Schedule Panel",to: AppointmentSchedulePanelPage.path),
+                      MenuItem(label: "Assignment Of Duties Tag",to: AssignmentOfDutiesTagPage.path),
+                      MenuItem(label: "Invoice Test Page",to: InvoiceTestPage.path)
                     ],
                   )
                 ],
