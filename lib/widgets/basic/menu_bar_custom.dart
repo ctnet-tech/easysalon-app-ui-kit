@@ -1,11 +1,11 @@
 import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/basic/scroll_navigation_package/misc/navigation_helpers.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/basic/scroll_navigation_package/navigation/title_scroll_navigation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:scroll_navigation/misc/navigation_helpers.dart';
-import 'package:scroll_navigation/navigation/scroll_navigation.dart';
-import 'package:scroll_navigation/navigation/title_scroll_navigation.dart';
+
 
 class MenuBarCustom extends StatefulWidget {
   MenuBarCustom(
