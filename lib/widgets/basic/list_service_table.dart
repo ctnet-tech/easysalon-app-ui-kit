@@ -1,9 +1,11 @@
 import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
 import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/basic/CurrencyFormat.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/divider.dart'
     as dividerCustom;
@@ -123,9 +125,13 @@ class ListServiceTag extends StatefulWidget {
     this.numberOfCountService = 1,
     this.discountByPercent = false,
     this.staff = 'staff',
-    this.totalOfInvoice = 'totalOfInvoice',
+    this.totalOfInvoice = 0,
     this.serviceName = 'serviceName',
     this.paddingTag = LayoutSize.medium,
+    this.listAccompaniedService = const [],
+    this.showListAccompaniedService = false,
+    this.canEditPrice = false,
+    this.priceChange ,
   }) : super(key: key);
   final ThemeColor textColor;
   final LayoutSize paddingTag;
@@ -136,8 +142,12 @@ class ListServiceTag extends StatefulWidget {
   final int numberOfCountService;
   final bool discountByPercent;
   final String staff;
-  final String totalOfInvoice;
+  final int totalOfInvoice;
   final String serviceName;
+  final List<AccompaniedServiceTag> listAccompaniedService;
+  final bool showListAccompaniedService;
+  final bool canEditPrice;
+  final ValueChanged<int>? priceChange;
 
   @override
   State<StatefulWidget> createState() {
@@ -151,7 +161,9 @@ class _ListServiceTagState extends State<ListServiceTag> {
   List<dynamic> dataReturn = [];
   TextEditingController txtDiscountController = TextEditingController();
   TextEditingController txtNumberOfServiceController = TextEditingController();
+  TextEditingController txtPriceController = TextEditingController();
   final focusDiscountNode = FocusNode();
+  final focusPriceNode = FocusNode();
   final focusNumberOfServiceNode = FocusNode();
   int numberOfCount = 0;
   bool discountByPercentGet = false;
@@ -163,6 +175,7 @@ class _ListServiceTagState extends State<ListServiceTag> {
     discountByPercentGet = widget.discountByPercent;
 
     var discountFistTime = widget.fistDataDiscount.toString();
+    txtPriceController.text = widget.totalOfInvoice.toString();
     numberOfCount = widget.numberOfCountService;
     dataReturn = [
       discountByPercentGet,
@@ -239,6 +252,16 @@ class _ListServiceTagState extends State<ListServiceTag> {
         }
       }
     });
+    focusPriceNode.addListener(() {
+      if (!focusPriceNode.hasFocus) {
+        if (txtPriceController.text.isEmpty) {
+          txtPriceController.text = '0';
+        }
+        if (int.parse(txtPriceController.text.replaceAll(',', '')) == 0) {
+          txtPriceController.text = '0';
+        }
+      }
+    });
   }
 
   @override
@@ -256,7 +279,7 @@ class _ListServiceTagState extends State<ListServiceTag> {
               Row(
                 children: [
                   Container(
-                    width: containers.maxWidth * 0.8,
+                    width: containers.maxWidth * 0.7,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -279,7 +302,7 @@ class _ListServiceTagState extends State<ListServiceTag> {
                     ),
                   ),
                   Container(
-                    width: containers.maxWidth * 0.2,
+                    width: containers.maxWidth * 0.3,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
@@ -288,20 +311,62 @@ class _ListServiceTagState extends State<ListServiceTag> {
                           color: widget.hintTextColor,
                           buttonIconSize: LayoutSize.medium,
                           iconSize: LayoutSize.medium,
-                          icon: _checkDown == true ? LineIcons.chevron_up:LineIcons.chevron_down,
+                          icon: _checkDown ?LineIcons.chevron_up : LineIcons.chevron_down,
                           onPressed: () {
                             setState(() {
                               _checkDown = !_checkDown;
                             });
                           },
                         ),
-                        Text(
-                          '${widget.totalOfInvoice}',
-                          style: TextStyle(
-                              color: hintColorTextAll,
-                              fontWeight: FontWeight.normal,
-                              fontSize: 13),
-                        ),
+                        widget.canEditPrice
+                            ? Container(
+                                width: containers.maxWidth * 0.3,
+                                child: TextField(
+                                  controller: txtPriceController,
+                                  focusNode: focusPriceNode,
+                                  inputFormatters: [
+                                    WhitelistingTextInputFormatter.digitsOnly,
+                                    CurrencyFormat()
+                                  ],
+                                  textAlign: TextAlign.center,
+                                  decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(40),
+                                        borderSide: BorderSide(
+                                          width: 10,
+                                          style: BorderStyle.none,
+                                        ),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: colorTextAll, width: 1.0),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: theme.getColor(
+                                                ThemeColor.pattensBlue),
+                                            width: 1.0),
+                                      ),
+                                      hintText: '',
+                                      contentPadding: new EdgeInsets.symmetric(
+                                          vertical: 5.0, horizontal: 10.0),
+                                      suffix: Text('đ')),
+                                  keyboardType: TextInputType.number,
+                                  onChanged: (valueText) {
+                                    setState(() {
+
+                                      widget.priceChange!(int.parse(valueText.replaceAll(',', '')));
+                                    });
+                                  },
+                                ),
+                              )
+                            : Text(
+                                '${widget.totalOfInvoice} đ',
+                                style: TextStyle(
+                                    color: hintColorTextAll,
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 13),
+                              ),
                       ],
                     ),
                   )
@@ -602,27 +667,39 @@ class _ListServiceTagState extends State<ListServiceTag> {
                               ],
                             ),
                           ),
-                          InkWell(
-                              onTap: widget.onPressedDelete,
-                              child: Padding(
-                                padding: EdgeInsets.only(top: 10),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      "Xóa",
-                                      style: TextStyle(
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                               crossAxisAlignment: CrossAxisAlignment.start,
+
+
+                                  children:
+                                      widget.listAccompaniedService.toList()),
+                              InkWell(
+                                  onTap: widget.onPressedDelete,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 10),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          "Xóa",
+                                          style: TextStyle(
+                                              color: theme.getColor(
+                                                  widget.hintTextColor)),
+                                        ),
+                                        Icon(
+                                          LineIcons.trash,
                                           color: theme
-                                              .getColor(widget.hintTextColor)),
+                                              .getColor(ThemeColor.radicalRed),
+                                        ),
+                                      ],
                                     ),
-                                    Icon(
-                                      LineIcons.trash,
-                                      color:
-                                          theme.getColor(ThemeColor.radicalRed),
-                                    ),
-                                  ],
-                                ),
-                              ))
+                                  ))
+                            ],
+                          )
                         ],
                       ),
                     )
@@ -630,6 +707,117 @@ class _ListServiceTagState extends State<ListServiceTag> {
             ],
           );
         },
+      ),
+    );
+  }
+}
+
+class AccompaniedServiceTag extends StatefulWidget {
+  AccompaniedServiceTag({
+    Key? key,
+    this.hintTextColor = ThemeColor.secondary,
+    this.textColor = ThemeColor.dark,
+    this.unitName = "ml",
+    this.nameOfService = "service",
+    required this.onChangeInput,
+    this.inputFistTime = 0,
+    this.fontSize = LayoutSize.medium,
+    this.sizeTextField = LayoutSize.medium,
+  }) : super(key: key);
+  final ThemeColor textColor;
+  final ThemeColor hintTextColor;
+  final String unitName;
+  final String nameOfService;
+  final ValueChanged<int> onChangeInput;
+  final int inputFistTime;
+  final LayoutSize fontSize;
+  final LayoutSize sizeTextField;
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _AccompaniedServiceTagState();
+  }
+}
+
+class _AccompaniedServiceTagState extends State<AccompaniedServiceTag> {
+  TextEditingController txtUnitController = TextEditingController();
+  final focusUnitNode = FocusNode();
+
+  @override
+  void initState() {
+    txtUnitController.text = widget.inputFistTime.toString();
+    super.initState();
+    focusUnitNode.addListener(() {
+      if (!focusUnitNode.hasFocus) {
+        if (txtUnitController.text.isEmpty) {
+          txtUnitController.text = '0';
+        }
+        if (int.parse(txtUnitController.text.replaceAll(',', '')) == 0) {
+          txtUnitController.text = '0';
+        }
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var theme = context.read<ThemeNotifier>().getTheme();
+    var layout = context.read<LayoutNotifier>();
+    Color hintColorTextAll = theme.getColor(widget.hintTextColor);
+    Color colorTextAll = theme.getColor(widget.textColor);
+    return Container(
+      padding: EdgeInsets.only(bottom: layout.sizeToPadding(LayoutSize.small)),
+      child: Row(
+
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Text(
+            '${widget.nameOfService} ',
+            style: TextStyle(fontSize: layout.sizeToFontSize(widget.fontSize)),
+          ),
+          Container(
+            height: layout.sizeToShapeSize(widget.sizeTextField),
+            width: 100,
+            child: TextFormField(
+              controller: this.txtUnitController,
+              focusNode: this.focusUnitNode,
+              inputFormatters: [
+                WhitelistingTextInputFormatter.digitsOnly,
+                CurrencyFormat()
+              ],
+              decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: colorTextAll, width: 1.0),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      color: theme.getColor(ThemeColor.pattensBlue),
+                      width: 1.0),
+                ),
+                suffix: Text(
+                  '${widget.unitName}',
+                  style: TextStyle(
+                      fontSize: layout.sizeToFontSize(widget.fontSize)),
+                ),
+                border: InputBorder.none,
+                hintText: '',
+                contentPadding:
+                    new EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+              ),
+              style:
+                  TextStyle(fontSize: layout.sizeToFontSize(widget.fontSize)),
+              keyboardType: TextInputType.number,
+              textAlign: TextAlign.center,
+              onChanged: (valueText) {
+                setState(() {
+                  widget
+                      .onChangeInput(int.parse(valueText.replaceAll(',', '')));
+                });
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -21,11 +21,51 @@ class _InvoiceTestPageState extends State<InvoiceTestPage> {
           onChanged: (a) {},
           titleButtons: ["Chưa Thanh Toán", "Đã thanh toán", "Tất Cả"],
         ),
-        children: [ListServiceTable(
-          listServiceWidget: [
-            ListServiceTag(onPressedDelete: (){print("delete_1");}, onChanged: (data){print("data1 ${data}");},serviceName: "Đính hạt đơn giản 2 viên(1 ngón)",staff: "TC - Ngân",totalOfInvoice: "120,000đ",),
-            ListServiceTag(onPressedDelete: (){print("delete_2");}, onChanged: (data){print("data1 ${data}");},serviceName: "Chăm sóc da mặt cơ bản",staff: "KTV - Tú, TP - Tuấn, TP - Nhung",totalOfInvoice: "450,000đ",)
-          ],
-        )]);
+        children: [
+          ListServiceTable(
+            listServiceWidget: [
+              ListServiceTag(
+                priceChange: (price){
+                  print("price : $price");
+                },
+                listAccompaniedService: [
+                  AccompaniedServiceTag(
+                    nameOfService: 'Dầy gội súnulk : ',
+                    onChangeInput: (txt) {
+                      print(txt);
+                    },
+                  ),
+                  AccompaniedServiceTag(
+                    nameOfService: 'Dầu sả : ',
+                    onChangeInput: (txt) {
+                      print(txt);
+                    },
+                  ),
+                ],
+                onPressedDelete: () {
+                  print("delete_1");
+                },
+                canEditPrice: true,
+                onChanged: (data) {
+                  print("data1 ${data}");
+                },
+                serviceName: "Đính hạt đơn giản 2 viên(1 ngón)",
+                staff: "TC - Ngân",
+                totalOfInvoice: 120000,
+              ),
+              ListServiceTag(
+                onPressedDelete: () {
+                  print("delete_2");
+                },
+                onChanged: (data) {
+                  print("data1 ${data}");
+                },
+                serviceName: "Chăm sóc da mặt cơ bản",
+                staff: "KTV - Tú, TP - Tuấn, TP - Nhung",
+                totalOfInvoice: 450000,
+              )
+            ],
+          )
+        ]);
   }
 }
