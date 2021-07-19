@@ -14,5 +14,5 @@ class CurrencyFormat extends TextInputFormatter{
     String newText = money.format(value);
     return newValue.copyWith(text: newText,selection: TextSelection.collapsed(offset: newText.length));
   }
-  
+
 }
