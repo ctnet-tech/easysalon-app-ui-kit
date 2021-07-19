@@ -120,7 +120,7 @@ class _DatePickerState extends State<DatePicker>
           ),
           BlocBuilder<DatePickerBloc, DatePickerState>(
             builder: (context, state) => Container(
-              height: 80,
+              height: 100,
               child: TabBarView(
                 controller: _controller,
                 children: List.generate(
@@ -134,56 +134,84 @@ class _DatePickerState extends State<DatePicker>
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         return Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: layout.sizeToPadding(
-                              LayoutSize.small,
-                            ),
-                          ),
                           width: MediaQuery.of(context).size.width / 7,
-                          child: InkWell(
-                            onTap: () {
-                              setState(() {
-                                selectedIndex = index;
-                              });
+                          child: Center(
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  selectedIndex = index;
+                                });
 
-                              widget.onChanged(DateFormat("dd/MM/yyyy")
-                                  .parse(formatToDateTime(
-                                selectedIndex + 1,
-                                _controller.index + 1,
-                                context.read<DatePickerBloc>().year!,
-                              )));
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: index == selectedIndex
-                                    ? theme.getColor(ThemeColor.dodgerBlue)
-                                    : theme.getColor(ThemeColor.lightest),
-                                borderRadius: layout.sizeToBorderRadius(
-                                  LayoutSize.small,
+                                widget.onChanged(DateFormat("dd/MM/yyyy")
+                                    .parse(formatToDateTime(
+                                  selectedIndex + 1,
+                                  _controller.index + 1,
+                                  context.read<DatePickerBloc>().year!,
+                                )));
+                              },
+                              child: Container(
+                                width:
+                                    MediaQuery.of(context).size.width / 7 < 50
+                                        ? MediaQuery.of(context).size.width / 7
+                                        : 50,
+                                decoration: BoxDecoration(
+                                  color: index == selectedIndex
+                                      ? theme.getColor(ThemeColor.dodgerBlue)
+                                      : theme.getColor(ThemeColor.lightest),
+                                  borderRadius: layout.sizeToBorderRadius(
+                                    LayoutSize.small,
+                                  ),
                                 ),
-                              ),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Paragraph(
-                                    content: mapDate[index % 7],
-                                    color: index == selectedIndex
-                                        ? ThemeColor.lightest
-                                        : ThemeColor.secondary,
-                                    size: LayoutSize.small,
-                                    linePadding: LayoutSize.none,
-                                    isCenter: true,
-                                  ),
-                                  Paragraph(
-                                    content: (index + 1).toString(),
-                                    color: index == selectedIndex
-                                        ? ThemeColor.lightest
-                                        : ThemeColor.dark,
-                                    linePadding: LayoutSize.none,
-                                    isCenter: true,
-                                  ),
-                                ],
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Paragraph(
+                                      content: mapDate[index % 7],
+                                      color: index == selectedIndex
+                                          ? ThemeColor.lightest
+                                          : ThemeColor.secondary,
+                                      size: LayoutSize.small,
+                                      linePadding: LayoutSize.none,
+                                      isCenter: true,
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Paragraph(
+                                          content: (index + 1).toString(),
+                                          color: index == selectedIndex
+                                              ? ThemeColor.lightest
+                                              : ThemeColor.dark,
+                                          linePadding: LayoutSize.none,
+                                          isCenter: true,
+                                        ),
+                                        if (index + 1 ==
+                                                DateTime.now().day &&
+                                            _controller.index + 1 ==
+                                                DateTime.now().month &&
+                                            context
+                                                    .read<DatePickerBloc>()
+                                                    .year ==
+                                                DateTime.now().year)
+                                          Text(
+                                            "Hôm nay",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 8,
+                                              fontWeight: FontWeight.w400,
+                                              color: index == selectedIndex
+                                                  ? theme.getColor(
+                                                      ThemeColor.lightest)
+                                                  : theme.getColor(
+                                                      ThemeColor.dodgerBlue),
+                                            ),
+                                          )
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
