@@ -42,7 +42,7 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                       MenuItem(label: "Paragraph", to: ParagraphPage.path),
                       MenuItem(label: "Button", to: ButtonPage.path),
                       MenuItem(label: "Icon", to: IconPage.path),
-                      MenuItem(label: "Icon", to: DateTimeSelectorPage.path),
+                      MenuItem(label: "DateTimeSelector", to: DateTimeSelectorPage.path),
                     ],
                   ),
                 ],
