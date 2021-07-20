@@ -45,6 +45,8 @@ class ListCustomerServices extends StatelessWidget {
               .add([dropdownSubServiceItems]);
           context
               .read<CustomerServicesBloc>().dropdownSubServiceValue.add([null]);
+          context
+              .read<CustomerServicesBloc>().dropdownServiceGroupValue.add([null]);
           context.read<CustomerServicesBloc>().notes.add(null);
         }
       } else {
