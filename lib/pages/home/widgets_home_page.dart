@@ -2,6 +2,7 @@ import 'package:easysalon_mobile_ui_kit/bloc/customer_services_bloc/customer_ser
 import 'package:easysalon_mobile_ui_kit/bloc/customer_services_bloc/customer_services_blocs.dart';
 import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/button_page.dart';
+import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/customer_service_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/icon_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/paragraph_page.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
@@ -25,12 +26,6 @@ class WidgetsHomePage extends StatefulWidget {
 }
 
 class _WidgetsHomePageState extends State<WidgetsHomePage> {
-  Map<String, String> dropdownGroups = {"key1": "value1", "key2": "value2"};
-  Map<String, String> firstGroupSubService = {
-    "key11": "value11",
-    "key12": "value12",
-  };
-
   @override
   Widget build(BuildContext context) {
     return StandardPage(header: PageHeader(title: "Widget"), children: [
@@ -46,92 +41,12 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                     children: [
                       MenuItem(label: "Paragraph", to: ParagraphPage.path),
                       MenuItem(label: "Button", to: ButtonPage.path),
-                      MenuItem(label: "Icon", to: IconPage.path)
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Column(
-                    children: [
-                      ListCustomerServices(
-                        customerCount: 2,
-                        onChangeServiceGroup: (index1, index2, value) {
-                          print(value);
-
-                          setState(() {
-                            context
-                                .read<CustomerServicesBloc>()
-                                .listCustomerSubService[index1][index2] = {
-                              "new key1": "new value1",
-                              "new key2": "new value2",
-                            };
-                          });
-                        },
-                        dropdownServiceGroupItems: dropdownGroups,
-                        dropdownSubServiceItems: firstGroupSubService,
-                        initialCustomerService: [
-                          [
-                            ["key1", "key11"],
-                            ["key2", "key12"],
-                          ],
-                          [
-                            ["key1", "key11"],
-                            ["key2", "key12"],
-                          ],
-                        ],
-                        availableServicePackages: [[["GroupService1","SubService1"],["GroupService2","SubService2"]],[["GroupService1","SubService1"],["GroupService2","SubService2"]]],
-                        initialListNotesOfCustomers: ["asldjsalkd",null],
-                        initialSubService: [
-                          [
-                            {
-                              "key11": "value11",
-                              "key12": "value12",
-                            },
-                            {
-                              "key11": "value11",
-                              "key12": "value12",
-                            },
-                          ],
-                          [
-                            {
-                              "key11": "value11",
-                              "key12": "value12",
-                            },
-                            {
-                              "key11": "value11",
-                              "key12": "value12",
-                            },
-                          ]
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Center(
-                        child: GestureDetector(
-                            onTap: () {
-                              print(mapToData(context));
-                            },
-                            child: Text("onTapReturnData")),
-                      )
+                      MenuItem(label: "Icon", to: IconPage.path),
+                      MenuItem(label: "CustomerService", to: CustomerServicePage.path),
                     ],
                   ),
                 ],
               )))
     ]);
   }
-}
-
-List<Map<String, dynamic>> mapToData(BuildContext context) {
-  List<Map<String, dynamic>> listData = [];
-  for (int i = 0;
-      i < context.read<CustomerServicesBloc>().listCustomerService.length;
-      i++) {
-    listData.add(<String, dynamic>{
-      "services": context.read<CustomerServicesBloc>().listCustomerService[i],
-      "note": context.read<CustomerServicesBloc>().notes[i],
-    });
-  }
-  return listData;
 }

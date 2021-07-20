@@ -73,26 +73,28 @@ class ListCustomerServices extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                index==0?
-                CustomerServices(
-                  onChangeServiceGroup: (index2, value) {
-                    onChangeServiceGroup(index, index2, value);
-                  },
-                  isFirst: index == 0 ? true : false,
-                  index: index,
-                  availablePackageService: availableServicePackages![index],
-                  dropdownServiceGroupItems: dropdownServiceGroupItems,
-                  dropdownSubServiceItems: dropdownSubServiceItems,
-                ):CustomerServices(
-                  onChangeServiceGroup: (index2, value) {
-                    onChangeServiceGroup(index, index2, value);
-                  },
-                  isFirst: index == 0 ? true : false,
-                  index: index,
-                  availablePackageService: null,
-                  dropdownServiceGroupItems: dropdownServiceGroupItems,
-                  dropdownSubServiceItems: dropdownSubServiceItems,
-                ),
+                index == 0
+                    ? CustomerServices(
+                        onChangeServiceGroup: (index2, value) {
+                          onChangeServiceGroup(index, index2, value);
+                        },
+                        isFirst: index == 0 ? true : false,
+                        index: index,
+                        availablePackageService:
+                            availableServicePackages![index],
+                        dropdownServiceGroupItems: dropdownServiceGroupItems,
+                        dropdownSubServiceItems: dropdownSubServiceItems,
+                      )
+                    : CustomerServices(
+                        onChangeServiceGroup: (index2, value) {
+                          onChangeServiceGroup(index, index2, value);
+                        },
+                        isFirst: index == 0 ? true : false,
+                        index: index,
+                        availablePackageService: null,
+                        dropdownServiceGroupItems: dropdownServiceGroupItems,
+                        dropdownSubServiceItems: dropdownSubServiceItems,
+                      ),
               ],
             ),
           ),
@@ -203,110 +205,124 @@ class _CustomerServicesState extends State<CustomerServices> {
             SizedBox(
               height: 8,
             ),
-            if (widget.availablePackageService!=null && widget.index==0)
+            if (widget.availablePackageService != null && widget.index == 0)
               Column(
                 children: [
-                  ...List.generate(widget.availablePackageService!.length, (index) => Column(children: [
-                    Row(
-                      children: [
-                        Expanded(
-                            child: Container(
-                              padding: EdgeInsets.only(
-                                left: layout.sizeToPadding(LayoutSize.small),
-                                top: layout.sizeToPadding(LayoutSize.small),
-                                bottom: layout.sizeToPadding(LayoutSize.small),
+                  ...List.generate(
+                      widget.availablePackageService!.length,
+                      (index) => Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                      child: Container(
+                                    padding: EdgeInsets.only(
+                                      left: layout
+                                          .sizeToPadding(LayoutSize.small),
+                                      top: layout
+                                          .sizeToPadding(LayoutSize.small),
+                                      bottom: layout
+                                          .sizeToPadding(LayoutSize.small),
+                                    ),
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      color:
+                                          theme.getColor(ThemeColor.solitude),
+                                      borderRadius: layout
+                                          .sizeToBorderRadius(LayoutSize.small),
+                                    ),
+                                    child: Paragraph(
+                                      content: widget
+                                          .availablePackageService![index][0],
+                                      weight: FontWeight.w400,
+                                      linePadding: LayoutSize.none,
+                                      color: ThemeColor.spindle,
+                                    ),
+                                  )),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Container(
+                                    height: 50,
+                                    width: 50,
+                                    decoration: BoxDecoration(
+                                      color:
+                                          theme.getColor(ThemeColor.solitude),
+                                      borderRadius: layout
+                                          .sizeToBorderRadius(LayoutSize.small),
+                                    ),
+                                    child: CustomIcon(
+                                      icon: LineIcons.trash,
+                                      size: LayoutSize.medium,
+                                      color: ThemeColor.spindle,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: theme.getColor(ThemeColor.solitude),
-                                borderRadius:
-                                layout.sizeToBorderRadius(LayoutSize.small),
+                              SizedBox(
+                                height: 8,
                               ),
-                              child: Paragraph(
-                                content: widget.availablePackageService![index][0],
-                                weight: FontWeight.w400,
-                                linePadding: LayoutSize.none,
-                                color: ThemeColor.spindle,
+                              Container(
+                                height: 50,
+                                padding: EdgeInsets.all(
+                                  layout.sizeToPadding(LayoutSize.small),
+                                ),
+                                decoration: BoxDecoration(
+                                  color: theme.getColor(ThemeColor.solitude),
+                                  borderRadius: layout
+                                      .sizeToBorderRadius(LayoutSize.small),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Paragraph(
+                                      content: widget
+                                          .availablePackageService![index][1],
+                                      weight: FontWeight.w400,
+                                      linePadding: LayoutSize.none,
+                                      color: ThemeColor.spindle,
+                                    ),
+                                    CustomIcon(
+                                      icon: LineIcons.chevron_down,
+                                      color: ThemeColor.spindle,
+                                      size: LayoutSize.medium,
+                                    ),
+                                  ],
+                                ),
                               ),
-                            )),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Container(
-                          height: 50,
-                          width: 50,
-                          decoration: BoxDecoration(
-                            color: theme.getColor(ThemeColor.solitude),
-                            borderRadius:
-                            layout.sizeToBorderRadius(LayoutSize.small),
-                          ),
-                          child: CustomIcon(
-                            icon: LineIcons.trash,
-                            size: LayoutSize.medium,
-                            color: ThemeColor.spindle,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Container(
-                      height: 50,
-                      padding: EdgeInsets.all(
-                        layout.sizeToPadding(LayoutSize.small),
-                      ),
-                      decoration: BoxDecoration(
-                        color: theme.getColor(ThemeColor.solitude),
-                        borderRadius: layout.sizeToBorderRadius(LayoutSize.small),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Paragraph(
-                            content: widget.availablePackageService![index][1],
-                            weight: FontWeight.w400,
-                            linePadding: LayoutSize.none,
-                            color: ThemeColor.spindle,
-                          ),
-                          CustomIcon(
-                            icon: LineIcons.chevron_down,
-                            color: ThemeColor.spindle,
-                            size: LayoutSize.medium,
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 10,),
-                  ],)),
+                              SizedBox(
+                                height: 10,
+                              ),
+                            ],
+                          )),
                 ],
               ),
-
-              ...List.generate(
-                  context
-                      .read<CustomerServicesBloc>()
-                      .listCustomerService[widget.index]
-                      .length,
-                  (index) => Column(
-                        children: [
-                          ServicesSelector(
-                            dropdowServiceGroupData:
-                                widget.dropdownServiceGroupItems,
-                            onChangedServiceGroup: (value) {
-                              widget.onChangeServiceGroup(index, value);
-                            },
-                            customerIndex: widget.index,
-                            serviceGroupIndex: index,
-                            dropdownServiceGroupItems:
-                                widget.dropdownServiceGroupItems,
-                            dropdownSubServiceItems:
-                                widget.dropdownSubServiceItems,
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                        ],
-                      )),
+            ...List.generate(
+                context
+                    .read<CustomerServicesBloc>()
+                    .listCustomerService[widget.index]
+                    .length,
+                (index) => Column(
+                      children: [
+                        ServicesSelector(
+                          dropdowServiceGroupData:
+                              widget.dropdownServiceGroupItems,
+                          onChangedServiceGroup: (value) {
+                            widget.onChangeServiceGroup(index, value);
+                          },
+                          customerIndex: widget.index,
+                          serviceGroupIndex: index,
+                          dropdownServiceGroupItems:
+                              widget.dropdownServiceGroupItems,
+                          dropdownSubServiceItems:
+                              widget.dropdownSubServiceItems,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    )),
             SizedBox(
               height: 12,
             ),
@@ -323,8 +339,8 @@ class _CustomerServicesState extends State<CustomerServices> {
                         .read<CustomerServicesBloc>()
                         .listCustomerService[widget.index]
                         .add([
-                      widget.dropdownServiceGroupItems.keys.first,
-                      widget.dropdownServiceGroupItems.keys.first
+                      null,
+                      null,
                     ]);
                     context
                         .read<CustomerServicesBloc>()
@@ -549,10 +565,15 @@ class _ServicesSelectorState extends State<ServicesSelector> {
                         dropdownValueServiceGroup = newValue!;
                       });
                       dropdownValueSubService = null;
+                      context
+                              .read<CustomerServicesBloc>()
+                              .listCustomerService[widget.customerIndex]
+                          [widget.serviceGroupIndex][1] = null;
                       widget.onChangedServiceGroup(widget
                           .dropdownServiceGroupItems.entries
                           .firstWhere((element) => element.value == newValue!)
                           .key);
+
                       context
                                   .read<CustomerServicesBloc>()
                                   .listCustomerService[widget.customerIndex]
@@ -645,7 +666,6 @@ class _ServicesSelectorState extends State<ServicesSelector> {
                 setState(() {
                   dropdownValueSubService = newValue!;
                 });
-
                 context
                             .read<CustomerServicesBloc>()
                             .listCustomerService[widget.customerIndex]
