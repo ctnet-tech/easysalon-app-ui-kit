@@ -26,7 +26,7 @@ class StaffInformationTag extends StatelessWidget {
     this.bonus = '0',
     this.salaryAdvance = '0',
     this.commission = '0',
-    this.numberOfDaysAbsenceWithNotExcuse = '0', this.penaltySalary = '0', this.residualSalary = '0', this.numberOfWorkDays = 'n/30', this.basicSalary='0,000,000', this.dailySalary = '000,000', this.urlAvatar = '',
+    this.numberOfDaysAbsenceWithNotExcuse = '0', this.penaltySalary = '0', this.residualSalary = '0', this.numberOfWorkDays = 'n/30', this.basicSalary='0,000,000', this.dailySalary = '000,000', this.urlAvatar = '', this.onPressedAbsentButton, this.onPressedBonusAndPenaltyButton, this.onPressedPayButton,
   }) : super(key: key);
   final LayoutSize borderRadius;
   final LayoutSize paddingTag;
@@ -49,7 +49,9 @@ class StaffInformationTag extends StatelessWidget {
   final String basicSalary;
   final String dailySalary;
   final String urlAvatar;
-
+  final VoidCallback? onPressedAbsentButton;
+  final VoidCallback? onPressedBonusAndPenaltyButton;
+  final VoidCallback? onPressedPayButton;
 
   @override
   Widget build(BuildContext context) {
@@ -109,20 +111,20 @@ class StaffInformationTag extends StatelessWidget {
                                 textColor: ThemeColor.dark,
                                 color: ThemeColor.pattensBlue,
                                 content: "Nghỉ",
-                                onPressed: () {},
+                                onPressed:this.onPressedAbsentButton ?? () {},
                               ),
                               Button(
                                 fontSizeText: LayoutSize.small,
                                 width: ((containers.maxWidth * 0.8) / 3) - 5,
                                 color: ThemeColor.darkOrange,
                                 content: "Thưởng/Phạt",
-                                onPressed: () {},
+                                onPressed:this.onPressedBonusAndPenaltyButton ?? () {},
                               ),
                               Button(
                                 fontSizeText: LayoutSize.small,
                                 width: ((containers.maxWidth * 0.8) / 3) - 5,
                                 content: "Thanh Toán",
-                                onPressed: () {},
+                                onPressed:this.onPressedPayButton ?? () {},
                               ),
                             ],
                           ),
