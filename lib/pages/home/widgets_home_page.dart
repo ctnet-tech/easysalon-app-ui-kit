@@ -1,4 +1,5 @@
 import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
+import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/add_customer_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/appointment_schedule_panel_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/assignment_of_duties_tag_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/button_page.dart';
@@ -44,7 +45,8 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                       MenuItem(label: "data table",to: DataTablePage.path),
                       MenuItem(label: "Appointment Schedule Panel",to: AppointmentSchedulePanelPage.path),
                       MenuItem(label: "Assignment Of Duties Tag",to: AssignmentOfDutiesTagPage.path),
-                      MenuItem(label: "Invoice Test Page",to: InvoiceTestPage.path)
+                      MenuItem(label: "Invoice Test Page",to: InvoiceTestPage.path),
+                      MenuItem(label: "Add customer Page",to: AddCustomerPage.path)
                     ],
                   )
                 ],
