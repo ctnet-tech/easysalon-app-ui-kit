@@ -90,6 +90,7 @@ class StaffInformationTag extends StatelessWidget {
                       ),
                     ),
                     Container(
+                      padding: EdgeInsets.only(left: 10),
                         child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -101,28 +102,29 @@ class StaffInformationTag extends StatelessWidget {
                                   layout.sizeToFontSize(LayoutSize.large)),
                         ),
                         Container(
-                          width: containers.maxWidth * 0.8,
+                          width: containers.maxWidth * 0.8-10,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Button(
                                 fontSizeText: LayoutSize.small,
-                                width: ((containers.maxWidth * 0.8) / 3) - 5,
+                                width: ((containers.maxWidth * 0.8 -10) / 3) - 5,
                                 textColor: ThemeColor.dark,
                                 color: ThemeColor.pattensBlue,
                                 content: "Nghỉ",
                                 onPressed:this.onPressedAbsentButton ?? () {},
                               ),
                               Button(
+                                paddingButton: LayoutSize.none,
                                 fontSizeText: LayoutSize.small,
-                                width: ((containers.maxWidth * 0.8) / 3) - 5,
+                                width: ((containers.maxWidth * 0.8-10) / 3) - 5,
                                 color: ThemeColor.darkOrange,
                                 content: "Thưởng/Phạt",
                                 onPressed:this.onPressedBonusAndPenaltyButton ?? () {},
                               ),
                               Button(
                                 fontSizeText: LayoutSize.small,
-                                width: ((containers.maxWidth * 0.8) / 3) - 5,
+                                width: ((containers.maxWidth * 0.8-10) / 3) - 5,
                                 content: "Thanh Toán",
                                 onPressed:this.onPressedPayButton ?? () {},
                               ),
