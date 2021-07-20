@@ -34,7 +34,7 @@ class CustomerServicePage extends StatelessWidget {
           onChangeServiceGroup: (index1, index2, value) {
             print(value);
 
-            context.read().setState(() {
+            context.findRootAncestorStateOfType()!.setState(() {
               bloc.listCustomerSubService[index1][index2] = {
                 "new key1": "new value1",
                 "new key2": "new value2",
