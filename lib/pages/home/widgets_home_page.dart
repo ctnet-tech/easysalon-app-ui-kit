@@ -1,5 +1,6 @@
 import 'package:easysalon_mobile_ui_kit/bloc/date_range_picker_bloc/date_range_picker_bloc.dart';
 import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
+import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/buttom_sheet_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/button_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/icon_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/paragraph_page.dart';
@@ -42,49 +43,10 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                     children: [
                       MenuItem(label: "Paragraph", to: ParagraphPage.path),
                       MenuItem(label: "Button", to: ButtonPage.path),
-                      MenuItem(label: "Icon", to: IconPage.path)
+                      MenuItem(label: "Icon", to: IconPage.path),
+                      MenuItem(label: "BottomSheet", to: BottomSheetPage.path),
                     ],
                   ),
-                  BlocProvider(
-                    create: (_) => DateRangePickerBloc(),
-                    child: SelectionTimeBar(),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Center(
-                    child: InkWell(
-                        onTap: () {
-                          showModalBottomSheet(
-                            isScrollControlled: true,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(20),
-                                  topRight: Radius.circular(20)),
-                            ),
-                            context: context,
-                            builder: (_) => DepositBottomSheet(
-                              listPaymentMethodInput: [["data1","100000","account1"],["data2",null,null],["data2",null,"account3"]],
-                              dropdownDataMethodPayment: <String, String>{
-                                "data1": "Tiền mặt",
-                                "data2": "Chuyển khoản",
-                                "data3": "Điểm",
-                              },
-                              dropdownDataBankAccounts: <String, String>{
-                                "account1": "Tài khoản 1",
-                                "account2": "Tài khoản 2",
-                                "account3": "Tài khoản 3",
-                              },
-                              height:
-                                  MediaQuery.of(context).size.height * 2 / 3,
-                              onChanged: (value) {
-                                print(value);
-                              },
-                            ),
-                          );
-                        },
-                        child: Text("Show DepositBottomSheet")),
-                  )
                 ],
               )))
     ]);
