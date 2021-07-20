@@ -7,7 +7,8 @@ class CustomerServicesBloc
   CustomerServicesBloc() : super(CustomerServicesInitial());
   List<List<List<String?>>> listCustomerService = [];
   List<List<Map<String,String>>> listCustomerSubService=[];
-
+  List<List<String?>> dropdownSubServiceValue=[];
+  List<List<String?>> dropdownServiceGroupValue=[];
   List<String?> notes=[];
 
   @override
@@ -38,9 +39,18 @@ class CustomerServicesBloc
     }
     if (event is RemoveServiceGroup) {
       yield CustomerServicesLoading();
-        listCustomerService[event.customerIndex].removeAt(event.serviceIndex);
-      listCustomerSubService[event.customerIndex].removeAt(event.serviceIndex);
 
+      for(int i=event.serviceIndex;i<listCustomerService[event.customerIndex].length-1;i++ )
+        {
+          listCustomerService[event.customerIndex][i]=listCustomerService[event.customerIndex][i+1];
+          listCustomerSubService[event.customerIndex][i]=listCustomerSubService[event.customerIndex][i+1];
+          dropdownSubServiceValue[event.customerIndex][i] =dropdownSubServiceValue[event.customerIndex][i+1];
+          dropdownServiceGroupValue[event.customerIndex][i] =dropdownServiceGroupValue[event.customerIndex][i+1];
+        }
+        listCustomerService[event.customerIndex].removeLast();
+      listCustomerSubService[event.customerIndex].removeLast();
+      dropdownSubServiceValue[event.customerIndex].removeLast();
+      dropdownServiceGroupValue[event.customerIndex].removeLast();
       yield CustomerServicesSuccess();
     }
     if (event is ChangeService) {

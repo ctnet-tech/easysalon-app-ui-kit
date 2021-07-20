@@ -55,6 +55,10 @@ class CustomerServicePage extends StatelessWidget {
               ["key1", "key11"],
               ["key2", "key12"],
             ],
+            [
+              ["key1", "key11"],
+              ["key2", "key12"],
+            ],
           ],
           availableServicePackages: [
             [
@@ -66,7 +70,7 @@ class CustomerServicePage extends StatelessWidget {
               ["GroupService2", "SubService2"]
             ]
           ],
-          initialListNotesOfCustomers: ["asldjsalkd", null],
+          initialListNotesOfCustomers: ["asldjsalkd", null,null],
           initialSubService: [
             [
               {
@@ -87,7 +91,17 @@ class CustomerServicePage extends StatelessWidget {
                 "key11": "value11",
                 "key12": "value12",
               },
-            ]
+            ],
+            [
+              {
+                "key11": "value11",
+                "key12": "value12",
+              },
+              {
+                "key11": "value11",
+                "key12": "value12",
+              },
+            ],
           ],
         ),
         SizedBox(
