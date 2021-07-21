@@ -39,7 +39,35 @@ class _AddCustomerPageState
           titleButtons: ["Chưa Thanh Toán", "Đã thanh toán", "Tất Cả"],
         ),
         children: [
-          FormAddCustomer()
+          FormAddCustomer(
+            onClickCreateCustomer: (dataForm){
+
+            },
+            dataDropDownTypeOfLabel: {
+              '': 'Chọn Nhãn',
+              'key1': "Tóc Dài",
+              'key2': "Tóc Ngắn",
+              'key3': "Tóc Hư Tổn"
+            },
+            dataDropDownGroupOfCustomer: {
+              '': 'KM',
+              'key2': 'KH Hạng Đồng',
+              'key3': 'KH Hạng Bạc',
+              'key4': 'KH Hạng Vàng'
+            },
+            dataDropDownCustomerBase: {
+              '': 'Chọn Nguồn Khách',
+              'key1': 'Facebook',
+              'key2': 'Quảng Cáo',
+              'key3': 'Khác'
+            },
+            dataDropDownBrokerCustomer: {
+              '': 'Chọn Người Giới Thiệu',
+              'key1': "Khách 1 - 09050012131",
+              'key2': "Khách 2 - 09050012131",
+            },
+
+          )
 
         ]);
   }

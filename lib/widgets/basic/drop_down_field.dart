@@ -9,18 +9,29 @@ import 'package:provider/provider.dart';
 import 'package:tiengviet/tiengviet.dart';
 
 class DropDownField extends StatefulWidget {
-  DropDownField({
-    Key? key,
-    required this.dataDropDown,
-    this.keyDataFistTime = '',
-    required this.onChanged, this.colorTheme = ThemeColor.lightest, this.colorBorder = ThemeColor.pattensBlue, this.childHasUpdate = true // = true thì setState nó s? update theo data fist còn false thì không,
-  }) : super(key: key);
+  DropDownField(
+      {Key? key,
+        required this.dataDropDown,
+        this.keyDataFistTime = '',
+        required this.onChanged,
+        this.colorTheme = ThemeColor.lightest,
+        this.colorBorder = ThemeColor.pattensBlue,
+        this.childHasUpdate = true,
+        this.sizeText = LayoutSize.large,
+        this.hintColorFist = ThemeColor.secondary,
+        this.fistDataIsHint =
+        false // = true thì setState nó sẽ update theo data fist còn false thì không,
+      })
+      : super(key: key);
   final Map<String, String> dataDropDown;
   final String keyDataFistTime;
   final ValueChanged<String> onChanged;
   final ThemeColor colorTheme;
   final ThemeColor colorBorder;
   final bool childHasUpdate;
+  final LayoutSize sizeText;
+  final ThemeColor hintColorFist;
+  final bool fistDataIsHint;
 
   @override
   State<StatefulWidget> createState() {
@@ -35,11 +46,13 @@ class _DropDownFieldState extends State<DropDownField> {
   bool checkFocus = false;
   String keyChange = '';
   Map<String, String> dataDropDownField = {};
+
   @override
   void dispose() {
     txtFieldController.dispose();
     super.dispose();
   }
+
   @override
   void initState() {
     print("go there ${widget.keyDataFistTime}");
@@ -57,17 +70,18 @@ class _DropDownFieldState extends State<DropDownField> {
       }
     });
   }
+
   @override
   void didUpdateWidget(covariant DropDownField oldWidget) {
-    if(widget.childHasUpdate){
-      txtFieldController.text = widget.dataDropDown[widget.keyDataFistTime] ?? '';
+    if (widget.childHasUpdate) {
+      txtFieldController.text =
+          widget.dataDropDown[widget.keyDataFistTime] ?? '';
     }
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   Widget build(BuildContext context) {
-
     var theme = context.read<ThemeNotifier>().getTheme();
     var layout = context.read<LayoutNotifier>();
 
@@ -76,7 +90,9 @@ class _DropDownFieldState extends State<DropDownField> {
       Map<String, String> map = {};
       widget.dataDropDown.entries.forEach((element) {
         print(element.value);
-        if (TiengViet.parse(element.value).toLowerCase().contains(TiengViet.parse(data).toLowerCase())) {
+        if (TiengViet.parse(element.value)
+            .toLowerCase()
+            .contains(TiengViet.parse(data).toLowerCase())) {
           map.addAll({element.key: element.value});
           print(element);
         }
@@ -91,14 +107,14 @@ class _DropDownFieldState extends State<DropDownField> {
             borderRadius: BorderRadius.all(Radius.circular(10)),
             border: Border.all(color: theme.getColor(widget.colorBorder))),
         child: TextFormField(
-          onTap: (){
+          onTap: () {
             txtFieldController.text = '';
           },
           focusNode: focusNode,
           textAlignVertical: TextAlignVertical.center,
           style: TextStyle(
-              color: theme.getColor(ThemeColor.dark),
-              fontSize: layout.sizeToFontSize(LayoutSize.large)),
+              color: widget.fistDataIsHint ? (keyChange == widget.dataDropDown.keys.first ? theme.getColor(widget.hintColorFist):theme.getColor(ThemeColor.dark)): theme.getColor(ThemeColor.dark),
+              fontSize: layout.sizeToFontSize(widget.sizeText)),
           decoration: InputDecoration(
             suffixIcon: new Icon(
               LineIcons.chevron_down,
@@ -131,10 +147,10 @@ class _DropDownFieldState extends State<DropDownField> {
                       color: theme.getColor(widget.colorBorder))),
               height: 200,
               width: double.infinity,
-              child:Scrollbar(
+              child: Scrollbar(
                 isAlwaysShown: true,
                 showTrackOnHover: true,
-                child:  SingleChildScrollView(
+                child: SingleChildScrollView(
                   child: Column(
                       children: dataDropDownField.length > 0
                           ? dataDropDownField.entries.map((value) {
@@ -144,7 +160,7 @@ class _DropDownFieldState extends State<DropDownField> {
                                   color:
                                   theme.getColor(ThemeColor.dark),
                                   fontSize: layout.sizeToFontSize(
-                                      LayoutSize.large))),
+                                      widget.sizeText))),
                           onTap: () {
                             this.focusNode.unfocus();
                             setState(() {
@@ -159,7 +175,7 @@ class _DropDownFieldState extends State<DropDownField> {
                           : [
                         Center(
                           child: Text(
-                            "Không có d? li?u trùng kh?p",
+                            "Không có dữ liệu trùng khớp",
                             style: TextStyle(
                                 color: theme
                                     .getColor(ThemeColor.radicalRed)),
