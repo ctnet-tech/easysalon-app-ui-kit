@@ -1,3 +1,4 @@
+
 import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
 import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
@@ -11,15 +12,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ExpandableButton extends StatefulWidget {
-  const ExpandableButton({
+   ExpandableButton({
     required this.text,
     required this.data,
     required this.onChanged,
+    this.firstValues,
   });
 
   final String text;
   final Map<String, List<String>> data;
   final ValueChanged<List<bool>> onChanged;
+  List<bool>? firstValues;
 
   @override
   _ExpandableButtonState createState() => _ExpandableButtonState();
@@ -32,6 +35,11 @@ class _ExpandableButtonState extends State<ExpandableButton> {
 
   @override
   void initState() {
+    if(widget.firstValues !=null)
+      {
+        values=widget.firstValues!;
+        isExpanded=true;
+      } else
     values = List.filled(widget.data.length, false);
     listItems = widget.data.entries.map((e) => e.value).toList();
     super.initState();
@@ -160,7 +168,7 @@ class _ExpandableButtonState extends State<ExpandableButton> {
                                 ],
                               ),
                             ),
-                            SpaceBox(
+                           if(index != listItems.length-1) SpaceBox(
                               left: true,
                               right: true,
                               size: LayoutSize.small,
