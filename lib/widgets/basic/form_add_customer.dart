@@ -1,6 +1,7 @@
 import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
 import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
-import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
+import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart'
+    as themeApp;
 import 'package:easysalon_mobile_ui_kit/widgets/basic/button.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/drop_down_field.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/scroll_navigation_package/misc/navigation_helpers.dart';
@@ -8,6 +9,7 @@ import 'package:easysalon_mobile_ui_kit/widgets/basic/scroll_navigation_package/
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:helpers/helpers.dart';
+import 'package:helpers/helpers/size.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -18,22 +20,31 @@ class FormAddCustomer extends StatefulWidget {
     this.paddingForm = LayoutSize.medium,
     this.borderRadius = LayoutSize.medium,
     this.fontSizeTitle = LayoutSize.medium,
-    this.colorText = ThemeColor.dark,
-    this.colorForm = ThemeColor.lightest,
-    this.colorHintText = ThemeColor.secondary,required this.dataDropDownTypeOfLabel,required this.dataDropDownGroupOfCustomer,required this.dataDropDownCustomerBase,required this.dataDropDownBrokerCustomer,required this.onClickCreateCustomer,
+    this.colorText = themeApp.ThemeColor.dark,
+    this.colorForm = themeApp.ThemeColor.lightest,
+    this.colorHintText = themeApp.ThemeColor.secondary,
+    required this.dataDropDownTypeOfLabel,
+    required this.dataDropDownGroupOfCustomer,
+    required this.dataDropDownCustomerBase,
+    required this.dataDropDownBrokerCustomer,
+    required this.onClickCreateCustomer,
   }) : super(key: key);
   final LayoutSize marginForm;
   final LayoutSize paddingForm;
   final LayoutSize borderRadius;
   final LayoutSize fontSizeTitle;
-  final ThemeColor colorText;
-  final ThemeColor colorHintText;
-  final ThemeColor colorForm;
+  final themeApp.ThemeColor colorText;
+  final themeApp.ThemeColor colorHintText;
+  final themeApp.ThemeColor colorForm;
   final Map<String, String> dataDropDownTypeOfLabel;
-  final Map<String, String> dataDropDownGroupOfCustomer ;
-  final Map<String, String> dataDropDownCustomerBase ;
-  final Map<String, String> dataDropDownBrokerCustomer ;
-  final ValueChanged<Map<String,dynamic>> onClickCreateCustomer;
+  final Map<String, String> dataDropDownGroupOfCustomer;
+
+  final Map<String, String> dataDropDownCustomerBase;
+
+  final Map<String, String> dataDropDownBrokerCustomer;
+
+  final ValueChanged<Map<String, dynamic>> onClickCreateCustomer;
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -64,7 +75,6 @@ class _FormAddCustomerState extends State<FormAddCustomer> {
   String keyBrokerCustomer = '';
   DateTime? birthdayCustomerTime;
 
-
   TextEditingController birthdayCustomerTimeTextEditingController =
       TextEditingController();
   TextEditingController noteTextEditingController = TextEditingController();
@@ -82,7 +92,8 @@ class _FormAddCustomerState extends State<FormAddCustomer> {
     dataDropDownCustomerBase = widget.dataDropDownCustomerBase;
     dataDropDownBrokerCustomer = widget.dataDropDownBrokerCustomer;
     keyGroupOfCustomer = dataDropDownGroupOfCustomer.keys.first;
-    createCustomerTimeTextEditingController.text = DateFormat('dd-MM-yyyy').format(createCustomerTime);
+    createCustomerTimeTextEditingController.text =
+        DateFormat('dd-MM-yyyy').format(createCustomerTime);
     keyCustomerBase = dataDropDownCustomerBase.keys.first;
     keyBrokerCustomer = dataDropDownBrokerCustomer.keys.first;
   }
@@ -93,19 +104,18 @@ class _FormAddCustomerState extends State<FormAddCustomer> {
       return {
         'name': nameTextEditingController.text,
         'phone': phoneTextEditingController.text,
-        'id':idCustomerTextEditingController.text,
-        'address':addressCustomerTextEditingController.text,
-        'email':emailCustomerTextEditingController.text,
-        'listLabel':listLabel,
-        'createCustomerTime':createCustomerTime,
-        'keyGroupOfCustomer':keyGroupOfCustomer,
-        'keyCustomerBase':keyCustomerBase,
-        'keyBrokerCustomer':keyBrokerCustomer,
-        'birthdayCustomerTime':birthdayCustomerTime,
-        'sex':val<0 ? null : val,
-        'checkIsFamiliarCustomer':checkIsFamiliarCustomer,
-        'note':noteTextEditingController.text
-
+        'id': idCustomerTextEditingController.text,
+        'address': addressCustomerTextEditingController.text,
+        'email': emailCustomerTextEditingController.text,
+        'listLabel': listLabel,
+        'createCustomerTime': createCustomerTime,
+        'keyGroupOfCustomer': keyGroupOfCustomer,
+        'keyCustomerBase': keyCustomerBase,
+        'keyBrokerCustomer': keyBrokerCustomer,
+        'birthdayCustomerTime': birthdayCustomerTime,
+        'sex': val < 0 ? null : val,
+        'checkIsFamiliarCustomer': checkIsFamiliarCustomer,
+        'note': noteTextEditingController.text
       };
     } else {
       // chi 2
@@ -118,7 +128,7 @@ class _FormAddCustomerState extends State<FormAddCustomer> {
 
   @override
   Widget build(BuildContext context) {
-    var theme = context.read<ThemeNotifier>().getTheme();
+    var theme = context.read<themeApp.ThemeNotifier>().getTheme();
     var layout = context.read<LayoutNotifier>();
     var colorText = theme.getColor(widget.colorText);
     var colorHintText = theme.getColor(widget.colorHintText);
@@ -148,7 +158,8 @@ class _FormAddCustomerState extends State<FormAddCustomer> {
                             text: ' *',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: theme.getColor(ThemeColor.radicalRed),
+                                color: theme
+                                    .getColor(themeApp.ThemeColor.radicalRed),
                                 fontSize: fontSizeAll))
                         : TextSpan(text: ''),
                   ],
@@ -159,34 +170,47 @@ class _FormAddCustomerState extends State<FormAddCustomer> {
                   decoration: BoxDecoration(
                     border: Border.all(
                         width: 1.5,
-                        color: theme.getColor(ThemeColor.pattensBlue)),
+                        color: theme.getColor(themeApp.ThemeColor.pattensBlue)),
                     borderRadius: layout.sizeToBorderRadius(LayoutSize.small),
                   ),
                   // nhan vien
                   child: Container(
                     child: InkWell(
                       onTap: onTap ?? () {},
-                      child: TextFormField(
-                        enabled: enabled,
-                        controller: controller ?? TextEditingController(),
-                        style: new TextStyle(
-                            fontSize:
-                                layout.sizeToFontSize(widget.fontSizeTitle)),
-                        decoration: InputDecoration(
-                          suffixIcon: icon,
-                          border: InputBorder.none,
-                          hintStyle: TextStyle(color: colorHintText),
-                          hintText: hintText.toString().isEmpty
-                              ? 'Nhập ${title}'
-                              : hintText,
-                          contentPadding: new EdgeInsets.symmetric(
-                              vertical: 5.0, horizontal: 10.0),
-                        ),
-                        keyboardType: isNumber
-                            ? TextInputType.number
-                            : TextInputType.text,
-                        onChanged: (valueText) {},
-                      ),
+                      child: enabled
+                          ? TextFormField(
+                              controller: controller ?? TextEditingController(),
+                              style: new TextStyle(
+                                  fontSize: layout
+                                      .sizeToFontSize(widget.fontSizeTitle)),
+                              decoration: InputDecoration(
+                                suffixIcon: icon,
+                                border: InputBorder.none,
+                                hintStyle: TextStyle(color: colorHintText),
+                                hintText: hintText.toString().isEmpty
+                                    ? 'Nhập ${title}'
+                                    : hintText,
+                                contentPadding: new EdgeInsets.symmetric(
+                                    vertical: 5.0, horizontal: 10.0),
+                              ),
+                              keyboardType: isNumber
+                                  ? TextInputType.number
+                                  : TextInputType.text,
+                              onChanged: (valueText) {},
+                            )
+                          :Padding(padding: EdgeInsets.all(10),child:  Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "${controller.text.toString().isEmpty ? hintText:controller.text}",
+                            style: TextStyle(
+                              fontSize: fontSizeAll,
+                              color: colorHintText,
+                            ),
+                          ),
+                          icon
+                        ],
+                      ),),
                     ),
                   ))
             ],
@@ -216,7 +240,8 @@ class _FormAddCustomerState extends State<FormAddCustomer> {
                       decoration: BoxDecoration(
                         border: Border.all(
                             width: 1.5,
-                            color: theme.getColor(ThemeColor.pattensBlue)),
+                            color: theme
+                                .getColor(themeApp.ThemeColor.pattensBlue)),
                         borderRadius:
                             layout.sizeToBorderRadius(LayoutSize.small),
                       ),
@@ -280,8 +305,12 @@ class _FormAddCustomerState extends State<FormAddCustomer> {
                     //DateTime.now() - not to allow to choose before today.
                     lastDate: DateTime(2101));
                 setState(() {
-                  createCustomerTimeTextEditingController.text = DateFormat('dd-MM-yyyy').format(createCustomerTime);
-                  createCustomerTime = pickedDate ?? createCustomerTime;
+                  setState(() {
+                    createCustomerTime = pickedDate ?? createCustomerTime;
+                    createCustomerTimeTextEditingController.text =
+                        DateFormat('dd-MM-yyyy').format(createCustomerTime);
+
+                  });
                 });
               },
               enabled: false,
@@ -321,7 +350,8 @@ class _FormAddCustomerState extends State<FormAddCustomer> {
                     lastDate: DateTime(2101));
                 setState(() {
                   birthdayCustomerTime = pickedDate!;
-                  birthdayCustomerTimeTextEditingController.text =DateFormat('dd-MM-yyyy').format(birthdayCustomerTime!);
+                  birthdayCustomerTimeTextEditingController.text =
+                      DateFormat('dd-MM-yyyy').format(birthdayCustomerTime!);
                 });
               },
               enabled: false,
@@ -343,7 +373,7 @@ class _FormAddCustomerState extends State<FormAddCustomer> {
                         val = 1;
                       });
                     },
-                    activeColor: theme.getColor(ThemeColor.bondiBlue),
+                    activeColor: theme.getColor(themeApp.ThemeColor.bondiBlue),
                   ),
                   Text(
                     "Nam",
@@ -361,7 +391,7 @@ class _FormAddCustomerState extends State<FormAddCustomer> {
                         val = 2;
                       });
                     },
-                    activeColor: theme.getColor(ThemeColor.bondiBlue),
+                    activeColor: theme.getColor(themeApp.ThemeColor.bondiBlue),
                   ),
                   Text(
                     "Nữ",
@@ -373,15 +403,21 @@ class _FormAddCustomerState extends State<FormAddCustomer> {
           )),
           Row(
             children: [
-              Transform.scale(
-                scale: 1.3,
-                child: Checkbox(
-                  value: checkIsFamiliarCustomer,
-                  onChanged: (newValue) {
-                    setState(() {
-                      checkIsFamiliarCustomer = !checkIsFamiliarCustomer;
-                    });
-                  },
+              Theme(
+                data: Theme.of(context).copyWith(
+                  unselectedWidgetColor:
+                      theme.getColor(themeApp.ThemeColor.pattensBlue),
+                ),
+                child: Transform.scale(
+                  scale: 1.4,
+                  child: Checkbox(
+                    value: checkIsFamiliarCustomer,
+                    onChanged: (newValue) {
+                      setState(() {
+                        checkIsFamiliarCustomer = !checkIsFamiliarCustomer;
+                      });
+                    },
+                  ),
                 ),
               ),
               Text(
@@ -406,7 +442,7 @@ class _FormAddCustomerState extends State<FormAddCustomer> {
                   decoration: BoxDecoration(
                     border: Border.all(
                         width: 1.5,
-                        color: theme.getColor(ThemeColor.pattensBlue)),
+                        color: theme.getColor(themeApp.ThemeColor.pattensBlue)),
                     borderRadius: layout.sizeToBorderRadius(LayoutSize.small),
                   ),
                   // nhan vien
@@ -447,15 +483,21 @@ class _FormAddCustomerState extends State<FormAddCustomer> {
           !checkBasicEdit
               ? Row(
                   children: [
-                    Transform.scale(
-                      scale: 1.3,
-                      child: Checkbox(
-                        value: checkBasicEdit,
-                        onChanged: (newValue) {
-                          setState(() {
-                            this.checkBasicEdit = !checkBasicEdit;
-                          });
-                        },
+                    Theme(
+                      data: Theme.of(context).copyWith(
+                        unselectedWidgetColor:
+                            theme.getColor(themeApp.ThemeColor.pattensBlue),
+                      ),
+                      child: Transform.scale(
+                        scale: 1.4,
+                        child: Checkbox(
+                          value: checkBasicEdit,
+                          onChanged: (newValue) {
+                            setState(() {
+                              this.checkBasicEdit = !checkBasicEdit;
+                            });
+                          },
+                        ),
                       ),
                     ),
                     Text("Hiện Nâng Cao")
@@ -483,7 +525,7 @@ class _FormAddCustomerState extends State<FormAddCustomer> {
         ),
         Container(
           width: double.infinity,
-          height: checkBasicEdit ? 125:400,
+          height: checkBasicEdit ? 125 : 400,
           color: Colors.white,
           child: Column(
             children: [
