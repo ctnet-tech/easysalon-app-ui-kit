@@ -65,12 +65,12 @@ class CustomerServicePage extends StatelessWidget {
           ],
           availableServicePackages: [
             [
-              ["GroupService1", "SubService1"],
-              ["GroupService2", "SubService2"]
+              ["GroupService1", "SubService1",10],
+              ["GroupService2", "SubService2",20]
             ],
             [
-              ["GroupService1", "SubService1"],
-              ["GroupService2", "SubService2"]
+              ["GroupService1", "SubService1",10],
+              ["GroupService2", "SubService2",20]
             ]
           ],
           initialListNotesOfCustomers: ["asldjsalkd", null, null],

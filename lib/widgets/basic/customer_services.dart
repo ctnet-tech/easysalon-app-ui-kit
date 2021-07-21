@@ -26,7 +26,7 @@ class ListCustomerServices extends StatelessWidget {
   final int customerCount;
   final List<List<Map<String, Map<String,List<int>>>>>? initialSubService;
   final List<List<List<String?>>>? initialCustomerService;
-  final List<List<List<String>>>? availableServicePackages;
+  final List<List<List<dynamic>>>? availableServicePackages;
   final List<String?>? initialListNotesOfCustomers;
   final Map<String, String> dropdownServiceGroupItems;
   final Function(int index1, int index2, String value) onChangeServiceGroup;
@@ -148,7 +148,7 @@ class CustomerServices extends StatefulWidget {
   final int index;
 
   final Map<String, String> dropdownServiceGroupItems;
-  final List<List<String?>>? availablePackageService;
+  final List<List<dynamic>>? availablePackageService;
   final Function(int index, String value) onChangeServiceGroup;
 
   @override
@@ -466,7 +466,7 @@ class _CustomerServicesState extends State<CustomerServices> {
                         left: true,
                         right: true,
                         child: Paragraph(
-                          content: sumTimeAndCostSubService(context.read<CustomerServicesBloc>().timeAndCostSubService[widget.index])[1].toString() +" phút",
+                          content: (sumAvailableServiceTime(widget.availablePackageService) + sumTimeAndCostSubService(context.read<CustomerServicesBloc>().timeAndCostSubService[widget.index])[1]).toString() +" phút",
                           linePadding: LayoutSize.none,
                           size: LayoutSize.small,
                           color: ThemeColor.secondary,
@@ -818,6 +818,7 @@ class _ServicesSelectorState extends State<ServicesSelector> {
 
  List<int> sumTimeAndCostSubService (List<List<int>> list)
 {
+
   List<int> sum=[0,0];
   for(int i =0 ;i < list.length;i++)
     {
@@ -826,4 +827,14 @@ class _ServicesSelectorState extends State<ServicesSelector> {
           sum[1]+= list[i][1];
     }
 return sum;
+}
+
+int sumAvailableServiceTime (List<List<dynamic>>? list)
+{  var sum=0;
+if(list==null)
+  return 0;
+  for(int i =0;i< list.length;i++)
+    sum+=list[i][2] as int;
+  print(sum);
+  return sum;
 }
