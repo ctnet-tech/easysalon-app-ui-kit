@@ -36,20 +36,23 @@ class CustomerServicePage extends StatelessWidget {
 
             context.findRootAncestorStateOfType()!.setState(() {
               bloc.listCustomerSubService[index1][index2] = {
-                "new key1": "new value1",
-                "new key2": "new value2",
+                "new key1": {"new value1":[180000,20]},
+                "new key2": {"new value2":[280000,30]},
               };
+
             });
           },
           dropdownServiceGroupItems: {"key1": "value1", "key2": "value2"},
-          dropdownSubServiceItems: {
-            "key11": "value11",
-            "key12": "value12",
-          },
           initialCustomerService: [
             [
-              ["key1", "key11"],
-              ["key2", "key12"],
+              [
+                "key1",
+                "key11",
+              ],
+              [
+                "key2",
+                "key12",
+              ],
             ],
             [
               ["key1", "key11"],
@@ -70,39 +73,53 @@ class CustomerServicePage extends StatelessWidget {
               ["GroupService2", "SubService2"]
             ]
           ],
-          initialListNotesOfCustomers: ["asldjsalkd", null,null],
+          initialListNotesOfCustomers: ["asldjsalkd", null, null],
           initialSubService: [
             [
-              {
-                "key11": "value11",
-                "key12": "value12",
-              },
-              {
-                "key11": "value11",
-                "key12": "value12",
-              },
+              {"key11": {"value11":[100000,10]}, "key12": {"value12":[200000,20]}},
+              {"key11": {"value11":[100000,10]}, "key12": {"value12":[200000,20]}},
             ],
             [
-              {
-                "key11": "value11",
-                "key12": "value12",
-              },
-              {
-                "key11": "value11",
-                "key12": "value12",
-              },
+              {"key11": {"value11":[100000,10]}, "key12": {"value12":[200000,20]}},
+              {"key11": {"value11":[100000,10]}, "key12": {"value12":[200000,20]}},
             ],
             [
-              {
-                "key11": "value11",
-                "key12": "value12",
-              },
-              {
-                "key11": "value11",
-                "key12": "value12",
-              },
+              {"key11": {"value11":[100000,10]}, "key12": {"value12":[200000,20]}},
+              {"key11": {"value11":[100000,10]}, "key12": {"value12":[200000,20]}},
             ],
           ],
+//          initialCostAndTimeSubService: [
+//            [
+//              [
+//                [150000, 10],
+//                [250000, 20]
+//              ],
+//              [
+//                [150000, 10],
+//                [250000, 20]
+//              ]
+//            ],
+//            [
+//              [
+//                [150000, 10],
+//                [250000, 20]
+//              ],
+//              [
+//                [150000, 10],
+//                [250000, 20]
+//              ]
+//            ],
+//            [
+//              [
+//                [150000, 10],
+//                [250000, 20]
+//              ],
+//              [
+//                [150000, 10],
+//                [250000, 20]
+//              ]
+//            ],
+//          ],
         ),
         SizedBox(
           height: 20,
@@ -111,6 +128,7 @@ class CustomerServicePage extends StatelessWidget {
           child: GestureDetector(
               onTap: () {
                 print(mapToData(bloc));
+                print(bloc.timeAndCostSubService);
               },
               child: Text("onTapReturnData")),
         )
