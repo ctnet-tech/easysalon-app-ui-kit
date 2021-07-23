@@ -83,6 +83,20 @@ class _FormAddCustomerState extends State<FormAddCustomer> {
   int val = -1;
   bool checkIsFamiliarCustomer = false;
 
+
+  @override
+  void dispose() {
+    nameTextEditingController.dispose();
+    phoneTextEditingController.dispose();
+    idCustomerTextEditingController.dispose();
+    addressCustomerTextEditingController.dispose();
+    emailCustomerTextEditingController.dispose();
+    createCustomerTimeTextEditingController.dispose();
+    birthdayCustomerTimeTextEditingController.dispose();
+    noteTextEditingController.dispose();
+    // TODO: implement dispose
+    super.dispose();
+  }
   @override
   void initState() {
     // TODO: implement initState
