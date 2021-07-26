@@ -1,4 +1,5 @@
 import 'package:easysalon_mobile_ui_kit/motions/default_page_transition.dart';
+import 'package:easysalon_mobile_ui_kit/pages/appointment_info_screen.dart';
 import 'package:easysalon_mobile_ui_kit/pages/home/widgets_home_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/routes.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
@@ -23,7 +24,27 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       localizationsDelegates: [GlobalMaterialLocalizations.delegate],
       supportedLocales: [const Locale('en'), const Locale('vi')],
-      home: WidgetsHomePage(),
+      home: AppointmentInfoPage(
+        dropdownItemsStatus: {
+          "key1": "Mới",
+          "key2": "Đã xác nhận",
+          "key3": "CheckIn",
+          "key4": "CheckOut",
+          "key5": "Không Đến",
+          "key6": "Đã Hủy",
+        },
+        dropdownItemsAppointmentChannel: {
+          "key1": "Facebook",
+          "key2": "Website",
+          "key3": "Phone",
+        },
+        dropdownItemsCustomerSource: {
+          "key1": "Facebook",
+          "key2": "Quảng Cáo",
+          "key3": "Truyền miệng",
+          "key4": "EasySalon",
+        },
+      ),
       onGenerateRoute: (settings) {
         var page = appRoutes[settings.name];
 

@@ -13,7 +13,15 @@ enum ThemeColor {
   light,
   lightest,
   hawkesBlue,
+  bondiBlue,
+  pastelGreen,
+  gainsboro,
+  spindle,
+  darkOrange,
+  radicalRed,
+  lightSlateBlue,
   dodgerBlue,
+  pattensBlue,
 }
 
 class Theme {
@@ -25,6 +33,9 @@ class Theme {
   }
 
   Theme({
+    required this.lightSlateBlue,
+    required this.radicalRed,
+    required this.pastelGreen,
     required this.darkest,
     required this.dark,
     required this.primary,
@@ -33,9 +44,14 @@ class Theme {
     required this.weak,
     required this.warning,
     required this.light,
+    required this.gainsboro,
+    required this.spindle,
     required this.lightest,
+    required this.bondiBlue,
+    required this.darkOrange,
     required this.hawkesBlue,
     required this.dodgerBlue,
+    required this.pattensBlue,
   });
 
   final Color darkest;
@@ -48,12 +64,22 @@ class Theme {
   final Color light;
   final Color lightest;
   final Color hawkesBlue;
+  final Color bondiBlue;
+  final Color pastelGreen;
+  final Color gainsboro;
+  final Color spindle;
+  final Color darkOrange;
+  final Color radicalRed;
+  final Color lightSlateBlue;
   final Color dodgerBlue;
+  final Color pattensBlue;
 
-  getColor(ThemeColor themeColor) {
+  Color getColor(ThemeColor themeColor) {
     switch (themeColor) {
       case ThemeColor.light:
         return this.light;
+      case ThemeColor.lightSlateBlue:
+        return this.lightSlateBlue;
       case ThemeColor.lightest:
         return this.lightest;
       case ThemeColor.primary:
@@ -62,16 +88,30 @@ class Theme {
         return this.danger;
       case ThemeColor.warning:
         return this.warning;
+      case ThemeColor.pastelGreen:
+        return this.pastelGreen;
       case ThemeColor.secondary:
         return this.secondary;
       case ThemeColor.weak:
         return this.weak;
       case ThemeColor.dark:
         return this.dark;
-      case ThemeColor.hawkesBlue:
-        return this.hawkesBlue;
+      case ThemeColor.gainsboro:
+        return this.gainsboro;
+      case ThemeColor.bondiBlue:
+        return this.bondiBlue;
+      case ThemeColor.spindle:
+        return this.spindle;
+      case ThemeColor.radicalRed:
+        return this.radicalRed;
       case ThemeColor.dodgerBlue:
         return this.dodgerBlue;
+      case ThemeColor.darkOrange:
+        return this.darkOrange;
+      case ThemeColor.hawkesBlue:
+        return this.hawkesBlue;
+      case ThemeColor.pattensBlue:
+        return this.pattensBlue;
       case ThemeColor.darkest:
       default:
         return this.darkest;
