@@ -86,7 +86,6 @@ class _DateTimeSelectorPageState extends State<DateTimeSelectorPage> {
         "key15": ["10:30", "0"],
         "key16": ["10:30", "0"],
       },
-      outSidePaddingHorizontal: size,
       onChanged: (value) {
         print(value);
       },
@@ -116,7 +115,19 @@ class _DateTimeSelectorPageState extends State<DateTimeSelectorPage> {
                 SpaceBox(
                   size: LayoutSize.big,
                   bottom: true,
-                  child: _timeSelector(LayoutSize.big),
+                  child: InkWell(
+                      onTap: () {
+                        showModalBottomSheet(
+                            context: context,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    topRight: Radius.circular(20))),
+                            builder: (_) => _timeSelector(LayoutSize.big));
+                      },
+                      child: Center(
+                        child: Text("show bottomSheetTimeSelector"),
+                      )),
                 ),
               ]))
         ]);
