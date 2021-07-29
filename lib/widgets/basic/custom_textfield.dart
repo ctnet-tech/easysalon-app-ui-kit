@@ -165,6 +165,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     fontWeight: FontWeight.w400,
                   )
                 : widget.textFieldTextStyle,
+            textAlignVertical: TextAlignVertical.center,
             decoration: InputDecoration(
               border: InputBorder.none,
               isDense: widget.minLine == null ? true : false,
