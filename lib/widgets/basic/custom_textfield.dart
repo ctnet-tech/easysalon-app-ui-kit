@@ -36,6 +36,7 @@ class CustomTextField extends StatefulWidget {
   EdgeInsets? padding;
   BorderRadiusGeometry? borderRadius;
   BoxBorder? border;
+  AlignmentGeometry? alignment;
 
   CustomTextField({
     Key? key,
@@ -66,6 +67,7 @@ class CustomTextField extends StatefulWidget {
     this.borderRadius,
     this.backgroundColor = ThemeColor.lightest,
     this.border,
+    this.alignment,
   }) : super(key: key);
 
   @override
@@ -129,6 +131,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         Container(
           height: widget.customHeight,
           width: widget.customWidth,
+          alignment: widget.alignment,
           decoration: BoxDecoration(
             color: theme.getColor(widget.backgroundColor),
             borderRadius: widget.borderRadius == null
@@ -141,7 +144,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 ),
           ),
           padding: widget.padding == null
-              ? EdgeInsets.all(layout.sizeToPadding(LayoutSize.tiny))
+              ? EdgeInsets.symmetric(horizontal:layout.sizeToPadding(LayoutSize.tiny))
               : widget.padding,
           child: TextField(
             minLines: widget.minLine,
