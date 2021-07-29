@@ -35,6 +35,7 @@ class CustomTextField extends StatefulWidget {
   Widget? suffixIcon;
   EdgeInsets? padding;
   BorderRadiusGeometry? borderRadius;
+  BoxBorder? border;
 
   CustomTextField({
     Key? key,
@@ -63,7 +64,8 @@ class CustomTextField extends StatefulWidget {
     this.suffixIcon,
     this.padding,
     this.borderRadius,
-    this.backgroundColor =ThemeColor.lightest,
+    this.backgroundColor = ThemeColor.lightest,
+    this.border,
   }) : super(key: key);
 
   @override
@@ -128,12 +130,22 @@ class _CustomTextFieldState extends State<CustomTextField> {
           height: widget.customHeight,
           width: widget.customWidth,
           decoration: BoxDecoration(
-              color: theme.getColor(widget.backgroundColor),
-              borderRadius: widget.borderRadius==null?layout.sizeToBorderRadius(LayoutSize.small):widget.borderRadius),
-          padding: widget.padding ==null?EdgeInsets.all(layout.sizeToPadding(LayoutSize.tiny)): widget.padding,
+            color: theme.getColor(widget.backgroundColor),
+            borderRadius: widget.borderRadius == null
+                ? layout.sizeToBorderRadius(LayoutSize.small)
+                : widget.borderRadius,
+            border: widget.border ??
+                Border.all(
+                  width: 1,
+                  color: theme.getColor(ThemeColor.hawkesBlue),
+                ),
+          ),
+          padding: widget.padding == null
+              ? EdgeInsets.all(layout.sizeToPadding(LayoutSize.tiny))
+              : widget.padding,
           child: TextField(
             minLines: widget.minLine,
-            maxLines: widget.hasObscureText?1:widget.maxLine,
+            maxLines: widget.hasObscureText ? 1 : widget.maxLine,
             controller: widget.textEditingController,
             readOnly: widget.isDatePicker ? true : false,
             onChanged: widget.onChangedTextField,
