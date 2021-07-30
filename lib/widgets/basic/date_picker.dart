@@ -163,52 +163,54 @@ class _DatePickerState extends State<DatePicker>
                                   ),
                                 ),
                                 child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Paragraph(
-                                      content: mapDate[index % 7],
-                                      color: index == selectedIndex
-                                          ? ThemeColor.lightest
-                                          : ThemeColor.secondary,
-                                      size: LayoutSize.small,
-                                      linePadding: LayoutSize.none,
-                                      isCenter: true,
+                                    Expanded(
+                                      flex: 1,
+                                      child: Paragraph(
+                                        content: mapDate[index % 7],
+                                        color: index == selectedIndex
+                                            ? ThemeColor.lightest
+                                            : ThemeColor.secondary,
+                                        size: LayoutSize.small,
+                                        linePadding: LayoutSize.none,
+                                        isCenter: true,
+                                      ),
                                     ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Paragraph(
-                                          content: (index + 1).toString(),
-                                          color: index == selectedIndex
-                                              ? ThemeColor.lightest
-                                              : ThemeColor.dark,
-                                          linePadding: LayoutSize.none,
-                                          isCenter: true,
-                                        ),
-                                        if (index + 1 ==
-                                                DateTime.now().day &&
-                                            _controller.index + 1 ==
-                                                DateTime.now().month &&
-                                            context
-                                                    .read<DatePickerBloc>()
-                                                    .year ==
-                                                DateTime.now().year)
-                                          Text(
-                                            "Hôm nay",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontSize: 8,
-                                              fontWeight: FontWeight.w400,
-                                              color: index == selectedIndex
-                                                  ? theme.getColor(
-                                                      ThemeColor.lightest)
-                                                  : theme.getColor(
-                                                      ThemeColor.dodgerBlue),
-                                            ),
-                                          )
-                                      ],
+                                    Expanded(
+                                      flex: 1,
+                                      child: Column(
+                                        children: [
+                                          Paragraph(
+                                            content: (index + 1).toString(),
+                                            color: index == selectedIndex
+                                                ? ThemeColor.lightest
+                                                : ThemeColor.dark,
+                                            linePadding: LayoutSize.none,
+                                            isCenter: true,
+                                          ),
+                                          if (index + 1 == DateTime.now().day &&
+                                              _controller.index + 1 ==
+                                                  DateTime.now().month &&
+                                              context
+                                                      .read<DatePickerBloc>()
+                                                      .year ==
+                                                  DateTime.now().year)
+                                            Text(
+                                              "Hôm nay",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontSize: 8,
+                                                fontWeight: FontWeight.w400,
+                                                color: index == selectedIndex
+                                                    ? theme.getColor(
+                                                        ThemeColor.lightest)
+                                                    : theme.getColor(
+                                                        ThemeColor.dodgerBlue),
+                                              ),
+                                            )
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),
