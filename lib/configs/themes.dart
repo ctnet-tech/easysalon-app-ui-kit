@@ -11,6 +11,7 @@ var lightTheme = Theme(
   light: Theme.colorFromHex("#F9F9F9"),
   lightest: Theme.colorFromHex("#FFFFFF"),
   dodgerBlue: Theme.colorFromHex("#1A9AFF"),
+  hawkesBlue: Theme.colorFromHex("#EDF1F7"),
 );
 
 var darkTheme = Theme(
@@ -24,4 +25,5 @@ var darkTheme = Theme(
   light: Theme.colorFromHex("#000"),
   lightest: Theme.colorFromHex("#000"),
   dodgerBlue: Theme.colorFromHex("#1A9AFF"),
+  hawkesBlue: Theme.colorFromHex("#EDF1F7"),
 );

@@ -1,5 +1,6 @@
 import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/button_page.dart';
+import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/custom_tab_bar_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/icon_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/paragraph_page.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
@@ -38,24 +39,9 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                     children: [
                       MenuItem(label: "Paragraph", to: ParagraphPage.path),
                       MenuItem(label: "Button", to: ButtonPage.path),
-                      MenuItem(label: "Icon", to: IconPage.path)
+                      MenuItem(label: "Icon", to: IconPage.path),
+                      MenuItem(label: "CustomTabBar",to: CustomTabBarPage.path,)
                     ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Center(
-                    child: InkWell(
-                        onTap: () {
-                          showDialog(
-                              context: context,
-                              builder: (_) => SuccessfulAppointmentDialog(
-                                    onTapNavigator: () {
-                                      print("onTap");
-                                    },
-                                  ));
-                        },
-                        child: Text("show dialog")),
                   ),
                 ],
               )))
