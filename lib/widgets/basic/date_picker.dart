@@ -12,9 +12,11 @@ import 'package:provider/provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DatePicker extends StatefulWidget {
-  const DatePicker({Key? key, required this.onChanged}) : super(key: key);
+  DatePicker({required this.onChanged, this.year, this.month});
 
   final ValueChanged<DateTime> onChanged;
+  int? month;
+  int? year;
 
   @override
   _DatePickerState createState() => _DatePickerState();
@@ -27,7 +29,14 @@ class _DatePickerState extends State<DatePicker>
 
   @override
   void initState() {
-    _controller = TabController(length: 12, vsync: this);
+    context.read<DatePicker>().year = widget.year ?? DateTime.now().year;
+    context.read<DatePicker>().month = widget.month ?? DateTime.now().month;
+
+    _controller = TabController(
+        length: 12,
+        vsync: this,
+        initialIndex: context.read<DatePicker>().month!);
+
     _controller.addListener(() {
       setState(() {
         selectedIndex = -1;
@@ -133,35 +142,7 @@ class _DatePickerState extends State<DatePicker>
                               _controller.index],
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
-                        var firstDateValue;
-                        int dateValueNow = mapDate.keys.firstWhere((k) =>
-                            mapDateEnglish[k] ==
-                            DateFormat('EEEE')
-                                .format(DateTime.now())
-                                .toString());
-//                        print(" year: " +
-//                            context.read<DatePickerBloc>().year.toString() +
-//                            " month: " +
-//                            (_controller.index + 1).toString());
-//                        print("firstDay: " +
-//                            calFirstDay(context.read<DatePickerBloc>().year,
-//                                    _controller.index + 1)
-//                                .toString());
-//                        if (dateValueNow >= calFirstDay(
-//                            context.read<DatePickerBloc>().year,
-//                            _controller.index + 1))
-//                          firstDateValue = (dateValueNow +
-//                                  calFirstDay(
-//                                      context.read<DatePickerBloc>().year,
-//                                      _controller.index + 1)) %
-//                              7;
-//                        else {
-//                          firstDateValue = dateValueNow -
-//                              calFirstDay(context.read<DatePickerBloc>().year,
-//                                  _controller.index + 1);
-//                          if (firstDateValue < 0) firstDateValue += 7;
-//                        }
-                        firstDateValue = calFirstDay(
+                        var firstDateValue = calFirstDay(
                             context.read<DatePickerBloc>().year,
                             _controller.index + 1);
                         print("firstDay: " +
