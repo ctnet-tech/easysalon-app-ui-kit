@@ -5,7 +5,7 @@ import 'date_picker_state.dart';
 class DatePickerBloc extends Bloc<DatePickerEvent, DatePickerState> {
   DatePickerBloc() : super(DatePickerInitial());
   int? year=DateTime.now().year;
-  int? month;
+  int? month=DateTime.now().month;
   int? day;
   @override
   Stream<DatePickerState> mapEventToState(DatePickerEvent event) async* {

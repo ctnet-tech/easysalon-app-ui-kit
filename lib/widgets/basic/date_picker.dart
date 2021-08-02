@@ -133,6 +133,41 @@ class _DatePickerState extends State<DatePicker>
                               _controller.index],
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
+                        var firstDateValue;
+                        int dateValueNow = mapDate.keys.firstWhere((k) =>
+                            mapDateEnglish[k] ==
+                            DateFormat('EEEE')
+                                .format(DateTime.now())
+                                .toString());
+//                        print(" year: " +
+//                            context.read<DatePickerBloc>().year.toString() +
+//                            " month: " +
+//                            (_controller.index + 1).toString());
+//                        print("firstDay: " +
+//                            calFirstDay(context.read<DatePickerBloc>().year,
+//                                    _controller.index + 1)
+//                                .toString());
+//                        if (dateValueNow >= calFirstDay(
+//                            context.read<DatePickerBloc>().year,
+//                            _controller.index + 1))
+//                          firstDateValue = (dateValueNow +
+//                                  calFirstDay(
+//                                      context.read<DatePickerBloc>().year,
+//                                      _controller.index + 1)) %
+//                              7;
+//                        else {
+//                          firstDateValue = dateValueNow -
+//                              calFirstDay(context.read<DatePickerBloc>().year,
+//                                  _controller.index + 1);
+//                          if (firstDateValue < 0) firstDateValue += 7;
+//                        }
+                        firstDateValue = calFirstDay(
+                            context.read<DatePickerBloc>().year,
+                            _controller.index + 1);
+                        print("firstDay: " +
+                            calFirstDay(context.read<DatePickerBloc>().year,
+                                    _controller.index + 1)
+                                .toString());
                         return Container(
                           width: MediaQuery.of(context).size.width / 7,
                           child: Center(
@@ -168,7 +203,8 @@ class _DatePickerState extends State<DatePicker>
                                     Expanded(
                                       flex: 1,
                                       child: Paragraph(
-                                        content: mapDate[index % 7],
+                                        content: mapDate[
+                                            (index + firstDateValue) % 7],
                                         color: index == selectedIndex
                                             ? ThemeColor.lightest
                                             : ThemeColor.secondary,

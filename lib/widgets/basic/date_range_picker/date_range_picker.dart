@@ -1019,7 +1019,7 @@ int calFirstDay(int? year,
       DateFormat('EEEE').format(DateTime.now()).toString());
   if (DateTime
       .now()
-      .year - year! > 0) {
+      .year - year! >= 0) {
     if (dateValueNow >= countDays % 7) {
       return dateValueNow - countDays % 7;
     } else
