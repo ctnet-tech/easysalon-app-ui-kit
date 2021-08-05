@@ -2,6 +2,7 @@ import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/add_customer_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/appointment_schedule_panel_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/assignment_of_duties_tag_page.dart';
+import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/buttom_sheet_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/button_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/expandable_button_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/chart_page.dart';
@@ -16,6 +17,7 @@ import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/expandable_button.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/date_picker.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/date_range_picker/date_range_picker.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/basic/deposit_bottom_sheet.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/panel.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/selection_time_bar.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/icons/CustomIcon.dart';
@@ -61,8 +63,9 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                       MenuItem(label: "Profile Admin",to: ProfileAdminPage.path ,),
                       MenuItem(label: "DateTimeSelector", to: DateTimeSelectorPage.path),
                       MenuItem(label: "ReportPanel", to: ReportPanelPage.path),
+                      MenuItem(label: "BottomSheet", to: BottomSheetPage.path),
                     ],
-                  )
+                  ),
                 ],
               )))
     ]);
