@@ -1,8 +1,10 @@
 import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/button_page.dart';
+import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/expandable_button_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/icon_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/paragraph_page.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/basic/expandable_button.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/panel.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/icons/CustomIcon.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/page_header.dart';
@@ -14,6 +16,7 @@ import 'package:flutter/widgets.dart';
 
 class WidgetsHomePage extends StatefulWidget {
   WidgetsHomePage() : super(key: Key("HOME"));
+
   @override
   _WidgetsHomePageState createState() => _WidgetsHomePageState();
 }
@@ -34,9 +37,11 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                     children: [
                       MenuItem(label: "Paragraph", to: ParagraphPage.path),
                       MenuItem(label: "Button", to: ButtonPage.path),
-                      MenuItem(label: "Icon", to: IconPage.path)
+                      MenuItem(label: "Icon", to: IconPage.path),
+                      MenuItem(label: "ExpandableButton", to: ExpandableButtonPage.path)
+
                     ],
-                  )
+                  ),
                 ],
               )))
     ]);
