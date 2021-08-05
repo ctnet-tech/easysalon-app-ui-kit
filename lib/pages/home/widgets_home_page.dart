@@ -1,5 +1,3 @@
-import 'package:easysalon_mobile_ui_kit/bloc/date_picker_bloc/date_picker_blocs.dart';
-import 'package:easysalon_mobile_ui_kit/bloc/date_range_picker_bloc/date_range_picker_bloc.dart';
 import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/button_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/date_time_selector_page.dart';
