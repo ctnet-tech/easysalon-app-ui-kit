@@ -1,5 +1,5 @@
-import 'package:easysalon_mobile_ui_kit/bloc/date_picker_bloc/date_picker_blocs.dart';
 import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
+import 'package:easysalon_mobile_ui_kit/provider/date_picker_provider/date_picker_provider.dart';
 import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/date_range_picker/date_range_picker.dart';
@@ -9,7 +9,6 @@ import 'package:easysalon_mobile_ui_kit/widgets/typography/paragraph.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DatePicker extends StatefulWidget {
   DatePicker({required this.onChanged, this.year, this.month});
@@ -29,13 +28,15 @@ class _DatePickerState extends State<DatePicker>
 
   @override
   void initState() {
-    context.read<DatePicker>().year = widget.year ?? DateTime.now().year;
-    context.read<DatePicker>().month = widget.month ?? DateTime.now().month;
+    context.read<DatePickerProvider>().year =
+        widget.year ?? DateTime.now().year;
+    context.read<DatePickerProvider>().month =
+        widget.month ?? DateTime.now().month;
 
     _controller = TabController(
         length: 12,
         vsync: this,
-        initialIndex: context.read<DatePicker>().month!);
+        initialIndex: context.read<DatePickerProvider>().month!);
 
     _controller.addListener(() {
       setState(() {
@@ -54,8 +55,8 @@ class _DatePickerState extends State<DatePicker>
       color: theme.getColor(ThemeColor.lightest),
       child: Column(
         children: [
-          BlocBuilder<DatePickerBloc, DatePickerState>(
-            builder: (context, state) {
+          Consumer<DatePickerProvider>(
+            builder: (context, model, child) {
               return SpaceBox(
                 all: true,
                 size: LayoutSize.small,
@@ -64,8 +65,8 @@ class _DatePickerState extends State<DatePicker>
                   children: [
                     InkWell(
                       onTap: () {
-                        context.read<DatePickerBloc>().add(ChangeYear(
-                            year: context.read<DatePickerBloc>().year! - 1));
+                        context.read<DatePickerProvider>().changeYear(
+                            year: context.read<DatePickerProvider>().year! - 1);
                       },
                       child: CustomIcon(
                         icon: LineIcons.chevron_left,
@@ -76,7 +77,8 @@ class _DatePickerState extends State<DatePicker>
                       width: 10,
                     ),
                     Paragraph(
-                      content: context.read<DatePickerBloc>().year.toString(),
+                      content:
+                          context.read<DatePickerProvider>().year.toString(),
                       color: ThemeColor.dark,
                       size: LayoutSize.medium,
                       linePadding: LayoutSize.none,
@@ -87,8 +89,8 @@ class _DatePickerState extends State<DatePicker>
                     ),
                     InkWell(
                       onTap: () {
-                        context.read<DatePickerBloc>().add(ChangeYear(
-                            year: context.read<DatePickerBloc>().year! + 1));
+                        context.read<DatePickerProvider>().changeYear(
+                            year: context.read<DatePickerProvider>().year! + 1);
                       },
                       child: CustomIcon(
                         icon: LineIcons.chevron_right,
@@ -127,8 +129,8 @@ class _DatePickerState extends State<DatePicker>
           SizedBox(
             height: 20,
           ),
-          BlocBuilder<DatePickerBloc, DatePickerState>(
-            builder: (context, state) => Container(
+          Consumer<DatePickerProvider>(
+            builder: (context, model, child) => Container(
               height: 100,
               child: TabBarView(
                 controller: _controller,
@@ -138,15 +140,15 @@ class _DatePickerState extends State<DatePicker>
                     height: 80,
                     child: ListView.builder(
                       itemCount:
-                          dayOfMonth(context.read<DatePickerBloc>().year!)[
+                          dayOfMonth(context.read<DatePickerProvider>().year!)[
                               _controller.index],
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         var firstDateValue = calFirstDay(
-                            context.read<DatePickerBloc>().year,
+                            context.read<DatePickerProvider>().year,
                             _controller.index + 1);
                         print("firstDay: " +
-                            calFirstDay(context.read<DatePickerBloc>().year,
+                            calFirstDay(context.read<DatePickerProvider>().year,
                                     _controller.index + 1)
                                 .toString());
                         return Container(
@@ -162,7 +164,7 @@ class _DatePickerState extends State<DatePicker>
                                     .parse(formatToDateTime(
                                   selectedIndex + 1,
                                   _controller.index + 1,
-                                  context.read<DatePickerBloc>().year!,
+                                  context.read<DatePickerProvider>().year!,
                                 )));
                               },
                               child: Container(
@@ -210,7 +212,8 @@ class _DatePickerState extends State<DatePicker>
                                               _controller.index + 1 ==
                                                   DateTime.now().month &&
                                               context
-                                                      .read<DatePickerBloc>()
+                                                      .read<
+                                                          DatePickerProvider>()
                                                       .year ==
                                                   DateTime.now().year)
                                             Text(

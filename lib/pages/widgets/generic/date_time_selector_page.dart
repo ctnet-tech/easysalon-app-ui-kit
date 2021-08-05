@@ -1,5 +1,5 @@
-import 'package:easysalon_mobile_ui_kit/bloc/date_picker_bloc/date_picker_blocs.dart';
-import 'package:easysalon_mobile_ui_kit/bloc/date_range_picker_bloc/date_range_picker_blocs.dart';
+import 'package:easysalon_mobile_ui_kit/bloc/date_range_picker_bloc/date_range_picker_bloc.dart';
+import 'package:easysalon_mobile_ui_kit/provider/date_picker_provider/date_picker_provider.dart';
 import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/date_picker.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/date_range_picker/date_range_picker.dart';
@@ -9,7 +9,7 @@ import 'package:easysalon_mobile_ui_kit/widgets/layout/scroll_listener.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/space.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/standard_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 class DateTimeSelectorPage extends StatefulWidget {
   static const String path = '/pages/widgets/date_time_selector_page';
@@ -19,8 +19,7 @@ class DateTimeSelectorPage extends StatefulWidget {
 
 class _DateTimeSelectorPageState extends State<DateTimeSelectorPage> {
   _dateRangePicker() {
-    return BlocProvider(
-      lazy: false,
+    return ChangeNotifierProvider(
       create: (_) => DateRangePickerBloc(),
       child: SelectionTimeBar(
         dataDropdown: <String, List<DateTime>>{
@@ -54,8 +53,8 @@ class _DateTimeSelectorPageState extends State<DateTimeSelectorPage> {
   }
 
   _datePicker() {
-    return  BlocProvider(
-      create: (_) => DatePickerBloc(),
+    return  ChangeNotifierProvider(
+      create: (_) => DatePickerProvider(),
       child: DatePicker(
         onChanged: (value){
           print(value);

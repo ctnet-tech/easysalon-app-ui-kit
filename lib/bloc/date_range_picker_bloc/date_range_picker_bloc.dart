@@ -1,9 +1,7 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'date_range_picker_event.dart';
-import 'date_range_picker_state.dart';
+import 'package:flutter/material.dart';
 
-class DateRangePickerBloc extends Bloc<DateRangePickerEvent, DateRangePickerState> {
-  DateRangePickerBloc() : super(DateRangePickerInitial());
+
+class DateRangePickerBloc extends ChangeNotifier {
   int? year;
   DateTime? startTime;
   DateTime? endTime;
@@ -14,32 +12,21 @@ class DateRangePickerBloc extends Bloc<DateRangePickerEvent, DateRangePickerStat
   int? firstYear;
   int? endYear;
 
-  @override
-  Stream<DateRangePickerState> mapEventToState(DateRangePickerEvent event) async* {
-    yield DateRangePickerLoading();
-    if (event is ChangeYear) {
-      try {
-             year=event.year;
-        yield DateRangePickerSuccess();
-      } catch (e) {
-        yield DateRangePickerFailure(e.toString());
-      }
-    }
-    if(event is ChangeTimePeriod)
-      {
-        try {
-          startTime=event.startTime;
-          endTime=event.endTime;
-          firstRange=startTime!.day;
-          firstYear=startTime!.year;
-          firstMonth=startTime!.month;
-         endRange=endTime!.day;
-         endYear=endTime!.year;
-         endMonth=endTime!.month;
-          yield DateRangePickerSuccess();
-        } catch (e) {
-          yield DateRangePickerFailure(e.toString());
-        }
-      }
+
+  changeYear({int? year}){
+    this.year=year;
+    notifyListeners();
   }
+  changeTimePeriod({required DateTime startTime,required DateTime endTime,}){
+    this.startTime=startTime;
+    this.endTime=endTime;
+    this.firstRange=startTime.day;
+    this.firstYear=startTime.year;
+    this.firstMonth=startTime.month;
+    this.endRange=endTime.day;
+    this.endYear=endTime.year;
+    this.endMonth=endTime.month;
+    notifyListeners();
+  }
+
 }

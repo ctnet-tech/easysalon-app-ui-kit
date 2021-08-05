@@ -1,15 +1,11 @@
 import 'package:easysalon_mobile_ui_kit/bloc/date_range_picker_bloc/date_range_picker_bloc.dart';
-import 'package:easysalon_mobile_ui_kit/bloc/date_range_picker_bloc/date_range_picker_blocs.dart';
-import 'package:easysalon_mobile_ui_kit/bloc/date_range_picker_bloc/date_range_picker_state.dart';
 import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
 import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/icons/CustomIcon.dart';
-import 'package:easysalon_mobile_ui_kit/widgets/layout/space.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/typography/paragraph.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -36,7 +32,6 @@ class _SelectionTimeBarState extends State<SelectionTimeBar> {
   String? dropdownValue;
   int selectedIndex = 1;
   String? timeValue;
-
 
   @override
   void initState() {
@@ -97,8 +92,9 @@ class _SelectionTimeBarState extends State<SelectionTimeBar> {
                       dropdownValue = newValue!;
                       widget
                           .onChangedByDropdown(widget.dataDropdown[newValue]!);
-                      context.read<DateRangePickerBloc>().add(ChangeTimePeriod(
-                          startTime: widget.dataDropdown[newValue]![0], endTime: widget.dataDropdown[newValue]![1]));
+                      context.read<DateRangePickerBloc>().changeTimePeriod(
+                          startTime: widget.dataDropdown[newValue]![0],
+                          endTime: widget.dataDropdown[newValue]![1]);
                     });
                   },
                   items: listItemDropdown
@@ -134,7 +130,7 @@ class _SelectionTimeBarState extends State<SelectionTimeBar> {
                         top: Radius.circular(
                             layout.sizeToBorderRadiusSize(LayoutSize.large))),
                   ),
-                  builder: (_) => BlocProvider.value(
+                  builder: (_) => ChangeNotifierProvider.value(
                     value: context.read<DateRangePickerBloc>(),
                     child: DateRangePicker(
                       dateTime: context.read<DateRangePickerBloc>().startTime,
@@ -160,9 +156,8 @@ class _SelectionTimeBarState extends State<SelectionTimeBar> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Expanded(
-                      child: BlocBuilder<DateRangePickerBloc,
-                          DateRangePickerState>(
-                        builder: (context, state) => Paragraph(
+                      child: Consumer<DateRangePickerBloc>(
+                        builder: (context, model, child) => Paragraph(
                           content:
                               context.read<DateRangePickerBloc>().startTime ==
                                       null

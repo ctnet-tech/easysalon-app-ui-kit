@@ -1,5 +1,4 @@
 import 'package:easysalon_mobile_ui_kit/bloc/date_range_picker_bloc/date_range_picker_bloc.dart';
-import 'package:easysalon_mobile_ui_kit/bloc/date_range_picker_bloc/date_range_picker_blocs.dart';
 import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/date_range_picker/editable_year_widget.dart';
@@ -7,7 +6,6 @@ import 'package:easysalon_mobile_ui_kit/widgets/layout/space.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/typography/paragraph.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -227,38 +225,38 @@ class _DateRangePickerState extends State<DateRangePicker>
                                           .read<DateRangePickerBloc>()
                                           .firstYear;
                                     }
-                                    context.read<DateRangePickerBloc>().add(
-                                        ChangeTimePeriod(
-                                            startTime: DateFormat("dd/MM/yyyy")
-                                                .parse(
-                                                formatToDateTime(
-                                                    context
-                                                        .read<
-                                                        DateRangePickerBloc>()
-                                                        .firstRange!,
-                                                    context
-                                                        .read<
-                                                        DateRangePickerBloc>()
-                                                        .firstMonth!,
-                                                    context
-                                                        .read<
-                                                        DateRangePickerBloc>()
-                                                        .firstYear!)),
-                                            endTime: DateFormat("dd/MM/yyyy")
-                                                .parse(
-                                                formatToDateTime(
-                                                    context
-                                                        .read<
-                                                        DateRangePickerBloc>()
-                                                        .endRange!,
-                                                    context
-                                                        .read<
-                                                        DateRangePickerBloc>()
-                                                        .endMonth!,
-                                                    context
-                                                        .read<
-                                                        DateRangePickerBloc>()
-                                                        .endYear!))));
+                                    context.read<DateRangePickerBloc>().
+                                    changeTimePeriod(
+                                        startTime: DateFormat("dd/MM/yyyy")
+                                            .parse(
+                                            formatToDateTime(
+                                                context
+                                                    .read<
+                                                    DateRangePickerBloc>()
+                                                    .firstRange!,
+                                                context
+                                                    .read<
+                                                    DateRangePickerBloc>()
+                                                    .firstMonth!,
+                                                context
+                                                    .read<
+                                                    DateRangePickerBloc>()
+                                                    .firstYear!)),
+                                        endTime: DateFormat("dd/MM/yyyy")
+                                            .parse(
+                                            formatToDateTime(
+                                                context
+                                                    .read<
+                                                    DateRangePickerBloc>()
+                                                    .endRange!,
+                                                context
+                                                    .read<
+                                                    DateRangePickerBloc>()
+                                                    .endMonth!,
+                                                context
+                                                    .read<
+                                                    DateRangePickerBloc>()
+                                                    .endYear!)));
 
                                     widget.onChanged([
                                       DateFormat("dd/MM/yyyy").parse(
@@ -330,10 +328,8 @@ class _DateRangePickerState extends State<DateRangePicker>
                       ),
 
                       Expanded(
-                        child: BlocBuilder<
-                            DateRangePickerBloc,
-                            DateRangePickerState>(
-                          builder: (context, state) =>
+                        child: Consumer<DateRangePickerBloc>(
+                          builder: (context, model, child) =>
                               TabBarView(
                                 controller: _controller,
                                 children: List.generate(
@@ -421,6 +417,7 @@ class _DayInMonthViewState extends State<DayInMonthView> {
                 Expanded(
                   flex: 1,
                   child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 5),
                     child: Center(
                       child: Text(mapDate[index]!),
                     ),
@@ -496,6 +493,25 @@ class _DayInMonthViewState extends State<DayInMonthView> {
                               .read<DateRangePickerBloc>()
                               .firstRange!) {
                         setState(() {
+                          context
+                              .read<DateRangePickerBloc>()
+                              .endRange =
+                              context
+                                  .read<DateRangePickerBloc>()
+                                  .firstRange;
+                          context
+                              .read<DateRangePickerBloc>()
+                              .endMonth =
+                              context
+                                  .read<DateRangePickerBloc>()
+                                  .firstMonth;
+                          context
+                              .read<DateRangePickerBloc>()
+                              .endYear =
+                              context
+                                  .read<DateRangePickerBloc>()
+                                  .firstYear;
+
                           context
                               .read<DateRangePickerBloc>()
                               .firstRange =
@@ -749,8 +765,8 @@ class _DayInMonthViewState extends State<DayInMonthView> {
                                     0.2) : theme.getColor(
                                     ThemeColor.lightest),
                               ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                              child: Stack(
+                                alignment: Alignment.center,
                                 children: [
                                   Center(
                                     child: Text(
@@ -764,9 +780,23 @@ class _DayInMonthViewState extends State<DayInMonthView> {
                                       .month && widget.year == DateTime
                                       .now()
                                       .year)
-                                    Text("Hôm nay",
-
-                                      style: TextStyle(color: theme.getColor(ThemeColor.dodgerBlue),fontSize: 8),
+                                    Positioned(
+                                      bottom: 0,
+                                      child: Text("Hôm nay",
+                                        style: TextStyle(color: (index + 1 -
+                                            firstDateValue!) == context
+                                            .read<DateRangePickerBloc>()
+                                            .endRange ||
+                                            (index + 1 - firstDateValue!) ==
+                                                context
+                                                    .read<DateRangePickerBloc>()
+                                                    .firstRange ? theme
+                                            .getColor(
+                                            ThemeColor.lightest) : theme
+                                            .getColor(
+                                            ThemeColor.dodgerBlue),
+                                          fontSize: 8,),
+                                      ),
                                     ),
                                 ],
                               )),
