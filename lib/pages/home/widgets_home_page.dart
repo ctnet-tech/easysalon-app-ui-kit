@@ -12,6 +12,7 @@ import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/data_table_page.da
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/date_time_selector_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/custom_textfield_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/customer_service_page.dart';
+import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/custom_tab_bar_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/icon_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/invoice_test_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/paragraph_page.dart';
@@ -73,8 +74,25 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                       MenuItem(label: "BottomSheet", to: BottomSheetPage.path),
                       MenuItem(label: "CustomTextField", to: CustomTextFieldPage.path),
                       MenuItem(label: "CustomerService", to: CustomerServicePage.path),
+                      MenuItem(label: "CustomTabBar",to: CustomTabBarPage.path,)
                     ],
-                  )
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Center(
+                    child: InkWell(
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (_) => SuccessfulAppointmentDialog(
+                                    onTapNavigator: () {
+                                      print("onTap");
+                                    },
+                                  ));
+                        },
+                        child: Text("show dialog")),
+                  ),
                 ],
               )))
     ]);
