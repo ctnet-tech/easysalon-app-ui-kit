@@ -9,6 +9,7 @@ import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/data_table_page.da
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/icon_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/invoice_test_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/paragraph_page.dart';
+import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/profile_admin_page.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/expandable_button.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/panel.dart';
@@ -50,6 +51,7 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                       MenuItem(label: "Invoice Test Page",to: InvoiceTestPage.path),
                       MenuItem(label: "Add customer Page",to: AddCustomerPage.path),
                       MenuItem(label: "ExpandableButton", to: ExpandableButtonPage.path),
+                      MenuItem(label: "Profile Admin",to: ProfileAdminPage.path ,),
                     ],
                   ),
                 ],

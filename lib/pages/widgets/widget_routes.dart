@@ -8,6 +8,7 @@ import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/expandable_button_
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/icon_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/invoice_test_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/paragraph_page.dart';
+import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/profile_admin_page.dart';
 
 var widgetRoutes = {
   ParagraphPage.path: () => ParagraphPage(),
@@ -20,4 +21,5 @@ var widgetRoutes = {
   InvoiceTestPage.path: () => InvoiceTestPage(),
   AddCustomerPage.path:() => AddCustomerPage(),
   ExpandableButtonPage.path: () => ExpandableButtonPage(),
+  ProfileAdminPage.path: () => ProfileAdminPage(),
 };
