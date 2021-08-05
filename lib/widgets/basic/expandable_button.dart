@@ -77,7 +77,6 @@ class _ExpandableButtonState extends State<ExpandableButton> {
                       ),
                       Row(
                         children: [
-                          if (isExpanded)
                             Paragraph(
                               linePadding: LayoutSize.none,
                               content: values
