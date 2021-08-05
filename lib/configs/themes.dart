@@ -28,6 +28,7 @@ var lightTheme = Theme(
   spindle: Theme.colorFromHex("#C5CEE0"),
   tangerineYellow: Theme.colorFromHex("#FFCF00"),
   hawkesBlue: Theme.colorFromHex("#edf1f7"),
+  solitude: Theme.colorFromHex("#F0F4F7"),
 );
 
 var darkTheme = Theme(
@@ -57,4 +58,5 @@ var darkTheme = Theme(
   gold: Theme.colorFromHex("#FFD500"),
   tangerineYellow: Theme.colorFromHex("#000"),
   hawkesBlue: Theme.colorFromHex("#000"),
+  solitude: Theme.colorFromHex("#000"),
 );

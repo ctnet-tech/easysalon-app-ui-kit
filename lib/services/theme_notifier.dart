@@ -29,6 +29,7 @@ enum ThemeColor {
   gold,
   tangerineYellow,
   hawkesBlue,
+  solitude,
 }
 
 class Theme {
@@ -66,6 +67,7 @@ class Theme {
     required this.gold,
     required this.tangerineYellow,
     required this.hawkesBlue,
+    required this.solitude,
   });
 
   final Color darkest;
@@ -94,6 +96,7 @@ class Theme {
   final Color caribbeanGreen;
   final Color gold;
   final Color tangerineYellow;
+  final Color solitude;
 
   Color getColor(ThemeColor themeColor) {
     switch (themeColor) {
@@ -147,7 +150,8 @@ class Theme {
         return this.tangerineYellow;
       case ThemeColor.gold:
         return this.gold;
-
+      case ThemeColor.solitude:
+        return this.solitude;
       default:
         return this.darkest;
     }
@@ -159,7 +163,6 @@ class ThemeNotifier with ChangeNotifier {
   final Theme lightTheme;
 
   late Theme _themeData;
-
   Theme getTheme() => _themeData;
 
   ThemeNotifier({required this.darkTheme, required this.lightTheme}) {

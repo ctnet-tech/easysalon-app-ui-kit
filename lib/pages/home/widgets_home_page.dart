@@ -1,3 +1,5 @@
+import 'package:easysalon_mobile_ui_kit/bloc/customer_services_bloc/customer_services_bloc.dart';
+import 'package:easysalon_mobile_ui_kit/bloc/customer_services_bloc/customer_services_blocs.dart';
 import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/add_customer_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/appointment_schedule_panel_page.dart';
@@ -9,6 +11,7 @@ import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/chart_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/data_table_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/date_time_selector_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/custom_textfield_page.dart';
+import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/customer_service_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/icon_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/invoice_test_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/paragraph_page.dart';
@@ -20,6 +23,7 @@ import 'package:easysalon_mobile_ui_kit/widgets/basic/date_picker.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/date_range_picker/date_range_picker.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/deposit_bottom_sheet.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/filter_bottom_sheet.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/basic/customer_services.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/panel.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/selection_time_bar.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/successful_appointment_dialog.dart';
@@ -68,24 +72,9 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                       MenuItem(label: "ReportPanel", to: ReportPanelPage.path),
                       MenuItem(label: "BottomSheet", to: BottomSheetPage.path),
                       MenuItem(label: "CustomTextField", to: CustomTextFieldPage.path),
+                      MenuItem(label: "CustomerService", to: CustomerServicePage.path),
                     ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Center(
-                    child: InkWell(
-                        onTap: () {
-                          showDialog(
-                              context: context,
-                              builder: (_) => SuccessfulAppointmentDialog(
-                                    onTapNavigator: () {
-                                      print("onTap");
-                                    },
-                                  ));
-                        },
-                        child: Text("show successful appointment dialog")),
-                  ),
+                  )
                 ],
               )))
     ]);

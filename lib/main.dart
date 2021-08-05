@@ -6,7 +6,10 @@ import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/configs/themes.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+
+import 'bloc/customer_services_bloc/customer_services_bloc.dart';
 
 void main() {
   return runApp(MultiProvider(providers: [
