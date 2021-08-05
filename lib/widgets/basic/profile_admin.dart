@@ -8,11 +8,11 @@ import 'package:provider/provider.dart';
 
 class ProfileAdmin extends StatelessWidget {
   final LayoutSize size;
-  double? customHeight;
-  double? customWidth;
+  final double? customHeight;
+  final double? customWidth;
   final VoidCallback onTapIconAdd;
   final VoidCallback onTapIconEdit;
-  final String avartaUrl;
+  final String avatarUrl;
   final String nameText;
   final String emailText;
   final String roleText;
@@ -23,7 +23,7 @@ class ProfileAdmin extends StatelessWidget {
     this.customWidth,
     required this.onTapIconEdit,
     required this.onTapIconAdd,
-    required this.avartaUrl,
+    required this.avatarUrl,
     required this.nameText,
     required this.emailText,
     required this.roleText,
@@ -63,7 +63,7 @@ class ProfileAdmin extends StatelessWidget {
                             child: ClipRRect(
                               borderRadius: layout.sizeToBorderRadius(size),
                               child: Image.network(
-                                avartaUrl,
+                                avatarUrl,
                                 fit: BoxFit.fill,
                                 height: 70,
                                 width: 70,
