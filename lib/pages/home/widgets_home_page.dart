@@ -51,56 +51,6 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                       MenuItem(label: "ReportPanel", to: ReportPanelPage.path),
                     ],
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  ExpandableButton(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  ProfileAdmin(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  CustomSlidable(
-                      actions: [
-                        SlidableAction(
-                          onPressed: (_) {
-                            print(12);
-                          },
-                          icon: LineIcons.edit_square_feather,
-                          label: "Sửa",
-                          backgroundColor: Colors.blue,
-                          flex: 1,
-//                          spacing: 20,
-                        ),
-                        SlidableAction(
-                          onPressed: (_) {
-                            print(12);
-                          },
-                          icon: LineIcons.trash,
-                          label: "Xóa",
-                          backgroundColor: Colors.green,
-                          flex: 1,
-//                          spacing: 20,
-                        ),
-                      ],
-                      child: Container(
-                          padding: EdgeInsets.all(12),
-                          width: MediaQuery.of(context).size.width,
-                          child: Text("ádsađấhdjsáđâsđâsđâsáđâsd"))),
-                  BlocProvider(
-                    create: (_) => DateRangePickerBloc(),
-                    child: SelectionTimeBar(),
-                  ),
-                  SizedBox(height: 20,),
-                  Paragraph(content: "DatePicker",),
-                  BlocProvider(
-                    create: (_) => DatePickerBloc(),
-                    child: DatePicker(
-                      onTap: () {},
-                    ),
-                  ),
                 ],
               )))
     ]);

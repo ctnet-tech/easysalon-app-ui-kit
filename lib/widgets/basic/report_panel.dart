@@ -142,6 +142,7 @@ class ReportPanel extends StatelessWidget {
                 color: ThemeColor.darkest,
                 content: reportData.middleText ?? "",
                 size: LayoutSize.big,
+                linePadding: LayoutSize.small,
               ),
               if (type == 1)
                 Row(
@@ -182,13 +183,13 @@ class ReportData {
   late String? bottomText;
   late bool isRedBottomText;
 
-  ReportData(
-  { String? firstTopText,
+  ReportData({
+    String? firstTopText,
     String? secondTopText,
     String? middleText,
     String? bottomText,
-    required bool isRedBottomText,}
-  ) {
+    required bool isRedBottomText,
+  }) {
     this.firstTopText = firstTopText;
     this.secondTopText = secondTopText;
     this.isRedBottomText = isRedBottomText;
