@@ -1,4 +1,3 @@
-import 'package:easysalon_mobile_ui_kit/widgets/basic/appointment_schedule_panel.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/assignment_of_duties_tag.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/page_header.dart';
 

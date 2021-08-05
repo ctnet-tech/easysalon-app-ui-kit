@@ -3,15 +3,11 @@ import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/button.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/button_group.dart';
-import 'package:easysalon_mobile_ui_kit/widgets/basic/chart.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/data_table.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/page_header.dart';
-import 'package:easysalon_mobile_ui_kit/widgets/layout/space.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/standard_page.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:provider/provider.dart';
 
 class DataTablePage extends StatelessWidget {
   static const String path = '/pages/widgets/data_table_page';
@@ -20,7 +16,6 @@ class DataTablePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return StandardPage(
         header: PageHeader(
             title: "table Custom", description: "To trigger an operation."),

@@ -1,5 +1,4 @@
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
-import 'package:flutter/cupertino.dart';
 
 var lightTheme = Theme(
   darkest: Theme.colorFromHex("#000000"),

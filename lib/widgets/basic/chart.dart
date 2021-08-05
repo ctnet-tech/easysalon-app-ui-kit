@@ -86,23 +86,6 @@ class LineChartCustom extends StatelessWidget {
                 fontSize: 16),
             getTitles: (value) {
               return "${this.contentHorizontal[value.toInt()]}";
-              switch (value.toInt()) {
-                case 0:
-                  return '00:00';
-                case 1:
-                  return '00:00';
-                case 2:
-                  return '00:00';
-                case 3:
-                  return '00:00';
-                case 4:
-                  return '00:00';
-                case 5:
-                  return '00:00';
-                case 6:
-                  return '00:00';
-              }
-              return '';
             },
             margin: 8,
           ),
@@ -115,19 +98,6 @@ class LineChartCustom extends StatelessWidget {
             ),
             getTitles: (value) {
               return "${this.contentVertical[value.toInt()]}";
-              switch (value.toInt()) {
-                case 0:
-                  return '0';
-                case 1:
-                  return '5';
-                case 2:
-                  return '10';
-                case 3:
-                  return '15';
-                case 4:
-                  return '20';
-              }
-              return '';
             },
             reservedSize: 28,
             margin: 12,

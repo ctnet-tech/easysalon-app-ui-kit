@@ -34,12 +34,10 @@ class _AddImageTableState extends State<AddImageTable> {
   List<PickedFile> listImage = [];
   void pickerImage() async {
     PickedFile imageGet =  (await _picker.getImage(source: ImageSource.camera))!;
-    if(imageGet != null){
-      setState(() {
-        listImage.add(imageGet);
-        widget.onChanged(listImage);
-      });
-    }
+    setState(() {
+      listImage.add(imageGet);
+      widget.onChanged(listImage);
+    });
   }
   @override
   void initState() {

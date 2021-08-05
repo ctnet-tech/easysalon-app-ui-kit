@@ -1,13 +1,7 @@
-import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
-import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
-import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
-import 'package:easysalon_mobile_ui_kit/widgets/basic/button.dart';
-import 'package:easysalon_mobile_ui_kit/widgets/basic/button_group.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/custom_tab_bar.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/page_header.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/space.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/standard_page.dart';
-import 'package:easysalon_mobile_ui_kit/widgets/typography/paragraph.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 

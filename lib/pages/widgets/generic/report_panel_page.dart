@@ -1,7 +1,6 @@
 import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/report_panel.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/page_header.dart';
-import 'package:easysalon_mobile_ui_kit/widgets/layout/space.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/standard_page.dart';
 import 'package:flutter/material.dart';
 

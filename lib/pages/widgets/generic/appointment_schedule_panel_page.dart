@@ -117,8 +117,8 @@ class _AppointmentSchedulePanelPageState
               ["KTV - Hà", "0868248876", "Kỹ thuật viên","key3"],
               ["KTV - Hà", "0868248876", "Kỹ thuật viên","key4"],
             ],
-            onClickDelete: (txt){print("delete ${txt}");},
-            onClickEdit: (txt){print("edit ${txt}");},
+            onClickDelete: (txt){print("delete $txt");},
+            onClickEdit: (txt){print("edit $txt");},
           ),
           Container(
 
@@ -165,7 +165,7 @@ class _AppointmentSchedulePanelPageState
               ? AppointmentServiceListTitle(
                   numberOfCustomer: 2,
                   onDelete: (idDelete) {
-                    print("delete ${idDelete}");
+                    print("delete $idDelete");
                     setState(() {
                       data.removeAt(idDelete);
                     });
@@ -191,7 +191,7 @@ class _AppointmentSchedulePanelPageState
                 'key3': 'data3'
               },
               onChanged: (key) {
-                print('${key}--------key click');
+                print('$key--------key click');
               },
             ),
           ),
@@ -214,7 +214,7 @@ class _AppointmentSchedulePanelPageState
             },
             onChangeSwitch: (data) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text("data Switch : ${data}"),
+                content: Text("data Switch : $data"),
               ));
             },
             timeText: "9:30",
@@ -249,7 +249,7 @@ class _AppointmentSchedulePanelPageState
                 'key9': 'data9',
               },
               onChanged: (key) {
-                print('${key}--------key click');
+                print('$key--------key click');
               },
             ),
           ),
@@ -272,7 +272,7 @@ class _AppointmentSchedulePanelPageState
             },
             onChangeSwitch: (data) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text("data Switch : ${data}"),
+                content: Text("data Switch : $data"),
               ));
             },
             timeText: "9:30",
@@ -303,7 +303,7 @@ class _AppointmentSchedulePanelPageState
             },
             onChangeSwitch: (data) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text("data Switch : ${data}"),
+                content: Text("data Switch : $data"),
               ));
             },
             timeText: "9:30",
@@ -334,7 +334,7 @@ class _AppointmentSchedulePanelPageState
             },
             onChangeSwitch: (data) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text("data Switch : ${data}"),
+                content: Text("data Switch : $data"),
               ));
             },
             timeText: "9:30,Hôm nay",
@@ -369,7 +369,7 @@ class _AppointmentSchedulePanelPageState
                 'key9': 'data9',
               },
               onChanged: (key) {
-                print('${key}--------key click');
+                print('$key--------key click');
               },
             ),
           ),

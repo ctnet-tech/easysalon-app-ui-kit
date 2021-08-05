@@ -1,4 +1,3 @@
-import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
 import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/button.dart';
@@ -6,7 +5,6 @@ import 'package:easysalon_mobile_ui_kit/widgets/layout/divider.dart'
     as dividerCustom;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:helpers/helpers.dart';
 import 'package:provider/provider.dart';
 
 class StaffInformationTag extends StatelessWidget {

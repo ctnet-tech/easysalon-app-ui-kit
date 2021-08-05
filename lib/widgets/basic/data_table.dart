@@ -1,6 +1,5 @@
 import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
-import 'package:easysalon_mobile_ui_kit/widgets/layout/divider.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/divider.dart'
 as dividerCustom;
 import 'package:flutter/material.dart';
@@ -74,7 +73,7 @@ class DataTableCustom extends StatelessWidget {
             child: data is Widget
                 ? data
                 : Text(
-              '${data}',
+              '$data',
               style: TextStyle(
                   fontSize: layout.sizeToFontSize(this.fontSize),
                   color: theme.getColor(color),

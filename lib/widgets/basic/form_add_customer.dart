@@ -4,12 +4,8 @@ import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart'
     as themeApp;
 import 'package:easysalon_mobile_ui_kit/widgets/basic/button.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/drop_down_field.dart';
-import 'package:easysalon_mobile_ui_kit/widgets/basic/scroll_navigation_package/misc/navigation_helpers.dart';
-import 'package:easysalon_mobile_ui_kit/widgets/basic/scroll_navigation_package/navigation/title_scroll_navigation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:helpers/helpers.dart';
-import 'package:helpers/helpers/size.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -164,7 +160,7 @@ class _FormAddCustomerState extends State<FormAddCustomer> {
             children: [
               RichText(
                 text: TextSpan(
-                  text: '${title}',
+                  text: '$title',
                   style: TextStyle(color: colorText, fontSize: fontSizeAll),
                   children: <TextSpan>[
                     notNull
@@ -202,7 +198,7 @@ class _FormAddCustomerState extends State<FormAddCustomer> {
                                 border: InputBorder.none,
                                 hintStyle: TextStyle(color: colorHintText),
                                 hintText: hintText.toString().isEmpty
-                                    ? 'Nhập ${title}'
+                                    ? 'Nhập $title'
                                     : hintText,
                                 contentPadding: new EdgeInsets.symmetric(
                                     vertical: 5.0, horizontal: 10.0),
@@ -288,7 +284,7 @@ class _FormAddCustomerState extends State<FormAddCustomer> {
               dataDropDown: dataDropDownTypeOfLabel,
               onChanged: (key) {
                 setState(() {
-                  if (!key.toString().isEmpty) {
+                  if (key.toString().isNotEmpty) {
                     this.listLabel[key] = dataDropDownTypeOfLabel[key]!;
                   }
                 });

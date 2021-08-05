@@ -86,7 +86,7 @@ class _AppointmentSchedulePanelState extends State<AppointmentSchedulePanel> {
                 alignment: Alignment.center,
                 width: constraints.maxWidth * 0.7,
                 child: Text(
-                  "${text}",
+                  "$text",
                   style: TextStyle(
                       color: theme.getColor(color),
                       fontSize: 16,
@@ -136,7 +136,7 @@ class _AppointmentSchedulePanelState extends State<AppointmentSchedulePanel> {
                 child: Expanded(
                   flex: 1,
                   child: Text(
-                    "${text}",
+                    "$text",
                     style: TextStyle(
                         color: theme.getColor(ThemeColor.bondiBlue),
                         fontSize: layout.sizeToFontSize(LayoutSize.medium)),

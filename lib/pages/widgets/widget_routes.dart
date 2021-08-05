@@ -15,7 +15,6 @@ import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/invoice_test_page.
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/paragraph_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/profile_admin_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/report_panel_page.dart';
-import 'package:easysalon_mobile_ui_kit/widgets/basic/report_panel.dart';
 
 var widgetRoutes = {
   ParagraphPage.path: () => ParagraphPage(),

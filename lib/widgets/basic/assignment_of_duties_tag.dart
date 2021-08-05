@@ -62,7 +62,7 @@ class _AssignmentOfDutiesTagState extends State<AssignmentOfDutiesTag> {
           : commissionList.values.first;
       return [e[0], commission, commissionNumber];
     }).toList(); //
-    print("${users}==================");
+    print("$users==================");
     print("${widget.dataDropStaff}==================");
     // TODO: implement initState
     super.initState();

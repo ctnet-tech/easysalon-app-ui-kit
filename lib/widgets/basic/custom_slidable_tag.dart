@@ -79,7 +79,7 @@ class SlidableTag extends StatelessWidget {
             child: data is Widget
                 ? data
                 : Text(
-                    '${data}',
+                    '$data',
                     style: TextStyle(
                         fontSize: layout.sizeToFontSize(this.fontSize),
                         color: theme.getColor(color),

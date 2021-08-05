@@ -112,7 +112,6 @@ class IconPage extends StatefulWidget {
     );
   }
 
-  @override
   Widget build(BuildContext context) {
     return StandardPage(
         scrollListener: ScrollListener(onScrollToBottom: () {}),

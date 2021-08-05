@@ -6,8 +6,6 @@ import 'package:easysalon_mobile_ui_kit/widgets/layout/space.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:easysalon_mobile_ui_kit/widgets/layout/divider.dart'
-    as dividerCustom;
 
 class MenuTopBarCustom extends StatefulWidget {
   MenuTopBarCustom(

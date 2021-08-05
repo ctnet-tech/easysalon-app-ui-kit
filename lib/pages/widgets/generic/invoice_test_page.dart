@@ -6,7 +6,6 @@ import 'package:easysalon_mobile_ui_kit/widgets/basic/data_table.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/list_service_table.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/menu_bar_custom.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/staff_infomation_tag.dart';
-import 'package:helpers/helpers.dart';
 import 'package:provider/provider.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/tag_title_top_invoice.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/standard_page.dart';
@@ -71,7 +70,7 @@ class _InvoiceTestPageState extends State<InvoiceTestPage> {
                 },
                 canEditPrice: true,
                 onChanged: (data) {
-                  print("data1 ${data}");
+                  print("data1 $data");
                 },
                 serviceName: "Đính hạt đơn giản 2 viên(1 ngón)",
                 staff: "TC - Ngân",
@@ -82,7 +81,7 @@ class _InvoiceTestPageState extends State<InvoiceTestPage> {
                   print("delete_2");
                 },
                 onChanged: (data) {
-                  print("data1 ${data}");
+                  print("data1 $data");
                 },
                 serviceName: "Chăm sóc da mặt cơ bản",
                 staff: "KTV - Tú, TP - Tuấn, TP - Nhung",
