@@ -6,20 +6,26 @@ import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/button_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/expandable_button_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/chart_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/data_table_page.dart';
+import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/date_time_selector_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/icon_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/invoice_test_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/paragraph_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/profile_admin_page.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/expandable_button.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/basic/date_picker.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/basic/date_range_picker/date_range_picker.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/panel.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/basic/selection_time_bar.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/icons/CustomIcon.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/page_header.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/space.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/standard_page.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/navigation/menu/menu.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/navigation/menu/menu_item.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WidgetsHomePage extends StatefulWidget {
   WidgetsHomePage() : super(key: Key("HOME"));
@@ -52,8 +58,9 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                       MenuItem(label: "Add customer Page",to: AddCustomerPage.path),
                       MenuItem(label: "ExpandableButton", to: ExpandableButtonPage.path),
                       MenuItem(label: "Profile Admin",to: ProfileAdminPage.path ,),
+                      MenuItem(label: "DateTimeSelector", to: DateTimeSelectorPage.path),
                     ],
-                  ),
+                  )
                 ],
               )))
     ]);

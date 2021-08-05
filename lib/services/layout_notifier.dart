@@ -24,7 +24,7 @@ class LayoutNotifier with ChangeNotifier {
 
   LayoutNotifier();
 
-  sizeToPadding(LayoutSize layoutSize) {
+  double sizeToPadding(LayoutSize layoutSize) {
     switch (layoutSize) {
       case LayoutSize.none:
         return 0.0;
@@ -77,12 +77,13 @@ class LayoutNotifier with ChangeNotifier {
       case LayoutSize.large:
         return 18.0;
       case LayoutSize.big:
+        return 22.0;
       default:
         return 30.0;
     }
   }
 
-  sizeToIconSize(LayoutSize layoutSize) {
+ double sizeToIconSize(LayoutSize layoutSize) {
     switch (layoutSize) {
       case LayoutSize.none:
         return 0.0;

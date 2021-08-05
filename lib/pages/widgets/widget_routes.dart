@@ -5,6 +5,7 @@ import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/button_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/chart_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/data_table_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/expandable_button_page.dart';
+import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/date_time_selector_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/icon_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/invoice_test_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/paragraph_page.dart';
@@ -22,4 +23,5 @@ var widgetRoutes = {
   AddCustomerPage.path:() => AddCustomerPage(),
   ExpandableButtonPage.path: () => ExpandableButtonPage(),
   ProfileAdminPage.path: () => ProfileAdminPage(),
+  DateTimeSelectorPage.path: () => DateTimeSelectorPage(),
 };

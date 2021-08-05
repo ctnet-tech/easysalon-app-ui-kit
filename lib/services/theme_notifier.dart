@@ -14,6 +14,8 @@ enum ThemeColor {
   lightest,
   bondiBlue,
   pastelGreen,
+  gainsboro,
+  spindle,
   darkOrange,
   radicalRed,
   lightSlateBlue,
@@ -48,6 +50,8 @@ class Theme {
     required this.weak,
     required this.warning,
     required this.light,
+    required this.gainsboro,
+    required this.spindle,
     required this.lightest,
     required this.bondiBlue,
     required this.darkOrange,
@@ -76,6 +80,8 @@ class Theme {
   final Color lightest;
   final Color bondiBlue;
   final Color pastelGreen;
+  final Color gainsboro;
+  final Color spindle;
   final Color darkOrange;
   final Color radicalRed;
   final Color lightSlateBlue;
@@ -89,7 +95,7 @@ class Theme {
   final Color gold;
 
 
-  Color getColor(ThemeColor themeColor) {
+   Color getColor(ThemeColor themeColor) {
     switch (themeColor) {
       case ThemeColor.light:
         return this.light;
@@ -111,8 +117,12 @@ class Theme {
         return this.weak;
       case ThemeColor.dark:
         return this.dark;
+      case ThemeColor.gainsboro:
+        return this.gainsboro;
       case ThemeColor.bondiBlue:
         return this.bondiBlue;
+      case ThemeColor.spindle:
+        return this.spindle;
       case ThemeColor.radicalRed:
         return this.radicalRed;
       case ThemeColor.darkOrange:
