@@ -1,5 +1,5 @@
-import 'package:easysalon_mobile_ui_kit/bloc/date_range_picker_bloc/date_range_picker_bloc.dart';
 import 'package:easysalon_mobile_ui_kit/provider/date_picker_provider/date_picker_provider.dart';
+import 'package:easysalon_mobile_ui_kit/provider/date_range_picker_provider/date_range_picker_provider.dart';
 import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/date_picker.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/date_range_picker/date_range_picker.dart';
@@ -30,7 +30,7 @@ class _DateTimeSelectorPageState extends State<DateTimeSelectorPage> {
           "Hôm qua": [
             DateTime.now().subtract(Duration(days: 1)),
             DateTime.now().subtract(Duration(days: 1)),
-          ],
+      ],
           "Tháng trước": [
             DateTime.now().subtract(
               Duration(

@@ -1,4 +1,4 @@
-import 'package:easysalon_mobile_ui_kit/bloc/date_range_picker_bloc/date_range_picker_bloc.dart';
+import 'package:easysalon_mobile_ui_kit/provider/date_range_picker_provider/date_range_picker_provider.dart';
 import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/date_range_picker/editable_year_widget.dart';
