@@ -11,6 +11,7 @@ import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/icon_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/invoice_test_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/paragraph_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/profile_admin_page.dart';
+import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/report_panel_page.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/expandable_button.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/date_picker.dart';
@@ -59,6 +60,7 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                       MenuItem(label: "ExpandableButton", to: ExpandableButtonPage.path),
                       MenuItem(label: "Profile Admin",to: ProfileAdminPage.path ,),
                       MenuItem(label: "DateTimeSelector", to: DateTimeSelectorPage.path),
+                      MenuItem(label: "ReportPanel", to: ReportPanelPage.path),
                     ],
                   )
                 ],

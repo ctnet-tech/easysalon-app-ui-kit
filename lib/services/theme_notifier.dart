@@ -26,8 +26,8 @@ enum ThemeColor {
   mountainMeadow,
   lightGrey,
   caribbeanGreen,
-  gold
-
+  gold,
+  tangerineYellow,
 }
 
 class Theme {
@@ -62,11 +62,8 @@ class Theme {
     required this.mountainMeadow,
     required this.lightGrey,
     required this.caribbeanGreen,
-    required this.gold
-
-
-
-
+    required this.gold,
+    required this.tangerineYellow,
   });
 
   final Color darkest;
@@ -93,9 +90,9 @@ class Theme {
   final Color lightGrey;
   final Color caribbeanGreen;
   final Color gold;
+  final Color tangerineYellow;
 
-
-   Color getColor(ThemeColor themeColor) {
+  Color getColor(ThemeColor themeColor) {
     switch (themeColor) {
       case ThemeColor.light:
         return this.light;
@@ -141,6 +138,8 @@ class Theme {
         return this.mountainMeadow;
       case ThemeColor.caribbeanGreen:
         return this.caribbeanGreen;
+      case ThemeColor.tangerineYellow:
+        return this.tangerineYellow;
       case ThemeColor.gold:
         return this.gold;
 
