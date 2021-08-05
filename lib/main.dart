@@ -6,7 +6,6 @@ import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/configs/themes.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -21,8 +20,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      localizationsDelegates: [GlobalMaterialLocalizations.delegate],
-      supportedLocales: [const Locale('en'), const Locale('vi')],
       home: WidgetsHomePage(),
       onGenerateRoute: (settings) {
         var page = appRoutes[settings.name];
@@ -30,7 +27,6 @@ class MyApp extends StatelessWidget {
         if (page != null) {
           return DefaultPageTransition(child: page());
         }
-
         return null;
       },
     );

@@ -91,7 +91,11 @@ class Paragraph extends StatelessWidget {
     return SpaceBox(
         bottomSize: this.linePadding,
         child: Container(
-            alignment: Alignment.topLeft,
+            alignment: hasAlignment
+                ? isCenter
+                    ? Alignment.center
+                    : Alignment.topLeft
+                : null,
             child: RichText(
                 textAlign: this.textAlign,
                 text: TextSpan(
