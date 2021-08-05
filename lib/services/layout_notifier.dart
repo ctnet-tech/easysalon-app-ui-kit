@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum LayoutSize { none, tiny, small, medium, large, big, bigest }
+enum  LayoutSize { none, tiny, small, medium, large, big, bigest }
 
 class LayoutNotifier with ChangeNotifier {
   static getLowerSize(LayoutSize layoutSize) {

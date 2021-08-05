@@ -3,12 +3,14 @@ import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/add_customer_page.
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/appointment_schedule_panel_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/assignment_of_duties_tag_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/button_page.dart';
+import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/expandable_button_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/chart_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/data_table_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/icon_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/invoice_test_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/paragraph_page.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/basic/expandable_button.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/panel.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/icons/CustomIcon.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/page_header.dart';
@@ -46,9 +48,10 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                       MenuItem(label: "Appointment Schedule Panel",to: AppointmentSchedulePanelPage.path),
                       MenuItem(label: "Assignment Of Duties Tag",to: AssignmentOfDutiesTagPage.path),
                       MenuItem(label: "Invoice Test Page",to: InvoiceTestPage.path),
-                      MenuItem(label: "Add customer Page",to: AddCustomerPage.path)
+                      MenuItem(label: "Add customer Page",to: AddCustomerPage.path),
+                      MenuItem(label: "ExpandableButton", to: ExpandableButtonPage.path),
                     ],
-                  )
+                  ),
                 ],
               )))
     ]);
