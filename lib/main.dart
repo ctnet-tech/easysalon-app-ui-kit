@@ -7,6 +7,7 @@ import 'package:easysalon_mobile_ui_kit/configs/themes.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 import 'bloc/customer_services_bloc/customer_services_bloc.dart';
@@ -23,6 +24,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: [GlobalMaterialLocalizations.delegate],
+      supportedLocales: [const Locale('en'), const Locale('vi')],
       home: WidgetsHomePage(),
       onGenerateRoute: (settings) {
         var page = appRoutes[settings.name];
