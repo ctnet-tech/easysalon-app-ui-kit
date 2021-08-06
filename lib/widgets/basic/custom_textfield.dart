@@ -8,7 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
-class CustomTextField extends StatefulWidget {
+class CustomTextField extends StatefulWidget
+{
   final String? firstText;
   final String? secondText;
   final TextEditingController textEditingController;
@@ -71,28 +72,34 @@ class CustomTextField extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _CustomTextFieldState createState() => _CustomTextFieldState();
+  _CustomTextFieldState createState()
+  => _CustomTextFieldState();
 }
 
-class _CustomTextFieldState extends State<CustomTextField> {
+class _CustomTextFieldState extends State<CustomTextField>
+{
   bool isObscure = true;
 
   @override
-  void didUpdateWidget(covariant CustomTextField oldWidget) {
-    if (widget.hasUpdate) {
+  void didUpdateWidget(covariant CustomTextField oldWidget)
+  {
+    if (widget.hasUpdate)
+    {
       widget.textEditingController.text = widget.firstData;
     }
     super.didUpdateWidget(oldWidget);
   }
 
   @override
-  void initState() {
+  void initState()
+  {
     // TODO: implement initState
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     var theme = context.read<ThemeNotifier>().getTheme();
     var layout = context.read<LayoutNotifier>();
     return Column(
@@ -144,7 +151,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 ),
           ),
           padding: widget.padding == null
-              ? EdgeInsets.symmetric(horizontal:layout.sizeToPadding(LayoutSize.tiny))
+              ? EdgeInsets.symmetric(
+              horizontal: layout.sizeToPadding(LayoutSize.tiny))
               : widget.padding,
           child: TextField(
             minLines: widget.minLine,
@@ -157,13 +165,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
               if (widget.isOnlyNumber) FilteringTextInputFormatter.digitsOnly,
             ],
             keyboardType:
-                widget.isOnlyNumber ? TextInputType.number : TextInputType.text,
+            widget.isOnlyNumber ? TextInputType.number : TextInputType.text,
             style: widget.textFieldTextStyle == null
                 ? TextStyle(
-                    fontSize: layout.sizeToFontSize(LayoutSize.medium),
-                    color: theme.getColor(ThemeColor.dark),
-                    fontWeight: FontWeight.w400,
-                  )
+              fontSize: layout.sizeToFontSize(LayoutSize.medium),
+              color: theme.getColor(ThemeColor.dark),
+              fontWeight: FontWeight.w400,
+            )
                 : widget.textFieldTextStyle,
             textAlignVertical: TextAlignVertical.center,
             decoration: InputDecoration(
@@ -172,48 +180,53 @@ class _CustomTextFieldState extends State<CustomTextField> {
               suffixIcon: widget.suffixIcon != null
                   ? widget.suffixIcon
                   : widget.hasObscureText
-                      ? InkWell(
-                          onTap: () {
-                            setState(() {
-                              isObscure = !isObscure;
-                            });
-                          },
-                          child: CustomIcon(
-                            icon:
-                                isObscure ? LineIcons.eye_slash : LineIcons.eye,
-                            size: LayoutSize.medium,
-                          ),
-                        )
-                      : widget.isDatePicker
-                          ? InkWell(
-                              onTap: () {
-                                showDatePicker(
-                                  context: context,
-                                  locale: const Locale("vi"),
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime(1900),
-                                  lastDate: DateTime.now(),
-                                ).then((dateTime) {
-                                  setState(() {
-                                    widget.textEditingController.text =
-                                        DateFormat("dd/MM/yyyy")
-                                            .format(dateTime!);
-                                  });
-                                });
-                              },
-                              child: CustomIcon(
-                                icon: LineIcons.calendar_week,
-                                size: LayoutSize.medium,
-                              ),
-                            )
-                          : null,
+                  ? InkWell(
+                onTap: ()
+                {
+                  setState(()
+                  {
+                    isObscure = !isObscure;
+                  });
+                },
+                child: CustomIcon(
+                  icon:
+                  isObscure ? LineIcons.eye_slash : LineIcons.eye,
+                  size: LayoutSize.medium,
+                ),
+              )
+                  : widget.isDatePicker
+                  ? InkWell(
+                onTap: ()
+                {
+                  showDatePicker(
+                    context: context,
+                    locale: const Locale("vi"),
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(1900),
+                    lastDate: DateTime.now(),
+                  ).then((dateTime)
+                  {
+                    setState(()
+                    {
+                      widget.textEditingController.text =
+                          DateFormat("dd/MM/yyyy")
+                              .format(dateTime!);
+                    });
+                  });
+                },
+                child: CustomIcon(
+                  icon: LineIcons.calendar_week,
+                  size: LayoutSize.medium,
+                ),
+              )
+                  : null,
               hintText: widget.hintText,
               hintStyle: widget.textFieldHintTextStyle == null
                   ? TextStyle(
-                      fontSize: layout.sizeToFontSize(LayoutSize.medium),
-                      color: theme.getColor(ThemeColor.secondary),
-                      fontWeight: FontWeight.w400,
-                    )
+                fontSize: layout.sizeToFontSize(LayoutSize.medium),
+                color: theme.getColor(ThemeColor.secondary),
+                fontWeight: FontWeight.w400,
+              )
                   : widget.textFieldHintTextStyle,
             ),
             obscureText: widget.hasObscureText ? isObscure : false,

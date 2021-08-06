@@ -4,11 +4,13 @@ import 'package:easysalon_mobile_ui_kit/widgets/layout/space.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/standard_page.dart';
 import 'package:flutter/material.dart';
 
-class CustomTextFieldPage extends StatelessWidget {
+class CustomTextFieldPage extends StatelessWidget
+{
   static const String path = '/pages/widgets/custom_textfield_page';
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     return StandardPage(
         header: PageHeader(
             title: "TextField", description: "To trigger an operation."),
@@ -41,9 +43,10 @@ class CustomTextFieldPage extends StatelessWidget {
                   isOnlyNumber: true,
                 ),
                 CustomTextField(
-                  firstText: "Điện thoại",
+                  firstText: "Mật khẩu",
                   secondText: "Đổi mật khẩu",
-                  onTapSecondText: () {
+                  onTapSecondText: ()
+                  {
                     print("onTapSecondText");
                   },
                   textEditingController: TextEditingController(),
