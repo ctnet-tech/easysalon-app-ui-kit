@@ -309,7 +309,7 @@ class _FormAddCustomerState extends State<FormAddCustomer> {
               customTopLeft: Wrap(
                 children: listLabel.entries
                     .map((e) => Chip(
-                          label: Expanded(child: Text("${e.value}")),
+                          label: Text("${e.value}"),
                           onDeleted: () {
                             setState(() {
                               listLabel.remove(e.key);
