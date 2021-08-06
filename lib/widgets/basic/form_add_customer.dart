@@ -34,11 +34,8 @@ class FormAddCustomer extends StatefulWidget {
   final themeApp.ThemeColor colorForm;
   final Map<String, String> dataDropDownTypeOfLabel;
   final Map<String, String> dataDropDownGroupOfCustomer;
-
   final Map<String, String> dataDropDownCustomerBase;
-
   final Map<String, String> dataDropDownBrokerCustomer;
-
   final ValueChanged<Map<String, dynamic>> onClickCreateCustomer;
 
   @override
@@ -49,6 +46,8 @@ class FormAddCustomer extends StatefulWidget {
 }
 
 class _FormAddCustomerState extends State<FormAddCustomer> {
+
+  final _formKey = GlobalKey<FormState>();
   bool checkBasicEdit = false;
   Map<String, String> dataDropDownTypeOfLabel = {};
   Map<String, String> dataDropDownGroupOfCustomer = {};
@@ -136,6 +135,23 @@ class _FormAddCustomerState extends State<FormAddCustomer> {
     }
   }
 
+  bool isValidPhoneNumber(String string) {
+    if (string == null || string.isEmpty) {
+      return false;
+    }
+    const pattern = r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$';
+    final regExp = RegExp(pattern);
+
+    if (!regExp.hasMatch(string)) {
+      return false;
+    }
+    if(string.length >9 && string.length < 12){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var theme = context.read<themeApp.ThemeNotifier>().getTheme();
@@ -152,7 +168,7 @@ class _FormAddCustomerState extends State<FormAddCustomer> {
             isNumber = false,
             enabled = true,
             onTap,
-            icon}) =>
+            icon,validator}) =>
         Container(
           margin: EdgeInsets.only(top: 15),
           child: Column(
@@ -189,6 +205,7 @@ class _FormAddCustomerState extends State<FormAddCustomer> {
                       onTap: onTap ?? () {},
                       child: enabled
                           ? TextFormField(
+                              validator: validator,
                               controller: controller ?? TextEditingController(),
                               style: new TextStyle(
                                   fontSize: layout
@@ -483,11 +500,27 @@ class _FormAddCustomerState extends State<FormAddCustomer> {
         children: [
           inputFieldWidget(
               title: "Họ Tên",
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Vui Lòng Nhập Họ Tên';
+                }
+
+                return null;
+              },
               notNull: true,
               controller: nameTextEditingController),
           inputFieldWidget(
               title: "Số Điện Thoại",
               notNull: true,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Vui Lòng Nhập Số Điện Thoại';
+                }
+                if(this.isValidPhoneNumber(value.toString()) == false){
+                  return 'Vui Lòng NHập Đúng Số Điện Thoại';
+                }
+                return null;
+              },
               isNumber: true,
               controller: phoneTextEditingController),
           !checkBasicEdit
@@ -517,48 +550,59 @@ class _FormAddCustomerState extends State<FormAddCustomer> {
         ],
       ),
     );
-    return Column(
-      children: [
-        Container(
-          padding: EdgeInsets.all(layout.sizeToPadding(widget.paddingForm)),
-          margin: EdgeInsets.all(layout.sizeToPadding(widget.marginForm)),
-          decoration: BoxDecoration(
-            borderRadius: radius,
-            color: theme.getColor(widget.colorForm),
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.all(layout.sizeToPadding(widget.paddingForm)),
+            margin: EdgeInsets.all(layout.sizeToPadding(widget.marginForm)),
+            decoration: BoxDecoration(
+              borderRadius: radius,
+              color: theme.getColor(widget.colorForm),
+            ),
+            child: Column(
+              children: [
+                mainTopWidget,
+                this.checkBasicEdit ? mainBottomWidget : Container()
+              ],
+            ),
           ),
-          child: Column(
-            children: [
-              mainTopWidget,
-              this.checkBasicEdit ? mainBottomWidget : Container()
-            ],
-          ),
-        ),
-        Container(
-          width: double.infinity,
-          height: checkBasicEdit ? 125 : 400,
-          color: Colors.white,
-          child: Column(
-            children: [
-              Container(
-                  margin: EdgeInsets.only(top: 10),
-                  child: LayoutBuilder(
-                    builder: (context, containers) {
-                      return Button(
-                          width: containers.maxWidth * 0.7,
-                          paddingButton: LayoutSize.medium,
-                          content: "Tạo Khách Hàng",
-                          outlined: true,
-                          onPressed: () {
-                            var data = getDataForm();
-                            print(data);
-                            widget.onClickCreateCustomer(data);
-                          });
-                    },
-                  ))
-            ],
-          ),
-        )
-      ],
+          Container(
+            width: double.infinity,
+            height: checkBasicEdit ? 125 : 400,
+            color: Colors.white,
+            child: Column(
+              children: [
+                Container(
+                    margin: EdgeInsets.only(top: 10),
+                    child: LayoutBuilder(
+                      builder: (context, containers) {
+                        return Button(
+                            width: containers.maxWidth * 0.7,
+                            paddingButton: LayoutSize.medium,
+                            content: "Tạo Khách Hàng",
+                            outlined: true,
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                var data = getDataForm();
+                                print(data);
+                                widget.onClickCreateCustomer(data);
+                              }else{
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text('Vui lòng nhập đủ và đúng thông tin!')),
+                                );
+                              }
+
+                            });
+                      },
+                    ))
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
+
 }
