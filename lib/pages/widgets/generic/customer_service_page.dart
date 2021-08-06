@@ -1,17 +1,17 @@
-import 'package:easysalon_mobile_ui_kit/bloc/customer_services_bloc/customer_services_blocs.dart';
+import 'package:easysalon_mobile_ui_kit/bloc/customer_services_bloc/customer_services_bloc.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/customer_services.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/page_header.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/space.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/standard_page.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 class CustomerServicePage extends StatelessWidget {
   static const String path = '/pages/widgets/customer_service_path';
 
   CustomerServicePage({Key? key}) : super(key: key);
 
-  List<Map<String, dynamic>> mapToData(CustomerServicesBloc bloc) {
+  List<Map<String, dynamic>> mapToData(CustomerServicesProvider bloc) {
     List<Map<String, dynamic>> listData = [];
     for (int i = 0; i < bloc.listCustomerService.length; i++) {
       listData.add(<String, dynamic>{
@@ -22,7 +22,7 @@ class CustomerServicePage extends StatelessWidget {
     return listData;
   }
 
-  CustomerServicesBloc bloc = CustomerServicesBloc();
+  CustomerServicesProvider bloc = CustomerServicesProvider();
 
   _customerService(
     BuildContext context,
@@ -145,7 +145,7 @@ class CustomerServicePage extends StatelessWidget {
           SpaceBox(
               all: true,
               child: Column(children: [
-                BlocProvider.value(
+                ChangeNotifierProvider.value(
                   value: bloc,
                   child: _customerService(context),
                 )

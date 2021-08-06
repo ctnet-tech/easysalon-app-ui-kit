@@ -1,74 +1,52 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'customer_services_event.dart';
-import 'customer_services_state.dart';
+import 'package:flutter/material.dart';
 
-class CustomerServicesBloc
-    extends Bloc<CustomerServicesEvent, CustomerServicesState> {
-  CustomerServicesBloc() : super(CustomerServicesInitial());
+class CustomerServicesProvider extends ChangeNotifier {
   List<List<List<String?>>> listCustomerService = [];
-  List<List<Map<String, Map<String,List<int>>>>> listCustomerSubService = [];
+  List<List<Map<String, Map<String, List<int>>>>> listCustomerSubService = [];
   List<List<String?>> dropdownSubServiceValue = [];
   List<List<String?>> dropdownServiceGroupValue = [];
   List<String?> notes = [];
-
   List<List<List<int>>> timeAndCostSubService = [];
 
-  @override
-  Stream<CustomerServicesState> mapEventToState(
-      CustomerServicesEvent event) async* {
-    yield CustomerServicesLoading();
-    if (event is AddServiceGroup) {
-      try {
-        yield CustomerServicesSuccess();
-      } catch (e) {
-        yield CustomerServicesFailure(e.toString());
-      }
-    }
-    if (event is AddCustomer) {
-      yield CustomerServicesLoading();
-      listCustomerService.add([]);
-      notes.add(null);
-      yield CustomerServicesSuccess();
-    }
-    if (event is RemoveCustomer) {
-      yield CustomerServicesLoading();
-      listCustomerService.removeAt(event.customerIndex);
-      listCustomerSubService.removeAt(event.customerIndex);
-      timeAndCostSubService.removeAt(event.customerIndex);
+  addServiceGroup({required int customerIndex}) {
+    notifyListeners();
+  }
 
-      notes.removeAt(event.customerIndex);
-      yield CustomerServicesSuccess();
-    }
-    if (event is RemoveServiceGroup) {
-      yield CustomerServicesLoading();
+  addCustomer() {
+    listCustomerService.add([]);
+    notes.add(null);
+    notifyListeners();
+  }
 
-      for (int i = event.serviceIndex;
-          i < listCustomerService[event.customerIndex].length - 1;
-          i++) {
-        listCustomerService[event.customerIndex][i] =
-            listCustomerService[event.customerIndex][i + 1];
-        listCustomerSubService[event.customerIndex][i] =
-            listCustomerSubService[event.customerIndex][i + 1];
-        dropdownSubServiceValue[event.customerIndex][i] =
-            dropdownSubServiceValue[event.customerIndex][i + 1];
-        dropdownServiceGroupValue[event.customerIndex][i] =
-            dropdownServiceGroupValue[event.customerIndex][i + 1];
-        timeAndCostSubService[event.customerIndex][i] =
-            timeAndCostSubService[event.customerIndex][i + 1];
-      }
-      listCustomerService[event.customerIndex].removeLast();
-      listCustomerSubService[event.customerIndex].removeLast();
-      dropdownSubServiceValue[event.customerIndex].removeLast();
-      dropdownServiceGroupValue[event.customerIndex].removeLast();
-      timeAndCostSubService[event.customerIndex].removeLast();
-      yield CustomerServicesSuccess();
+  removeCustomer({required int customerIndex}) {
+    listCustomerService.removeAt(customerIndex);
+    listCustomerSubService.removeAt(customerIndex);
+    timeAndCostSubService.removeAt(customerIndex);
+    notes.removeAt(customerIndex);
+  }
+
+  removeServiceGroup({
+    required int customerIndex,
+    required int serviceIndex,
+  }) {
+    for (int i = serviceIndex;
+        i < listCustomerService[customerIndex].length - 1;
+        i++) {
+      listCustomerService[customerIndex][i] =
+          listCustomerService[customerIndex][i + 1];
+      listCustomerSubService[customerIndex][i] =
+          listCustomerSubService[customerIndex][i + 1];
+      dropdownSubServiceValue[customerIndex][i] =
+          dropdownSubServiceValue[customerIndex][i + 1];
+      dropdownServiceGroupValue[customerIndex][i] =
+          dropdownServiceGroupValue[customerIndex][i + 1];
+      timeAndCostSubService[customerIndex][i] =
+          timeAndCostSubService[customerIndex][i + 1];
     }
-    if (event is ChangeService) {
-      try {
-        yield CustomerServicesSuccess();
-      } catch (e) {
-        yield CustomerServicesFailure(e.toString());
-      }
-    }
+    listCustomerService[customerIndex].removeLast();
+    listCustomerSubService[customerIndex].removeLast();
+    dropdownSubServiceValue[customerIndex].removeLast();
+    dropdownServiceGroupValue[customerIndex].removeLast();
+    timeAndCostSubService[customerIndex].removeLast();
   }
 }

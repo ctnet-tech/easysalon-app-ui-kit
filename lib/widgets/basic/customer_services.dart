@@ -1,4 +1,4 @@
-import 'package:easysalon_mobile_ui_kit/bloc/customer_services_bloc/customer_services_blocs.dart';
+import 'package:easysalon_mobile_ui_kit/bloc/customer_services_bloc/customer_services_bloc.dart';
 import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
 import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
@@ -8,7 +8,6 @@ import 'package:easysalon_mobile_ui_kit/widgets/layout/space.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/typography/paragraph.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +23,7 @@ class ListCustomerServices extends StatelessWidget {
   });
 
   final int customerCount;
-  final List<List<Map<String, Map<String,List<int>>>>>? initialSubService;
+  final List<List<Map<String, Map<String, List<int>>>>>? initialSubService;
   final List<List<List<String?>>>? initialCustomerService;
   final List<List<List<dynamic>>>? availableServicePackages;
   final List<String?>? initialListNotesOfCustomers;
@@ -33,73 +32,57 @@ class ListCustomerServices extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (context.read<CustomerServicesBloc>().listCustomerService.length == 0) {
+    var provider = context.read<CustomerServicesProvider>();
+    if (provider.listCustomerService.length == 0) {
       if (initialSubService == null) {
         for (int i = 0; i < customerCount; i++) {
-          context.read<CustomerServicesBloc>().listCustomerService.add([]);
-          context.read<CustomerServicesBloc>().listCustomerSubService.add([]);
-          context.read<CustomerServicesBloc>().timeAndCostSubService.add([]);
-          context
-              .read<CustomerServicesBloc>()
-              .dropdownSubServiceValue
-              .add([null]);
-          context
-              .read<CustomerServicesBloc>()
-              .dropdownServiceGroupValue
-              .add([null]);
-          context.read<CustomerServicesBloc>().notes.add(null);
+          provider.listCustomerService.add([]);
+          provider.listCustomerSubService.add([]);
+          provider.timeAndCostSubService.add([]);
+          provider.dropdownSubServiceValue.add([null]);
+          provider.dropdownServiceGroupValue.add([null]);
+          provider.notes.add(null);
         }
       } else {
+        provider.listCustomerSubService = initialSubService!;
 
-
-        context.read<CustomerServicesBloc>().listCustomerSubService =
-            initialSubService!;
-
-        context.read<CustomerServicesBloc>().listCustomerService =
-            initialCustomerService!;
-
+        provider.listCustomerService = initialCustomerService!;
 
         for (int i = 0; i < initialCustomerService!.length; i++) {
-           context.read<CustomerServicesBloc>().dropdownSubServiceValue.add([]);
-          context
-              .read<CustomerServicesBloc>()
-              .dropdownServiceGroupValue
-              .add([]);
-           context.read<CustomerServicesBloc>().timeAndCostSubService.add([]);
+          provider.dropdownSubServiceValue.add([]);
+          provider.dropdownServiceGroupValue.add([]);
+          provider.timeAndCostSubService.add([]);
           for (int k = 0; k < initialCustomerService![i].length; k++) {
-            context
-                .read<CustomerServicesBloc>()
-                .dropdownSubServiceValue[i]
-                .add(null);
-            context
-                .read<CustomerServicesBloc>()
-                .dropdownServiceGroupValue[i]
-                .add(null);
-            context.read<CustomerServicesBloc>().timeAndCostSubService[i].add([0,0]);
+            provider.dropdownSubServiceValue[i].add(null);
+            provider.dropdownServiceGroupValue[i].add(null);
+            provider.timeAndCostSubService[i].add([0, 0]);
 
-            context.read<CustomerServicesBloc>().dropdownSubServiceValue[i][k] =
-                context.read<CustomerServicesBloc>().listCustomerSubService[i]
-                    [k][initialCustomerService![i][k][1]]!.keys.first;
-            context.read<CustomerServicesBloc>().dropdownServiceGroupValue[i][k] =
+            provider.dropdownSubServiceValue[i][k] = provider
+                .listCustomerSubService[i][k][initialCustomerService![i][k][1]]!
+                .keys
+                .first;
+            provider.dropdownServiceGroupValue[i][k] =
                 dropdownServiceGroupItems[initialCustomerService![i][k][1]];
-            context.read<CustomerServicesBloc>().timeAndCostSubService[i][k]=context.read<CustomerServicesBloc>().listCustomerSubService[i][k][initialCustomerService![i][k][1]]!.values.first;
+            provider.timeAndCostSubService[i][k] = provider
+                .listCustomerSubService[i][k][initialCustomerService![i][k][1]]!
+                .values
+                .first;
           }
         }
         if (initialListNotesOfCustomers != null)
-          context.read<CustomerServicesBloc>().notes =
-              initialListNotesOfCustomers!;
+          provider.notes = initialListNotesOfCustomers!;
         else {
           for (int i = 0; i < initialSubService!.length; i++) {
-            context.read<CustomerServicesBloc>().notes.add(null);
+            provider.notes.add(null);
           }
         }
       }
     }
-    return BlocBuilder<CustomerServicesBloc, CustomerServicesState>(
-      builder: (context, state) {
+    return Consumer<CustomerServicesProvider>(
+      builder: (context, model, child) {
         return Column(
           children: List.generate(
-            context.read<CustomerServicesBloc>().listCustomerService.length,
+            provider.listCustomerService.length,
             (index) => Column(
               children: [
                 if (index > 0)
@@ -158,13 +141,14 @@ class CustomerServices extends StatefulWidget {
 class _CustomerServicesState extends State<CustomerServices> {
   bool switchValue = false;
   TextEditingController txtNote = TextEditingController();
+  var provider;
 
   @override
   void initState() {
-    if (context.read<CustomerServicesBloc>().notes.isNotEmpty &&
-        context.read<CustomerServicesBloc>().notes[widget.index] != null) {
+    provider = context.read<CustomerServicesProvider>();
+    if (provider.notes.isNotEmpty && provider.notes[widget.index] != null) {
       switchValue = true;
-      txtNote.text = context.read<CustomerServicesBloc>().notes[widget.index]!;
+      txtNote.text = provider.notes[widget.index]!;
     }
     super.initState();
   }
@@ -195,36 +179,18 @@ class _CustomerServicesState extends State<CustomerServices> {
                 InkWell(
                   onTap: () {
                     if (widget.isFirst) {
-                      context
-                          .read<CustomerServicesBloc>()
-                          .listCustomerSubService
-                          .add([]);
-                      context
-                          .read<CustomerServicesBloc>()
-                          .timeAndCostSubService
-                          .add([[0,0]]);
-                      context
-                          .read<CustomerServicesBloc>()
-                          .dropdownSubServiceValue
-                          .add([null]);
-                      context
-                          .read<CustomerServicesBloc>()
-                          .dropdownServiceGroupValue
-                          .add([null]);
-                      context.read<CustomerServicesBloc>().add(AddCustomer());
+                      provider.listCustomerSubService.add([]);
+                      provider.timeAndCostSubService.add([
+                        [0, 0]
+                      ]);
+                      provider.dropdownSubServiceValue.add([null]);
+                      provider.dropdownServiceGroupValue.add([null]);
+                      provider.addCustomer();
                     } else {
-                      context
-                          .read<CustomerServicesBloc>()
-                          .dropdownSubServiceValue
-                          .removeAt(widget.index);
-                      context
-                          .read<CustomerServicesBloc>()
-                          .dropdownServiceGroupValue
-                          .removeAt(widget.index);
+                      provider.dropdownSubServiceValue.removeAt(widget.index);
+                      provider.dropdownServiceGroupValue.removeAt(widget.index);
 
-                      context
-                          .read<CustomerServicesBloc>()
-                          .add(RemoveCustomer(customerIndex: widget.index));
+                      provider.removeCustomer(customerIndex: widget.index);
                     }
                   },
                   child: widget.isFirst == false
@@ -349,22 +315,19 @@ class _CustomerServicesState extends State<CustomerServices> {
                 ],
               ),
             ...List.generate(
-                context
-                    .read<CustomerServicesBloc>()
-                    .listCustomerService[widget.index]
-                    .length,
+                provider.listCustomerService[widget.index].length,
                 (index) => Column(
                       children: [
-                        ServicesSelector(onChangeSubService: (){
-                               setState(() {
-                            print("onchange");
-                          });
-                        },
+                        ServicesSelector(
+                          onChangeSubService: () {
+                            setState(() {
+                              print("onchange");
+                            });
+                          },
                           dropdowServiceGroupData:
                               widget.dropdownServiceGroupItems,
                           onChangedServiceGroup: (value) {
-                            setState(() {
-                            });
+                            setState(() {});
                             widget.onChangeServiceGroup(index, value);
                           },
                           customerIndex: widget.index,
@@ -383,35 +346,15 @@ class _CustomerServicesState extends State<CustomerServices> {
               children: [
                 InkWell(
                   onTap: () {
-                    context
-                        .read<CustomerServicesBloc>()
-                        .listCustomerSubService[widget.index]
-                        .add({});
-                    context
-                        .read<CustomerServicesBloc>()
-                        .listCustomerService[widget.index]
-                        .add([
+                    provider.listCustomerSubService[widget.index].add({});
+                    provider.listCustomerService[widget.index].add([
                       null,
                       null,
                     ]);
-                    context
-                        .read<CustomerServicesBloc>()
-                        .dropdownSubServiceValue[widget.index]
-                        .add(null);
-                    context
-                        .read<CustomerServicesBloc>()
-                        .dropdownServiceGroupValue[widget.index]
-                        .add(null);
-                    context
-                        .read<CustomerServicesBloc>()
-                        .timeAndCostSubService[widget.index]
-                        .add([0,0]);
-                    print(context
-                        .read<CustomerServicesBloc>()
-                        .timeAndCostSubService);
-                    context
-                        .read<CustomerServicesBloc>()
-                        .add(AddServiceGroup(customerIndex: widget.index));
+                    provider.dropdownSubServiceValue[widget.index].add(null);
+                    provider.dropdownServiceGroupValue[widget.index].add(null);
+                    provider.timeAndCostSubService[widget.index].add([0, 0]);
+                    provider.addServiceGroup(customerIndex: widget.index);
                   },
                   child: Container(
                     padding: EdgeInsets.all(
@@ -449,9 +392,12 @@ class _CustomerServicesState extends State<CustomerServices> {
                         left: true,
                         right: true,
                         child: Paragraph(
-                          content:  NumberFormat.simpleCurrency(locale: "vi",name: "")
-                              .format(sumTimeAndCostSubService(context.read<CustomerServicesBloc>().timeAndCostSubService[widget.index])[0])
-                              .toString() +" đ",
+                          content: NumberFormat.simpleCurrency(
+                                      locale: "vi", name: "")
+                                  .format(sumTimeAndCostSubService(provider
+                                      .timeAndCostSubService[widget.index])[0])
+                                  .toString() +
+                              " đ",
                           linePadding: LayoutSize.none,
                           size: LayoutSize.small,
                           color: ThemeColor.secondary,
@@ -466,7 +412,13 @@ class _CustomerServicesState extends State<CustomerServices> {
                         left: true,
                         right: true,
                         child: Paragraph(
-                          content: (sumAvailableServiceTime(widget.availablePackageService) + sumTimeAndCostSubService(context.read<CustomerServicesBloc>().timeAndCostSubService[widget.index])[1]).toString() +" phút",
+                          content: (sumAvailableServiceTime(
+                                          widget.availablePackageService) +
+                                      sumTimeAndCostSubService(
+                                          provider.timeAndCostSubService[
+                                              widget.index])[1])
+                                  .toString() +
+                              " phút",
                           linePadding: LayoutSize.none,
                           size: LayoutSize.small,
                           color: ThemeColor.secondary,
@@ -494,13 +446,9 @@ class _CustomerServicesState extends State<CustomerServices> {
                             switchValue = value;
                           });
                           if (value == true)
-                            context
-                                .read<CustomerServicesBloc>()
-                                .notes[widget.index] = txtNote.text;
+                            provider.notes[widget.index] = txtNote.text;
                           else
-                            context
-                                .read<CustomerServicesBloc>()
-                                .notes[widget.index] = null;
+                            provider.notes[widget.index] = null;
                         },
                       ),
                     ],
@@ -532,8 +480,7 @@ class _CustomerServicesState extends State<CustomerServices> {
                     minLine: 2,
                     maxLine: null,
                     onSubmitted: (value) {
-                      context.read<CustomerServicesBloc>().notes[widget.index] =
-                          txtNote.text;
+                      provider.notes[widget.index] = txtNote.text;
                     },
                   ),
                 ],
@@ -567,26 +514,25 @@ class ServicesSelector extends StatefulWidget {
 }
 
 class _ServicesSelectorState extends State<ServicesSelector> {
+  var provider;
+
   @override
   void initState() {
-    if (context.read<CustomerServicesBloc>().listCustomerService.isNotEmpty) {
-      context
-              .read<CustomerServicesBloc>()
-              .dropdownServiceGroupValue[widget.customerIndex]
-          [widget.serviceGroupIndex] = widget.dropdowServiceGroupData[context
-              .read<CustomerServicesBloc>()
+    provider = context.read<CustomerServicesProvider>();
+    if (provider.listCustomerService.isNotEmpty) {
+      provider.dropdownServiceGroupValue[widget.customerIndex]
+          [widget.serviceGroupIndex] = widget.dropdowServiceGroupData[provider
               .listCustomerService[widget.customerIndex]
           [widget.serviceGroupIndex][0]];
-      context
-              .read<CustomerServicesBloc>()
-              .dropdownSubServiceValue[widget.customerIndex]
-          [widget.serviceGroupIndex] = context
-              .read<CustomerServicesBloc>()
+      provider.dropdownSubServiceValue[widget.customerIndex]
+          [widget.serviceGroupIndex] = provider
               .listCustomerSubService[widget.customerIndex]
-          [widget.serviceGroupIndex][context
-              .read<CustomerServicesBloc>()
-              .listCustomerService[widget.customerIndex]
-          [widget.serviceGroupIndex][1]]?.keys.first ?? null;
+                  [widget.serviceGroupIndex][
+                  provider.listCustomerService[widget.customerIndex]
+                      [widget.serviceGroupIndex][1]]
+              ?.keys
+              .first ??
+          null;
     }
     super.initState();
   }
@@ -611,10 +557,9 @@ class _ServicesSelectorState extends State<ServicesSelector> {
                 ),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
-                    value: context
-                            .read<CustomerServicesBloc>()
-                            .dropdownServiceGroupValue[widget.customerIndex]
-                        [widget.serviceGroupIndex],
+                    value:
+                        provider.dropdownServiceGroupValue[widget.customerIndex]
+                            [widget.serviceGroupIndex],
                     icon: CustomIcon(
                       icon: LineIcons.chevron_down,
                       size: LayoutSize.medium,
@@ -634,32 +579,23 @@ class _ServicesSelectorState extends State<ServicesSelector> {
                       ),
                     ),
                     onChanged: (String? newValue) {
-                     setState(() {
-                        context
-                                .read<CustomerServicesBloc>()
-                                .dropdownServiceGroupValue[widget.customerIndex]
+                      setState(() {
+                        provider.dropdownServiceGroupValue[widget.customerIndex]
                             [widget.serviceGroupIndex] = newValue!;
                       });
-                     context
-                         .read<CustomerServicesBloc>().timeAndCostSubService[widget.customerIndex]
-                     [widget.serviceGroupIndex] =[0,0];
-                      context
-                              .read<CustomerServicesBloc>()
-                              .dropdownSubServiceValue[widget.customerIndex]
+                      provider.timeAndCostSubService[widget.customerIndex]
+                          [widget.serviceGroupIndex] = [0, 0];
+                      provider.dropdownSubServiceValue[widget.customerIndex]
                           [widget.serviceGroupIndex] = null;
 
-                      context
-                              .read<CustomerServicesBloc>()
-                              .listCustomerService[widget.customerIndex]
+                      provider.listCustomerService[widget.customerIndex]
                           [widget.serviceGroupIndex][1] = null;
                       widget.onChangedServiceGroup(widget
                           .dropdowServiceGroupData.entries
                           .firstWhere((element) => element.value == newValue!)
                           .key);
 
-                      context
-                                  .read<CustomerServicesBloc>()
-                                  .listCustomerService[widget.customerIndex]
+                      provider.listCustomerService[widget.customerIndex]
                               [widget.serviceGroupIndex][0] =
                           widget.dropdowServiceGroupData.entries
                               .firstWhere(
@@ -694,9 +630,9 @@ class _ServicesSelectorState extends State<ServicesSelector> {
             ),
             InkWell(
               onTap: () {
-                context.read<CustomerServicesBloc>().add(RemoveServiceGroup(
+                provider.removeServiceGroup(
                     customerIndex: widget.customerIndex,
-                    serviceIndex: widget.serviceGroupIndex));
+                    serviceIndex: widget.serviceGroupIndex);
               },
               child: Container(
                 height: 50,
@@ -726,9 +662,7 @@ class _ServicesSelectorState extends State<ServicesSelector> {
           ),
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
-              value: context
-                      .read<CustomerServicesBloc>()
-                      .dropdownSubServiceValue[widget.customerIndex]
+              value: provider.dropdownSubServiceValue[widget.customerIndex]
                   [widget.serviceGroupIndex],
               isExpanded: true,
               icon: CustomIcon(
@@ -750,47 +684,37 @@ class _ServicesSelectorState extends State<ServicesSelector> {
               ),
               onChanged: (String? newValue) {
                 setState(() {
-                  context
-                          .read<CustomerServicesBloc>()
-                          .dropdownSubServiceValue[widget.customerIndex]
+                  provider.dropdownSubServiceValue[widget.customerIndex]
                       [widget.serviceGroupIndex] = newValue!;
                 });
 
-
-
-
-
-
-                context
-                            .read<CustomerServicesBloc>()
-                            .listCustomerService[widget.customerIndex]
+                provider.listCustomerService[widget.customerIndex]
                         [widget.serviceGroupIndex][1] =
-                    context
-                        .read<CustomerServicesBloc>()
+                    provider
                         .listCustomerSubService[widget.customerIndex]
                             [widget.serviceGroupIndex]
                         .entries
-                        .firstWhere((element) => element.value.keys.first == newValue!)
+                        .firstWhere(
+                            (element) => element.value.keys.first == newValue!)
                         .key;
-                context
-                    .read<CustomerServicesBloc>().timeAndCostSubService[widget.customerIndex]
-                [widget.serviceGroupIndex] =context
-                    .read<CustomerServicesBloc>().listCustomerSubService[widget.customerIndex]
-                [widget.serviceGroupIndex][context
-                    .read<CustomerServicesBloc>()
-                    .listCustomerService[widget.customerIndex]
-                [widget.serviceGroupIndex][1]]!.values.first;
+                provider.timeAndCostSubService[widget.customerIndex]
+                        [widget.serviceGroupIndex] =
+                    provider
+                        .listCustomerSubService[widget.customerIndex]
+                            [widget.serviceGroupIndex][
+                            provider.listCustomerService[widget.customerIndex]
+                                [widget.serviceGroupIndex][1]]!
+                        .values
+                        .first;
                 widget.onChangeSubService();
-
               },
-              items: context
-                  .read<CustomerServicesBloc>()
+              items: provider
                   .listCustomerSubService[widget.customerIndex]
                       [widget.serviceGroupIndex]
                   .entries
                   .map((e) => e.value.keys.first)
                   .toList()
-                  .map<DropdownMenuItem<String>>((String value) {
+                  .map<DropdownMenuItem<String>>((value) {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Align(
@@ -814,27 +738,19 @@ class _ServicesSelectorState extends State<ServicesSelector> {
   }
 }
 
-
-
- List<int> sumTimeAndCostSubService (List<List<int>> list)
-{
-
-  List<int> sum=[0,0];
-  for(int i =0 ;i < list.length;i++)
-    {
-
-          sum[0]+= list[i][0];
-          sum[1]+= list[i][1];
-    }
-return sum;
+List<int> sumTimeAndCostSubService(List<List<int>> list) {
+  List<int> sum = [0, 0];
+  for (int i = 0; i < list.length; i++) {
+    sum[0] += list[i][0];
+    sum[1] += list[i][1];
+  }
+  return sum;
 }
 
-int sumAvailableServiceTime (List<List<dynamic>>? list)
-{  var sum=0;
-if(list==null)
-  return 0;
-  for(int i =0;i< list.length;i++)
-    sum+=list[i][2] as int;
+int sumAvailableServiceTime(List<List<dynamic>>? list) {
+  var sum = 0;
+  if (list == null) return 0;
+  for (int i = 0; i < list.length; i++) sum += list[i][2] as int;
   print(sum);
   return sum;
 }
