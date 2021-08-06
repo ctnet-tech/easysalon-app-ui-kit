@@ -7,6 +7,7 @@ import 'package:easysalon_mobile_ui_kit/widgets/layout/page_header.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/space.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/standard_page.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/typography/paragraph.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class ButtonPage extends StatelessWidget {
@@ -28,19 +29,43 @@ class ButtonPage extends StatelessWidget {
         ButtonGroup(
           expanded: true,
           children: [
-            Button(content: "Click me!", onPressed: this._onPressed),
             Button(
-              content: "Click me!",
+              color: ThemeColor.darkOrange,
+              content: "Chưa Thanh Toán",
               onPressed: this._onPressed,
-              outlined: true,
-              circle: true,
+              matteCoating: true,
             ),
             Button(
-              content: "Click me!",
+              color: ThemeColor.pastelGreen,
+              content: "Đã Thanh Toán",
               onPressed: this._onPressed,
-              outlined: false,
-              solid: false,
-            )
+              matteCoating: true,
+            ),
+          ],
+        ),
+        ButtonGroup(
+          expanded: true,
+          children: [
+            Button(
+
+              iconLeft: LineIcons.chevron_down,
+              iconSize: LayoutSize.medium,
+              color: ThemeColor.lightSlateBlue,
+              contentCustom: Container(
+                child: Text("Check in"),
+              ),
+              onPressed: this._onPressed,
+              matteCoating: true,
+
+
+            ),
+            Button(
+
+              color: ThemeColor.radicalRed,
+              content: "Còn Nợ",
+              onPressed: this._onPressed,
+              matteCoating: true,
+            ),
           ],
         )
       ],
@@ -59,28 +84,39 @@ class ButtonPage extends StatelessWidget {
         ButtonGroup(
           children: [
             Button(
-                width: 135,
-                icon: LineIcons.heart,
-                content: "Click me!",
-                onPressed: this._onPressed,
-                circle: true),
-            Button(
-              icon: LineIcons.heart,
+              buttonIconSize:LayoutSize.big ,
+              color: ThemeColor.darkOrange,
+              icon: LineIcons.money_stack,
               onPressed: this._onPressed,
-              circle: true,
+
             ),
             Button(
-              icon: LineIcons.heart,
+              buttonIconSize:LayoutSize.big ,
+              icon: LineIcons.user,
               onPressed: this._onPressed,
-              outlined: true,
-              circle: true,
+
             ),
             Button(
-              icon: LineIcons.heart,
+              buttonIconSize:LayoutSize.big ,
+              icon: LineIcons.users,
+              color: ThemeColor.lightSlateBlue,
               onPressed: this._onPressed,
-              outlined: false,
-              solid: false,
-            )
+
+            ),
+            Button(
+              buttonIconSize:LayoutSize.medium ,
+              iconSize: LayoutSize.medium,
+              icon: LineIcons.add_item,
+              onPressed: this._onPressed,
+
+            ),
+            Button(
+              buttonIconSize:LayoutSize.big ,
+              color: ThemeColor.pastelGreen,
+              icon: LineIcons.store,
+              onPressed: this._onPressed,
+
+            ),
           ],
         )
       ],
@@ -101,20 +137,25 @@ class ButtonPage extends StatelessWidget {
           vertical: true,
           children: [
             Button(
-                icon: LineIcons.heart,
-                content: "Click me!",
+
+              customSize:LayoutSize.large ,
+                contentCustom: Container(child: Text("Bước 4/5"),),
+                content: "Tiếp Tục",
                 onPressed: this._onPressed),
             Button(
-                icon: LineIcons.heart,
-                content: "Click me!",
+                icon: LineIcons.plus,
+                content: "Tạo Lịch Hẹn",
                 outlined: true,
                 onPressed: this._onPressed),
             Button(
-                icon: LineIcons.heart,
-                content: "Click me!",
+                icon: LineIcons.close,
+                color: ThemeColor.radicalRed,
+                content: "Hủy Hóa Đơn",
                 onPressed: this._onPressed,
-                outlined: false,
-                solid: false)
+                outlined: true,
+                solid: false,
+
+               )
           ],
         )
       ],
@@ -131,31 +172,30 @@ class ButtonPage extends StatelessWidget {
           color: ThemeColor.secondary,
         ),
         ButtonGroup(
+
           expanded: true,
+
           children: [
             Button(
-                icon: LineIcons.heart,
-                iconSize: LayoutSize.big,
-                content: "Click me",
+                icon: LineIcons.collapse_up,
+                color: ThemeColor.radicalRed,
+                content: "Tạo Phiếu Xuất",
                 onPressed: this._onPressed,
-                vertical: true),
+            ),
             Button(
-                icon: LineIcons.heart,
-                iconSize: LayoutSize.big,
-                content: "Click me",
-                onPressed: this._onPressed,
-                vertical: true,
-                outlined: true),
+              icon: LineIcons.collapse_down,
+              content: "Tạo Phiếu Nhập",
+              onPressed: this._onPressed,
+            ),
             Button(
-                icon: LineIcons.heart,
-                iconSize: LayoutSize.big,
-                content: "Click me",
-                onPressed: this._onPressed,
-                vertical: true,
-                outlined: false,
-                solid: false),
+              icon: LineIcons.collapse_up,
+              color: ThemeColor.radicalRed,
+              content: "Tạo Phiếu Xuất",
+              onPressed: this._onPressed,
+            ),
           ],
-        )
+        ),
+
       ],
     );
   }
