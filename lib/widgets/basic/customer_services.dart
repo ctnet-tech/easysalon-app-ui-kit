@@ -1,5 +1,5 @@
-import 'package:easysalon_mobile_ui_kit/bloc/customer_services_bloc/customer_services_bloc.dart';
 import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
+import 'package:easysalon_mobile_ui_kit/provider/customer_services_provider/customer_services_provider.dart';
 import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/custom_textfield.dart';
@@ -11,7 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-class ListCustomerServices extends StatelessWidget {
+class ListCustomerServices extends StatelessWidget
+{
   const ListCustomerServices({
     required this.customerCount,
     required this.dropdownServiceGroupItems,
@@ -31,11 +32,16 @@ class ListCustomerServices extends StatelessWidget {
   final Function(int index1, int index2, String value) onChangeServiceGroup;
 
   @override
-  Widget build(BuildContext context) {
-    var provider = context.read<CustomerServicesProvider>();
-    if (provider.listCustomerService.length == 0) {
-      if (initialSubService == null) {
-        for (int i = 0; i < customerCount; i++) {
+  Widget build(BuildContext context)
+  {
+    CustomerServicesProvider provider = context.read<
+        CustomerServicesProvider>();
+    if (provider.listCustomerService.length == 0)
+    {
+      if (initialSubService == null)
+      {
+        for (int i = 0; i < customerCount; i++)
+        {
           provider.listCustomerService.add([]);
           provider.listCustomerSubService.add([]);
           provider.timeAndCostSubService.add([]);
@@ -43,16 +49,19 @@ class ListCustomerServices extends StatelessWidget {
           provider.dropdownServiceGroupValue.add([null]);
           provider.notes.add(null);
         }
-      } else {
+      } else
+      {
         provider.listCustomerSubService = initialSubService!;
 
         provider.listCustomerService = initialCustomerService!;
 
-        for (int i = 0; i < initialCustomerService!.length; i++) {
+        for (int i = 0; i < initialCustomerService!.length; i++)
+        {
           provider.dropdownSubServiceValue.add([]);
           provider.dropdownServiceGroupValue.add([]);
           provider.timeAndCostSubService.add([]);
-          for (int k = 0; k < initialCustomerService![i].length; k++) {
+          for (int k = 0; k < initialCustomerService![i].length; k++)
+          {
             provider.dropdownSubServiceValue[i].add(null);
             provider.dropdownServiceGroupValue[i].add(null);
             provider.timeAndCostSubService[i].add([0, 0]);
@@ -62,7 +71,7 @@ class ListCustomerServices extends StatelessWidget {
                 .keys
                 .first;
             provider.dropdownServiceGroupValue[i][k] =
-                dropdownServiceGroupItems[initialCustomerService![i][k][1]];
+            dropdownServiceGroupItems[initialCustomerService![i][k][1]];
             provider.timeAndCostSubService[i][k] = provider
                 .listCustomerSubService[i][k][initialCustomerService![i][k][1]]!
                 .values
@@ -71,46 +80,53 @@ class ListCustomerServices extends StatelessWidget {
         }
         if (initialListNotesOfCustomers != null)
           provider.notes = initialListNotesOfCustomers!;
-        else {
-          for (int i = 0; i < initialSubService!.length; i++) {
+        else
+        {
+          for (int i = 0; i < initialSubService!.length; i++)
+          {
             provider.notes.add(null);
           }
         }
       }
     }
     return Consumer<CustomerServicesProvider>(
-      builder: (context, model, child) {
+      builder: (context, model, child)
+      {
         return Column(
           children: List.generate(
             provider.listCustomerService.length,
-            (index) => Column(
-              children: [
-                if (index > 0)
-                  SizedBox(
-                    height: 10,
-                  ),
-                index == 0
-                    ? CustomerServices(
-                        onChangeServiceGroup: (index2, value) {
-                          onChangeServiceGroup(index, index2, value);
-                        },
-                        isFirst: index == 0 ? true : false,
-                        index: index,
-                        availablePackageService:
-                            availableServicePackages![index],
-                        dropdownServiceGroupItems: dropdownServiceGroupItems,
-                      )
-                    : CustomerServices(
-                        onChangeServiceGroup: (index2, value) {
-                          onChangeServiceGroup(index, index2, value);
-                        },
-                        isFirst: index == 0 ? true : false,
-                        index: index,
-                        availablePackageService: null,
-                        dropdownServiceGroupItems: dropdownServiceGroupItems,
+                (index)
+            =>
+                Column(
+                  children: [
+                    if (index > 0)
+                      SizedBox(
+                        height: 10,
                       ),
-              ],
-            ),
+                    index == 0
+                        ? CustomerServices(
+                      onChangeServiceGroup: (index2, value)
+                      {
+                        onChangeServiceGroup(index, index2, value);
+                      },
+                      isFirst: index == 0 ? true : false,
+                      index: index,
+                      availablePackageService:
+                      availableServicePackages![index],
+                      dropdownServiceGroupItems: dropdownServiceGroupItems,
+                    )
+                        : CustomerServices(
+                      onChangeServiceGroup: (index2, value)
+                      {
+                        onChangeServiceGroup(index, index2, value);
+                      },
+                      isFirst: index == 0 ? true : false,
+                      index: index,
+                      availablePackageService: null,
+                      dropdownServiceGroupItems: dropdownServiceGroupItems,
+                    ),
+                  ],
+                ),
           ),
         );
       },
@@ -118,7 +134,8 @@ class ListCustomerServices extends StatelessWidget {
   }
 }
 
-class CustomerServices extends StatefulWidget {
+class CustomerServices extends StatefulWidget
+{
   const CustomerServices({
     this.isFirst = false,
     required this.index,
@@ -135,18 +152,22 @@ class CustomerServices extends StatefulWidget {
   final Function(int index, String value) onChangeServiceGroup;
 
   @override
-  _CustomerServicesState createState() => _CustomerServicesState();
+  _CustomerServicesState createState()
+  => _CustomerServicesState();
 }
 
-class _CustomerServicesState extends State<CustomerServices> {
+class _CustomerServicesState extends State<CustomerServices>
+{
   bool switchValue = false;
   TextEditingController txtNote = TextEditingController();
-  var provider;
+  late CustomerServicesProvider provider;
 
   @override
-  void initState() {
+  void initState()
+  {
     provider = context.read<CustomerServicesProvider>();
-    if (provider.notes.isNotEmpty && provider.notes[widget.index] != null) {
+    if (provider.notes.isNotEmpty && provider.notes[widget.index] != null)
+    {
       switchValue = true;
       txtNote.text = provider.notes[widget.index]!;
     }
@@ -154,7 +175,8 @@ class _CustomerServicesState extends State<CustomerServices> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     var theme = context.read<ThemeNotifier>().getTheme();
     var layout = context.read<LayoutNotifier>();
 
@@ -177,8 +199,10 @@ class _CustomerServicesState extends State<CustomerServices> {
                   color: ThemeColor.secondary,
                 ),
                 InkWell(
-                  onTap: () {
-                    if (widget.isFirst) {
+                  onTap: ()
+                  {
+                    if (widget.isFirst)
+                    {
                       provider.listCustomerSubService.add([]);
                       provider.timeAndCostSubService.add([
                         [0, 0]
@@ -186,7 +210,8 @@ class _CustomerServicesState extends State<CustomerServices> {
                       provider.dropdownSubServiceValue.add([null]);
                       provider.dropdownServiceGroupValue.add([null]);
                       provider.addCustomer();
-                    } else {
+                    } else
+                    {
                       provider.dropdownSubServiceValue.removeAt(widget.index);
                       provider.dropdownServiceGroupValue.removeAt(widget.index);
 
@@ -195,26 +220,26 @@ class _CustomerServicesState extends State<CustomerServices> {
                   },
                   child: widget.isFirst == false
                       ? CustomIcon(
-                          icon: LineIcons.close,
-                          color: ThemeColor.secondary,
-                          size: LayoutSize.medium,
-                        )
+                    icon: LineIcons.close,
+                    color: ThemeColor.secondary,
+                    size: LayoutSize.medium,
+                  )
                       : Container(
-                          decoration: BoxDecoration(
-                              borderRadius:
-                                  layout.sizeToBorderRadius(LayoutSize.small),
-                              border: Border.all(
-                                color: theme.getColor(ThemeColor.dodgerBlue),
-                                width: 1,
-                              )),
-                          child: Center(
-                            child: CustomIcon(
-                              icon: LineIcons.plus,
-                              color: ThemeColor.dodgerBlue,
-                              size: LayoutSize.medium,
-                            ),
-                          ),
-                        ),
+                    decoration: BoxDecoration(
+                        borderRadius:
+                        layout.sizeToBorderRadius(LayoutSize.small),
+                        border: Border.all(
+                          color: theme.getColor(ThemeColor.dodgerBlue),
+                          width: 1,
+                        )),
+                    child: Center(
+                      child: CustomIcon(
+                        icon: LineIcons.plus,
+                        color: ThemeColor.dodgerBlue,
+                        size: LayoutSize.medium,
+                      ),
+                    ),
+                  ),
                 )
               ],
             ),
@@ -226,35 +251,38 @@ class _CustomerServicesState extends State<CustomerServices> {
                 children: [
                   ...List.generate(
                       widget.availablePackageService!.length,
-                      (index) => Column(
+                          (index)
+                      =>
+                          Column(
                             children: [
                               Row(
                                 children: [
                                   Expanded(
                                       child: Container(
-                                    padding: EdgeInsets.only(
-                                      left: layout
-                                          .sizeToPadding(LayoutSize.small),
-                                      top: layout
-                                          .sizeToPadding(LayoutSize.small),
-                                      bottom: layout
-                                          .sizeToPadding(LayoutSize.small),
-                                    ),
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      color:
+                                        padding: EdgeInsets.only(
+                                          left: layout
+                                              .sizeToPadding(LayoutSize.small),
+                                          top: layout
+                                              .sizeToPadding(LayoutSize.small),
+                                          bottom: layout
+                                              .sizeToPadding(LayoutSize.small),
+                                        ),
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          color:
                                           theme.getColor(ThemeColor.solitude),
-                                      borderRadius: layout
-                                          .sizeToBorderRadius(LayoutSize.small),
-                                    ),
-                                    child: Paragraph(
-                                      content: widget
-                                          .availablePackageService![index][0],
-                                      weight: FontWeight.w400,
-                                      linePadding: LayoutSize.none,
-                                      color: ThemeColor.spindle,
-                                    ),
-                                  )),
+                                          borderRadius: layout
+                                              .sizeToBorderRadius(
+                                              LayoutSize.small),
+                                        ),
+                                        child: Paragraph(
+                                          content: widget
+                                              .availablePackageService![index][0],
+                                          weight: FontWeight.w400,
+                                          linePadding: LayoutSize.none,
+                                          color: ThemeColor.spindle,
+                                        ),
+                                      )),
                                   SizedBox(
                                     width: 5,
                                   ),
@@ -263,7 +291,7 @@ class _CustomerServicesState extends State<CustomerServices> {
                                     width: 50,
                                     decoration: BoxDecoration(
                                       color:
-                                          theme.getColor(ThemeColor.solitude),
+                                      theme.getColor(ThemeColor.solitude),
                                       borderRadius: layout
                                           .sizeToBorderRadius(LayoutSize.small),
                                     ),
@@ -290,7 +318,7 @@ class _CustomerServicesState extends State<CustomerServices> {
                                 ),
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
                                     Paragraph(
                                       content: widget
@@ -316,18 +344,22 @@ class _CustomerServicesState extends State<CustomerServices> {
               ),
             ...List.generate(
                 provider.listCustomerService[widget.index].length,
-                (index) => Column(
+                    (index)
+                =>
+                    Column(
                       children: [
                         ServicesSelector(
-                          onChangeSubService: () {
-                            setState(() {
-                              print("onchange");
-                            });
+                          onChangeSubService: ()
+                          {
+                            setState(()
+                            {});
                           },
                           dropdowServiceGroupData:
-                              widget.dropdownServiceGroupItems,
-                          onChangedServiceGroup: (value) {
-                            setState(() {});
+                          widget.dropdownServiceGroupItems,
+                          onChangedServiceGroup: (value)
+                          {
+                            setState(()
+                            {});
                             widget.onChangeServiceGroup(index, value);
                           },
                           customerIndex: widget.index,
@@ -345,7 +377,8 @@ class _CustomerServicesState extends State<CustomerServices> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 InkWell(
-                  onTap: () {
+                  onTap: ()
+                  {
                     provider.listCustomerSubService[widget.index].add({});
                     provider.listCustomerService[widget.index].add([
                       null,
@@ -393,10 +426,10 @@ class _CustomerServicesState extends State<CustomerServices> {
                         right: true,
                         child: Paragraph(
                           content: NumberFormat.simpleCurrency(
-                                      locale: "vi", name: "")
-                                  .format(sumTimeAndCostSubService(provider
-                                      .timeAndCostSubService[widget.index])[0])
-                                  .toString() +
+                              locale: "vi", name: "")
+                              .format(sumTimeAndCostSubService(provider
+                              .timeAndCostSubService[widget.index])[0])
+                              .toString() +
                               " đ",
                           linePadding: LayoutSize.none,
                           size: LayoutSize.small,
@@ -413,11 +446,11 @@ class _CustomerServicesState extends State<CustomerServices> {
                         right: true,
                         child: Paragraph(
                           content: (sumAvailableServiceTime(
-                                          widget.availablePackageService) +
-                                      sumTimeAndCostSubService(
-                                          provider.timeAndCostSubService[
-                                              widget.index])[1])
-                                  .toString() +
+                              widget.availablePackageService) +
+                              sumTimeAndCostSubService(
+                                  provider.timeAndCostSubService[
+                                  widget.index])[1])
+                              .toString() +
                               " phút",
                           linePadding: LayoutSize.none,
                           size: LayoutSize.small,
@@ -441,8 +474,10 @@ class _CustomerServicesState extends State<CustomerServices> {
                       ),
                       CupertinoSwitch(
                         value: switchValue,
-                        onChanged: (value) {
-                          setState(() {
+                        onChanged: (value)
+                        {
+                          setState(()
+                          {
                             switchValue = value;
                           });
                           if (value == true)
@@ -479,7 +514,8 @@ class _CustomerServicesState extends State<CustomerServices> {
                     textEditingController: txtNote,
                     minLine: 2,
                     maxLine: null,
-                    onSubmitted: (value) {
+                    onSubmitted: (value)
+                    {
                       provider.notes[widget.index] = txtNote.text;
                     },
                   ),
@@ -492,7 +528,8 @@ class _CustomerServicesState extends State<CustomerServices> {
   }
 }
 
-class ServicesSelector extends StatefulWidget {
+class ServicesSelector extends StatefulWidget
+{
   const ServicesSelector({
     Key? key,
     required this.customerIndex,
@@ -510,35 +547,40 @@ class ServicesSelector extends StatefulWidget {
   final Map<String, String> dropdowServiceGroupData;
 
   @override
-  _ServicesSelectorState createState() => _ServicesSelectorState();
+  _ServicesSelectorState createState()
+  => _ServicesSelectorState();
 }
 
-class _ServicesSelectorState extends State<ServicesSelector> {
-  var provider;
+class _ServicesSelectorState extends State<ServicesSelector>
+{
+  late CustomerServicesProvider provider;
 
   @override
-  void initState() {
+  void initState()
+  {
     provider = context.read<CustomerServicesProvider>();
-    if (provider.listCustomerService.isNotEmpty) {
+    if (provider.listCustomerService.isNotEmpty)
+    {
       provider.dropdownServiceGroupValue[widget.customerIndex]
-          [widget.serviceGroupIndex] = widget.dropdowServiceGroupData[provider
-              .listCustomerService[widget.customerIndex]
-          [widget.serviceGroupIndex][0]];
+      [widget.serviceGroupIndex] = widget.dropdowServiceGroupData[provider
+          .listCustomerService[widget.customerIndex]
+      [widget.serviceGroupIndex][0]];
       provider.dropdownSubServiceValue[widget.customerIndex]
-          [widget.serviceGroupIndex] = provider
-              .listCustomerSubService[widget.customerIndex]
-                  [widget.serviceGroupIndex][
-                  provider.listCustomerService[widget.customerIndex]
-                      [widget.serviceGroupIndex][1]]
-              ?.keys
-              .first ??
+      [widget.serviceGroupIndex] = provider
+          .listCustomerSubService[widget.customerIndex]
+      [widget.serviceGroupIndex][
+      provider.listCustomerService[widget.customerIndex]
+      [widget.serviceGroupIndex][1]]
+          ?.keys
+          .first ??
           null;
     }
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     var theme = context.read<ThemeNotifier>().getTheme();
     var layout = context.read<LayoutNotifier>();
 
@@ -551,15 +593,15 @@ class _ServicesSelectorState extends State<ServicesSelector> {
                 padding: EdgeInsets.all(layout.sizeToPadding(LayoutSize.tiny)),
                 decoration: BoxDecoration(
                   border:
-                      Border.all(color: theme.getColor(ThemeColor.hawkesBlue)),
+                  Border.all(color: theme.getColor(ThemeColor.hawkesBlue)),
                   borderRadius: layout.sizeToBorderRadius(LayoutSize.small),
                   color: theme.getColor(ThemeColor.lightest),
                 ),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
                     value:
-                        provider.dropdownServiceGroupValue[widget.customerIndex]
-                            [widget.serviceGroupIndex],
+                    provider.dropdownServiceGroupValue[widget.customerIndex]
+                    [widget.serviceGroupIndex],
                     icon: CustomIcon(
                       icon: LineIcons.chevron_down,
                       size: LayoutSize.medium,
@@ -578,34 +620,40 @@ class _ServicesSelectorState extends State<ServicesSelector> {
                         weight: FontWeight.w400,
                       ),
                     ),
-                    onChanged: (String? newValue) {
-                      setState(() {
+                    onChanged: (String? newValue)
+                    {
+                      setState(()
+                      {
                         provider.dropdownServiceGroupValue[widget.customerIndex]
-                            [widget.serviceGroupIndex] = newValue!;
+                        [widget.serviceGroupIndex] = newValue!;
                       });
                       provider.timeAndCostSubService[widget.customerIndex]
-                          [widget.serviceGroupIndex] = [0, 0];
+                      [widget.serviceGroupIndex] = [0, 0];
                       provider.dropdownSubServiceValue[widget.customerIndex]
-                          [widget.serviceGroupIndex] = null;
+                      [widget.serviceGroupIndex] = null;
 
                       provider.listCustomerService[widget.customerIndex]
-                          [widget.serviceGroupIndex][1] = null;
+                      [widget.serviceGroupIndex][1] = null;
                       widget.onChangedServiceGroup(widget
                           .dropdowServiceGroupData.entries
-                          .firstWhere((element) => element.value == newValue!)
+                          .firstWhere((element)
+                      => element.value == newValue!)
                           .key);
 
                       provider.listCustomerService[widget.customerIndex]
-                              [widget.serviceGroupIndex][0] =
+                      [widget.serviceGroupIndex][0] =
                           widget.dropdowServiceGroupData.entries
                               .firstWhere(
-                                  (element) => element.value == newValue!)
+                                  (element)
+                              => element.value == newValue!)
                               .key;
                     },
                     items: widget.dropdowServiceGroupData.entries
-                        .map((e) => e.value)
+                        .map((e)
+                    => e.value)
                         .toList()
-                        .map<DropdownMenuItem<String>>((String value) {
+                        .map<DropdownMenuItem<String>>((String value)
+                    {
                       return DropdownMenuItem<String>(
                         value: value,
                         child: Align(
@@ -629,7 +677,8 @@ class _ServicesSelectorState extends State<ServicesSelector> {
               width: 5,
             ),
             InkWell(
-              onTap: () {
+              onTap: ()
+              {
                 provider.removeServiceGroup(
                     customerIndex: widget.customerIndex,
                     serviceIndex: widget.serviceGroupIndex);
@@ -663,7 +712,7 @@ class _ServicesSelectorState extends State<ServicesSelector> {
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
               value: provider.dropdownSubServiceValue[widget.customerIndex]
-                  [widget.serviceGroupIndex],
+              [widget.serviceGroupIndex],
               isExpanded: true,
               icon: CustomIcon(
                 icon: LineIcons.chevron_down,
@@ -682,39 +731,44 @@ class _ServicesSelectorState extends State<ServicesSelector> {
                   weight: FontWeight.w400,
                 ),
               ),
-              onChanged: (String? newValue) {
-                setState(() {
+              onChanged: (String? newValue)
+              {
+                setState(()
+                {
                   provider.dropdownSubServiceValue[widget.customerIndex]
-                      [widget.serviceGroupIndex] = newValue!;
+                  [widget.serviceGroupIndex] = newValue!;
                 });
 
                 provider.listCustomerService[widget.customerIndex]
-                        [widget.serviceGroupIndex][1] =
+                [widget.serviceGroupIndex][1] =
                     provider
                         .listCustomerSubService[widget.customerIndex]
-                            [widget.serviceGroupIndex]
+                    [widget.serviceGroupIndex]
                         .entries
                         .firstWhere(
-                            (element) => element.value.keys.first == newValue!)
+                            (element)
+                        => element.value.keys.first == newValue!)
                         .key;
                 provider.timeAndCostSubService[widget.customerIndex]
-                        [widget.serviceGroupIndex] =
+                [widget.serviceGroupIndex] =
                     provider
                         .listCustomerSubService[widget.customerIndex]
-                            [widget.serviceGroupIndex][
-                            provider.listCustomerService[widget.customerIndex]
-                                [widget.serviceGroupIndex][1]]!
+                    [widget.serviceGroupIndex][
+                    provider.listCustomerService[widget.customerIndex]
+                    [widget.serviceGroupIndex][1]]!
                         .values
                         .first;
                 widget.onChangeSubService();
               },
               items: provider
                   .listCustomerSubService[widget.customerIndex]
-                      [widget.serviceGroupIndex]
+              [widget.serviceGroupIndex]
                   .entries
-                  .map((e) => e.value.keys.first)
+                  .map((e)
+              => e.value.keys.first)
                   .toList()
-                  .map<DropdownMenuItem<String>>((value) {
+                  .map<DropdownMenuItem<String>>((value)
+              {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Align(
@@ -738,19 +792,22 @@ class _ServicesSelectorState extends State<ServicesSelector> {
   }
 }
 
-List<int> sumTimeAndCostSubService(List<List<int>> list) {
+List<int> sumTimeAndCostSubService(List<List<int>> list)
+{
   List<int> sum = [0, 0];
-  for (int i = 0; i < list.length; i++) {
+  for (int i = 0; i < list.length; i++)
+  {
     sum[0] += list[i][0];
     sum[1] += list[i][1];
   }
   return sum;
 }
 
-int sumAvailableServiceTime(List<List<dynamic>>? list) {
+int sumAvailableServiceTime(List<List<dynamic>>? list)
+{
   var sum = 0;
   if (list == null) return 0;
-  for (int i = 0; i < list.length; i++) sum += list[i][2] as int;
-  print(sum);
+  for (int i = 0; i < list.length; i++)
+    sum += list[i][2] as int;
   return sum;
 }

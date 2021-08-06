@@ -1,4 +1,4 @@
-import 'package:easysalon_mobile_ui_kit/bloc/customer_services_bloc/customer_services_bloc.dart';
+import 'package:easysalon_mobile_ui_kit/provider/customer_services_provider/customer_services_provider.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/customer_services.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/page_header.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/space.dart';
