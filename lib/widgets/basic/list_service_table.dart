@@ -818,7 +818,7 @@ class _AccompaniedServiceTagState extends State<AccompaniedServiceTag> {
               onChanged: (valueText) {
                 setState(() {
                   widget
-                      .onChangeInput(int.parse(valueText.replaceAll(',', '')));
+                      .onChangeInput(valueText.length == 0 ? 0: int.parse(valueText.replaceAll(',', '')));
                 });
               },
             ),
