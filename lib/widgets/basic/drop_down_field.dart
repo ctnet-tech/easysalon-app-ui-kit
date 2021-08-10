@@ -20,7 +20,7 @@ class DropDownField extends StatefulWidget {
         this.sizeText = LayoutSize.large,
         this.hintColorFist = ThemeColor.secondary,
         this.fistDataIsHint =
-        false // = true thì setState nó sẽ update theo data fist còn false thì không,
+        false, this.customHeightContent  = 200// = true thì setState nó sẽ update theo data fist còn false thì không,
       })
       : super(key: key);
   final Map<String, String> dataDropDown;
@@ -32,6 +32,7 @@ class DropDownField extends StatefulWidget {
   final LayoutSize sizeText;
   final ThemeColor hintColorFist;
   final bool fistDataIsHint;
+  final double customHeightContent;
 
   @override
   State<StatefulWidget> createState() {
@@ -145,7 +146,7 @@ class _DropDownFieldState extends State<DropDownField> {
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                   border: Border.all(
                       color: theme.getColor(widget.colorBorder))),
-              height: 200,
+              height: widget.customHeightContent,
               width: double.infinity,
               child: Scrollbar(
                 isAlwaysShown: true,
