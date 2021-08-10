@@ -6,6 +6,7 @@ import 'package:easysalon_mobile_ui_kit/widgets/icons/CustomIcon.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/space.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/typography/paragraph.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class DepositBottomSheet extends StatefulWidget {
@@ -123,6 +124,7 @@ class _DepositBottomSheetState extends State<DepositBottomSheet> {
                               alignment: Alignment.centerRight,
                               child: InkWell(
                                 onTap: () {
+                                  Navigator.pop(context);
                                     widget.onChanged(listPaymentMethod);
                                 },
                                 child: Paragraph(
@@ -313,7 +315,6 @@ class _PaymentMethodFormState extends State<PaymentMethodForm> {
               onTap: () {
                 WidgetsBinding.instance!.addPostFrameCallback((_) {
                   context.findRootAncestorStateOfType()!.setState(() {
-                    print("12312top");
                     widget.onTapIcon();
                   });
                 });
@@ -422,6 +423,11 @@ class _PaymentMethodFormState extends State<PaymentMethodForm> {
                 child: TextField(
                   controller: widget.controller,
                   textAlign: TextAlign.left,
+                  keyboardType: TextInputType.number,
+                  textInputAction: TextInputAction.done,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
                   onSubmitted: (value) {
                     widget.onSubmittedTextField(value);
                   },
