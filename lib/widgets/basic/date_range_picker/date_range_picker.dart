@@ -103,10 +103,6 @@ class _DateRangePickerState extends State<DateRangePicker>
   Widget build(BuildContext context) {
     var theme = context.read<ThemeNotifier>().getTheme();
     var layout = context.read<LayoutNotifier>();
-    print(MediaQuery
-        .of(context)
-        .size
-        .width);
     var minHeight = 520;
     double height = MediaQuery
         .of(context)
