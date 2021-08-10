@@ -19,8 +19,7 @@ class DropDownField extends StatefulWidget {
         this.childHasUpdate = true,
         this.sizeText = LayoutSize.large,
         this.hintColorFist = ThemeColor.secondary,
-        this.fistDataIsHint =
-        false, this.customHeightContent  = 200// = true thì setState nó sẽ update theo data fist còn false thì không,
+        this.fistDataIsHint = false, this.customHeightContent  = 200// = true thì setState nó sẽ update theo data fist còn false thì không,
       })
       : super(key: key);
   final Map<String, String> dataDropDown;
@@ -155,7 +154,7 @@ class _DropDownFieldState extends State<DropDownField> {
                   child: Column(
                       children: dataDropDownField.length > 0
                           ? dataDropDownField.entries.map((value) {
-                        return ListTile(
+                        var itemSelect = ListTile(
                           title: Text('${value.value}',
                               style: TextStyle(
                                   color:
@@ -172,6 +171,7 @@ class _DropDownFieldState extends State<DropDownField> {
                             });
                           },
                         );
+                        return ((widget.fistDataIsHint == true) && (value.key == widget.dataDropDown.keys.first)) ? Container() : itemSelect;
                       }).toList()
                           : [
                         Center(
