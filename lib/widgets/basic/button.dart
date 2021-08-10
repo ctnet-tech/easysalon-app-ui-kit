@@ -76,17 +76,17 @@ class Button extends StatelessWidget {
     var contents = [
       hasIcon
           ? SpaceBox(
-              size: LayoutSize.tiny,
-              right: !this.vertical,
-              bottom: this.vertical,
-              child: iconWidget)
+          size: LayoutSize.tiny,
+          right: !this.vertical,
+          bottom: this.vertical,
+          child: iconWidget)
           : Text(""),
       vertical
           ? Text(this.content ?? "", style: TextStyle(fontSize: fontSize))
-          : Expanded(
-              child: Text(this.content ?? "",
-                  style: TextStyle(fontSize: fontSize),textAlign: TextAlign.center,),
-            )
+          : Flexible(
+        child:  Text(this.content ?? "",
+          style: TextStyle(fontSize: fontSize),textAlign: TextAlign.center,),
+      )
     ];
 
     var buttonContent = isIconOnly

@@ -143,6 +143,7 @@ class ButtonPage extends StatelessWidget {
                 content: "Tiếp Tục",
                 onPressed: this._onPressed),
             Button(
+
                 icon: LineIcons.plus,
                 content: "Tạo Lịch Hẹn",
                 outlined: true,
@@ -155,7 +156,14 @@ class ButtonPage extends StatelessWidget {
                 outlined: true,
                 solid: false,
 
-               )
+               ),
+            Button(
+              vertical: true,
+              icon: LineIcons.collapse_up,
+              color: ThemeColor.radicalRed,
+              content: "Tạo Phiếu Xuất",
+              onPressed: this._onPressed,
+            ),
           ],
         )
       ],
