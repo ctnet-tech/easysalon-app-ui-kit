@@ -20,96 +20,99 @@ class SuccessfulAppointmentDialog extends StatelessWidget {
     var theme = context.read<ThemeNotifier>().getTheme();
     var layout = context.read<LayoutNotifier>();
 
-    return Center(
-      child: Container(
-        margin: EdgeInsets.symmetric(
-            horizontal: layout.sizeToPadding(LayoutSize.medium)),
-        height: MediaQuery.of(context).size.height / 2,
-        child: Panel(
-          color: ThemeColor.lightest,
-          rounded: true,
-          child: Column(
-            children: [
-              SizedBox(
-                height: 20,
-              ),
-              Expanded(
-                flex: 1,
-                child: Image.asset(
-                  "assets/images/success_appointment.png",
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Center(
+        child: Container(
+          margin: EdgeInsets.symmetric(
+              horizontal: layout.sizeToPadding(LayoutSize.medium)),
+          height: MediaQuery.of(context).size.height / 2,
+          child: Panel(
+            color: ThemeColor.lightest,
+            rounded: true,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 20,
                 ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
-                      children: [
-                        Paragraph(
-                          hasAlignment: true,
-                          isCenter: true,
-                          content: "Đặt lịch hẹn thành công!",
-                          size: LayoutSize.small,
-                          linePadding: LayoutSize.none,
-                          weight: FontWeight.w400,
-                          color: ThemeColor.dark,
-                        ),
-                        Paragraph(
-                          hasAlignment: true,
-                          isCenter: true,
-                          linePadding: LayoutSize.none,
-                          size: LayoutSize.small,
-                          weight: FontWeight.w400,
-                          textAlign: TextAlign.center,
-                          contents: [
-                            ParagraphContent(
-                              content:
-                                  "Vui lòng kiểm tra lịch hẹn mà bạn\nvừa đặt tại mục",
-                              color: ThemeColor.secondary,
-                              weight: FontWeight.w400,
-                            ),
-                            ParagraphContent(
-                              content: "Lịch hẹn",
-                              color: ThemeColor.dark,
-                              weight: FontWeight.w400,
-                            ),
-                            ParagraphContent(
-                              content: ".",
-                              color: ThemeColor.secondary,
-                              weight: FontWeight.w400,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    GestureDetector(
-                      onTap: onTapNavigator,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                Expanded(
+                  flex: 1,
+                  child: Image.asset(
+                    "assets/images/success_appointment.png",
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
                         children: [
                           Paragraph(
-                            content: "Đi đến lịch hẹn",
-                            size: LayoutSize.medium,
+                            hasAlignment: true,
+                            isCenter: true,
+                            content: "Đặt lịch hẹn thành công!",
+                            size: LayoutSize.small,
                             linePadding: LayoutSize.none,
                             weight: FontWeight.w400,
-                            color: ThemeColor.dodgerBlue,
+                            color: ThemeColor.dark,
                           ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          CustomIcon(
-                            icon: LineIcons.arrow_right,
-                            size: LayoutSize.medium,
-                            color: ThemeColor.dodgerBlue,
+                          Paragraph(
+                            hasAlignment: true,
+                            isCenter: true,
+                            linePadding: LayoutSize.none,
+                            size: LayoutSize.small,
+                            weight: FontWeight.w400,
+                            textAlign: TextAlign.center,
+                            contents: [
+                              ParagraphContent(
+                                content:
+                                    "Vui lòng kiểm tra lịch hẹn mà bạn\nvừa đặt tại mục",
+                                color: ThemeColor.secondary,
+                                weight: FontWeight.w400,
+                              ),
+                              ParagraphContent(
+                                content: "Lịch hẹn",
+                                color: ThemeColor.dark,
+                                weight: FontWeight.w400,
+                              ),
+                              ParagraphContent(
+                                content: ".",
+                                color: ThemeColor.secondary,
+                                weight: FontWeight.w400,
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    )
-                  ],
+                      GestureDetector(
+                        onTap: onTapNavigator,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Paragraph(
+                              content: "Đi đến lịch hẹn",
+                              size: LayoutSize.medium,
+                              linePadding: LayoutSize.none,
+                              weight: FontWeight.w400,
+                              color: ThemeColor.dodgerBlue,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            CustomIcon(
+                              icon: LineIcons.arrow_right,
+                              size: LayoutSize.medium,
+                              color: ThemeColor.dodgerBlue,
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
