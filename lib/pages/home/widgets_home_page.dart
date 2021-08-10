@@ -75,7 +75,7 @@ class _WidgetsHomePageState extends State<WidgetsHomePage> {
                               context: context,
                               builder: (_) => SuccessfulAppointmentDialog(
                                     onTapNavigator: () {
-                                      print("onTap");
+                                      Navigator.push(context, MaterialPageRoute(builder: (_)=> WidgetsHomePage() ));
                                     },
                                   ));
                         },
