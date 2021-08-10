@@ -6,33 +6,33 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/divider.dart'
-    as dividerCustom;
+as dividerCustom;
 
 enum StatusType { hasConfirm, checkIn, hasCancel }
 
 class AppointmentSchedulePanel extends StatefulWidget {
   AppointmentSchedulePanel(
       {Key? key,
-      this.statusType = StatusType.hasConfirm,
-      this.themeColor = ThemeColor.lightest,
-      this.borderRadius = LayoutSize.medium,
-      this.marginPanel = LayoutSize.small,
-      this.paddingPanel = LayoutSize.small,
-      this.checkSwitch = true,
-      this.timeText = "00:00",
-      this.userText = "user - phone number",
-      this.showUser = true,
-      this.textSwitch = "Nhắc Lịch",
-      this.onPressedDepositButton,
-      this.onPressedCustomButton,
-      this.onPressedDeleteButton,
-      this.onChangeSwitch,
-      this.data = const [],
-      this.dataFontSize = LayoutSize.medium,
-      this.noteText = "",
-      this.fontSizeNoteText = LayoutSize.medium,
-      this.hasShowNote = true,
-      this.hasShowUser = true})
+        this.statusType = StatusType.hasConfirm,
+        this.themeColor = ThemeColor.lightest,
+        this.borderRadius = LayoutSize.medium,
+        this.marginPanel = LayoutSize.small,
+        this.paddingPanel = LayoutSize.small,
+        this.checkSwitch = true,
+        this.timeText = "00:00",
+        this.userText = "user - phone number",
+        this.showUser = true,
+        this.textSwitch = "Nhắc Lịch",
+        this.onPressedDepositButton,
+        this.onPressedCustomButton,
+        this.onPressedDeleteButton,
+        this.onChangeSwitch,
+        this.data = const [],
+        this.dataFontSize = LayoutSize.medium,
+        this.noteText = "",
+        this.fontSizeNoteText = LayoutSize.medium,
+        this.hasShowNote = true,
+        this.hasShowUser = true, this.showDeposit = false})
       : super(key: key);
   final StatusType statusType;
   final ThemeColor themeColor;
@@ -54,6 +54,7 @@ class AppointmentSchedulePanel extends StatefulWidget {
   final List<List<dynamic>> data;
   final bool hasShowNote;
   final bool hasShowUser;
+  final bool showDeposit;
 
   @override
   State<StatefulWidget> createState() {
@@ -86,7 +87,7 @@ class _AppointmentSchedulePanelState extends State<AppointmentSchedulePanel> {
                 alignment: Alignment.center,
                 width: constraints.maxWidth * 0.7,
                 child: Text(
-                  "${text}",
+                  "$text",
                   style: TextStyle(
                       color: theme.getColor(color),
                       fontSize: 16,
@@ -121,7 +122,7 @@ class _AppointmentSchedulePanelState extends State<AppointmentSchedulePanel> {
     }
 
     var iconText = (
-            {padding = LayoutSize.medium, required text, required iconData}) =>
+        {padding = LayoutSize.medium, required text, required iconData}) =>
         Container(
           margin: EdgeInsets.only(bottom: layout.sizeToPadding(padding)),
           child: Row(
@@ -136,7 +137,7 @@ class _AppointmentSchedulePanelState extends State<AppointmentSchedulePanel> {
                 child: Expanded(
                   flex: 1,
                   child: Text(
-                    "${text}",
+                    "$text",
                     style: TextStyle(
                         color: theme.getColor(ThemeColor.bondiBlue),
                         fontSize: layout.sizeToFontSize(LayoutSize.medium)),
@@ -147,29 +148,29 @@ class _AppointmentSchedulePanelState extends State<AppointmentSchedulePanel> {
           ),
         );
     var mainTopWidget = ({required constraints}) => Container(
-          width: double.infinity,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: constraints.maxWidth * 0.58,
-                child: Column(
-                  children: [
-                    iconText(text: widget.timeText, iconData: LineIcons.clock),
-                    widget.hasShowUser
-                        ? iconText(
-                            text: widget.userText, iconData: LineIcons.user)
-                        : Container()
-                  ],
-                ),
-              ),
-              Container(
-                  height: 40,
-                  width: constraints.maxWidth * 0.42,
-                  child: getStatusTag(statusType: widget.statusType))
-            ],
+      width: double.infinity,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: constraints.maxWidth * 0.58,
+            child: Column(
+              children: [
+                iconText(text: widget.timeText, iconData: LineIcons.clock),
+                widget.hasShowUser
+                    ? iconText(
+                    text: widget.userText, iconData: LineIcons.user)
+                    : Container()
+              ],
+            ),
           ),
-        );
+          Container(
+              height: 40,
+              width: constraints.maxWidth * 0.42,
+              child: getStatusTag(statusType: widget.statusType))
+        ],
+      ),
+    );
     var noteWidget = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -187,148 +188,149 @@ class _AppointmentSchedulePanelState extends State<AppointmentSchedulePanel> {
     _onPressed() {}
     _onChange(bool check) {}
     var mainBottomWidget = ({required constraints}) => Container(
-          padding:
-              EdgeInsets.only(top: layout.sizeToPadding(widget.paddingPanel)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+      padding:
+      EdgeInsets.only(top: layout.sizeToPadding(widget.paddingPanel)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          widget.hasShowNote ? noteWidget : Container(),
+          Row(
             children: [
-              widget.hasShowNote ? noteWidget : Container(),
-              Row(
+              Container(
+                  padding: EdgeInsets.only(
+                      right: layout.sizeToPadding(LayoutSize.small)),
+                  child: Transform.scale(
+                    scale: 0.8,
+                    child: CupertinoSwitch(
+                        activeColor:
+                        theme.getColor(ThemeColor.mountainMeadow),
+                        value: widget.checkSwitch,
+                        onChanged: (data) {
+                          this.widget.onChangeSwitch!(data) ??
+                              _onChange(data);
+                          setState(() {
+                            widget.checkSwitch = data;
+                          });
+                        }),
+                  )),
+              Expanded(
+                child: Text(
+                  widget.textSwitch,
+                  style: TextStyle(
+                      color: theme.getColor(ThemeColor.secondary),
+                      fontSize: layout.sizeToFontSize(LayoutSize.medium)),
+                ),
+              ),
+              Container(
+                  width:  widget.showDeposit ? constraints.maxWidth * 0.65 : constraints.maxWidth * 0.35,
+                  alignment: Alignment.centerRight,
+                  child: LayoutBuilder(
+                    builder: (context, constraintsBelow) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          widget.showDeposit ? Container(
+                            padding: EdgeInsets.all(2),
+                            width: constraintsBelow.maxWidth * 0.5,
+                            child: Button(
+                              onPressed:
+                              this.widget.onPressedDepositButton ??
+                                  _onPressed(),
+                              customColorBorder: ThemeColor.weak,
+                              color: ThemeColor.secondary,
+                              iconSize: LayoutSize.large,
+                              fontSizeText: LayoutSize.medium,
+                              icon: LineIcons.bill,
+                              content: "Đặt Cọc",
+                              outlined: true,
+                              solid: false,
+                            ),
+                          ) : Container(),
+                          Container(
+                            padding: EdgeInsets.all(2),
+                            width:  widget.showDeposit ? constraintsBelow.maxWidth * 0.25 :constraintsBelow.maxWidth * 0.5,
+                            child: Button(
+                              customColorBorder: ThemeColor.weak,
+                              onPressed:
+                              this.widget.onPressedCustomButton ??
+                                  _onPressed(),
+                              color: ThemeColor.secondary,
+                              iconSize: LayoutSize.large,
+                              solid: false,
+                              outlined: true,
+                              buttonIconSize: LayoutSize.large,
+                              icon: LineIcons.edit_square_feather,
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(2),
+                            width: widget.showDeposit ? constraintsBelow.maxWidth * 0.25 :constraintsBelow.maxWidth * 0.5,
+                            child: Button(
+                              onPressed:
+                              this.widget.onPressedDeleteButton ??
+                                  _onPressed(),
+                              customColorBorder: ThemeColor.weak,
+                              color: ThemeColor.secondary,
+                              iconSize: LayoutSize.large,
+                              solid: false,
+                              outlined: true,
+                              buttonIconSize: LayoutSize.large,
+                              icon: LineIcons.trash,
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ))
+            ],
+          )
+        ],
+      ),
+    );
+
+    final List fixedListData =
+    Iterable<int>.generate(widget.data.length).toList();
+    var mainDataWidget = ({required constraints}) => Container(
+      child: Column(
+        children: fixedListData
+            .map(
+              (index) => LayoutBuilder(builder: (context, constraintsRow) {
+            return Container(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                      padding: EdgeInsets.only(
-                          right: layout.sizeToPadding(LayoutSize.small)),
-                      child: Transform.scale(
-                        scale: 0.8,
-                        child: CupertinoSwitch(
-                            activeColor:
-                                theme.getColor(ThemeColor.mountainMeadow),
-                            value: widget.checkSwitch,
-                            onChanged: (data) {
-                              this.widget.onChangeSwitch!(data) ??
-                                  _onChange(data);
-                              setState(() {
-                                widget.checkSwitch = data;
-                              });
-                            }),
-                      )),
-                  Expanded(
-                    child: Text(
-                      widget.textSwitch,
+                    padding: EdgeInsets.all(
+                        layout.sizeToPadding(LayoutSize.tiny)),
+                    width: constraintsRow.maxWidth * 0.2,
+                    child: widget.data[index][0] is Widget
+                        ? widget.data[index][0]
+                        : Text(
+                      "${widget.data[index][0]}",
                       style: TextStyle(
-                          color: theme.getColor(ThemeColor.secondary),
-                          fontSize: layout.sizeToFontSize(LayoutSize.medium)),
+                          fontSize: layout.sizeToFontSize(
+                              widget.dataFontSize)),
                     ),
                   ),
                   Container(
-                      width: constraints.maxWidth * 0.65,
-                      alignment: Alignment.centerRight,
-                      child: LayoutBuilder(
-                        builder: (context, constraintsBelow) {
-                          return Row(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.all(2),
-                                width: constraintsBelow.maxWidth * 0.5,
-                                child: Button(
-                                  onPressed:
-                                      this.widget.onPressedDepositButton ??
-                                          _onPressed(),
-                                  customColorBorder: ThemeColor.weak,
-                                  color: ThemeColor.secondary,
-                                  iconSize: LayoutSize.large,
-                                  fontSizeText: LayoutSize.medium,
-                                  icon: LineIcons.bill,
-                                  content: "Đặt Cọc",
-                                  outlined: true,
-                                  solid: false,
-                                ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.all(2),
-                                width: constraintsBelow.maxWidth * 0.25,
-                                child: Button(
-                                  customColorBorder: ThemeColor.weak,
-                                  onPressed:
-                                      this.widget.onPressedCustomButton ??
-                                          _onPressed(),
-                                  color: ThemeColor.secondary,
-                                  iconSize: LayoutSize.large,
-                                  solid: false,
-                                  outlined: true,
-                                  buttonIconSize: LayoutSize.large,
-                                  icon: LineIcons.edit_square_feather,
-                                ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.all(2),
-                                width: constraintsBelow.maxWidth * 0.25,
-                                child: Button(
-                                  onPressed:
-                                      this.widget.onPressedDeleteButton ??
-                                          _onPressed(),
-                                  customColorBorder: ThemeColor.weak,
-                                  color: ThemeColor.secondary,
-                                  iconSize: LayoutSize.large,
-                                  solid: false,
-                                  outlined: true,
-                                  buttonIconSize: LayoutSize.large,
-                                  icon: LineIcons.trash,
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      ))
+                    padding: EdgeInsets.all(
+                        layout.sizeToPadding(LayoutSize.tiny)),
+                    width: constraintsRow.maxWidth * 0.8,
+                    child: widget.data[index][1] is Widget
+                        ? widget.data[index][1]
+                        : Text("${widget.data[index][1]}",
+                        style: TextStyle(
+                            fontSize: layout.sizeToFontSize(
+                                widget.dataFontSize))),
+                  )
                 ],
-              )
-            ],
-          ),
-        );
-
-    final List fixedListData =
-        Iterable<int>.generate(widget.data.length).toList();
-    var mainDataWidget = ({required constraints}) => Container(
-          child: Column(
-            children: fixedListData
-                .map(
-                  (index) => LayoutBuilder(builder: (context, constraintsRow) {
-                    return Container(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(
-                                layout.sizeToPadding(LayoutSize.tiny)),
-                            width: constraintsRow.maxWidth * 0.2,
-                            child: widget.data[index][0] is Widget
-                                ? widget.data[index][0]
-                                : Text(
-                                    "${widget.data[index][0]}",
-                                    style: TextStyle(
-                                        fontSize: layout.sizeToFontSize(
-                                            widget.dataFontSize)),
-                                  ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.all(
-                                layout.sizeToPadding(LayoutSize.tiny)),
-                            width: constraintsRow.maxWidth * 0.8,
-                            child: widget.data[index][1] is Widget
-                                ? widget.data[index][1]
-                                : Text("${widget.data[index][1]}",
-                                    style: TextStyle(
-                                        fontSize: layout.sizeToFontSize(
-                                            widget.dataFontSize))),
-                          )
-                        ],
-                      ),
-                    );
-                  }),
-                )
-                .toList(),
-          ),
-        );
+              ),
+            );
+          }),
+        )
+            .toList(),
+      ),
+    );
     return Container(
         width: double.infinity,
         padding: EdgeInsets.all(paddingPanel),
@@ -345,8 +347,8 @@ class _AppointmentSchedulePanelState extends State<AppointmentSchedulePanel> {
                 mainTopWidget(constraints: constraints),
                 widget.hasShowUser
                     ? dividerCustom.Divider(
-                        customHeight: constraints.maxWidth,
-                      )
+                  customHeight: constraints.maxWidth,
+                )
                     : Container(),
                 mainDataWidget(constraints: constraints),
                 dividerCustom.Divider(
