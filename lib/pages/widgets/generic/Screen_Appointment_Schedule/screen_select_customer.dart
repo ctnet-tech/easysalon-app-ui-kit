@@ -1,6 +1,7 @@
 import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
 import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/basic/custom_textfield.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/drop_down_field.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/header_bar.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/standard_page.dart';
@@ -17,35 +18,64 @@ class ScreenSelectCustomer extends StatefulWidget {
 }
 
 class _ScreenSelectCustomerState extends State<ScreenSelectCustomer> {
-  Map<String,String> dataDropDown = {
-  '': 'Chọn Khách Hàng ...',
-  'key1': 'An Như - 0989 789 777 ',
-  'key2': 'Tâm Như - 0911 312 222',
+  TextEditingController _textPhoneNumberController = TextEditingController();
+  bool showPhoneNumber = false;
+  Map<String, String> dataDropDown = {
+    '': 'Chọn Khách Hàng ...',
+    'key1': 'An Như - 0989 789 777',
+    'key2': 'Tâm Như - 0911 312 222',
   };
+  Map<String, String> dataPhoneNumBer = {
+    '': '',
+    'key1': '0989 789 777',
+    'key2': '0911 312 222',
+  };
+
+  @override
+  void dispose() {
+    this._textPhoneNumberController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var theme = context.read<ThemeNotifier>().getTheme();
     var layout = context.read<LayoutNotifier>();
 
-    var dropDownSelectCustomer = Padding(padding: EdgeInsets.all(layout.sizeToPadding(LayoutSize.small)),child: DropDownField(
-      customFistChildDropDown: ListTile(
-        title: Text(
-          "Tạo Khách Hàng Mới",
-          style: TextStyle(color: theme.getColor(ThemeColor.bondiBlue)),
+    var dropDownSelectCustomer = Padding(
+      padding: EdgeInsets.all(layout.sizeToPadding(LayoutSize.small)),
+      child: DropDownField(
+
+        customFistChildDropDown: ListTile(
+          title: Text(
+            "Tạo Khách Hàng Mới",
+            style: TextStyle(color: theme.getColor(ThemeColor.bondiBlue)),
+          ),
+          trailing: Icon(
+            LineIcons.add_item,
+            color: theme.getColor(ThemeColor.bondiBlue),
+          ),
         ),
-        trailing: Icon(
-          LineIcons.add_item,
-          color: theme.getColor(ThemeColor.bondiBlue),
-        ),
+        fistDataIsHint: true,
+        trailingIcon: Icon(Icons.arrow_forward_rounded),
+        isDropUp: false,
+        dataDropDown: this.dataDropDown,
+        onChanged: (key) {
+          setState(() {
+            this.showPhoneNumber = key != this.dataDropDown.keys.first;
+            this._textPhoneNumberController.text = dataPhoneNumBer[key].toString();
+          });
+        },
       ),
-      fistDataIsHint: true,
-      trailingIcon: Icon(Icons.arrow_forward_rounded),
-      isDropUp: false,
-      dataDropDown: this.dataDropDown,
-      onChanged: (key) {
-        print('$key--------key click');
-      },
-    ),);
+    );
+    var textFieldShowPhoneNumber = Padding(
+      padding: EdgeInsets.only(
+          right: layout.sizeToPadding(LayoutSize.small),
+          left: layout.sizeToPadding(LayoutSize.small)),
+      child: CustomTextField(
+        textEditingController: this._textPhoneNumberController,
+      ),
+    );
 
     return StandardPage(
       header: HeaderBar(
@@ -60,7 +90,8 @@ class _ScreenSelectCustomerState extends State<ScreenSelectCustomer> {
         ),
       ),
       children: [
-        dropDownSelectCustomer
+        dropDownSelectCustomer,
+        showPhoneNumber ? textFieldShowPhoneNumber : Container()
       ],
     );
   }
