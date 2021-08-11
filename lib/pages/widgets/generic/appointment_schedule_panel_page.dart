@@ -112,6 +112,22 @@ class _AppointmentSchedulePanelPageState
             },
             hasCustomer: false,
           ),
+          InvoiceStatusTag(
+            colorTextTypeCustomer: ThemeColor.bondiBlue,
+            textTypeCustomer: "[Khách Mới]Bảo An",
+            typeOfInvoice: TypeOfInvoice.debt,
+            listService: [
+              ['1', 'Đánh thức giác quan bằng thảo dược'],
+              ['1', 'Đánh thức giác quan bằng thảo dược']
+            ],
+            numberOfCount: "(STT: 05)",
+            totalInvoice: "200.000đ",
+            textTime: "09:35 01/10/2020",
+            onPressed: (){
+              print("click tag chưa thanh toán");
+            },
+            hasCustomer: false,
+          ),
           SlidableTag(
             divideByPercent: [0.3,0.4,0.3],
             dataFistRow: ["Tên nhân viên","Số điện thoại","Nhóm"],
