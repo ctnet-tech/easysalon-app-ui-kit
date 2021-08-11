@@ -1,3 +1,4 @@
+import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
 import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/appointment_schedule_panel.dart';
@@ -14,6 +15,7 @@ as dividerCustom;
 import 'package:easysalon_mobile_ui_kit/widgets/layout/standard_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
 class AppointmentSchedulePanelPage extends StatefulWidget {
   static const String path = '/pages/widgets/appointment_schedule_panel_page';
@@ -34,6 +36,8 @@ class _AppointmentSchedulePanelPageState
 
   @override
   Widget build(BuildContext context) {
+    var theme = context.read<ThemeNotifier>().getTheme();
+    var layout = context.read<LayoutNotifier>();
     return StandardPage(
 
         header: MenuTopBarCustom(
@@ -356,9 +360,18 @@ class _AppointmentSchedulePanelPageState
             margin: EdgeInsets.all(20),
             padding: EdgeInsets.all(10),
             child: DropDownField(
+              customFistChildDropDown: ListTile(
+                title: Text("Tạo Khách Hàng Mới",style: TextStyle(
+                  color: theme.getColor(ThemeColor.bondiBlue)
+                ),),
+                trailing: Icon(LineIcons.add_item,color:theme.getColor(ThemeColor.bondiBlue) ,),
+              ),
+              fistDataIsHint: true,
+              trailingIcon: Icon(Icons.arrow_forward_rounded),
+              isDropUp: false,
               dataDropDown: {
-                '': 'Vui Lòng Nhập..',
-                'key1': 'Nhân Viên',
+                '': 'Chọn Khách Hàng ...',
+                'key1': 'Khách Hàng ',
                 'key2': 'data2',
                 'key3': 'data3',
                 'key4': 'data4',
