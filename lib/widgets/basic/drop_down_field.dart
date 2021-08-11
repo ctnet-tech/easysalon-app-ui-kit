@@ -21,7 +21,7 @@ class DropDownField extends StatefulWidget {
       this.hintColorFist = ThemeColor.secondary,
       this.fistDataIsHint = false,
       this.customHeightContent = 200,
-      this.customFistChildDropDown, this.trailingIcon, this.isDropUp = true, this.customHeightTextField = 50, this.colorChildText,
+      this.customFistChildDropDown, this.trailingIcon, this.isDropUp = true, this.customHeightTextField = 50, this.colorChildText, this.colorTextField,
       })
       : super(key: key);
   final Map<String, String> dataDropDown;
@@ -39,6 +39,7 @@ class DropDownField extends StatefulWidget {
   final bool isDropUp;
   final double customHeightTextField;
   final ThemeColor? colorChildText;
+  final ThemeColor? colorTextField;
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -126,8 +127,8 @@ class _DropDownFieldState extends State<DropDownField> {
               color: widget.fistDataIsHint
                   ? (keyChange == widget.dataDropDown.keys.first
                   ? theme.getColor(widget.hintColorFist)
-                  : theme.getColor(widget.colorChildText ?? ThemeColor.dark))
-                  : theme.getColor(widget.colorChildText ?? ThemeColor.dark),
+                  : theme.getColor(widget.colorTextField ?? ThemeColor.dark))
+                  : theme.getColor(widget.colorTextField ?? ThemeColor.dark),
               fontSize: layout.sizeToFontSize(widget.sizeText)),
           decoration: InputDecoration(
             suffixIcon: new Icon(
@@ -154,7 +155,7 @@ class _DropDownFieldState extends State<DropDownField> {
             var itemSelect = ListTile(
               title: Text('${value.value}',
                   style: TextStyle(
-                      color: theme.getColor(ThemeColor.dark),
+                      color: theme.getColor(widget.colorChildText ?? ThemeColor.dark),
                       fontSize: layout.sizeToFontSize(widget.sizeText))),
               onTap: () {
                 this.focusNode.unfocus();
