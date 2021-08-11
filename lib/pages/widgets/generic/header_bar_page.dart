@@ -2,6 +2,7 @@ import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
 import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/custom_tab_bar.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/basic/drop_down_field.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/icons/CustomIcon.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/header_bar.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/page_header.dart';
@@ -21,13 +22,24 @@ class HeaderBarPage extends StatefulWidget {
 }
 
 class _HeaderBarPageState extends State<HeaderBarPage> with SingleTickerProviderStateMixin {
- late TabController tabController;
+  late TabController tabController;
+
   _basicHeaderBar() {
     return HeaderBar(
-      leading: BackButton(),
-      title: "The Title",
-      titleCenter: true,
-      action: SizedBox(width: 20,),
+      leading: CustomIcon(
+        icon: LineIcons.arrow_left,
+        color: ThemeColor.dark,
+        size: LayoutSize.medium,
+      ),
+      title: Paragraph(
+        content: "The Title",
+        color: ThemeColor.dark,
+        isCenter: true,
+        linePadding: LayoutSize.none,
+      ),
+      action: SizedBox(
+        width: 24,
+      ),
     );
   }
 
@@ -38,8 +50,12 @@ class _HeaderBarPageState extends State<HeaderBarPage> with SingleTickerProvider
         color: ThemeColor.secondary,
         linePadding: LayoutSize.none,
       ),
-      title: "The Title",
-      titleCenter: true,
+      title: Paragraph(
+        content: "The Title",
+        color: ThemeColor.dark,
+        isCenter: true,
+        linePadding: LayoutSize.none,
+      ),
       action: CustomIcon(
         icon: LineIcons.more_v,
         color: ThemeColor.secondary,
@@ -49,7 +65,15 @@ class _HeaderBarPageState extends State<HeaderBarPage> with SingleTickerProvider
 
   _headerBarHasChildren() {
     return HeaderBar(
-      title: "The Title",
+      leading: SizedBox(
+        width: 24,
+      ),
+      title: Paragraph(
+        content: "The Title",
+        color: ThemeColor.dark,
+        isCenter: true,
+        linePadding: LayoutSize.none,
+      ),
       action: CustomIcon(
         icon: LineIcons.search,
         color: ThemeColor.secondary,
@@ -66,11 +90,56 @@ class _HeaderBarPageState extends State<HeaderBarPage> with SingleTickerProvider
     );
   }
 
+  _headerBar4() {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Column(
+          children: [
+            HeaderBar(
+              backgroundColor: ThemeColor.dodgerBlue,
+              title: DropDownField(dataDropDown: {"key1":"RUBY Beauty Salon"},onChanged: (value){},colorTheme: ThemeColor.dodgerBlue,sizeText: LayoutSize.medium,keyDataFistTime: "key1",),
+              action: CustomIcon(
+                icon: LineIcons.bell,
+                color: ThemeColor.lightest,
+              ),
+              bottomChildren: [
+                SizedBox(
+                  height: 30,
+                )
+              ],
+            ),
+            SizedBox(
+              height: 25,
+            ),
+          ],
+        ),
+        Positioned(
+          bottom: 0,
+          child: Container(
+            height: 50,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Paragraph(
+              content: "Hôm nay bạn có 2 lịch hẹn.",
+              color: ThemeColor.dark,
+              isCenter: true,
+              linePadding: LayoutSize.none,
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
   @override
   void initState() {
-    tabController= TabController(length: 3, vsync: this);
+    tabController = TabController(length: 3, vsync: this);
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return StandardPage(
@@ -82,6 +151,7 @@ class _HeaderBarPageState extends State<HeaderBarPage> with SingleTickerProvider
                 SpaceBox(size: LayoutSize.big, bottom: true, child: _basicHeaderBar()),
                 SpaceBox(size: LayoutSize.big, bottom: true, child: _basicHeaderBar2()),
                 SpaceBox(size: LayoutSize.big, bottom: true, child: _headerBarHasChildren()),
+                SpaceBox(size: LayoutSize.big, bottom: true, child: _headerBar4()),
               ]))
         ]);
   }

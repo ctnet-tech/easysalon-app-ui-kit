@@ -8,8 +8,7 @@ import 'package:flutter/material.dart';
 class HeaderBar extends StatelessWidget {
   final Widget? leading;
   final Widget? action;
-  final String title;
-  final bool titleCenter;
+  final Widget? title;
   final LayoutSize titleSize;
   final ThemeColor titleColor;
   final List<Widget>? bottomChildren;
@@ -19,12 +18,11 @@ class HeaderBar extends StatelessWidget {
     Key? key,
     this.leading,
     this.action,
-    required this.title,
-    this.titleCenter = false,
+    this.title,
     this.titleColor = ThemeColor.dark,
     this.titleSize = LayoutSize.large,
     this.bottomChildren,
-    this.backgroundColor=ThemeColor.lightest,
+    this.backgroundColor = ThemeColor.lightest,
   }) : super(key: key);
 
   @override
@@ -40,19 +38,11 @@ class HeaderBar extends StatelessWidget {
             Row(
               children: [
                 if (leading != null) leading!,
-                Expanded(
-                  child: Paragraph(
-                    content: title,
-                    size: titleSize,
-                    color: titleColor,
-                    linePadding: LayoutSize.none,
-                    isCenter: titleCenter,
-                  ),
-                ),
+                if (title != null) Expanded(child: title!),
                 if (action != null) action!,
               ],
             ),
-            if(bottomChildren!=null) ...bottomChildren!,
+            if (bottomChildren != null) ...bottomChildren!,
           ],
         ),
       ),
