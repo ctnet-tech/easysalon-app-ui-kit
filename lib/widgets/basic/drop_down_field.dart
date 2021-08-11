@@ -11,17 +11,17 @@ import 'package:tiengviet/tiengviet.dart';
 class DropDownField extends StatefulWidget {
   DropDownField(
       {Key? key,
-      required this.dataDropDown,
-      this.keyDataFistTime = '',
-      required this.onChanged,
-      this.colorTheme = ThemeColor.lightest,
-      this.colorBorder = ThemeColor.pattensBlue,
-      this.childHasUpdate = true,
-      this.sizeText = LayoutSize.large,
-      this.hintColorFist = ThemeColor.secondary,
-      this.fistDataIsHint = false,
-      this.customHeightContent = 200,
-      this.customFistChildDropDown, this.trailingIcon, this.isDropUp = true, this.customHeightTextField = 50, this.colorChildText, this.colorTextField, this.dataShowTextField,
+        required this.dataDropDown,
+        this.keyDataFistTime = '',
+        required this.onChanged,
+        this.colorTheme = ThemeColor.lightest,
+        this.colorBorder = ThemeColor.pattensBlue,
+        this.childHasUpdate = true,
+        this.sizeText = LayoutSize.large,
+        this.hintColorFist = ThemeColor.secondary,
+        this.fistDataIsHint = false,
+        this.customHeightContent = 200,
+        this.customFistChildDropDown, this.trailingIcon, this.isDropUp = true, this.customHeightTextField = 50, this.colorChildText, this.colorTextField, this.dataShowTextField,
       })
       : super(key: key);
   final Map<String, String> dataDropDown;
@@ -55,7 +55,7 @@ class _DropDownFieldState extends State<DropDownField> {
   String keyChange = '';
   Map<String, String> dataDropDownField = {};
   late ScrollController _scrollController ;
-
+  late bool checkHasDataShowTextField ;
   @override
   void dispose() {
     txtFieldController.dispose();
@@ -65,6 +65,7 @@ class _DropDownFieldState extends State<DropDownField> {
 
   @override
   void initState() {
+    checkHasDataShowTextField  = widget.dataShowTextField != null ;
     _scrollController = new ScrollController();
     print("go there ${widget.keyDataFistTime}");
     keyChange = widget.keyDataFistTime;
@@ -77,7 +78,7 @@ class _DropDownFieldState extends State<DropDownField> {
         checkFocus = focusNode.hasFocus;
       });
       if (!focusNode.hasFocus) {
-        txtFieldController.text = widget.dataDropDown[keyChange]!;
+        txtFieldController.text = checkHasDataShowTextField ? widget.dataShowTextField![keyChange]! : widget.dataDropDown[keyChange]!;
       }
     });
   }
@@ -86,7 +87,7 @@ class _DropDownFieldState extends State<DropDownField> {
   void didUpdateWidget(covariant DropDownField oldWidget) {
     if (widget.childHasUpdate) {
       txtFieldController.text =
-          widget.dataDropDown[widget.keyDataFistTime] ?? '';
+      widget.dataDropDown[widget.keyDataFistTime] != null ? checkHasDataShowTextField ? widget.dataShowTextField![widget.keyDataFistTime]! : widget.dataDropDown[widget.keyDataFistTime]! : '';
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -153,34 +154,34 @@ class _DropDownFieldState extends State<DropDownField> {
 
     List<Widget> displayListDropDown = dataDropDownField.length > 0
         ? dataDropDownField.entries.map((value) {
-            var itemSelect = ListTile(
-              title: Text('${value.value}',
-                  style: TextStyle(
-                      color: theme.getColor(widget.colorChildText ?? ThemeColor.dark),
-                      fontSize: layout.sizeToFontSize(widget.sizeText))),
-              onTap: () {
-                this.focusNode.unfocus();
-                setState(() {
-                  this.txtFieldController.text = widget.dataShowTextField != null? widget.dataShowTextField![value.key].toString() : value.value  ;
-                  this.keyChange = value.key;
-                  widget.onChanged(value.key);
-                });
-              },
-              trailing: widget.trailingIcon,
-            );
-            return ((widget.fistDataIsHint == true) &&
-                    (value.key == widget.dataDropDown.keys.first))
-                ? Container()
-                : itemSelect;
-          }).toList()
+      var itemSelect = ListTile(
+        title: Text('${value.value}',
+            style: TextStyle(
+                color: theme.getColor(widget.colorChildText ?? ThemeColor.dark),
+                fontSize: layout.sizeToFontSize(widget.sizeText))),
+        onTap: () {
+          this.focusNode.unfocus();
+          setState(() {
+            this.txtFieldController.text = widget.dataShowTextField != null? widget.dataShowTextField![value.key].toString() : value.value  ;
+            this.keyChange = value.key;
+            widget.onChanged(value.key);
+          });
+        },
+        trailing: widget.trailingIcon,
+      );
+      return ((widget.fistDataIsHint == true) &&
+          (value.key == widget.dataDropDown.keys.first))
+          ? Container()
+          : itemSelect;
+    }).toList()
         : [
-            Center(
-              child: Text(
-                "Không có dữ liệu trùng khớp",
-                style: TextStyle(color: theme.getColor(ThemeColor.radicalRed)),
-              ),
-            )
-          ];
+      Center(
+        child: Text(
+          "Không có dữ liệu trùng khớp",
+          style: TextStyle(color: theme.getColor(ThemeColor.radicalRed)),
+        ),
+      )
+    ];
 
     Widget dropDownWidget(){
       displayListDropDown.insert(0, widget.customFistChildDropDown ?? Container());
