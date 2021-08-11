@@ -21,10 +21,11 @@ class DropDownField extends StatefulWidget {
       this.hintColorFist = ThemeColor.secondary,
       this.fistDataIsHint = false,
       this.customHeightContent = 200,
-      this.customFistChildDropDown, this.trailingIcon, this.isDropUp = true, this.customHeightTextField = 50, this.colorChildText, this.colorTextField,
+      this.customFistChildDropDown, this.trailingIcon, this.isDropUp = true, this.customHeightTextField = 50, this.colorChildText, this.colorTextField, this.dataShowTextField,
       })
       : super(key: key);
   final Map<String, String> dataDropDown;
+  final Map<String, String>? dataShowTextField;
   final String keyDataFistTime;
   final ValueChanged<String> onChanged;
   final ThemeColor colorTheme;
@@ -160,7 +161,7 @@ class _DropDownFieldState extends State<DropDownField> {
               onTap: () {
                 this.focusNode.unfocus();
                 setState(() {
-                  this.txtFieldController.text = value.value;
+                  this.txtFieldController.text = widget.dataShowTextField != null? widget.dataShowTextField![value.key].toString() : value.value  ;
                   this.keyChange = value.key;
                   widget.onChanged(value.key);
                 });
