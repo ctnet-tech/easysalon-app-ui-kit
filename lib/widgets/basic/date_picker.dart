@@ -101,24 +101,28 @@ class _DatePickerState extends State<DatePicker> with SingleTickerProviderStateM
           SizedBox(
             height: 20,
           ),
-          TabBar(
-            controller: _controller,
-            isScrollable: true,
-            indicatorColor: theme.getColor(ThemeColor.lightest),
-            tabs: List.generate(
-              12,
-              (index) => Container(
-                width: (MediaQuery.of(context).size.width - 24) / 3,
-                child: Center(
-                  child: Paragraph(
-                    content: "Tháng " + (index + 1).toString(),
-                    size: LayoutSize.big,
-                    weight: FontWeight.w400,
-                    color: _controller.index == index ? ThemeColor.dark : ThemeColor.spindle,
+          LayoutBuilder(
+            builder: (context,constraint) {
+              return TabBar(
+                controller: _controller,
+                isScrollable: true,
+                indicatorColor: theme.getColor(ThemeColor.lightest),
+                tabs: List.generate(
+                  12,
+                      (index) => Container(
+                    width: constraint.maxWidth / 3,
+                    child: Paragraph(
+                      content: "Tháng " + (index + 1).toString(),
+                      size: LayoutSize.big,
+                      isCenter: true,
+                      weight: FontWeight.w400,
+                      linePadding: LayoutSize.none,
+                      color: _controller.index == index ? ThemeColor.dark : ThemeColor.spindle,
+                    ),
                   ),
                 ),
-              ),
-            ),
+              );
+            },
           ),
           SizedBox(
             height: 20,
