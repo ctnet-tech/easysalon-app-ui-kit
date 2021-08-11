@@ -11,15 +11,22 @@ class FilterBottomSheet extends StatelessWidget {
     required this.height,
     required this.listItems,
     required this.onTapSubmit,
+    this.initListValues,
   }) : super(key: key);
 
   final double height;
   final Map<String, String> listItems;
   final ValueChanged<List<String>> onTapSubmit;
+  final List<bool>? initListValues;
 
   @override
   Widget build(BuildContext context) {
-    List<bool> listValues = List.filled(listItems.length, false);
+    List<bool> listValues;
+    if (initListValues != null) {
+      listValues = initListValues!;
+    } else {
+      listValues = List.filled(listItems.length, false);
+    }
     var theme = context.read<ThemeNotifier>().getTheme();
     var layout = context.read<LayoutNotifier>();
     return Container(
@@ -27,8 +34,7 @@ class FilterBottomSheet extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.symmetric(
-                vertical: layout.sizeToPadding(LayoutSize.small)),
+            margin: EdgeInsets.symmetric(vertical: layout.sizeToPadding(LayoutSize.small)),
             height: 3,
             width: 30,
             decoration: BoxDecoration(
@@ -117,10 +123,8 @@ class FilterBottomSheet extends StatelessWidget {
                           (index) => Column(
                             children: [
                               FilterListTile(
-                                content: listItems.entries
-                                    .map((e) => e.value)
-                                    .toList()[index],
-                                valueCheck: false,
+                                content: listItems.entries.map((e) => e.value).toList()[index],
+                                valueCheck: listValues[index],
                                 onChange: (value) {
                                   listValues[index] = value;
                                 },
@@ -162,19 +166,26 @@ class _FilterListTileState extends State<FilterListTile> {
   @override
   Widget build(BuildContext context) {
     var theme = context.read<ThemeNotifier>().getTheme();
-    return SpaceBox(
-      top: true,
-      bottom: true,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Paragraph(
-            weight: FontWeight.w400,
-            color: ThemeColor.dark,
-            linePadding: LayoutSize.none,
-            content: widget.content,
-          ),
-          Container(
+    return InkWell(
+      onTap: () {
+        setState(() {
+          widget.valueCheck = !widget.valueCheck;
+        });
+        widget.onChange(widget.valueCheck);
+      },
+      child: SpaceBox(
+        top: true,
+        bottom: true,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Paragraph(
+              weight: FontWeight.w400,
+              color: ThemeColor.dark,
+              linePadding: LayoutSize.none,
+              content: widget.content,
+            ),
+            Container(
               height: 30,
               width: 30,
               alignment: Alignment.topCenter,
@@ -182,14 +193,11 @@ class _FilterListTileState extends State<FilterListTile> {
                 shape: CircleBorder(),
                 value: widget.valueCheck,
                 activeColor: theme.getColor(ThemeColor.bondiBlue),
-                onChanged: (value) {
-                  setState(() {
-                    widget.valueCheck = value!;
-                  });
-                  widget.onChange(value!);
-                },
-              )),
-        ],
+                onChanged: (value) {},
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

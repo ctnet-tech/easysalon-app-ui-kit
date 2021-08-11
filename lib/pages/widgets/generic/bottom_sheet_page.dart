@@ -75,6 +75,7 @@ class BottomSheetPage extends StatelessWidget {
                   "key 5": "Không đến",
                   "key 6": "Đã hủy"
                 },
+                initListValues: [true,false,true,false,true,false,],
               ),
             );
           },
@@ -86,7 +87,7 @@ class BottomSheetPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return StandardPage(
       header:
-          PageHeader(title: "Button", description: "To trigger an operation."),
+          PageHeader(title: "Bottom Sheet", description: "To trigger an operation."),
       children: [
         SpaceBox(
           all: true,
