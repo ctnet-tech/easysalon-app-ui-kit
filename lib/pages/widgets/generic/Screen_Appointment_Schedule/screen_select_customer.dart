@@ -1,6 +1,7 @@
 import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
 import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/basic/button.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/custom_textfield.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/drop_down_field.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/layout/header_bar.dart';
@@ -8,6 +9,8 @@ import 'package:easysalon_mobile_ui_kit/widgets/layout/standard_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:easysalon_mobile_ui_kit/widgets/layout/divider.dart'
+as dividerCustom;
 
 class ScreenSelectCustomer extends StatefulWidget {
   static const String path =
@@ -30,6 +33,11 @@ class _ScreenSelectCustomerState extends State<ScreenSelectCustomer> {
     'key1': '0989 789 777',
     'key2': '0911 312 222',
   };
+  Map<String, String> dataShowTextField = {
+    '': 'Chọn Khách Hàng ...',
+    'key1': 'An Như',
+    'key2': 'Tâm Như',
+  };
 
   @override
   void dispose() {
@@ -42,18 +50,33 @@ class _ScreenSelectCustomerState extends State<ScreenSelectCustomer> {
     var theme = context.read<ThemeNotifier>().getTheme();
     var layout = context.read<LayoutNotifier>();
 
+    void onCLickNextStep() {}
+    void onClickBack() {
+      Navigator.of(context).pop();
+    }
+
     var dropDownSelectCustomer = Padding(
       padding: EdgeInsets.all(layout.sizeToPadding(LayoutSize.small)),
       child: DropDownField(
-
-        customFistChildDropDown: ListTile(
-          title: Text(
-            "Tạo Khách Hàng Mới",
-            style: TextStyle(color: theme.getColor(ThemeColor.bondiBlue)),
-          ),
-          trailing: Icon(
-            LineIcons.add_item,
-            color: theme.getColor(ThemeColor.bondiBlue),
+        childHasUpdate: false,
+        dataShowTextField: dataShowTextField,
+        customFistChildDropDown:  Container(
+          child: Column(
+            children: [
+              ListTile(
+                title: Text(
+                  "Tạo Khách Hàng Mới",
+                  style: TextStyle(color: theme.getColor(ThemeColor.bondiBlue)),
+                ),
+                trailing: Icon(
+                  LineIcons.add_item,
+                  color: theme.getColor(ThemeColor.bondiBlue),
+                ),
+              ),
+              dividerCustom.Divider(
+                customHeight: double.infinity,
+              )
+            ],
           ),
         ),
         fistDataIsHint: true,
@@ -63,7 +86,8 @@ class _ScreenSelectCustomerState extends State<ScreenSelectCustomer> {
         onChanged: (key) {
           setState(() {
             this.showPhoneNumber = key != this.dataDropDown.keys.first;
-            this._textPhoneNumberController.text = dataPhoneNumBer[key].toString();
+            this._textPhoneNumberController.text =
+                dataPhoneNumBer[key].toString();
           });
         },
       ),
@@ -73,25 +97,68 @@ class _ScreenSelectCustomerState extends State<ScreenSelectCustomer> {
           right: layout.sizeToPadding(LayoutSize.small),
           left: layout.sizeToPadding(LayoutSize.small)),
       child: CustomTextField(
+        textFieldTextStyle:
+            TextStyle(fontSize: layout.sizeToFontSize(LayoutSize.large)),
+        sizeSecondText: LayoutSize.big,
+        sizeFirstText: LayoutSize.big,
+        alignment: Alignment.center,
         textEditingController: this._textPhoneNumberController,
       ),
     );
-
-    return StandardPage(
-      header: HeaderBar(
-        leading: InkWell(
-          child: Icon(Icons.arrow_back_outlined),
-        ),
-        title: Center(
+    var titleDropDown = SizedBox(
+        width: double.infinity,
+        child: Padding(
+          padding: EdgeInsets.only(
+              top: layout.sizeToPadding(LayoutSize.medium),
+              left: layout.sizeToPadding(LayoutSize.medium),
+              right: layout.sizeToPadding(LayoutSize.medium)),
           child: Text(
-            "Chọn Khách Hàng",
-            style: TextStyle(fontSize: layout.sizeToFontSize(LayoutSize.big)),
+            "Thông Tin Khách Hàng",
+            style: TextStyle(
+                fontSize: layout.sizeToFontSize(LayoutSize.medium),
+                color: theme.getColor(ThemeColor.secondary)),
           ),
-        ),
+        ));
+    var buttonNextStep = Padding(
+      padding: EdgeInsets.all(layout.sizeToPadding(LayoutSize.medium)),
+      child: Button(
+          customSize: LayoutSize.large,
+          contentCustom: Container(
+            child: Text("Bước 1/4"),
+          ),
+          content: "Tiếp Tục",
+          onPressed: onCLickNextStep),
+    );
+    var backButton = InkWell(
+      child: Icon(Icons.arrow_back_outlined),
+      onTap: onClickBack,
+    );
+    var titleHeader = Center(
+      child: Text(
+        "Chọn Khách Hàng",
+        style: TextStyle(fontSize: layout.sizeToFontSize(LayoutSize.big)),
       ),
+    );
+
+    return Stack(
       children: [
-        dropDownSelectCustomer,
-        showPhoneNumber ? textFieldShowPhoneNumber : Container()
+        StandardPage(
+          header: HeaderBar(
+            leading: backButton,
+            title: titleHeader,
+          ),
+          children: [
+            titleDropDown,
+            dropDownSelectCustomer,
+            showPhoneNumber ? textFieldShowPhoneNumber : Container(),
+          ],
+        ),
+        Positioned(
+          child: new Align(
+            alignment: FractionalOffset.bottomCenter,
+            child: buttonNextStep,
+          ),
+        )
       ],
     );
   }
