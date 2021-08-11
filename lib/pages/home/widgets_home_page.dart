@@ -1,6 +1,6 @@
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/demo_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/paragraph_page.dart';
-import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/screen_appointment_schedule.dart';
+import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/Screen_Appointment_Schedule/screen_appointment_schedule.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/panel.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/successful_appointment_dialog.dart';

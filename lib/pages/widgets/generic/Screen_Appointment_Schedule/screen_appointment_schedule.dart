@@ -1,4 +1,5 @@
 import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
+import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/Screen_Appointment_Schedule/screen_select_customer.dart';
 import 'package:easysalon_mobile_ui_kit/provider/date_picker_provider/date_picker_provider.dart';
 import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
@@ -16,8 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ScreenAppointmentSchedule extends StatefulWidget {
-  static const String path = '/pages/widgets/screen_appointment_schedule';
-
+  static const String path = '/pages/widgets/generic/Screen_Appointment_Schedule/screen_appointment_schedule';
   @override
   _ScreenAppointmentScheduleState createState() =>
       _ScreenAppointmentScheduleState();
@@ -70,6 +70,9 @@ class _ScreenAppointmentScheduleState extends State<ScreenAppointmentSchedule>
         ),
       );
     }
+    void onClickAddNewAppointmentSchedule(){
+      Navigator.pushNamed(context, ScreenSelectCustomer.path);
+    }
 
     var selectDateTable = Padding(
       padding: EdgeInsets.only(top: layout.sizeToPadding(LayoutSize.small)),
@@ -96,7 +99,7 @@ class _ScreenAppointmentScheduleState extends State<ScreenAppointmentSchedule>
           icon: LineIcons.plus,
           content: "Tạo Lịch Hẹn",
           outlined: true,
-          onPressed: () {}),
+          onPressed: onClickAddNewAppointmentSchedule),
     );
     var displayAppointmentSchedules = Column(
       children: List.generate(

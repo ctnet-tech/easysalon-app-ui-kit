@@ -1,3 +1,4 @@
+import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/Screen_Appointment_Schedule/screen_select_customer.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/add_customer_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/appointment_schedule_panel_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/assignment_of_duties_tag_page.dart';
@@ -16,7 +17,7 @@ import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/invoice_test_page.
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/paragraph_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/profile_admin_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/report_panel_page.dart';
-import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/screen_appointment_schedule.dart';
+import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/Screen_Appointment_Schedule/screen_appointment_schedule.dart';
 
 var widgetRoutes = {
   ParagraphPage.path: () => ParagraphPage(),
@@ -38,4 +39,5 @@ var widgetRoutes = {
   CustomTabBarPage.path: () => CustomTabBarPage(),
   DemoPage.path: () => DemoPage(),
   ScreenAppointmentSchedule.path: () => ScreenAppointmentSchedule(),
+  ScreenSelectCustomer.path:() => ScreenSelectCustomer(),
 };
