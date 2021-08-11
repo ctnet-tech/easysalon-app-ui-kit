@@ -16,7 +16,6 @@ import 'package:easysalon_mobile_ui_kit/widgets/navigation/menu/menu.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/navigation/menu/menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WidgetsHomePage extends StatefulWidget {
   WidgetsHomePage() : super(key: Key("HOME"));
