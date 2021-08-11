@@ -13,31 +13,32 @@ class CustomTextField extends StatefulWidget
   final String? firstText;
   final String? secondText;
   final TextEditingController textEditingController;
-  ThemeColor colorFirstText;
-  LayoutSize sizeFirstText;
-  ThemeColor colorSecondText;
-  ThemeColor backgroundColor;
-  LayoutSize sizeSecondText;
-  TextStyle? textFieldTextStyle;
-  TextStyle? textFieldHintTextStyle;
-  double customHeight;
-  double customWidth;
-  bool isOnlyNumber;
-  String hintText;
-  bool hasObscureText;
-  bool isDatePicker;
-  int? minLine;
-  int? maxLine;
-  VoidCallback? onTapSecondText;
-  Function(String)? onChangedTextField;
-  ValueChanged<String>? onSubmitted;
-  bool hasUpdate;
-  String firstData;
-  Widget? suffixIcon;
-  EdgeInsets? padding;
-  BorderRadiusGeometry? borderRadius;
-  BoxBorder? border;
-  AlignmentGeometry? alignment;
+ final ThemeColor colorFirstText;
+ final LayoutSize sizeFirstText;
+ final ThemeColor colorSecondText;
+ final ThemeColor backgroundColor;
+ final LayoutSize sizeSecondText;
+ final TextStyle? textFieldTextStyle;
+ final TextStyle? textFieldHintTextStyle;
+ final double customHeight;
+ final double customWidth;
+ final bool isOnlyNumber;
+ final String hintText;
+ final bool hasObscureText;
+ final bool isDatePicker;
+ final int? minLine;
+ final int? maxLine;
+ final VoidCallback? onTapSecondText;
+ final Function(String)? onChangedTextField;
+ final ValueChanged<String>? onSubmitted;
+ final bool hasUpdate;
+ final String firstData;
+ final Widget? suffixIcon;
+ final EdgeInsets? padding;
+ final BorderRadiusGeometry? borderRadius;
+ final BoxBorder? border;
+ final AlignmentGeometry? alignment;
+ final bool isReadOnly;
 
   CustomTextField({
     Key? key,
@@ -69,6 +70,7 @@ class CustomTextField extends StatefulWidget
     this.backgroundColor = ThemeColor.lightest,
     this.border,
     this.alignment,
+    this.isReadOnly=false,
   }) : super(key: key);
 
   @override
@@ -158,7 +160,7 @@ class _CustomTextFieldState extends State<CustomTextField>
             minLines: widget.minLine,
             maxLines: widget.hasObscureText ? 1 : widget.maxLine,
             controller: widget.textEditingController,
-            readOnly: widget.isDatePicker ? true : false,
+            readOnly: widget.isReadOnly,
             onChanged: widget.onChangedTextField,
             onSubmitted: widget.onSubmitted,
             inputFormatters: [
