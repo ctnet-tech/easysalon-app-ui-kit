@@ -21,7 +21,7 @@ class DropDownField extends StatefulWidget {
       this.hintColorFist = ThemeColor.secondary,
       this.fistDataIsHint = false,
       this.customHeightContent = 200,
-      this.customFistChildDropDown, this.trailingIcon, this.isDropUp = true,
+      this.customFistChildDropDown, this.trailingIcon, this.isDropUp = true, this.customHeightTextField = 50,
       })
       : super(key: key);
   final Map<String, String> dataDropDown;
@@ -37,6 +37,7 @@ class DropDownField extends StatefulWidget {
   final Widget? customFistChildDropDown;
   final Icon? trailingIcon;
   final bool isDropUp;
+  final double customHeightTextField;
 
   @override
   State<StatefulWidget> createState() {
@@ -109,11 +110,12 @@ class _DropDownFieldState extends State<DropDownField> {
     }
 
     var mainTop = Container(
-      child: Container(
-        decoration: BoxDecoration(
-            color: theme.getColor(widget.colorTheme),
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-            border: Border.all(color: theme.getColor(widget.colorBorder))),
+      height:widget.customHeightTextField ,
+      decoration: BoxDecoration(
+          color: theme.getColor(widget.colorTheme),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          border: Border.all(color: theme.getColor(widget.colorBorder))),
+      child: Center(
         child: TextFormField(
           onTap: () {
             txtFieldController.text = '';
@@ -123,8 +125,8 @@ class _DropDownFieldState extends State<DropDownField> {
           style: TextStyle(
               color: widget.fistDataIsHint
                   ? (keyChange == widget.dataDropDown.keys.first
-                      ? theme.getColor(widget.hintColorFist)
-                      : theme.getColor(ThemeColor.dark))
+                  ? theme.getColor(widget.hintColorFist)
+                  : theme.getColor(ThemeColor.dark))
                   : theme.getColor(ThemeColor.dark),
               fontSize: layout.sizeToFontSize(widget.sizeText)),
           decoration: InputDecoration(
@@ -134,7 +136,7 @@ class _DropDownFieldState extends State<DropDownField> {
             ),
             border: InputBorder.none,
             contentPadding:
-                new EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+            new EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
           ),
           keyboardType: TextInputType.text,
           onChanged: (valueText) {
