@@ -1,4 +1,6 @@
 import 'package:easysalon_mobile_ui_kit/configs/icons/line_icons.dart';
+import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/Screen_Appointment_Schedule/screen_add_new_customer.dart';
+import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/Screen_Appointment_Schedule/screen_appointment_schedule.dart';
 import 'package:easysalon_mobile_ui_kit/services/layout_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/services/theme_notifier.dart';
 import 'package:easysalon_mobile_ui_kit/widgets/basic/button.dart';
@@ -50,9 +52,15 @@ class _ScreenSelectCustomerState extends State<ScreenSelectCustomer> {
     var theme = context.read<ThemeNotifier>().getTheme();
     var layout = context.read<LayoutNotifier>();
 
-    void onCLickNextStep() {}
+    void onCLickNextStep()  {}
     void onClickBack() {
       Navigator.of(context).pop();
+    }
+    void onClickClose(){
+      Navigator.pushNamed(context, ScreenAppointmentSchedule.path);
+    }
+    void onCLickAddNewCustomerTag(){
+      Navigator.pushNamed(context, ScreenAddNewCustomer.path);
     }
 
     var dropDownSelectCustomer = Padding(
@@ -72,6 +80,9 @@ class _ScreenSelectCustomerState extends State<ScreenSelectCustomer> {
                   LineIcons.add_item,
                   color: theme.getColor(ThemeColor.bondiBlue),
                 ),
+                onTap: (){
+                  onCLickAddNewCustomerTag();
+                },
               ),
               dividerCustom.Divider(
                 customHeight: double.infinity,
@@ -97,7 +108,7 @@ class _ScreenSelectCustomerState extends State<ScreenSelectCustomer> {
           right: layout.sizeToPadding(LayoutSize.small),
           left: layout.sizeToPadding(LayoutSize.small)),
       child: CustomTextField(
-        textFieldTextStyle:
+          textFieldTextStyle:
             TextStyle(fontSize: layout.sizeToFontSize(LayoutSize.large)),
         sizeSecondText: LayoutSize.big,
         sizeFirstText: LayoutSize.big,
@@ -139,14 +150,21 @@ class _ScreenSelectCustomerState extends State<ScreenSelectCustomer> {
         style: TextStyle(fontSize: layout.sizeToFontSize(LayoutSize.big)),
       ),
     );
+    var closeButton = GestureDetector(
+      child: Text("Hủy",style: TextStyle(
+          color: theme.getColor(ThemeColor.secondary)
+      ),),
+      onTap: onClickClose,
+    );
 
     return Stack(
       children: [
         StandardPage(
           header: HeaderBar(
+            action: closeButton,
             leading: backButton,
             title: titleHeader,
-          ),
+          ) ,
           children: [
             titleDropDown,
             dropDownSelectCustomer,

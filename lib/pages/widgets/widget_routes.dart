@@ -1,3 +1,4 @@
+import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/Screen_Appointment_Schedule/screen_add_new_customer.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/Screen_Appointment_Schedule/screen_select_customer.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/add_customer_page.dart';
 import 'package:easysalon_mobile_ui_kit/pages/widgets/generic/appointment_schedule_panel_page.dart';
@@ -40,4 +41,5 @@ var widgetRoutes = {
   DemoPage.path: () => DemoPage(),
   ScreenAppointmentSchedule.path: () => ScreenAppointmentSchedule(),
   ScreenSelectCustomer.path:() => ScreenSelectCustomer(),
+  ScreenAddNewCustomer.path:() => ScreenAddNewCustomer()
 };
