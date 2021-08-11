@@ -11,15 +11,17 @@ import 'package:tiengviet/tiengviet.dart';
 class DropDownField extends StatefulWidget {
   DropDownField(
       {Key? key,
-        required this.dataDropDown,
-        this.keyDataFistTime = '',
-        required this.onChanged,
-        this.colorTheme = ThemeColor.lightest,
-        this.colorBorder = ThemeColor.pattensBlue,
-        this.childHasUpdate = true,
-        this.sizeText = LayoutSize.large,
-        this.hintColorFist = ThemeColor.secondary,
-        this.fistDataIsHint = false, this.customHeightContent  = 200// = true thì setState nó sẽ update theo data fist còn false thì không,
+      required this.dataDropDown,
+      this.keyDataFistTime = '',
+      required this.onChanged,
+      this.colorTheme = ThemeColor.lightest,
+      this.colorBorder = ThemeColor.pattensBlue,
+      this.childHasUpdate = true,
+      this.sizeText = LayoutSize.large,
+      this.hintColorFist = ThemeColor.secondary,
+      this.fistDataIsHint = false,
+      this.customHeightContent = 200,
+      this.customFistChildDropDown, this.trailingIcon, this.isDropUp = true,
       })
       : super(key: key);
   final Map<String, String> dataDropDown;
@@ -32,6 +34,9 @@ class DropDownField extends StatefulWidget {
   final ThemeColor hintColorFist;
   final bool fistDataIsHint;
   final double customHeightContent;
+  final Widget? customFistChildDropDown;
+  final Icon? trailingIcon;
+  final bool isDropUp;
 
   @override
   State<StatefulWidget> createState() {
@@ -46,15 +51,18 @@ class _DropDownFieldState extends State<DropDownField> {
   bool checkFocus = false;
   String keyChange = '';
   Map<String, String> dataDropDownField = {};
+  late ScrollController _scrollController ;
 
   @override
   void dispose() {
     txtFieldController.dispose();
     super.dispose();
+    _scrollController.dispose();
   }
 
   @override
   void initState() {
+    _scrollController = new ScrollController();
     print("go there ${widget.keyDataFistTime}");
     keyChange = widget.keyDataFistTime;
     dataDropDownField = widget.dataDropDown;
@@ -113,7 +121,11 @@ class _DropDownFieldState extends State<DropDownField> {
           focusNode: focusNode,
           textAlignVertical: TextAlignVertical.center,
           style: TextStyle(
-              color: widget.fistDataIsHint ? (keyChange == widget.dataDropDown.keys.first ? theme.getColor(widget.hintColorFist):theme.getColor(ThemeColor.dark)): theme.getColor(ThemeColor.dark),
+              color: widget.fistDataIsHint
+                  ? (keyChange == widget.dataDropDown.keys.first
+                      ? theme.getColor(widget.hintColorFist)
+                      : theme.getColor(ThemeColor.dark))
+                  : theme.getColor(ThemeColor.dark),
               fontSize: layout.sizeToFontSize(widget.sizeText)),
           decoration: InputDecoration(
             suffixIcon: new Icon(
@@ -122,7 +134,7 @@ class _DropDownFieldState extends State<DropDownField> {
             ),
             border: InputBorder.none,
             contentPadding:
-            new EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                new EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
           ),
           keyboardType: TextInputType.text,
           onChanged: (valueText) {
@@ -135,59 +147,69 @@ class _DropDownFieldState extends State<DropDownField> {
       ),
     );
 
+    List<Widget> displayListDropDown = dataDropDownField.length > 0
+        ? dataDropDownField.entries.map((value) {
+            var itemSelect = ListTile(
+              title: Text('${value.value}',
+                  style: TextStyle(
+                      color: theme.getColor(ThemeColor.dark),
+                      fontSize: layout.sizeToFontSize(widget.sizeText))),
+              onTap: () {
+                this.focusNode.unfocus();
+                setState(() {
+                  this.txtFieldController.text = value.value;
+                  this.keyChange = value.key;
+                  widget.onChanged(value.key);
+                });
+              },
+              trailing: widget.trailingIcon,
+            );
+            return ((widget.fistDataIsHint == true) &&
+                    (value.key == widget.dataDropDown.keys.first))
+                ? Container()
+                : itemSelect;
+          }).toList()
+        : [
+            Center(
+              child: Text(
+                "Không có dữ liệu trùng khớp",
+                style: TextStyle(color: theme.getColor(ThemeColor.radicalRed)),
+              ),
+            )
+          ];
+
+    Widget dropDownWidget(){
+      displayListDropDown.insert(0, widget.customFistChildDropDown ?? Container());
+      return checkFocus
+          ? Container(
+          decoration: BoxDecoration(
+              color: theme.getColor(widget.colorTheme),
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              border: Border.all(color: theme.getColor(widget.colorBorder))),
+          height: widget.customHeightContent,
+          width: double.infinity,
+          child: Scrollbar(
+            controller: _scrollController,
+            isAlwaysShown: true,
+            showTrackOnHover: true,
+            child: SingleChildScrollView(
+              child: Column(children: displayListDropDown),
+            ),
+          ))
+          : Container();
+    }
+
+    List<Widget> mainWidget() {
+      List<Widget> widgets = [];
+
+      widgets.insert( 0 ,widget.isDropUp == true ? dropDownWidget() : mainTop);
+      widgets.insert( 1 , widget.isDropUp == true ? mainTop : dropDownWidget() );
+      return widgets;
+    }
+
     return Container(
       child: Column(
-        children: [
-          checkFocus
-              ? Container(
-              decoration: BoxDecoration(
-                  color: theme.getColor(widget.colorTheme),
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  border: Border.all(
-                      color: theme.getColor(widget.colorBorder))),
-              height: widget.customHeightContent,
-              width: double.infinity,
-              child: Scrollbar(
-                isAlwaysShown: true,
-                showTrackOnHover: true,
-                child: SingleChildScrollView(
-                  child: Column(
-                      children: dataDropDownField.length > 0
-                          ? dataDropDownField.entries.map((value) {
-                        var itemSelect = ListTile(
-                          title: Text('${value.value}',
-                              style: TextStyle(
-                                  color:
-                                  theme.getColor(ThemeColor.dark),
-                                  fontSize: layout.sizeToFontSize(
-                                      widget.sizeText))),
-                          onTap: () {
-                            this.focusNode.unfocus();
-                            setState(() {
-                              this.txtFieldController.text =
-                                  value.value;
-                              this.keyChange = value.key;
-                              widget.onChanged(value.key);
-                            });
-                          },
-                        );
-                        return ((widget.fistDataIsHint == true) && (value.key == widget.dataDropDown.keys.first)) ? Container() : itemSelect;
-                      }).toList()
-                          : [
-                        Center(
-                          child: Text(
-                            "Không có dữ liệu trùng khớp",
-                            style: TextStyle(
-                                color: theme
-                                    .getColor(ThemeColor.radicalRed)),
-                          ),
-                        )
-                      ]),
-                ),
-              ))
-              : Container(),
-          mainTop,
-        ],
+        children: mainWidget(),
       ),
     );
   }
