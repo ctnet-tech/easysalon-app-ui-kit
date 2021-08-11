@@ -21,22 +21,17 @@ class DatePicker extends StatefulWidget {
   _DatePickerState createState() => _DatePickerState();
 }
 
-class _DatePickerState extends State<DatePicker>
-    with SingleTickerProviderStateMixin {
+class _DatePickerState extends State<DatePicker> with SingleTickerProviderStateMixin {
   late TabController _controller;
   int selectedIndex = -1;
 
   @override
   void initState() {
-    context.read<DatePickerProvider>().year =
-        widget.year ?? DateTime.now().year;
-    context.read<DatePickerProvider>().month =
-        widget.month ?? DateTime.now().month;
+    context.read<DatePickerProvider>().year = widget.year ?? DateTime.now().year;
+    context.read<DatePickerProvider>().month = widget.month ?? DateTime.now().month;
 
-    _controller = TabController(
-        length: 12,
-        vsync: this,
-        initialIndex: context.read<DatePickerProvider>().month!);
+    _controller =
+        TabController(length: 12, vsync: this, initialIndex: context.read<DatePickerProvider>().month!);
 
     _controller.addListener(() {
       setState(() {
@@ -65,8 +60,9 @@ class _DatePickerState extends State<DatePicker>
                   children: [
                     InkWell(
                       onTap: () {
-                        context.read<DatePickerProvider>().changeYear(
-                            year: context.read<DatePickerProvider>().year! - 1);
+                        context
+                            .read<DatePickerProvider>()
+                            .changeYear(year: context.read<DatePickerProvider>().year! - 1);
                       },
                       child: CustomIcon(
                         icon: LineIcons.chevron_left,
@@ -77,8 +73,7 @@ class _DatePickerState extends State<DatePicker>
                       width: 10,
                     ),
                     Paragraph(
-                      content:
-                          context.read<DatePickerProvider>().year.toString(),
+                      content: context.read<DatePickerProvider>().year.toString(),
                       color: ThemeColor.dark,
                       size: LayoutSize.medium,
                       linePadding: LayoutSize.none,
@@ -89,8 +84,9 @@ class _DatePickerState extends State<DatePicker>
                     ),
                     InkWell(
                       onTap: () {
-                        context.read<DatePickerProvider>().changeYear(
-                            year: context.read<DatePickerProvider>().year! + 1);
+                        context
+                            .read<DatePickerProvider>()
+                            .changeYear(year: context.read<DatePickerProvider>().year! + 1);
                       },
                       child: CustomIcon(
                         icon: LineIcons.chevron_right,
@@ -118,9 +114,7 @@ class _DatePickerState extends State<DatePicker>
                     content: "Tháng " + (index + 1).toString(),
                     size: LayoutSize.big,
                     weight: FontWeight.w400,
-                    color: _controller.index == index
-                        ? ThemeColor.dark
-                        : ThemeColor.spindle,
+                    color: _controller.index == index ? ThemeColor.dark : ThemeColor.spindle,
                   ),
                 ),
               ),
@@ -139,18 +133,11 @@ class _DatePickerState extends State<DatePicker>
                   (i) => Container(
                     height: 80,
                     child: ListView.builder(
-                      itemCount:
-                          dayOfMonth(context.read<DatePickerProvider>().year!)[
-                              _controller.index],
+                      itemCount: dayOfMonth(context.read<DatePickerProvider>().year!)[_controller.index],
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
-                        var firstDateValue = calFirstDay(
-                            context.read<DatePickerProvider>().year,
-                            _controller.index + 1);
-                        print("firstDay: " +
-                            calFirstDay(context.read<DatePickerProvider>().year,
-                                    _controller.index + 1)
-                                .toString());
+                        var firstDateValue =
+                            calFirstDay(context.read<DatePickerProvider>().year, _controller.index + 1);
                         return Container(
                           width: MediaQuery.of(context).size.width / 7,
                           child: Center(
@@ -160,18 +147,16 @@ class _DatePickerState extends State<DatePicker>
                                   selectedIndex = index;
                                 });
 
-                                widget.onChanged(DateFormat("dd/MM/yyyy")
-                                    .parse(formatToDateTime(
+                                widget.onChanged(DateFormat("dd/MM/yyyy").parse(formatToDateTime(
                                   selectedIndex + 1,
                                   _controller.index + 1,
                                   context.read<DatePickerProvider>().year!,
                                 )));
                               },
                               child: Container(
-                                width:
-                                    MediaQuery.of(context).size.width / 7 < 50
-                                        ? MediaQuery.of(context).size.width / 7
-                                        : 50,
+                                width: MediaQuery.of(context).size.width / 7 < 50
+                                    ? MediaQuery.of(context).size.width / 7
+                                    : 50,
                                 decoration: BoxDecoration(
                                   color: index == selectedIndex
                                       ? theme.getColor(ThemeColor.dodgerBlue)
@@ -186,8 +171,7 @@ class _DatePickerState extends State<DatePicker>
                                     Expanded(
                                       flex: 1,
                                       child: Paragraph(
-                                        content: mapDate[
-                                            (index + firstDateValue) % 7],
+                                        content: mapDate[(index + firstDateValue) % 7],
                                         color: index == selectedIndex
                                             ? ThemeColor.lightest
                                             : ThemeColor.secondary,
@@ -209,13 +193,8 @@ class _DatePickerState extends State<DatePicker>
                                             isCenter: true,
                                           ),
                                           if (index + 1 == DateTime.now().day &&
-                                              _controller.index + 1 ==
-                                                  DateTime.now().month &&
-                                              context
-                                                      .read<
-                                                          DatePickerProvider>()
-                                                      .year ==
-                                                  DateTime.now().year)
+                                              _controller.index + 1 == DateTime.now().month &&
+                                              context.read<DatePickerProvider>().year == DateTime.now().year)
                                             Text(
                                               "Hôm nay",
                                               textAlign: TextAlign.center,
@@ -223,10 +202,8 @@ class _DatePickerState extends State<DatePicker>
                                                 fontSize: 8,
                                                 fontWeight: FontWeight.w400,
                                                 color: index == selectedIndex
-                                                    ? theme.getColor(
-                                                        ThemeColor.lightest)
-                                                    : theme.getColor(
-                                                        ThemeColor.dodgerBlue),
+                                                    ? theme.getColor(ThemeColor.lightest)
+                                                    : theme.getColor(ThemeColor.dodgerBlue),
                                               ),
                                             )
                                         ],
