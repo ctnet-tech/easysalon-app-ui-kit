@@ -10,7 +10,8 @@ import 'package:provider/provider.dart';
 
 enum TypeOfInvoice{
   paid,
-  unpaid
+  unpaid,
+  debt
 }
 
 class InvoiceStatusTag extends StatelessWidget {
@@ -58,6 +59,31 @@ class InvoiceStatusTag extends StatelessWidget {
     var colorTextAll = theme.getColor(this.textColor);
     var colorTextHintAll = theme.getColor(this.hintTextColor);
     var colorTextTypeCustomer = theme.getColor(this.colorTextTypeCustomer);
+    Widget tagTypeOfInvoice (TypeOfInvoice typeOfInvoice){
+      if(typeOfInvoice == TypeOfInvoice.unpaid ){return Button(
+        fontSizeText: LayoutSize.medium,
+        color: ThemeColor.darkOrange,
+        content: "Chưa Thanh Toán",
+        matteCoating: true,
+        onPressed: this.onPressed ?? (){},
+      );}
+      if(typeOfInvoice == TypeOfInvoice.paid){
+        return Button(
+          fontSizeText: LayoutSize.medium,
+          color: ThemeColor.pastelGreen,
+          content: "Đã Thanh Toán",
+          matteCoating: true,
+          onPressed: this.onPressed ?? (){},
+        );
+      }
+      return Button(
+        fontSizeText: LayoutSize.medium,
+        color: ThemeColor.radicalRed,
+        content: "Còn Nợ",
+        matteCoating: true,
+        onPressed: this.onPressed ?? (){},
+      );
+    }
     return InkWell(
       onTap: this.onPressed ?? (){},
       child: Container(
@@ -137,19 +163,7 @@ class InvoiceStatusTag extends StatelessWidget {
                       children: [
                         Container(
                           width: containers.maxWidth * 0.39,
-                          child: this.typeOfInvoice == TypeOfInvoice.unpaid ? Button(
-                            fontSizeText: LayoutSize.medium,
-                            color: ThemeColor.darkOrange,
-                            content: "Chưa Thanh Toán",
-                            matteCoating: true,
-                            onPressed: this.onPressed ?? (){},
-                          ):Button(
-                            fontSizeText: LayoutSize.medium,
-                            color: ThemeColor.pastelGreen,
-                            content: "Đã Thanh Toán",
-                            matteCoating: true,
-                            onPressed: this.onPressed ?? (){},
-                          ),
+                          child: tagTypeOfInvoice(this.typeOfInvoice)
                         ),
                         Text("${this.totalInvoice}",
                             style: new TextStyle(
