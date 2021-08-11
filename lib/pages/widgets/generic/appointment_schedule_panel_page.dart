@@ -376,6 +376,7 @@ class _AppointmentSchedulePanelPageState
             margin: EdgeInsets.all(20),
             padding: EdgeInsets.all(10),
             child: DropDownField(
+              customHeightTextField: 80,
               customFistChildDropDown: ListTile(
                 title: Text("Tạo Khách Hàng Mới",style: TextStyle(
                   color: theme.getColor(ThemeColor.bondiBlue)
